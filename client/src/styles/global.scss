@@ -1,0 +1,75 @@
+@use "./variables.scss" as vars;
+
+// RESET
+
+*,
+*::before,
+*::after {
+	box-sizing: border-box;
+}
+
+* {
+	margin: 0;
+	padding: 0;
+}
+
+body {
+	line-height: 1.5;
+	-webkit-font-smoothing: antialiased;
+}
+
+img,
+picture,
+video,
+canvas,
+svg {
+	display: block;
+	max-width: 100%;
+}
+
+// TYPOGRAPHY
+
+p,
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+span,
+strong {
+	overflow-wrap: break-word;
+}
+
+span,
+strong {
+	color: vars.$primary-color;
+}
+
+p {
+	font-weight: 400;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+	color: vars.$text-color;
+}
+
+button {
+	display: inline-block;
+	background-color: vars.$primary-color;
+	border: none;
+}
+
+// PAGE WRAPPER
+
+body {
+	min-width: 320px;
+	min-height: 100vh;
+	background-color: vars.$background-basic;
+	font-family: vars.$font-main;
+}
