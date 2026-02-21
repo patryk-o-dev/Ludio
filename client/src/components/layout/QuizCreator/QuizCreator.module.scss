@@ -1,3 +1,125 @@
+.quizCreator {
+	width: 50%;
+	margin: 0 auto;
+	border: 1px solid vars.$primary-color;
+	padding: 40px 30px;
+	background-color: vars.$background-basic;
+	box-shadow: vars.$background-teritary 8px 8px 0px;
+	position: relative;
+	border-radius: 12px;
+}
+
+.quizCreator::before {
+	content: "";
+	position: absolute;
+	top: 6px;
+	left: 6px;
+	right: -6px;
+	bottom: -6px;
+	border: 1px solid vars.$primary-color;
+	z-index: -1;
+	border-radius: 12px;
+}
+
+.creatorForm {
+	margin-bottom: 20px;
+	position: relative;
+	justify-content: space-between;
+	display: flex;
+	flex-wrap: wrap;
+	gap: vars.$spacing-xs;
+
+	input {
+		flex: 1;
+		max-width: 33%;
+		padding: vars.$spacing-sm vars.$spacing-md;
+		border: 2px solid vars.$primary-color;
+		background-color: vars.$background-basic;
+		font-size: vars.$font-md;
+		outline: none;
+		transition: all 0.3s;
+		color: vars.$text-color;
+	}
+
+	input:focus {
+		box-shadow: 4px 4px 0px vars.$primary-color;
+	}
+
+	label {
+		display: block;
+		margin-bottom: vars.$spacing-sm;
+		font-weight: bold;
+		color: vars.$text-color;
+	}
+}
+
+// DIVIDER
+
+.divider {
+	display: flex;
+	align-items: center;
+	margin: vars.$spacing-2xl 0;
+	color: vars.$text-color;
+	font-weight: bold;
+}
+
+.divider::before,
+.divider::after {
+	content: "";
+	flex: 1;
+	border-bottom: 2px solid vars.$primary-color;
+	margin: 0 vars.$spacing-md;
+}
+
+// SELECT
+
+select {
+	@supports (appearance: base-select) {
+	}
+}
+
+select {
+	display: flex;
+	justify-content: space-between;
+	width: 100%;
+	align-items: center;
+	border: 2px solid vars.$primary-color;
+	padding: vars.$spacing-sm vars.$spacing-md;
+
+	cursor: pointer;
+	color: vars.$text-color;
+
+	@supports (appearance: base-select) {
+		&,
+		&::picker(select) {
+			appearance: base-select;
+		}
+		&::picker-icon {
+			display: none;
+		}
+		option {
+			display: flex;
+			align-items: center;
+			padding: vars.$spacing-xs;
+			border-top: 1px solid vars.$background-basic;
+
+			&:where(:hover, :focus, :active) {
+				background: vars.$background-secondary;
+				color: vars.$text-color;
+				font-weight: bold;
+			}
+			&:checked {
+				background: vars.$primary-color;
+				color: vars.$text-color;
+				font-weight: bold;
+			}
+		}
+	}
+}
+
+
+// CHECKBOXES
+
 .tagsContainer {
 	display: flex;
 	flex-wrap: wrap;

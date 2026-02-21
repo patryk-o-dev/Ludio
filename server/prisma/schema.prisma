@@ -13,3 +13,32 @@ generator client {
 datasource db {
   provider = "mysql"
 }
+
+model Question {
+  id        String    @id       @default(uuid())
+  media     String   
+  tags      Tag[]
+  answerId  String
+  answer    Answer    @relation(fields: [answerId], references: [id])
+}
+
+model Tag {
+  id          String        @id       @default(uuid())
+  name        String        @unique
+  category    String
+  questions   Question[]
+}
+
+model Answer {
+  id          String        @id       @default(uuid())
+  value       String        @unique
+  questions   Question[]
+  typeId      String
+  type        Type          @relation(fields: [typeId], references: [id])
+}
+
+model Type {
+  id          String        @id       @default(uuid())
+  name        String        @unique
+  answers     Answer[]
+}
