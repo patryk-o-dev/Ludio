@@ -26,6 +26,7 @@ const Home = () => {
 	const [questions, setQuestions] = useState<Question[]>([]);
 	const [allAnswers, setAllAnswers] = useState<Answer[]>([]);
 	const [filteredAnswers, setFilteredAnswers] = useState<Answer[]>([]);
+	const [score, setScore] = useState(0);
 
 	const [currentQuestionIndex, setCurrentQuestionIndex] = useState(0);
 	const [quizStarted, setQuizStarted] = useState(false);
@@ -37,6 +38,7 @@ const Home = () => {
 		const currentQuestion = questions[currentQuestionIndex];
 		if (data.answer === currentQuestion.answer.value) {
 			alert("Correct!");
+			setScore((prev) => prev + 1);
 		} else {
 			alert(`Wrong! The correct answer was: ${currentQuestion.answer.value}`);
 		}
@@ -94,7 +96,8 @@ const Home = () => {
 					<div>
 						<h4>
 							Pytanie {currentQuestionIndex + 1} {" - "}
-							{questions[currentQuestionIndex].answer.value}
+							{questions[currentQuestionIndex].answer.value} {" - "}
+							Wynik: {score} / 10
 						</h4>
 						<img src={questions[currentQuestionIndex].media} alt="" />
 						<div>
@@ -118,9 +121,19 @@ const Home = () => {
 				)}
 			{quizStarted &&
 				(currentQuestionIndex >= questions.length ||
-					currentQuestionIndex >= 10) && (
+					(currentQuestionIndex >= 10 && score < 7)) && (
 					<div>
-						<h2>Quiz zakończony!</h2>
+						<h2>Przegrałeś!</h2>
+						<p>Twój wynik: {score} / 10</p>
+						<button onClick={() => window.location.reload()}>Reset</button>
+					</div>
+				)}
+			{quizStarted &&
+				(currentQuestionIndex >= questions.length ||
+					(currentQuestionIndex >= 10 && score >= 7)) && (
+					<div>
+						<h2>Wygrałeś!</h2>
+						<p>Twój wynik: {score} / 10</p>
 						<button onClick={() => window.location.reload()}>Reset</button>
 					</div>
 				)}
