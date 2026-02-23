@@ -6,6 +6,7 @@ import { useForm } from "react-hook-form";
 
 type Inputs = {
 	answer: string;
+	search: string;
 };
 
 type Question = {
@@ -24,6 +25,8 @@ type Answer = {
 const Home = () => {
 	const [questions, setQuestions] = useState<Question[]>([]);
 	const [allAnswers, setAllAnswers] = useState<Answer[]>([]);
+	const [filteredAnswers, setFilteredAnswers] = useState<Answer[]>([]);
+
 	const [currentQuestionIndex, setCurrentQuestionIndex] = useState(0);
 	const [quizStarted, setQuizStarted] = useState(false);
 	const quizSet = localStorage.getItem("quizSet");
@@ -69,16 +72,16 @@ const Home = () => {
 		setQuizStarted(true);
 	};
 
-	const filteredAnswers =
-		quizStarted &&
-		questions.length > 0 &&
-		currentQuestionIndex < questions.length
-			? allAnswers.filter(
-					(a) =>
-						a.answerTypeId ===
-						questions[currentQuestionIndex]?.answer?.answerTypeId,
-				)
-			: [];
+	const handleAddFilter = (e: React.ChangeEvent<HTMLInputElement>) => {
+		const value = e.target.value.toLowerCase();
+		const filtered = allAnswers.filter(
+			(answer) =>
+				answer.value.toLowerCase().includes(value) &&
+				answer.answerTypeId ===
+					questions[currentQuestionIndex]?.answer?.answerTypeId,
+		);
+		setFilteredAnswers(filtered);
+	};
 
 	return (
 		<div>
@@ -96,13 +99,17 @@ const Home = () => {
 						<img src={questions[currentQuestionIndex].media} alt="" />
 						<div>
 							<form onSubmit={handleSubmit(selectAnswer)}>
+								<input
+									type="text"
+									{...register("search")}
+									onChange={handleAddFilter}
+								/>
 								<select {...register("answer")}>
 									{filteredAnswers.map((answer) => (
 										<option key={answer.id} value={answer.value}>
 											{answer.value}
 										</option>
 									))}
-									<option value="none">Wybierz odpowiedź</option>
 								</select>
 								<input type="submit" />
 							</form>
@@ -114,6 +121,7 @@ const Home = () => {
 					currentQuestionIndex >= 10) && (
 					<div>
 						<h2>Quiz zakończony!</h2>
+						<button onClick={() => window.location.reload()}>Reset</button>
 					</div>
 				)}
 		</div>
