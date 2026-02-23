@@ -41,5 +41,29 @@ model AnswerType {
 model Set {
   id          String        @id       @default(uuid())
   name        String
+  options     Option[]
   tags        Tag[]
+  done        Boolean       @default(false)
+}
+
+model Option {
+  id                  String        @id       @default(uuid())
+  numberOfQuestions   Int
+  scoreNeeded         Int
+  setId               String
+  set                 Set           @relation(fields: [setId], references: [id])
+}
+
+model Category {
+  id          String      @id       @default(uuid())
+  name        String      @unique
+  lvl         Int         @default(0)
+  lvlMax      Int         @default(10)
+  expNeeded   Int         @default(1)
+  expAdded    Int         @default(0)
+}
+
+model Player {
+  id          String        @id           @default(uuid())
+  exp         Int           @default(0)
 }
