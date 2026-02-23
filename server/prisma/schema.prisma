@@ -41,7 +41,7 @@ model AnswerType {
 model Set {
   id          String        @id       @default(uuid())
   name        String
-  options     Option[]
+  option      Option?
   tags        Tag[]
   done        Boolean       @default(false)
 }
@@ -50,7 +50,7 @@ model Option {
   id                  String        @id       @default(uuid())
   numberOfQuestions   Int
   scoreNeeded         Int
-  setId               String
+  setId               String        @unique
   set                 Set           @relation(fields: [setId], references: [id])
 }
 

@@ -11,7 +11,10 @@ async function main() {
   await prisma.tag.deleteMany();
   await prisma.answer.deleteMany();
   await prisma.answerType.deleteMany();
+  await prisma.option.deleteMany();
   await prisma.set.deleteMany();
+  await prisma.category.deleteMany();
+  await prisma.player.deleteMany();
 
   const tagsData = [
     {
@@ -61,19 +64,71 @@ async function main() {
   ];
 
   const setsData = [
-    { name: 'Zestaw 1', tags: ['game', 'mainMenu'] },
-    { name: 'Zestaw 2', tags: ['game', 'gameplay'] },
-    { name: 'Zestaw 3', tags: ['game', 'achievement'] },
-    { name: 'Zestaw 4', tags: ['game', 'skillDesc'] },
-    { name: 'Zestaw 5', tags: ['game', 'skillImg'] },
-    { name: 'Zestaw 6', tags: ['game', 'quote'] },
-    { name: 'Zestaw 7', tags: ['character', 'female'] },
-    { name: 'Zestaw 8', tags: ['character', 'male'] },
-    { name: 'Zestaw 9', tags: ['character', 'silhouette'] },
-    { name: 'Zestaw 10', tags: ['character'] },
-    { name: 'Zestaw 11', tags: ['character', 'male', 'silhouette'] },
-    { name: 'Zestaw 12', tags: ['character', 'female', 'silhouette'] },
-    { name: 'Zestaw 13', tags: ['game'] },
+    {
+      name: 'Zestaw 1',
+      tags: ['game', 'mainMenu'],
+      option: { numberOfQuestions: 10, scoreNeeded: 7 },
+    },
+    {
+      name: 'Zestaw 2',
+      tags: ['game', 'gameplay'],
+      option: { numberOfQuestions: 10, scoreNeeded: 7 },
+    },
+    {
+      name: 'Zestaw 3',
+      tags: ['game', 'achievement'],
+      option: { numberOfQuestions: 5, scoreNeeded: 4 },
+    },
+    {
+      name: 'Zestaw 4',
+      tags: ['game', 'skillDesc'],
+      option: { numberOfQuestions: 10, scoreNeeded: 7 },
+    },
+    {
+      name: 'Zestaw 5',
+      tags: ['game', 'skillImg'],
+      option: { numberOfQuestions: 10, scoreNeeded: 7 },
+    },
+    {
+      name: 'Zestaw 6',
+      tags: ['game', 'quote'],
+      option: { numberOfQuestions: 10, scoreNeeded: 7 },
+    },
+    {
+      name: 'Zestaw 7',
+      tags: ['character', 'female'],
+      option: { numberOfQuestions: 5, scoreNeeded: 4 },
+    },
+    {
+      name: 'Zestaw 8',
+      tags: ['character', 'male'],
+      option: { numberOfQuestions: 10, scoreNeeded: 7 },
+    },
+    {
+      name: 'Zestaw 9',
+      tags: ['character', 'silhouette'],
+      option: { numberOfQuestions: 10, scoreNeeded: 7 },
+    },
+    {
+      name: 'Zestaw 10',
+      tags: ['character'],
+      option: { numberOfQuestions: 10, scoreNeeded: 7 },
+    },
+    {
+      name: 'Zestaw 11',
+      tags: ['character', 'male', 'silhouette'],
+      option: { numberOfQuestions: 10, scoreNeeded: 7 },
+    },
+    {
+      name: 'Zestaw 12',
+      tags: ['character', 'female', 'silhouette'],
+      option: { numberOfQuestions: 5, scoreNeeded: 4 },
+    },
+    {
+      name: 'Zestaw 13',
+      tags: ['game'],
+      option: { numberOfQuestions: 10, scoreNeeded: 7 },
+    },
   ];
 
   const answerTypesData = [{ name: 'title' }, { name: 'character' }];
@@ -411,6 +466,12 @@ async function main() {
     },
   ];
 
+  const categoryData = [
+    { name: 'games' },
+    { name: 'movies' },
+    { name: 'tvShows' },
+  ];
+
   await prisma.tag.createMany({
     data: tagsData.map((t) => ({
       name: t.name,
@@ -437,6 +498,12 @@ async function main() {
           connect: s.tags.map((tagName) => ({
             id: tags.find((t) => t.name === tagName)!.id,
           })),
+        },
+        option: {
+          create: {
+            numberOfQuestions: s.option.numberOfQuestions,
+            scoreNeeded: s.option.scoreNeeded,
+          },
         },
       },
     });
@@ -485,6 +552,16 @@ async function main() {
       },
     });
   }
+
+  await prisma.category.createMany({
+    data: categoryData.map((c) => ({
+      name: c.name,
+    })),
+  });
+
+  await prisma.player.create({
+    data: {},
+  });
 
   console.log('Seeded done 🌳');
 }
