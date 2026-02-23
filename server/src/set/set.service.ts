@@ -2,13 +2,13 @@ import { Injectable } from '@nestjs/common';
 import { PrismaService } from 'prisma/prisma.service';
 
 @Injectable()
-export class TypeService {
+export class SetService {
   constructor(private readonly prisma: PrismaService) {}
 
   findAll() {
-    return this.prisma.type.findMany({
+    return this.prisma.set.findMany({
       include: {
-        answers: true,
+        tags: true,
       },
     });
   }

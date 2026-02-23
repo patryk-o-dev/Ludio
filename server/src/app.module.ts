@@ -5,10 +5,10 @@ import { PrismaModule } from 'prisma/prisma.module';
 import { QuestionModule } from './question/question.module';
 import { TagModule } from './tag/tag.module';
 import { AnswerModule } from './answer/answer.module';
-import { TypeModule } from './type/type.module';
+import { SetModule } from './set/set.module';
 
 @Module({
-  imports: [PrismaModule, QuestionModule, TagModule, AnswerModule, TypeModule],
+  imports: [PrismaModule, QuestionModule, TagModule, AnswerModule, SetModule],
   controllers: [AppController],
   providers: [AppService],
 })

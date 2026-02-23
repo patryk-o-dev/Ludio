@@ -1,15 +1,6 @@
-import {
-  Controller,
-  Get,
-  Post,
-  Body,
-  Patch,
-  Param,
-  Delete,
-} from '@nestjs/common';
+import { Controller, Get, Post, Body, Param } from '@nestjs/common';
 import { QuestionService } from './question.service';
 import { CreateQuestionDto } from './dto/create-question.dto';
-import { UpdateQuestionDto } from './dto/update-question.dto';
 
 @Controller('question')
 export class QuestionController {
@@ -25,28 +16,10 @@ export class QuestionController {
     return this.questionService.findAll();
   }
 
-  @Get(':id')
-  findOne(@Param('id') id: string) {
-    return this.questionService.findOne(+id);
-  }
-
   @Get('/tags/:tags')
   findByTags(@Param('tags') tags: string) {
     return this.questionService.findByTags(
       tags.split(',').map((tag) => tag.trim()),
     );
-  }
-
-  @Patch(':id')
-  update(
-    @Param('id') id: string,
-    @Body() updateQuestionDto: UpdateQuestionDto,
-  ) {
-    return this.questionService.update(+id, updateQuestionDto);
-  }
-
-  @Delete(':id')
-  remove(@Param('id') id: string) {
-    return this.questionService.remove(+id);
   }
 }

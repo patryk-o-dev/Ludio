@@ -9,7 +9,7 @@ export class AnswerService {
     return this.prisma.answer.findMany({
       include: {
         questions: true,
-        type: true,
+        answerType: true,
       },
     });
   }
