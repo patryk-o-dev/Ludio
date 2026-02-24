@@ -20,6 +20,7 @@ async function main() {
     {
       name: 'game',
       category: 'game',
+      unlocked: true,
     },
     {
       name: 'mainMenu',
@@ -125,7 +126,7 @@ async function main() {
       option: { numberOfQuestions: 5, scoreNeeded: 4 },
     },
     {
-      name: 'Zestaw 13',
+      name: 'Rozpoznaj grę',
       tags: ['game'],
       option: { numberOfQuestions: 10, scoreNeeded: 7 },
     },

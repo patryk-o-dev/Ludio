@@ -2,24 +2,13 @@ import { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
 import ButtonMain from "../../utils/ButtonMain/ButtonMain";
 import SetSelector from "../../features/SetSelector/SetSelector";
-import type { Player } from "../../utils/types/types";
+import { Link } from "react-router-dom";
+import { getData } from "../../../api/getDataApi";
+import type { Answer, Player, Question } from "../../../types";
 
 type Inputs = {
 	answer: string;
 	search: string;
-};
-
-type Question = {
-	id: string;
-	media: string;
-	answer: Answer;
-	tags: { id: string; name: string }[];
-};
-
-type Answer = {
-	id: string;
-	value: string;
-	answerTypeId: string;
 };
 
 const Quiz = () => {
@@ -39,23 +28,16 @@ const Quiz = () => {
 	const { register, handleSubmit } = useForm<Inputs>();
 
 	useEffect(() => {
-		fetch("http://localhost:3000/api/player")
-			.then((res) => res.json())
-			.then((data) => {
-				setPlayer(data[0]);
-			})
-			.catch((err) => {
-				console.error("Error fetching player data:", err);
-			});
+		getData("player").then((data) => setPlayer(data[0]));
 	}, []);
 
-	const addPlayerExp = (playerId: string, exp: number) => {
+	const addPlayerExp = (playerId: string, exp: number, setId: string) => {
 		fetch(`http://localhost:3000/api/player/${playerId}/earn-exp`, {
 			method: "PATCH",
 			headers: {
 				"Content-Type": "application/json",
 			},
-			body: JSON.stringify({ exp }),
+			body: JSON.stringify({ exp, setId }),
 		})
 			.then((res) => res.json())
 			.then((data) => {
@@ -69,8 +51,11 @@ const Quiz = () => {
 	const selectAnswer = (data: Inputs) => {
 		const currentQuestion = questions[currentQuestionIndex];
 		if (data.answer === currentQuestion.answer.value) {
-			alert("Correct!");
+			console.log("Correct! Score: ", score + 1);
 			setScore((prev) => prev + 1);
+			if (score + 1 >= 7 && currentQuestionIndex >= 9) {
+				handleWin();
+			}
 		} else {
 			alert(`Wrong! The correct answer was: ${currentQuestion.answer.value}`);
 		}
@@ -82,8 +67,9 @@ const Quiz = () => {
 			alert("First select a quiz set!");
 			return;
 		}
-		const tags = JSON.parse(quizSet)
-			.tags.map((tag: { id: string; name: string }) => tag.name)
+		const quizSetObj = JSON.parse(quizSet);
+		const tags = quizSetObj.tags
+			.map((tag: { id: string; name: string }) => tag.name)
 			.join(",");
 		const questionsBySet = await fetch(
 			`http://localhost:3000/api/question/tags/${tags}`,
@@ -94,12 +80,7 @@ const Quiz = () => {
 				return [];
 			});
 
-		const answers = await fetch("http://localhost:3000/api/answer")
-			.then((res) => res.json())
-			.catch((err) => {
-				console.error("Error fetching answers:", err);
-				return [];
-			});
+		const answers = await getData("answer");
 
 		setQuestions(questionsBySet);
 		setAllAnswers(answers);
@@ -118,8 +99,8 @@ const Quiz = () => {
 	};
 
 	const handleWin = () => {
-		addPlayerExp(player.id, 5);
-		window.location.reload();
+		const quizSetObj = JSON.parse(quizSet!);
+		addPlayerExp(player.id, 5, quizSetObj.id);
 	};
 
 	return (
@@ -169,7 +150,7 @@ const Quiz = () => {
 						<p>
 							Twój wynik: {score} / {questions.length}
 						</p>
-						<button onClick={() => window.location.reload()}>Reset</button>
+						<Link to="/">Zakończ</Link>
 					</div>
 				)}
 			{quizStarted &&
@@ -180,7 +161,7 @@ const Quiz = () => {
 						<p>
 							Twój wynik: {score} / {questions.length}
 						</p>
-						<button onClick={handleWin}>Reset</button>
+						<Link to="/">Zakończ</Link>
 					</div>
 				)}
 		</div>

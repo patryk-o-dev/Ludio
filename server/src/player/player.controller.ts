@@ -11,7 +11,11 @@ export class PlayerController {
   }
 
   @Patch(':id/earn-exp')
-  earnExp(@Param('id') id: string, @Body('exp') exp: number) {
-    return this.playerService.earnExp(id, exp);
+  earnExp(
+    @Param('id') id: string,
+    @Body('exp') exp: number,
+    @Body('setId') setId: string,
+  ) {
+    return this.playerService.earnExp(id, exp, setId);
   }
 }

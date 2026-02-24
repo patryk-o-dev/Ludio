@@ -1,14 +1,15 @@
 export type Question = {
 	id: string;
 	media: string;
-	answer: Answer;
 	tags: Tag[];
+	answerId: string;
+	answer: Answer;
 };
 
 export type Tag = {
 	id: string;
 	name: string;
-	category: Category;
+	category: string;
 	questions: Question[];
 	set: Set[];
 };
@@ -18,19 +19,19 @@ export type Answer = {
 	value: string;
 	answerTypeId: string;
 	answerType: AnswerType;
-	question: Question;
+	questions: Question[];
 };
 
 export type AnswerType = {
 	id: string;
 	name: string;
-	answers: Answer[];
+	answer: Answer[];
 };
 
 export type Set = {
 	id: string;
 	name: string;
-	option: Option;
+	option?: Option;
 	tags: Tag[];
 	done: boolean;
 };
@@ -48,8 +49,8 @@ export type Category = {
 	name: string;
 	lvl: number;
 	lvlMax: number;
-	expAdded: number;
 	expNeeded: number;
+	expAdded: number;
 };
 
 export type Player = {

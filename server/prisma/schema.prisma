@@ -20,6 +20,7 @@ model Tag {
   id          String        @id       @default(uuid())
   name        String        @unique
   category    String
+  unlocked    Boolean       @default(false)
   questions   Question[]
   set         Set[]
 }
@@ -59,6 +60,7 @@ model Category {
   name        String      @unique
   lvl         Int         @default(0)
   lvlMax      Int         @default(10)
+  maxed       Boolean     @default(false)
   expNeeded   Int         @default(1)
   expAdded    Int         @default(0)
 }

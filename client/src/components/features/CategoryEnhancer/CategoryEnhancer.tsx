@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
-import type { Category, Player } from "../../utils/types/types";
+import type { Category, Player } from "../../../types";
+import { getData } from "../../../api/getDataApi";
 
 const CategoryEnhancer = () => {
 	const [categories, setCategories] = useState<Category[]>([]);
@@ -9,40 +10,9 @@ const CategoryEnhancer = () => {
 	});
 
 	useEffect(() => {
-		fetch("http://localhost:3000/api/category")
-			.then((res) => res.json())
-			.then((data) => {
-				setCategories(data);
-			})
-			.catch((err) => {
-				console.error("Error fetching categories:", err);
-			});
-		fetch("http://localhost:3000/api/player")
-			.then((res) => res.json())
-			.then((data) => {
-				setPlayer(data[0]);
-			})
-			.catch((err) => {
-				console.error("Error fetching player data:", err);
-			});
+		getData("category").then((data) => setCategories(data));
+		getData("player").then((data) => setPlayer(data[0]));
 	}, []);
-
-	const addPlayerExp = (playerId: string, exp: number) => {
-		fetch(`http://localhost:3000/api/player/${playerId}/earn-exp`, {
-			method: "PATCH",
-			headers: {
-				"Content-Type": "application/json",
-			},
-			body: JSON.stringify({ exp }),
-		})
-			.then((res) => res.json())
-			.then((data) => {
-				setPlayer(data);
-			})
-			.catch((err) => {
-				console.error("Error adding player EXP:", err);
-			});
-	};
 
 	const enhanceCategory = (categoryId: string) => {
 		if (
@@ -53,7 +23,6 @@ const CategoryEnhancer = () => {
 		) {
 			alert("Category has reached maximum level!");
 		} else if (player.exp > 0) {
-			addPlayerExp(player.id, -1);
 			fetch(`http://localhost:3000/api/category/${categoryId}/enhance`, {
 				method: "PATCH",
 			})
@@ -77,7 +46,6 @@ const CategoryEnhancer = () => {
 		<div>
 			<p>CategoryEnhancer</p>
 			<p>Player EXP: {player.exp}</p>
-			<button onClick={() => addPlayerExp(player.id, 5)}>Dodaj EXP:</button>
 			<ul>
 				{categories.map((category) => (
 					<li key={category.id}>

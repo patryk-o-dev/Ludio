@@ -1,32 +1,18 @@
 import { useEffect, useState } from "react";
 import styles from "./SetSelector.module.scss";
+import { getData } from "../../../api/getDataApi";
 
 type Set = {
 	id: string;
 	name: string;
 	tags: { id: string; name: string }[];
+	done: boolean;
 };
 
 const SetSelector = () => {
 	const [sets, setSets] = useState<Set[]>([]);
 	useEffect(() => {
-		try {
-			fetch("http://localhost:3000/api/set")
-				.then((res) => {
-					if (!res.ok) {
-						throw new Error("Failed to fetch sets");
-					}
-					return res.json();
-				})
-				.then((data) => {
-					setSets(data);
-				})
-				.catch((err) => {
-					console.error("Error fetching sets:", err);
-				});
-		} catch (err) {
-			console.error("Error fetching sets:", err);
-		}
+		getData("set").then((data) => setSets(data));
 	}, []);
 
 	const handleSelectSet = (set: Set) => {
@@ -40,7 +26,9 @@ const SetSelector = () => {
 				{sets.map((set) => (
 					<li key={set.id} className={styles.setItem}>
 						<div className={styles.setDetails}>
-							<p>{set.name}</p>
+							<p>
+								{set.name} - {set.done ? "Done" : "Not Done"}
+							</p>
 							<ul>
 								{set.tags.map((tag) => (
 									<li key={tag.id}>{tag.name}</li>

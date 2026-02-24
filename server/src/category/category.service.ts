@@ -9,10 +9,46 @@ export class CategoryService {
     return this.prisma.category.findMany();
   }
 
-  enhanceCategory(categoryId: string) {
-    return this.prisma.category.update({
+  async enhanceCategory(categoryId: string) {
+    const player = await this.prisma.player.findFirst();
+    const category = await this.prisma.category.findUnique({
       where: { id: categoryId },
-      data: { lvl: { increment: 1 } },
     });
+
+    if (!player || player.exp <= 0) {
+      throw new Error('Not enough EXP to enhance category!');
+    } else if (category.maxed) {
+      throw new Error('Category is already maxed!');
+    } else {
+      await this.prisma.player.update({
+        where: { id: player.id },
+        data: { exp: { decrement: 1 } },
+      });
+      await this.prisma.category.update({
+        where: { id: categoryId },
+        data: { expAdded: { increment: 1 } },
+      });
+
+      if (
+        category.expAdded >= category.expNeeded &&
+        category.lvl < category.lvlMax
+      ) {
+        await this.prisma.category.update({
+          where: { id: categoryId },
+          data: {
+            lvl: { increment: 1 },
+            expAdded: 0,
+            expNeeded: category.lvl + 1,
+          },
+        });
+      }
+      if (category.lvl >= category.lvlMax) {
+        await this.prisma.category.update({
+          where: { id: categoryId },
+          data: { maxed: true },
+        });
+      }
+      return category;
+    }
   }
 }

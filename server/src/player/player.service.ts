@@ -9,10 +9,21 @@ export class PlayerService {
     return this.prisma.player.findMany();
   }
 
-  earnExp(playerId: string, exp: number) {
-    return this.prisma.player.update({
+  async earnExp(playerId: string, exp: number, setId: string) {
+    const set = await this.prisma.set.findUnique({
+      where: { id: setId },
+    });
+    if (set.done) {
+      return set;
+    }
+    await this.prisma.set.update({
+      where: { id: setId },
+      data: { done: true },
+    });
+    const updatedPlayer = await this.prisma.player.update({
       where: { id: playerId },
       data: { exp: { increment: exp } },
     });
+    return updatedPlayer;
   }
 }
