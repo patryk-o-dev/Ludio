@@ -19,7 +19,9 @@ model Question {
 model Tag {
   id          String        @id       @default(uuid())
   name        String        @unique
-  category    String
+  categoryId  String
+  category    Category      @relation(fields: [categoryId], references: [id])
+  lvl         Int           @default(0)
   unlocked    Boolean       @default(false)
   questions   Question[]
   set         Set[]
@@ -44,6 +46,7 @@ model Set {
   name        String
   option      Option?
   tags        Tag[]
+  selected    Boolean       @default(false)
   done        Boolean       @default(false)
 }
 
@@ -63,6 +66,7 @@ model Category {
   maxed       Boolean     @default(false)
   expNeeded   Int         @default(1)
   expAdded    Int         @default(0)
+  tags        Tag[]
 }
 
 model Player {

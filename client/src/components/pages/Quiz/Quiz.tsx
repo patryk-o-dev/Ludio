@@ -4,7 +4,7 @@ import ButtonMain from "../../utils/ButtonMain/ButtonMain";
 import SetSelector from "../../features/SetSelector/SetSelector";
 import { Link } from "react-router-dom";
 import { getData } from "../../../api/getDataApi";
-import type { Answer, Player, Question } from "../../../types";
+import type { Answer, Player, Question, Set } from "../../../types";
 
 type Inputs = {
 	answer: string;
@@ -23,7 +23,7 @@ const Quiz = () => {
 
 	const [currentQuestionIndex, setCurrentQuestionIndex] = useState(0);
 	const [quizStarted, setQuizStarted] = useState(false);
-	const quizSet = localStorage.getItem("quizSet");
+	const [quizSet, setQuizSet] = useState<Set | null>(null);
 
 	const { register, handleSubmit } = useForm<Inputs>();
 
@@ -53,8 +53,16 @@ const Quiz = () => {
 		if (data.answer === currentQuestion.answer.value) {
 			console.log("Correct! Score: ", score + 1);
 			setScore((prev) => prev + 1);
-			if (score + 1 >= 7 && currentQuestionIndex >= 9) {
-				handleWin();
+			if (quizSet) {
+				console.log("qiuzset: ", quizSet);
+				console.log("score needed: ", quizSet.option.scoreNeeded);
+				console.log("max score: ", quizSet.option.numberOfQuestions - 1);
+				if (
+					score + 1 >= quizSet.option.scoreNeeded &&
+					currentQuestionIndex >= quizSet.option.numberOfQuestions - 1
+				) {
+					handleWin();
+				}
 			}
 		} else {
 			alert(`Wrong! The correct answer was: ${currentQuestion.answer.value}`);
@@ -63,12 +71,21 @@ const Quiz = () => {
 	};
 
 	const startQuiz = async () => {
-		if (!quizSet) {
-			alert("First select a quiz set!");
-			return;
-		}
-		const quizSetObj = JSON.parse(quizSet);
-		const tags = quizSetObj.tags
+		const selectedSet = await fetch(`http://localhost:3000/api/set/selected`)
+			.then((res) => res.json())
+			.then((data) => {
+				setQuizSet(data);
+				console.log("Selected quiz set:", data);
+				return data;
+			})
+			.catch((err) => {
+				console.error("Error fetching selected quiz set:", err);
+				return null;
+			});
+
+		if (!selectedSet) return;
+
+		const tags = selectedSet.tags
 			.map((tag: { id: string; name: string }) => tag.name)
 			.join(",");
 		const questionsBySet = await fetch(
@@ -99,8 +116,9 @@ const Quiz = () => {
 	};
 
 	const handleWin = () => {
-		const quizSetObj = JSON.parse(quizSet!);
-		addPlayerExp(player.id, 5, quizSetObj.id);
+		if (quizSet) {
+			addPlayerExp(player.id, 5, quizSet.id);
+		}
 	};
 
 	return (
@@ -115,7 +133,8 @@ const Quiz = () => {
 			{quizStarted &&
 				questions.length > 0 &&
 				currentQuestionIndex < questions.length &&
-				currentQuestionIndex < 10 && (
+				quizSet &&
+				currentQuestionIndex < quizSet.option.numberOfQuestions && (
 					<div>
 						<h4>
 							Pytanie {currentQuestionIndex + 1} {" - "}
@@ -129,6 +148,7 @@ const Quiz = () => {
 									type="text"
 									{...register("search")}
 									onChange={handleAddFilter}
+									placeholder=""
 								/>
 								<select {...register("answer")}>
 									{filteredAnswers.map((answer) => (
@@ -143,8 +163,9 @@ const Quiz = () => {
 					</div>
 				)}
 			{quizStarted &&
-				(currentQuestionIndex >= questions.length ||
-					(currentQuestionIndex >= 10 && score < 7)) && (
+				quizSet &&
+				currentQuestionIndex >= quizSet.option.numberOfQuestions &&
+				score < quizSet.option.scoreNeeded && (
 					<div>
 						<h2>Przegrałeś!</h2>
 						<p>
@@ -154,8 +175,9 @@ const Quiz = () => {
 					</div>
 				)}
 			{quizStarted &&
-				(currentQuestionIndex >= questions.length ||
-					(currentQuestionIndex >= 10 && score >= 7)) && (
+				quizSet &&
+				currentQuestionIndex >= quizSet.option.numberOfQuestions &&
+				score >= quizSet.option.scoreNeeded && (
 					<div>
 						<h2>Wygrałeś!</h2>
 						<p>

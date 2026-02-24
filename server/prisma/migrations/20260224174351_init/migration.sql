@@ -11,7 +11,8 @@ CREATE TABLE `Question` (
 CREATE TABLE `Tag` (
     `id` VARCHAR(191) NOT NULL,
     `name` VARCHAR(191) NOT NULL,
-    `category` VARCHAR(191) NOT NULL,
+    `categoryId` VARCHAR(191) NOT NULL,
+    `lvl` INTEGER NOT NULL DEFAULT 0,
     `unlocked` BOOLEAN NOT NULL DEFAULT false,
 
     UNIQUE INDEX `Tag_name_key`(`name`),
@@ -41,6 +42,7 @@ CREATE TABLE `AnswerType` (
 CREATE TABLE `Set` (
     `id` VARCHAR(191) NOT NULL,
     `name` VARCHAR(191) NOT NULL,
+    `selected` BOOLEAN NOT NULL DEFAULT false,
     `done` BOOLEAN NOT NULL DEFAULT false,
 
     PRIMARY KEY (`id`)
@@ -99,6 +101,9 @@ CREATE TABLE `_SetToTag` (
 
 -- AddForeignKey
 ALTER TABLE `Question` ADD CONSTRAINT `Question_answerId_fkey` FOREIGN KEY (`answerId`) REFERENCES `Answer`(`id`) ON DELETE RESTRICT ON UPDATE CASCADE;
+
+-- AddForeignKey
+ALTER TABLE `Tag` ADD CONSTRAINT `Tag_categoryId_fkey` FOREIGN KEY (`categoryId`) REFERENCES `Category`(`id`) ON DELETE RESTRICT ON UPDATE CASCADE;
 
 -- AddForeignKey
 ALTER TABLE `Answer` ADD CONSTRAINT `Answer_answerTypeId_fkey` FOREIGN KEY (`answerTypeId`) REFERENCES `AnswerType`(`id`) ON DELETE RESTRICT ON UPDATE CASCADE;

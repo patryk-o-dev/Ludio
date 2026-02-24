@@ -51,10 +51,10 @@ const CategoryEnhancer = () => {
 					<li key={category.id}>
 						<p>{category.name}</p>
 						<p>
-							{category.lvl} / {category.lvlMax}
+							Poziom: {category.lvl} / {category.lvlMax}
 						</p>
 						<p>
-							{category.expAdded} / {category.expNeeded}
+							EXP: {category.expAdded} / {category.expNeeded}
 						</p>
 						<button onClick={() => enhanceCategory(category.id)}>Plus</button>
 					</li>

@@ -12,6 +12,7 @@ export type Tag = {
 	category: string;
 	questions: Question[];
 	set: Set[];
+	unlocked: boolean;
 };
 
 export type Answer = {
@@ -31,9 +32,10 @@ export type AnswerType = {
 export type Set = {
 	id: string;
 	name: string;
-	option?: Option;
+	option: Option;
 	tags: Tag[];
 	done: boolean;
+	selected: boolean;
 };
 
 export type Option = {

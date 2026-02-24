@@ -19,48 +19,59 @@ async function main() {
   const tagsData = [
     {
       name: 'game',
-      category: 'game',
+      categoryName: 'game',
+      lvl: 0,
       unlocked: true,
     },
     {
       name: 'mainMenu',
-      category: 'game',
+      categoryName: 'game',
+      lvl: 1,
     },
     {
       name: 'gameplay',
-      category: 'game',
+      categoryName: 'game',
+      lvl: 1,
     },
     {
       name: 'skillDesc',
-      category: 'game',
+      categoryName: 'game',
+      lvl: 1,
     },
     {
       name: 'skillImg',
-      category: 'game',
+      categoryName: 'game',
+      lvl: 1,
     },
     {
       name: 'achievement',
-      category: 'game',
+      categoryName: 'game',
+      lvl: 1,
     },
     {
       name: 'quote',
-      category: 'game',
+      categoryName: 'game',
+      lvl: 2,
     },
     {
       name: 'character',
-      category: 'character',
+      categoryName: 'character',
+      lvl: 2,
     },
     {
       name: 'female',
-      category: 'character',
+      categoryName: 'character',
+      lvl: 2,
     },
     {
       name: 'male',
-      category: 'character',
+      categoryName: 'character',
+      lvl: 2,
     },
     {
       name: 'silhouette',
-      category: 'character',
+      categoryName: 'character',
+      lvl: 3,
     },
   ];
 
@@ -88,7 +99,7 @@ async function main() {
     {
       name: 'Zestaw 5',
       tags: ['game', 'skillImg'],
-      option: { numberOfQuestions: 10, scoreNeeded: 7 },
+      option: { numberOfQuestions: 3, scoreNeeded: 1 },
     },
     {
       name: 'Zestaw 6',
@@ -128,7 +139,7 @@ async function main() {
     {
       name: 'Rozpoznaj grę',
       tags: ['game'],
-      option: { numberOfQuestions: 10, scoreNeeded: 7 },
+      option: { numberOfQuestions: 3, scoreNeeded: 1 },
     },
   ];
 
@@ -467,20 +478,39 @@ async function main() {
     },
   ];
 
-  const categoryData = [
-    { name: 'games' },
-    { name: 'movies' },
-    { name: 'tvShows' },
-  ];
+  const categoryData = [{ name: 'game' }, { name: 'character' }];
+
+  await prisma.category.createMany({
+    data: categoryData.map((c) => ({
+      name: c.name,
+    })),
+  });
+
+  const categories = await prisma.category.findMany();
 
   await prisma.tag.createMany({
     data: tagsData.map((t) => ({
       name: t.name,
-      category: t.category,
+      categoryId: categories.find((c) => c.name === t.categoryName)!.id,
+      unlocked: t.unlocked || false,
+      lvl: t.lvl,
     })),
   });
 
   const tags = await prisma.tag.findMany();
+
+  for (const category of categories) {
+    await prisma.category.update({
+      where: { id: category.id },
+      data: {
+        tags: {
+          connect: tags
+            .filter((t) => t.categoryId === category.id)
+            .map((t) => ({ id: t.id })),
+        },
+      },
+    });
+  }
 
   await prisma.set.createMany({
     data: setsData.map((s) => ({
@@ -553,12 +583,6 @@ async function main() {
       },
     });
   }
-
-  await prisma.category.createMany({
-    data: categoryData.map((c) => ({
-      name: c.name,
-    })),
-  });
 
   await prisma.player.create({
     data: {},

@@ -12,4 +12,34 @@ export class SetService {
       },
     });
   }
+
+  findSelected() {
+    return this.prisma.set.findFirst({
+      where: { selected: true },
+      include: {
+        tags: true,
+        option: true,
+      },
+    });
+  }
+
+  async selectSet(setId: string) {
+    await this.prisma.set.updateMany({
+      where: {},
+      data: { selected: false },
+    });
+
+    await this.prisma.set.update({
+      where: { id: setId },
+      data: { selected: true },
+    });
+
+    return await this.prisma.set.findUnique({
+      where: { id: setId },
+      include: {
+        tags: true,
+        option: true,
+      },
+    });
+  }
 }
