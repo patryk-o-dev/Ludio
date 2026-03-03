@@ -35,6 +35,7 @@ export type Set = {
 	option: Option;
 	tags: Tag[];
 	done: boolean;
+	unlocked: boolean;
 	selected: boolean;
 };
 

@@ -2,21 +2,28 @@
 
 // MAIN COLORS
 
-$primary-color: #10a37f;
-$secondary-color: #ff9f1c;
+$primary-color: #f7374f;
+$secondary-color: #566d78; // #F7F036 #36BAF7 #332829 #36F75E #5AA269 #36F7A0 #56F736
 
 // TEXT & BACKGROUND COLORS
 
-$background-primary: #0b0c0f;
-$background-secondary: #1a1b1e;
-$background-teritary: #2a2b2e;
-$background-basic: #121217;
+$background-basic: #2c2c2c;
+$background-secondary: #522546;
+$background-teritary: #88304e;
 
-$text-color: #e5e5e5;
-$text-color-alt: #b0b0b0;
+$text-color: #efefef;
+$text-color-alt: #88304e;
 
-$alert-color: #ff4c4c;
-$success-color: #4cff9f;
+$alert-color: #e26ee5;
+
+// Category colors
+
+$category-color-1: #f7374f;
+$category-color-2: #36baf7;
+$category-color-3: #5aa269;
+$category-color-4: #36f7a0;
+$category-color-5: #36f75e;
+$category-color-6: #56f736;
 
 // FONTS
 @font-face {
@@ -54,10 +61,4 @@ $spacing-3xl: 64px;
 $spacing-4xl: 96px;
 $spacing-5xl: 128px;
 
-// BREAKPOINTS
-$bp-2xs: 320px;
-$bp-xs: 480px;
-$bp-sm: 576px;
-$bp-md: 768px;
-$bp-lg: 1024px;
-$bp-xl: 1440px;
+$radius-md: 12px;

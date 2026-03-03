@@ -1,0 +1,59 @@
+.setDisplayWrapper {
+	height: 100%;
+	width: 100%;
+	overflow-y: auto;
+	scrollbar-width: none;
+}
+
+.setsList {
+	list-style: none;
+	padding: 0;
+	display: flex;
+	flex-direction: column;
+	gap: vars.$spacing-md;
+}
+
+.set {
+	position: relative;
+	border: 2px solid vars.$primary-color;
+	padding: vars.$spacing-md;
+	display: flex;
+	flex-direction: column;
+	gap: vars.$spacing-sm;
+	border-radius: vars.$radius-md;
+	&:hover {
+		background-color: vars.$secondary-color;
+	}
+}
+
+.addSetButton {
+	position: absolute;
+	top: 0;
+	left: 0;
+	width: 100%;
+	height: 100%;
+	background-color: transparent;
+	border: none;
+	cursor: pointer;
+}
+
+.bottomGradient {
+	position: sticky;
+	bottom: -3px;
+	height: 64px;
+	background: linear-gradient(transparent, vars.$background-basic 80%);
+}
+
+.imgWrapper {
+	position: relative;
+	width: 100%;
+	height: 100%;
+	display: flex;
+	justify-content: center;
+	align-items: flex-end;
+
+	img {
+		width: 24px;
+		height: 24px;
+	}
+}

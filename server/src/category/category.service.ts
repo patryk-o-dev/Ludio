@@ -56,6 +56,17 @@ export class CategoryService {
           data: { unlocked: true },
         });
 
+        await this.prisma.set.updateMany({
+          where: {
+            tags: {
+              every: {
+                unlocked: true,
+              },
+            },
+          },
+          data: { unlocked: true },
+        });
+
         return updatedCategory;
       }
     }

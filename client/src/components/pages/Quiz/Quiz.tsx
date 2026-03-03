@@ -1,7 +1,5 @@
 import { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
-import ButtonMain from "../../utils/ButtonMain/ButtonMain";
-import SetSelector from "../../features/SetSelector/SetSelector";
 import { Link } from "react-router-dom";
 import { getData } from "../../../api/getDataApi";
 import type { Answer, Player, Question, Set } from "../../../types";
@@ -126,8 +124,7 @@ const Quiz = () => {
 			{!quizStarted && (
 				<div>
 					<h2>Ready to start the quiz?</h2>
-					<SetSelector />
-					<ButtonMain action={startQuiz} />
+					<button onClick={startQuiz}>Start Quiz</button>
 				</div>
 			)}
 			{quizStarted &&
@@ -139,7 +136,7 @@ const Quiz = () => {
 						<h4>
 							Pytanie {currentQuestionIndex + 1} {" - "}
 							{questions[currentQuestionIndex].answer.value} {" - "}
-							Wynik: {score} / 10
+							Wynik: {score} / {quizSet.option.numberOfQuestions}
 						</h4>
 						<img src={questions[currentQuestionIndex].media} alt="" />
 						<div>

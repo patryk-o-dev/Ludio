@@ -46,6 +46,7 @@ model Set {
   name        String
   option      Option?
   tags        Tag[]
+  unlocked    Boolean       @default(false)
   selected    Boolean       @default(false)
   done        Boolean       @default(false)
 }

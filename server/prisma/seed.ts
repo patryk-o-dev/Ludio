@@ -585,7 +585,9 @@ async function main() {
   }
 
   await prisma.player.create({
-    data: {},
+    data: {
+      exp: 10,
+    },
   });
 
   console.log('Seeded done 🌳');
