@@ -3,6 +3,7 @@ import { useForm } from "react-hook-form";
 import { Link } from "react-router-dom";
 import { getData } from "../../../api/getDataApi";
 import type { Answer, Player, Question, Set } from "../../../types";
+import styles from "./Quiz.module.scss";
 
 type Inputs = {
 	answer: string;
@@ -124,7 +125,7 @@ const Quiz = () => {
 			{!quizStarted && (
 				<div>
 					<h2>Ready to start the quiz?</h2>
-					<button onClick={startQuiz}>Start Quiz</button>
+					<button onClick={startQuiz} className={styles.startQuizButton}>Start Quiz</button>
 				</div>
 			)}
 			{quizStarted &&
@@ -132,7 +133,7 @@ const Quiz = () => {
 				currentQuestionIndex < questions.length &&
 				quizSet &&
 				currentQuestionIndex < quizSet.option.numberOfQuestions && (
-					<div>
+					<div className={styles.quizContainer}>
 						<h4>
 							Pytanie {currentQuestionIndex + 1} {" - "}
 							{questions[currentQuestionIndex].answer.value} {" - "}

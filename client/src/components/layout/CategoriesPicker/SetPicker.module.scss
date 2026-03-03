@@ -42,6 +42,7 @@
 	bottom: -3px;
 	height: 64px;
 	background: linear-gradient(transparent, vars.$background-basic 80%);
+	pointer-events: none;
 }
 
 .imgWrapper {

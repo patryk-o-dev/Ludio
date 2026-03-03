@@ -13,12 +13,15 @@ const StartQuizButton = ({ refresh }: { refresh: boolean }) => {
 			setSelectedSet(selected);
 		});
 	}, [refresh]);
+
 	return (
 		<div className={styles.startQuizButton}>
 			<Link to="/quiz" className={styles.startButtonLink}>
 				Start Quiz
 			</Link>
-			<div className={styles.selectedSet}>{selectedSet?.name}</div>
+			<div className={styles.selectedSet}>
+				{selectedSet && selectedSet.name}
+			</div>
 		</div>
 	);
 };

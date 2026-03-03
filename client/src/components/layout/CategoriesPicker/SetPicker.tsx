@@ -24,12 +24,23 @@ const SetPicker = ({
 
 	const handleSelectSet = async (set: Set) => {
 		try {
-			await fetch(`http://localhost:3000/api/set/select/${set.id}`, {
-				method: "PATCH",
-				headers: {
-					"Content-Type": "application/json",
+			const res = await fetch(
+				`http://localhost:3000/api/set/select/${set.id}`,
+				{
+					method: "PATCH",
+					headers: {
+						"Content-Type": "application/json",
+					},
 				},
-			});
+			);
+			if (res.ok) {
+				const updatedSet = await res.json();
+				if (onSelectSet) {
+					onSelectSet(updatedSet);
+				}
+			} else {
+				console.error("Error selecting set:", res.statusText);
+			}
 		} catch (error) {
 			console.error("Error selecting set:", error);
 		}
@@ -48,9 +59,6 @@ const SetPicker = ({
 									className={styles.addSetButton}
 									onClick={() => {
 										handleSelectSet(set);
-										if (onSelectSet) {
-											onSelectSet(set);
-										}
 									}}
 								></button>
 							</li>
