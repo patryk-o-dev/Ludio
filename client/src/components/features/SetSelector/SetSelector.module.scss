@@ -16,19 +16,18 @@
 	display: flex;
 	flex-direction: row;
 	width: 200px;
-  height: 200px;
-	border: 1px solid vars.$primary-color;
-  align-items: center;
-  justify-content: center;
-  list-style: none;
+	height: 200px;
+	border: vars.$border;
+	align-items: center;
+	justify-content: center;
+	list-style: none;
 }
 
 .setDetails {
-  display: flex;
-  flex-direction: column;
+	display: flex;
+	flex-direction: column;
 
-  li {
-    list-style: none;
-
-  }
+	li {
+		list-style: none;
+	}
 }

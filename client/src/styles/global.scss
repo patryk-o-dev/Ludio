@@ -39,11 +39,6 @@ strong {
 	overflow-wrap: break-word;
 }
 
-span,
-strong {
-	color: vars.$primary-color;
-}
-
 p,
 li {
 	color: vars.$text-color;
@@ -57,12 +52,6 @@ h4,
 h5,
 h6 {
 	color: vars.$text-color;
-}
-
-button {
-	display: inline-block;
-	background-color: vars.$primary-color;
-	border: none;
 }
 
 // PAGE WRAPPER

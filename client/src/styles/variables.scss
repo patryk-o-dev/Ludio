@@ -1,20 +1,34 @@
 @use "sass:color";
 
-// MAIN COLORS
+$text-color: #fbdaf5;
+$text-color-dark: #412946;
 
-$primary-color: #f7374f;
-$secondary-color: #566d78; // #F7F036 #36BAF7 #332829 #36F75E #5AA269 #36F7A0 #56F736
+$background-basic: #2a1b34;
+$background-secondary: #573a5e;
+$background-teritary: #8b5072;
 
-// TEXT & BACKGROUND COLORS
+$card-unlocked-bg: #f7b9c6;
+$card-locked-bg: #413252;
 
-$background-basic: #2c2c2c;
-$background-secondary: #522546;
-$background-teritary: #88304e;
+$upgrade-button-bg: #8d538a;
+$upgrade-exp-bar-added-bg: linear-gradient(
+	#ebf7ed 0%,
+	#ebf7ed 45%,
+	#bce1e4 45%,
+	#bce1e4 55%,
+	#9cd0db 55%,
+	#9cd0db 100%
+);
+$upgrade-exp-bar-missing-bg: linear-gradient(
+	#f8aad2 0%,
+	#f8aad2 45%,
+	#53365c 45%,
+	#53365c 55%,
+	#1d142e 55%,
+	#1d142e 100%
+);
 
-$text-color: #efefef;
-$text-color-alt: #88304e;
-
-$alert-color: #e26ee5;
+$border: 1px solid #956b94;
 
 // FONTS
 @font-face {

@@ -50,11 +50,15 @@ const SetPicker = ({
 		<div className={styles.setDisplayWrapper}>
 			{variant === "unlocked" && (
 				<div className={styles.setsDisplay}>
+					<div className={styles.setsDisplayHeader}>
+						<h3>Odblokowane Zestawy</h3>
+					</div>
 					<ul className={styles.setsList}>
 						{unlockedSets.map((set) => (
-							<li key={set.id} className={styles.set}>
+							<li key={set.id} className={`${styles.set} ${styles.unlockedSet}`}>
+								<img src="#" alt="setIcon" />
 								<h4>{set.name}</h4>
-								<p>{set.tags.map((tag) => tag.name).join(", ")}</p>
+								<img src="#" alt="decorIcon" />
 								<button
 									className={styles.addSetButton}
 									onClick={() => {
@@ -68,11 +72,15 @@ const SetPicker = ({
 			)}
 			{variant === "locked" && (
 				<div className={styles.setsDisplay}>
+					<div className={styles.setsDisplayHeader}>
+						<h3>Zablokowane Zestawy</h3>
+					</div>
 					<ul className={styles.setsList}>
 						{lockedSets.map((set) => (
-							<li key={set.id} className={styles.set}>
+							<li key={set.id} className={`${styles.set} ${styles.lockedSet}`}>
+								<img src="#" alt="setIcon" />
 								<h4>{set.name}</h4>
-								<p>{set.tags.map((tag) => tag.name).join(", ")}</p>
+								<img src="#" alt="lockIcon" />
 							</li>
 						))}
 					</ul>

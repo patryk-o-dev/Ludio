@@ -5,6 +5,21 @@
 	scrollbar-width: none;
 }
 
+.setsDisplayHeader {
+	padding: vars.$spacing-sm;
+	border-bottom: 1px solid vars.$text-color;
+	border-radius: 0 0 10px 10px;
+	margin-bottom: vars.$spacing-md;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	h3 {
+		margin: 0;
+		font-size: vars.$font-md;
+		color: vars.$text-color;
+	}
+}
+
 .setsList {
 	list-style: none;
 	padding: 0;
@@ -15,14 +30,30 @@
 
 .set {
 	position: relative;
-	border: 2px solid vars.$primary-color;
+	border: vars.$border;
 	padding: vars.$spacing-md;
 	display: flex;
-	flex-direction: column;
+	flex-direction: row;
 	gap: vars.$spacing-sm;
 	border-radius: vars.$radius-md;
+	background-color: vars.$card-unlocked-bg;
+
 	&:hover {
-		background-color: vars.$secondary-color;
+		background-color: vars.$background-teritary;
+	}
+}
+
+.unlockedSet {
+	background-color: vars.$card-unlocked-bg;
+	h4 {
+		color: vars.$text-color-dark;
+	}
+}
+
+.lockedSet {
+	background-color: vars.$card-locked-bg;
+	h4 {
+		color: vars.$text-color;
 	}
 }
 
