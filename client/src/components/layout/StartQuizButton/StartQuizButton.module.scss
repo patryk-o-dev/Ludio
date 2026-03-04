@@ -1,34 +1,24 @@
 .startQuizButton {
 	display: flex;
 	flex-direction: column;
-	justify-content: center;
+	justify-content: space-between;
 	align-items: center;
 	width: 100%;
 	height: 100%;
-	background-color: vars.$background-teritary;
+	background-color: vars.$background-tertiary;
 	border-radius: vars.$radius-md;
-	border: vars.$spacing-2xs solid vars.$background-teritary;
+	border: vars.$spacing-2xs solid vars.$background-tertiary;
 }
 
 .startButtonLink {
 	display: flex;
 	justify-content: center;
 	align-items: center;
-	width: 100%;
+	width: 50%;
 	padding: vars.$spacing-md;
 	text-decoration: none;
 	color: vars.$text-color;
 	background-color: vars.$background-secondary;
-	border-radius: vars.$radius-md;
+	border-radius: 50px;
 	font-size: vars.$font-lg;
-}
-
-.selectedSet {
-	background-color: vars.$background-teritary;
-	width: 100%;
-	color: vars.$text-color;
-	padding: vars.$spacing-2xs;
-	display: flex;
-	justify-content: center;
-	align-items: center;
 }

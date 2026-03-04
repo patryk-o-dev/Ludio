@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import type { Category, Player } from "../../../types";
 import { getData } from "../../../api/getDataApi";
+import styles from "./CategoryEnhancer.module.scss";
 
 const CategoryEnhancer = () => {
 	const [categories, setCategories] = useState<Category[]>([]);
@@ -43,20 +44,23 @@ const CategoryEnhancer = () => {
 	};
 
 	return (
-		<div>
-			<p>CategoryEnhancer</p>
-			<p>Player EXP: {player.exp}</p>
-			<ul>
+		<div className={styles.categoryEnhancer}>
+			<ul className={styles.categoryList}>
 				{categories.map((category) => (
-					<li key={category.id}>
-						<p>{category.name}</p>
-						<p>
-							Poziom: {category.lvl} / {category.lvlMax}
-						</p>
-						<p>
-							EXP: {category.expAdded} / {category.expNeeded}
-						</p>
-						<button onClick={() => enhanceCategory(category.id)}>Plus</button>
+					<li key={category.id} className={styles.categoryItem}>
+						<div className={styles.categoryName}>
+							<p>{category.name}</p>
+						</div>
+						<div className={styles.categoryProgress}>
+							<p>Progress Bar</p>{" "}
+						</div>
+
+						<button
+							onClick={() => enhanceCategory(category.id)}
+							className={styles.enhanceButton}
+						>
+							Ulepsz
+						</button>
 					</li>
 				))}
 			</ul>
