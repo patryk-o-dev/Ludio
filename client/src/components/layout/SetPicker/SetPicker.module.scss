@@ -5,10 +5,14 @@
 	scrollbar-width: none;
 }
 
+.setsDisplay {
+	padding: vars.$spacing-xs vars.$spacing-md;
+	display: flex;
+	flex-direction: column;
+}
+
 .setsDisplayHeader {
 	padding: vars.$spacing-sm;
-	border-bottom: 1px solid vars.$text-color;
-	border-radius: 0 0 10px 10px;
 	margin-bottom: vars.$spacing-md;
 	display: flex;
 	align-items: center;
@@ -25,7 +29,7 @@
 	padding: 0;
 	display: flex;
 	flex-direction: column;
-	gap: vars.$spacing-md;
+	gap: vars.$spacing-sm;
 }
 
 .set {
@@ -35,23 +39,37 @@
 	display: flex;
 	flex-direction: row;
 	gap: vars.$spacing-sm;
-	border-radius: vars.$radius-md;
+	border-radius: 20px;
 	background-color: vars.$card-unlocked-bg;
+	align-items: center;
+	justify-content: space-between;
 
 	&:hover {
 		background-color: vars.$background-tertiary;
 	}
+
+	img {
+		width: 32px;
+		height: 32px;
+	}
 }
 
 .unlockedSet {
+	width: 100%;
+	aspect-ratio: 6 / 1;
 	background-color: vars.$card-unlocked-bg;
+	box-shadow: rgba(0, 0, 0, 0.27) 0px -23px 25px 0px inset;
+
 	h4 {
 		color: vars.$text-color-dark;
 	}
 }
 
 .lockedSet {
-	background-color: vars.$card-locked-bg;
+	width: 100%;
+	aspect-ratio: 6 / 1;
+	background-color: vars.$text-color-dark;
+	box-shadow: rgba(0, 0, 0, 0.27) 0px -23px 25px 0px inset;
 	h4 {
 		color: vars.$text-color;
 	}
@@ -68,14 +86,6 @@
 	cursor: pointer;
 }
 
-.bottomGradient {
-	position: sticky;
-	bottom: -3px;
-	height: 64px;
-	background: linear-gradient(transparent, vars.$background-basic 80%);
-	pointer-events: none;
-}
-
 .imgWrapper {
 	position: relative;
 	width: 100%;
@@ -87,5 +97,27 @@
 	img {
 		width: 24px;
 		height: 24px;
+	}
+}
+
+.tooltip {
+	width: 200px;
+	position: fixed;
+	top: 5px;
+	left: 15px;
+	opacity: 0;
+	pointer-events: none;
+	z-index: 99;
+	background-color: vars.$background-basic;
+	padding: vars.$spacing-sm;
+	border: 3px solid vars.$alert-color;
+	border-radius: 10px;
+
+	ul {
+		list-style: none;
+		li {
+			color: vars.$alert-color;
+			font-size: vars.$font-sm;
+		}
 	}
 }

@@ -9,8 +9,10 @@ export type Question = {
 export type Tag = {
 	id: string;
 	name: string;
-	category: string;
+	categoryId: string;
+	category: Category;
 	questions: Question[];
+	lvl: number;
 	set: Set[];
 	unlocked: boolean;
 };

@@ -8,7 +8,12 @@ export class SetService {
   findAll() {
     return this.prisma.set.findMany({
       include: {
-        tags: true,
+        tags: {
+          include: {
+            category: true,
+          },
+        },
+        option: true,
       },
     });
   }

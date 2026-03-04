@@ -9,6 +9,7 @@ export class TagService {
     return this.prisma.tag.findMany({
       include: {
         questions: true,
+        category: true,
       },
     });
   }
