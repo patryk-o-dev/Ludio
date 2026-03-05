@@ -1,7 +1,6 @@
 .home {
-	aspect-ratio: 16 / 9;
-	max-height: 100vh;
-	max-width: 100vw;
+	width: 100%;
+	height: 100%;
 	margin: 0 auto;
 	display: flex;
 	flex-direction: row;
@@ -35,7 +34,7 @@
 	flex-direction: row;
 	width: 100%;
 	height: 60%;
-	padding: vars.$spacing-md vars.$spacing-5xl vars.$spacing-4xl
+	padding: vars.$spacing-md vars.$spacing-5xl vars.$spacing-3xl
 		vars.$spacing-5xl;
 	gap: vars.$spacing-xl;
 	z-index: 1;

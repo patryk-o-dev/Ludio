@@ -1,0 +1,14 @@
+.viewportCenter {
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	width: 100vw;
+	height: 100vh;
+}
+
+.contentBox {
+	width: 1366px;
+	height: 768px;
+  flex-shrink: 0;
+	border: 4px solid vars.$background-tertiary;
+}

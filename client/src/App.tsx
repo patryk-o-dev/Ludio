@@ -1,14 +1,17 @@
 import { Route, Routes } from "react-router-dom";
 import Home from "./components/pages/Home/Home";
 import Quiz from "./components/pages/Quiz/Quiz";
+import FlexCenter from "./components/utils/FlexCenter/FlexCenter";
 
 function App() {
 	return (
 		<>
-			<Routes>
-				<Route path="/" element={<Home />} />
-				<Route path="/quiz" element={<Quiz />} />
-			</Routes>
+			<FlexCenter>
+				<Routes>
+					<Route path="/" element={<Home />} />
+					<Route path="/quiz" element={<Quiz />} />
+				</Routes>
+			</FlexCenter>
 		</>
 	);
 }
