@@ -27,7 +27,6 @@ const Home = () => {
 					<SetPicker variant="locked" />
 				</div>
 			</div>
-
 			<div className={styles.categoryEnhancerContainer}>
 				<CategoryEnhancer />
 			</div>

@@ -2,6 +2,8 @@ import { useEffect, useState } from "react";
 import type { Category, Player } from "../../../types";
 import { getData } from "../../../api/getDataApi";
 import styles from "./CategoryEnhancer.module.scss";
+import addIcon from "../../../assets/icons/addPlaceholder.png";
+import categoriesPlaceholder from "../../../assets/icons/categoriesPlaceholder.png";
 
 const CategoryEnhancer = () => {
 	const [categories, setCategories] = useState<Category[]>([]);
@@ -13,7 +15,7 @@ const CategoryEnhancer = () => {
 	useEffect(() => {
 		getData("category").then((data) => setCategories(data));
 		getData("player").then((data) => setPlayer(data[0]));
-	}, []);
+	}, [categories]);
 
 	const enhanceCategory = (categoryId: string) => {
 		if (
@@ -49,18 +51,35 @@ const CategoryEnhancer = () => {
 				{categories.map((category) => (
 					<li key={category.id} className={styles.categoryItem}>
 						<div className={styles.categoryName}>
-							<p>{category.name}</p>
+							<h5>{category.name}</h5>
+						</div>
+						<div className={styles.categoryLevel}>
+							<img src={categoriesPlaceholder} alt="Category" />
+							<span className={styles.categoryLevelText}>
+								Level {category.lvl}
+							</span>
 						</div>
 						<div className={styles.categoryProgress}>
-							<p>Progress Bar</p>{" "}
+							{Array.from({ length: category.expNeeded }).map((_, idx) => (
+								<div
+									key={idx}
+									className={
+										idx < category.expAdded
+											? `${styles.progressSquare} ${styles.active}`
+											: `${styles.progressSquare} ${styles.inactive}`
+									}
+								/>
+							))}
 						</div>
-
-						<button
-							onClick={() => enhanceCategory(category.id)}
-							className={styles.enhanceButton}
-						>
-							Ulepsz
-						</button>
+						<div className={styles.enhanceButtonContainer}>
+							<button
+								onClick={() => enhanceCategory(category.id)}
+								className={styles.enhanceButton}
+							>
+								<img src={addIcon} alt="Add" />
+								<p>Ulepsz</p>
+							</button>
+						</div>
 					</li>
 				))}
 			</ul>

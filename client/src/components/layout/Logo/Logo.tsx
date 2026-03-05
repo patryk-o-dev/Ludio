@@ -1,11 +1,12 @@
 import styles from "./Logo.module.scss";
 import logoImage from "../../../assets/images/logoPlaceholder.png";
+import Spacer from "../../utils/Spacer/Spacer";
 
 const Logo = () => {
 	return (
 		<div className={styles.logo}>
 			<img src={logoImage} alt="Logo" />
-			<div className={styles.spacer}></div>
+			<Spacer />
 		</div>
 	);
 };
