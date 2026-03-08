@@ -3,6 +3,7 @@ import styles from "./StartQuiz.module.scss";
 import type { Set } from "../../../types";
 import { useEffect, useState } from "react";
 import { getData } from "../../../api/getDataApi";
+import Spacer from "../../utils/Spacer/Spacer";
 
 const StartQuizButton = ({ refresh }: { refresh: boolean }) => {
 	const [selectedSet, setSelectedSet] = useState<Set | null>(null);
@@ -21,7 +22,9 @@ const StartQuizButton = ({ refresh }: { refresh: boolean }) => {
 					<h2 className={styles.titleText}>
 						{selectedSet && selectedSet.name}
 					</h2>
-					<div className={styles.spacer}></div>
+					<div className={styles.spacer}>
+						<Spacer />
+					</div>
 				</div>
 				<Link to="/quiz" className={styles.startButtonLink}>
 					Wybierz

@@ -30,16 +30,8 @@
 }
 
 .spacer {
-	height: 2px;
-	width: 80%;
-	background-image: linear-gradient(
-		90deg,
-		transparent,
-		vars.$card-unlocked-bg 30%,
-		vars.$text-color 50%,
-		vars.$card-unlocked-bg 60%,
-		transparent 100%
-	);
+	position: relative;
+	width: 100%;
 }
 
 .titleText {

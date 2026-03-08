@@ -1,15 +1,20 @@
 .spacer {
 	position: absolute;
 	bottom: 0;
-	left: 0;
-	width: 100vw;
+	left: 50%;
+	transform: translateX(-50%);
+	width: 95%;
 	height: 2px;
-	background: linear-gradient(
-		to right,
-		transparent,
-		vars.$background-tertiary,
-		vars.$card-unlocked-bg,
-		vars.$background-tertiary,
-		transparent
-	);
+}
+
+.decorGem {
+	position: absolute;
+	left: 50%;
+	top: 50%;
+	width: 20px;
+	height: 20px;
+	transform: translate(-50%, -50%) rotate(45deg);
+	background-color: vars.$text-color;
+	border: 5px solid vars.$background-tertiary;
+	border-radius: 5px;
 }

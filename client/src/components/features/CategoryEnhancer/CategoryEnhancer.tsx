@@ -15,7 +15,7 @@ const CategoryEnhancer = () => {
 	useEffect(() => {
 		getData("category").then((data) => setCategories(data));
 		getData("player").then((data) => setPlayer(data[0]));
-	}, [categories]);
+	}, []);
 
 	const enhanceCategory = (categoryId: string) => {
 		if (
@@ -30,12 +30,9 @@ const CategoryEnhancer = () => {
 				method: "PATCH",
 			})
 				.then((res) => res.json())
-				.then((data) => {
-					setCategories((prevCategories) =>
-						prevCategories.map((category) =>
-							category.id === categoryId ? data : category,
-						),
-					);
+				.then(() => {
+					getData("player").then((data) => setPlayer(data[0]));
+					getData("category").then((data) => setCategories(data));
 				})
 				.catch((err) => {
 					console.error("Error enhancing category:", err);
