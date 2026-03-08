@@ -6,6 +6,22 @@
 	height: calc(100% - 15px);
 	border-radius: 80px 80px 60px 60px;
 	background-color: vars.$background-basic;
+	background-image: url(../../../assets/images/startSectionBgc.png);
+	filter: drop-shadow(0px 4px 4px rgba(0, 0, 0, 0.25));
+	background-size: cover;
+	background-position: center;
+	position: relative;
+	z-index: 1;
+	border: 10px solid vars.$background-basic;
+}
+
+.startQuizButton::before {
+	content: "";
+	position: absolute;
+	inset: 0;
+	border-radius: 70px 70px 50px 50px;
+	background: vars.$overlay-color;
+	z-index: 1;
 }
 
 .content {
@@ -15,8 +31,8 @@
 	align-items: center;
 	width: calc(100% - 15px);
 	height: calc(100% - 15px);
-	background-color: vars.$background-tertiary;
 	border-radius: 80px 80px 60px 60px;
+	z-index: 2;
 }
 
 .title {
@@ -36,17 +52,120 @@
 
 .titleText {
 }
-
 .startButtonLink {
-	display: flex;
-	justify-content: center;
+	cursor: pointer;
+	position: relative;
+	display: inline-flex;
 	align-items: center;
-	width: 50%;
-	padding: vars.$spacing-md;
+	justify-content: center;
+	overflow: hidden;
+	transition: all 0.25s ease;
+	background:
+		radial-gradient(
+			65.28% 65.28% at 50% 100%,
+			rgba(vars.$glow-spread-color, 0.8) 0%,
+			rgba(vars.$glow-spread-color, 0) 100%
+		),
+		linear-gradient(0deg, vars.$glow-primary, vars.$background-secondary);
+	border-radius: 12px;
+	border: none;
+	outline: none;
+	padding: 12px 18px;
 	text-decoration: none;
+	width: 50%;
+	aspect-ratio: 7 / 1;
+	margin-bottom: vars.$spacing-sm;
+}
+
+.startButtonLink::before,
+.startButtonLink::after {
+	content: "";
+	position: absolute;
+	inset: 2px;
+	transition: all 0.5s ease-in-out;
+	border-radius: calc(12px - 2px);
+	z-index: 0;
+}
+.startButtonLink::before {
+	background: linear-gradient(
+		177.95deg,
+		rgba(255, 255, 255, 0.19) 0%,
+		rgba(255, 255, 255, 0) 100%
+	);
+}
+.startButtonLink::after {
+	background:
+		radial-gradient(
+			65.28% 65.28% at 50% 100%,
+			rgba(vars.$glow-spread-color, 0.8) 0%,
+			rgba(vars.$glow-spread-color, 0) 100%
+		),
+		linear-gradient(0deg, vars.$glow-primary, vars.$glow-primary);
+}
+.startButtonLink:active {
+	transform: scale(0.95);
+}
+
+.inner {
+	z-index: 2;
+	gap: vars.$spacing-xs;
+	position: relative;
+	width: 100%;
 	color: vars.$text-color;
-	background-color: vars.$background-secondary;
-	border-radius: 50px;
-	font-size: vars.$font-lg;
-	margin-bottom: vars.$spacing-xl;
+	display: inline-flex;
+	align-items: center;
+	justify-content: center;
+	font-size: vars.$font-md;
+}
+
+.pointsWrapper {
+	overflow: hidden;
+	width: 100%;
+	height: 100%;
+	pointer-events: none;
+	position: absolute;
+	z-index: 1;
+}
+
+.pointsWrapper .point {
+	bottom: -10px;
+	position: absolute;
+	pointer-events: none;
+	width: 2px;
+	height: 2px;
+	background-color: vars.$text-color;
+	border-radius: 100%;
+}
+
+.startButtonLink::before {
+	content: "";
+	position: absolute;
+	inset: 2px;
+	transition: 0.5s;
+}
+
+.startButtonLink:hover::before {
+	opacity: 0.7;
+}
+
+.startButtonLink::after {
+	content: "";
+	position: absolute;
+	inset: 0px;
+	background: linear-gradient(
+		45deg,
+		vars.$alert-color,
+		vars.$glow-primary,
+		vars.$enhanced-glow-color,
+		vars.$glow-spread-color,
+		vars.$glow-primary
+	);
+	border-radius: 9px;
+	transition: 1.5s;
+	opacity: 0;
+	filter: blur(20px);
+}
+
+.startButtonLink:hover:after {
+	opacity: 1;
 }

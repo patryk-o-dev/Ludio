@@ -4,14 +4,15 @@ import { useRef } from "react";
 import gsap from "gsap";
 
 const Spacer = () => {
-	const spacerRef = useRef<HTMLDivElement>(null);
+	const spacerRefLeft = useRef<HTMLDivElement>(null);
+	const spacerRefRight = useRef<HTMLDivElement>(null);
 
 	useGSAP(() => {
 		gsap.fromTo(
-			spacerRef.current,
+			spacerRefLeft.current,
 			{
 				background:
-					"linear-gradient(90deg, transparent 0%, #8b5072 15%, #f7b9c6 45%, #fbdaf5 50%, #f7b9c6 55%, #8b5072 85%, transparent 100%)",
+					"linear-gradient(90deg, transparent 0%, #8b5072 20%, #f7b9c6 60%, #fbdaf5 90%)",
 			},
 			{
 				duration: 4,
@@ -19,13 +20,30 @@ const Spacer = () => {
 				repeat: -1,
 				yoyo: true,
 				background:
-					"linear-gradient(90deg, transparent 0%, #8b5072 17%, #f7b9c6 50%, #fbdaf5 60%, #f7b9c6 62%, #8b5072 83%, transparent 100%)",
+					"linear-gradient(90deg, transparent 0%, #8b5072 35%, #f7b9c6 90%, #fbdaf5 100%)",
+			},
+		);
+		gsap.fromTo(
+			spacerRefRight.current,
+			{
+				background:
+					"linear-gradient(270deg, transparent 0%, #8b5072 20%, #f7b9c6 70%, #fbdaf5 100%)",
+			},
+			{
+				duration: 4,
+				ease: "power1.inOut",
+				repeat: -1,
+				yoyo: true,
+				background:
+					"linear-gradient(270deg, transparent 0%, #8b5072 25%, #f7b9c6 60%, #fbdaf5 80%)",
 			},
 		);
 	}, []);
 	return (
-		<div className={styles.spacer} ref={spacerRef}>
+		<div className={styles.spacerWrapper}>
+			<div className={styles.spacerLeft} ref={spacerRefLeft}></div>
 			<div className={styles.decorGem}></div>
+			<div className={styles.spacerRight} ref={spacerRefRight}></div>
 		</div>
 	);
 };
