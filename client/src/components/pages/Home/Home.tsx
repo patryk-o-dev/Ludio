@@ -2,8 +2,8 @@ import CategoryEnhancer from "../../features/CategoryEnhancer/CategoryEnhancer";
 import styles from "./Home.module.scss";
 import SetPicker from "../../layout/SetPicker/SetPicker";
 import { useState } from "react";
-import StartQuizButton from "../../layout/StartQuizButton/StartQuizButton";
 import Logo from "../../layout/Logo/Logo";
+import StartQuiz from "../../layout/StartQuiz/StartQuiz";
 
 const Home = () => {
 	const [refresh, setRefresh] = useState(false);
@@ -21,7 +21,7 @@ const Home = () => {
 					/>
 				</div>
 				<div className={styles.startButton}>
-					<StartQuizButton refresh={refresh} />
+					<StartQuiz refresh={refresh} />
 				</div>
 				<div className={styles.categoriesLocked}>
 					<SetPicker variant="locked" />

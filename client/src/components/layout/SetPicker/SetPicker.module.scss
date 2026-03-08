@@ -34,8 +34,6 @@
 
 .set {
 	position: relative;
-	border: vars.$border;
-	padding: vars.$spacing-md;
 	display: flex;
 	flex-direction: row;
 	gap: vars.$spacing-sm;
@@ -46,11 +44,6 @@
 
 	&:hover {
 		background-color: vars.$background-tertiary;
-	}
-
-	img {
-		width: 32px;
-		height: 32px;
 	}
 }
 

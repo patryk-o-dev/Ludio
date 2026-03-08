@@ -2,11 +2,9 @@ import { useEffect, useState } from "react";
 import styles from "./SetPicker.module.scss";
 import { getData } from "../../../api/getDataApi";
 import { type Set } from "../../../types";
-import categoriesPlaceholder from "../../../assets/icons/categoriesPlaceholder.png";
-import lockPlaceholder from "../../../assets/icons/lockPlaceholder.png";
-import unlockPlaceholder from "../../../assets/icons/unlockPlaceholder.png";
 import { gsap } from "gsap";
 import { useGSAP } from "@gsap/react";
+import SetCard from "../../utils/SetCard/SetCard";
 
 const SetPicker = ({
 	variant,
@@ -115,9 +113,7 @@ const SetPicker = ({
 								key={set.id}
 								className={`${styles.set} ${styles.unlockedSet}`}
 							>
-								<img src={categoriesPlaceholder} alt="setIcon" />
-								<h4>{set.name}</h4>
-								<img src={unlockPlaceholder} alt="decorIcon" />
+								<SetCard name={set.name} unlocked={true} />
 								<button
 									className={styles.addSetButton}
 									onClick={() => {
@@ -137,6 +133,7 @@ const SetPicker = ({
 					<ul className={styles.setsList}>
 						{lockedSets.map((set) => (
 							<li key={set.id} className={`${styles.set} ${styles.lockedSet}`}>
+								<SetCard name={set.name} unlocked={false} />
 								<div className={styles.tooltip}>
 									<h5>Zwiększ poziom:</h5>
 									<ul>
@@ -151,9 +148,6 @@ const SetPicker = ({
 										))}
 									</ul>
 								</div>
-								<img src={categoriesPlaceholder} alt="setIcon" />
-								<h4>{set.name}</h4>
-								<img src={lockPlaceholder} alt="lockIcon" />
 							</li>
 						))}
 					</ul>

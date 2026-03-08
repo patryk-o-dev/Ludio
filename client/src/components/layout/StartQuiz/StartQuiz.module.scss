@@ -1,0 +1,60 @@
+.startQuizButton {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	width: calc(100% - 15px);
+	height: calc(100% - 15px);
+	border-radius: 80px 80px 60px 60px;
+	background-color: vars.$background-basic;
+}
+
+.content {
+	display: flex;
+	flex-direction: column;
+	justify-content: space-between;
+	align-items: center;
+	width: calc(100% - 15px);
+	height: calc(100% - 15px);
+	background-color: vars.$background-tertiary;
+	border-radius: 80px 80px 60px 60px;
+}
+
+.title {
+	font-size: vars.$font-2xl;
+	width: 100%;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	flex-direction: column;
+	margin-top: vars.$spacing-xl;
+}
+
+.spacer {
+	height: 2px;
+	width: 80%;
+	background-image: linear-gradient(
+		90deg,
+		transparent,
+		vars.$card-unlocked-bg 30%,
+		vars.$text-color 50%,
+		vars.$card-unlocked-bg 60%,
+		transparent 100%
+	);
+}
+
+.titleText {
+}
+
+.startButtonLink {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	width: 50%;
+	padding: vars.$spacing-md;
+	text-decoration: none;
+	color: vars.$text-color;
+	background-color: vars.$background-secondary;
+	border-radius: 50px;
+	font-size: vars.$font-lg;
+	margin-bottom: vars.$spacing-xl;
+}

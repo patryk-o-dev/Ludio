@@ -1,5 +1,5 @@
 import { Link } from "react-router-dom";
-import styles from "./StartQuizButton.module.scss";
+import styles from "./StartQuiz.module.scss";
 import type { Set } from "../../../types";
 import { useEffect, useState } from "react";
 import { getData } from "../../../api/getDataApi";
@@ -16,13 +16,17 @@ const StartQuizButton = ({ refresh }: { refresh: boolean }) => {
 
 	return (
 		<div className={styles.startQuizButton}>
-			<div>
-				<h2>{selectedSet && selectedSet.name}</h2>
-				<div className={styles.spacer}>-</div>
+			<div className={styles.content}>
+				<div className={styles.title}>
+					<h2 className={styles.titleText}>
+						{selectedSet && selectedSet.name}
+					</h2>
+					<div className={styles.spacer}></div>
+				</div>
+				<Link to="/quiz" className={styles.startButtonLink}>
+					Wybierz
+				</Link>
 			</div>
-			<Link to="/quiz" className={styles.startButtonLink}>
-				Start Quiz
-			</Link>
 		</div>
 	);
 };

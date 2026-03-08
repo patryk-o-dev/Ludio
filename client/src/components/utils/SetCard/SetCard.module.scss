@@ -1,0 +1,37 @@
+.setCard {
+	display: flex;
+	flex-direction: row;
+	align-items: center;
+	justify-content: space-between;
+	width: 100%;
+	aspect-ratio: 9 / 2;
+	background-image: url(../../../assets/images/setCardBgc.png);
+	background-size: cover;
+	filter: drop-shadow(0px 4px 4px rgba(0, 0, 0, 0.25));
+	border-radius: 20px;
+	padding: vars.$spacing-2xs vars.$spacing-xs;
+	position: relative;
+  border: 2px solid vars.$background-basic;
+}
+
+.setCard::before {
+	content: "";
+	position: absolute;
+	inset: 0;
+	border-radius: 20px;
+	background: rgba(56, 15, 102, 0.35);
+	z-index: 1;
+}
+
+.categoryIcon {
+	height: calc(100%);
+	width: auto;
+	position: relative;
+	z-index: 2;
+}
+
+.setName,
+.lockIcon {
+	position: relative;
+	z-index: 2;
+}
