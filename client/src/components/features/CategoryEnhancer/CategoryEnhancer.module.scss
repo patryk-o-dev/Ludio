@@ -1,5 +1,5 @@
 .categoryEnhancer {
-	padding: vars.$spacing-lg;
+	padding: vars.$spacing-sm vars.$spacing-2xl vars.$spacing-lg vars.$spacing-2xl;
 	height: 100%;
 }
 
@@ -15,25 +15,58 @@
 .categoryItem {
 	flex: 1;
 	max-width: 200px;
-	border: vars.$border;
-	padding: vars.$spacing-md;
+	border: 3px solid vars.$background-tertiary;
+	border-radius: 12px;
 	display: flex;
 	flex-direction: column;
 	gap: vars.$spacing-2xs;
-	border-radius: vars.$radius-md;
-	background-color: vars.$background-tertiary;
+	background-image: linear-gradient(
+		60deg,
+		vars.$background-secondary 0%,
+		vars.$background-tertiary 100%
+	);
+	position: relative;
 }
 
 .categoryName {
 	flex: 7;
 	font-size: vars.$font-lg;
+	border-radius: 12px 12px 0 0;
+	background-image: linear-gradient(
+		60deg,
+		vars.$text-color-dark 0%,
+		vars.$background-basic 100%
+	);
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	flex-wrap: wrap;
+	position: relative;
+	h5 {
+		width: 100%;
+		text-align: center;
+		text-transform: uppercase;
+	}
 }
 
+.spacerWrapper {
+	position: absolute;
+	left: 0;
+	right: 0;
+	bottom: 0;
+	transform: translateY(50%);
+	display: flex;
+	justify-content: center;
+	z-index: 2;
+	pointer-events: none;
+}
 .categoryLevel {
 	flex: 5.5;
 	display: flex;
 	align-items: center;
+	justify-content: space-between;
 	gap: vars.$spacing-2xs;
+	padding: vars.$spacing-2xs;
 
 	img {
 		width: 24px;
@@ -52,6 +85,9 @@
 	display: flex;
 	flex-direction: row;
 	border: 2px solid vars.$contour-color;
+	border-bottom-left-radius: inherit;
+	border-bottom-right-radius: inherit;
+	overflow: hidden;
 	width: 100%;
 }
 
@@ -75,19 +111,92 @@
 }
 
 .enhanceButtonContainer {
-	flex: 4;
+	display: flex;
+	justify-content: flex-end;
+	align-items: center;
+	padding: vars.$spacing-2xs;
 }
 
 .enhanceButton {
-	border: 1px solid vars.$background-basic;
-	background-color: vars.$upgrade-button-bg;
-	display: flex;
-	align-items: center;
-	justify-content: center;
+	position: relative;
+	border: none;
+	background: transparent;
+	padding: 0;
+	cursor: pointer;
+	outline-offset: 4px;
+	transition: filter 250ms;
+	user-select: none;
+	touch-action: manipulation;
+	height: 80%;
+	width: 100%;
 }
 
-.enhanceButton img {
-	height: 10px;
-	filter: brightness(0) saturate(100%) invert(99%) sepia(65%) saturate(5974%)
-		hue-rotate(188deg) brightness(106%) contrast(97%);
+.shadow {
+	position: absolute;
+	top: 0;
+	left: 0;
+	width: 100%;
+	height: 100%;
+	border-radius: 4px;
+	background: rgba(0, 0, 0, 0.25);
+	will-change: transform;
+	transform: translateY(2px);
+	transition: transform 600ms cubic-bezier(0.3, 0.7, 0.4, 1);
+}
+
+.edge {
+	position: absolute;
+	top: 0;
+	left: 0;
+	width: 100%;
+	height: 100%;
+	border-radius: 4px;
+	background: linear-gradient(
+		to left,
+		vars.$upgrade-button-shadow-gradient 0%,
+		vars.$upgrade-button-shadow 8%,
+		vars.$upgrade-button-shadow 92%,
+		vars.$upgrade-button-shadow-gradient 100%
+	);
+}
+
+.frontText {
+	display: block;
+	position: relative;
+	padding: vars.$spacing-2xs vars.$spacing-xs;
+	border-radius: 4px;
+	font-size: vars.$font-sm;
+	color: vars.$upgrade-button-shadow;
+	background: vars.$upgrade-button;
+	will-change: transform;
+	transform: translateY(-4px);
+	transition: transform 600ms cubic-bezier(0.3, 0.7, 0.4, 1);
+}
+
+button:hover {
+	filter: brightness(110%);
+}
+
+button:hover .frontText {
+	transform: translateY(-6px);
+	transition: transform 250ms cubic-bezier(0.3, 0.7, 0.4, 1.5);
+}
+
+button:active .frontText {
+	transform: translateY(-2px);
+	transition: transform 34ms;
+}
+
+button:hover .shadow {
+	transform: translateY(4px);
+	transition: transform 250ms cubic-bezier(0.3, 0.7, 0.4, 1.5);
+}
+
+button:active .shadow {
+	transform: translateY(1px);
+	transition: transform 34ms;
+}
+
+button:focus:not(:focus-visible) {
+	outline: none;
 }

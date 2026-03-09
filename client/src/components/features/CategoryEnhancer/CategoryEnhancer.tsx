@@ -4,6 +4,7 @@ import { getData } from "../../../api/getDataApi";
 import styles from "./CategoryEnhancer.module.scss";
 import addIcon from "../../../assets/icons/addPlaceholder.png";
 import categoriesPlaceholder from "../../../assets/icons/categoriesPlaceholder.png";
+import Spacer from "../../utils/Spacer/Spacer";
 
 const CategoryEnhancer = () => {
 	const [categories, setCategories] = useState<Category[]>([]);
@@ -49,12 +50,23 @@ const CategoryEnhancer = () => {
 					<li key={category.id} className={styles.categoryItem}>
 						<div className={styles.categoryName}>
 							<h5>{category.name}</h5>
+							<div className={styles.spacerWrapper}>
+								<Spacer />
+							</div>
 						</div>
+
 						<div className={styles.categoryLevel}>
 							<img src={categoriesPlaceholder} alt="Category" />
 							<span className={styles.categoryLevelText}>
 								Level {category.lvl}
 							</span>
+							<div className={styles.enhanceButtonContainer}>
+								<button className={styles.enhanceButton}>
+									<span className={styles.shadow}></span>
+									<span className={styles.edge}></span>
+									<span className={styles.frontText}>+</span>
+								</button>
+							</div>
 						</div>
 						<div className={styles.categoryProgress}>
 							{Array.from({ length: category.expNeeded }).map((_, idx) => (
@@ -67,15 +79,6 @@ const CategoryEnhancer = () => {
 									}
 								/>
 							))}
-						</div>
-						<div className={styles.enhanceButtonContainer}>
-							<button
-								onClick={() => enhanceCategory(category.id)}
-								className={styles.enhanceButton}
-							>
-								<img src={addIcon} alt="Add" />
-								<p>Ulepsz</p>
-							</button>
 						</div>
 					</li>
 				))}
