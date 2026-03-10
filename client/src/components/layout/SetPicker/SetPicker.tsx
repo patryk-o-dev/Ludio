@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import styles from "./SetPicker.module.scss";
 import { getData } from "../../../api/getDataApi";
 import { type Set } from "../../../types";
@@ -15,6 +15,9 @@ const SetPicker = ({
 }) => {
 	const [unlockedSets, setUnlockedSets] = useState<Set[]>([]);
 	const [lockedSets, setLockedSets] = useState<Set[]>([]);
+
+	const setWrapperRef = useRef<HTMLDivElement>(null);
+	const highlightRef = useRef<HTMLDivElement>(null);
 
 	gsap.registerPlugin(useGSAP);
 
@@ -75,6 +78,17 @@ const SetPicker = ({
 		});
 	}, [lockedSets]);
 
+	useGSAP(() => {
+		const highlight = highlightRef.current;
+		if (!highlight) return;
+
+		const tl = gsap.timeline({ repeat: -1, ease: "linear", yoyo: true });
+		tl.to(highlight, { backgroundPosition: "0% 50%", duration: 2 })
+			.to(highlight, { backgroundPosition: "100% 0%", duration: 5 })
+			.to(highlight, { backgroundPosition: "25% 10%", duration: 4 })
+			.to(highlight, { backgroundPosition: "100% 40%", duration: 3 });
+	});
+
 	const handleSelectSet = async (set: Set) => {
 		try {
 			const res = await fetch(
@@ -100,8 +114,8 @@ const SetPicker = ({
 	};
 
 	return (
-		<div className={styles.setDisplayWrapper}>
-			<div className={styles.card}></div>
+		<div className={styles.setDisplayWrapper} ref={setWrapperRef}>
+			<div className={styles.highlight} ref={highlightRef}></div>
 			{variant === "unlocked" && (
 				<div className={styles.setsDisplay}>
 					<div className={styles.setsDisplayHeader}>

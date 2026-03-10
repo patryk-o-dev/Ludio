@@ -43,8 +43,6 @@
 
 .categoriesUnlocked {
 	flex: 2;
-	border: vars.$border;
-	border-radius: 20px;
 	z-index: 1;
 	position: relative;
 }
@@ -62,8 +60,6 @@
 
 .categoriesLocked {
 	flex: 2;
-	border: vars.$border;
-	border-radius: vars.$radius-md;
 	z-index: 1;
 	position: relative;
 }

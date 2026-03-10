@@ -1,14 +1,43 @@
 .setDisplayWrapper {
 	height: 100%;
 	width: 100%;
-	overflow-y: auto;
+	overflow: scroll;
 	scrollbar-width: none;
+	border-radius: 20px;
+	background-image: radial-gradient(
+		circle at 0% 80%,
+		vars.$background-basic 0%,
+		vars.$background-secondary 45%,
+		vars.$background-secondary 80%,
+		vars.$background-basic 100%
+	);
 }
 
 .setsDisplay {
 	padding: vars.$spacing-xs vars.$spacing-md;
 	display: flex;
 	flex-direction: column;
+	height: 100%;
+}
+
+.highlight {
+	position: absolute;
+	inset: -1px;
+	border-radius: inherit;
+	pointer-events: none;
+	z-index: -1;
+	box-shadow: 3px 8px 24px -2px rgba(0, 0, 0, 0.9);
+	background: radial-gradient(
+		circle at 0% 80%,
+		#dfc9d7 0%,
+		#c7a4d1 15%,
+		#603664 40%,
+		#603664 60%,
+		#e7beff 85%,
+		#5c4253 100%
+	);
+	background-size: 200% 100%;
+	background-position: 0% 0%;
 }
 
 .setsDisplayHeader {
