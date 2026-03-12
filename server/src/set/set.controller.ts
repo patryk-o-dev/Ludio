@@ -19,4 +19,9 @@ export class SetController {
   selectSet(@Param('setId') setId: string) {
     return this.setService.selectSet(setId);
   }
+
+  @Patch('winCondition')
+  winCondition() {
+    return this.setService.winCondition();
+  }
 }

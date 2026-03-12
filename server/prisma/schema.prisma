@@ -12,8 +12,11 @@ model Question {
   id            String        @id       @default(uuid())
   media         String   
   tags          Tag[]
+  used          Boolean       @default(false)
   answerId      String
   answer        Answer        @relation(fields: [answerId], references: [id])
+  answerTypeId  String
+  answerType    AnswerType    @relation(fields: [answerTypeId], references: [id])
 }
 
 model Tag {
@@ -39,6 +42,7 @@ model AnswerType {
   id          String        @id       @default(uuid())
   name        String        @unique
   answer      Answer[]
+  question    Question[]
 }
 
 model Set {
@@ -49,6 +53,7 @@ model Set {
   unlocked    Boolean       @default(false)
   selected    Boolean       @default(false)
   done        Boolean       @default(false)
+  perfect     Boolean       @default(false)
 }
 
 model Option {
@@ -71,6 +76,8 @@ model Category {
 }
 
 model Player {
-  id          String        @id           @default(uuid())
-  exp         Int           @default(0)
+  id            String        @id           @default(uuid())
+  exp           Int           @default(0)
+  questionIndex Int           @default(0)
+  score         Int           @default(0)
 }

@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
 import { Link } from "react-router-dom";
 import { getData } from "../../../api/getDataApi";
@@ -11,179 +11,150 @@ type Inputs = {
 };
 
 const Quiz = () => {
-	const [questions, setQuestions] = useState<Question[]>([]);
-	const [allAnswers, setAllAnswers] = useState<Answer[]>([]);
-	const [player, setPlayer] = useState<Player>({
-		id: "",
-		exp: 0,
-	});
-	const [filteredAnswers, setFilteredAnswers] = useState<Answer[]>([]);
-	const [score, setScore] = useState(0);
-
-	const [currentQuestionIndex, setCurrentQuestionIndex] = useState(0);
-	const [quizStarted, setQuizStarted] = useState(false);
-	const [quizSet, setQuizSet] = useState<Set | null>(null);
-
-	const { register, handleSubmit } = useForm<Inputs>();
+	const { register, handleSubmit, watch } = useForm<Inputs>();
+	const [set, setSet] = useState<Set>();
+	const [question, setQuestion] = useState<Question>();
+	const [player, setPlayer] = useState<Player>();
+	const [answers, setAnswers] = useState<Answer[]>([]);
+	const [showResults, setShowResults] = useState(false);
+	const [winInfo, setWinInfo] = useState<{ done: boolean; perfect: boolean }>();
 
 	useEffect(() => {
-		getData("player").then((data) => setPlayer(data[0]));
+		const fetchSet = async () => {
+			const res = await fetch(`http://localhost:3000/api/set/selected`);
+			const data = await res.json();
+			setSet(data);
+		};
+		fetchSet();
+		getData("player").then((data) => {
+			setPlayer(data);
+		});
+		getData("answer").then((data) => {
+			setAnswers(data);
+		});
 	}, []);
 
-	const addPlayerExp = (playerId: string, exp: number, setId: string) => {
-		fetch(`http://localhost:3000/api/player/${playerId}/earn-exp`, {
-			method: "PATCH",
-			headers: {
-				"Content-Type": "application/json",
-			},
-			body: JSON.stringify({ exp, setId }),
-		})
-			.then((res) => res.json())
-			.then((data) => {
-				setPlayer(data);
-			})
-			.catch((err) => {
-				console.error("Error adding player EXP:", err);
-			});
-	};
-
-	const selectAnswer = (data: Inputs) => {
-		const currentQuestion = questions[currentQuestionIndex];
-		if (data.answer === currentQuestion.answer.value) {
-			console.log("Correct! Score: ", score + 1);
-			setScore((prev) => prev + 1);
-			if (quizSet) {
-				console.log("qiuzset: ", quizSet);
-				console.log("score needed: ", quizSet.option.scoreNeeded);
-				console.log("max score: ", quizSet.option.numberOfQuestions - 1);
-				if (
-					score + 1 >= quizSet.option.scoreNeeded &&
-					currentQuestionIndex >= quizSet.option.numberOfQuestions - 1
-				) {
-					handleWin();
-				}
-			}
-		} else {
-			alert(`Wrong! The correct answer was: ${currentQuestion.answer.value}`);
-		}
-		setCurrentQuestionIndex((prev) => prev + 1);
-	};
-
-	const startQuiz = async () => {
-		const selectedSet = await fetch(`http://localhost:3000/api/set/selected`)
-			.then((res) => res.json())
-			.then((data) => {
-				setQuizSet(data);
-				console.log("Selected quiz set:", data);
-				return data;
-			})
-			.catch((err) => {
-				console.error("Error fetching selected quiz set:", err);
-				return null;
-			});
-
-		if (!selectedSet) return;
-
-		const tags = selectedSet.tags
-			.map((tag: { id: string; name: string }) => tag.name)
-			.join(",");
-		const questionsBySet = await fetch(
-			`http://localhost:3000/api/question/tags/${tags}`,
-		)
-			.then((res) => res.json())
-			.catch((err) => {
-				console.error("Error fetching questions:", err);
-				return [];
-			});
-
-		const answers = await getData("answer");
-
-		setQuestions(questionsBySet);
-		setAllAnswers(answers);
-		setQuizStarted(true);
-	};
-
-	const handleAddFilter = (e: React.ChangeEvent<HTMLInputElement>) => {
-		const value = e.target.value.toLowerCase();
-		const filtered = allAnswers.filter(
-			(answer) =>
-				answer.value.toLowerCase().includes(value) &&
-				answer.answerTypeId ===
-					questions[currentQuestionIndex]?.answer?.answerTypeId,
+	const fetchQuestions = useCallback(async () => {
+		const res = await fetch(
+			`http://localhost:3000/api/question/tags/${set!.tags.map((t) => t.name).join(",")}`,
 		);
-		setFilteredAnswers(filtered);
+		const data = await res.json();
+		setQuestion(data);
+	}, [set]);
+
+	useEffect(() => {
+		if (!set) return;
+		const fetch = async () => {
+			await fetchQuestions();
+		};
+		fetch();
+	}, [set, fetchQuestions]);
+
+	const onSubmit = async (data: Inputs) => {
+		await fetch(`http://localhost:3000/api/player/advance-question`, {
+			method: "PATCH",
+		});
+		const isAnswerCorrect = await fetch(
+			`http://localhost:3000/api/question/answer/${question!.id}/${data.answer}`,
+		).then((res) => res.json());
+		if (isAnswerCorrect) {
+			await fetch(`http://localhost:3000/api/player/advance-score`, {
+				method: "PATCH",
+			}).then((res) => res.json());
+		}
+
+		const updatedPlayer = await fetch(`http://localhost:3000/api/player`).then(
+			(res) => res.json(),
+		);
+		setPlayer(updatedPlayer);
+		if (updatedPlayer.questionIndex >= set!.option.numberOfQuestions) {
+			await endGame();
+		} else {
+			fetchQuestions();
+		}
 	};
 
-	const handleWin = () => {
-		if (quizSet) {
-			addPlayerExp(player.id, 5, quizSet.id);
-		}
+	// eslint-disable-next-line react-hooks/incompatible-library
+	const search = watch("search") || "";
+	const [filteredAnswers, setFilteredAnswers] = useState<Answer[]>([]);
+
+	useEffect(() => {
+		const timeout = setTimeout(() => {
+			const answersForType = answers.filter(
+				(a) => a.answerTypeId === question?.answerTypeId,
+			);
+			if (!search.trim()) {
+				setFilteredAnswers(answersForType);
+			} else {
+				setFilteredAnswers(
+					answersForType.filter((a) =>
+						a.value.toLowerCase().includes(search.toLowerCase()),
+					),
+				);
+			}
+		}, 300);
+
+		return () => clearTimeout(timeout);
+	}, [search, answers, question]);
+
+	const endGame = async () => {
+		const winInfo = await fetch(`http://localhost:3000/api/set/winCondition`, {
+			method: "PATCH",
+		}).then((res) => res.json());
+		setWinInfo(winInfo);
+		setShowResults(true);
 	};
 
 	return (
-		<div>
-			{!quizStarted && (
+		<div className={styles.quiz}>
+			{showResults && (
 				<div>
-					<h2>Ready to start the quiz?</h2>
-					<button onClick={startQuiz} className={styles.startQuizButton}>Start Quiz</button>
+					{!winInfo?.done && (
+						<p>
+							Twój wynik:{" "}
+							<span>
+								{player?.questionIndex} / {set?.option.numberOfQuestions}
+							</span>
+						</p>
+					)}
+					{winInfo?.done && <h1>You won!</h1>}
+					{winInfo?.perfect && <h1>Perfect score!</h1>}
+					<Link to="/">Powrót</Link>
 				</div>
 			)}
-			{quizStarted &&
-				questions.length > 0 &&
-				currentQuestionIndex < questions.length &&
-				quizSet &&
-				currentQuestionIndex < quizSet.option.numberOfQuestions && (
-					<div className={styles.quizContainer}>
-						<h4>
-							Pytanie {currentQuestionIndex + 1} {" - "}
-							{questions[currentQuestionIndex].answer.value} {" - "}
-							Wynik: {score} / {quizSet.option.numberOfQuestions}
-						</h4>
-						<img src={questions[currentQuestionIndex].media} alt="" />
-						<div>
-							<form onSubmit={handleSubmit(selectAnswer)}>
-								<input
-									type="text"
-									{...register("search")}
-									onChange={handleAddFilter}
-									placeholder=""
-								/>
-								<select {...register("answer")}>
-									{filteredAnswers.map((answer) => (
-										<option key={answer.id} value={answer.value}>
-											{answer.value}
-										</option>
-									))}
-								</select>
-								<input type="submit" />
-							</form>
+			{!showResults && (
+				<>
+					<div className={styles.quizHeader}>
+						<div className={styles.scoreDisplay}>
+							<span>
+								{player?.questionIndex} / {set?.option.numberOfQuestions}
+							</span>
+						</div>
+						<div className={styles.scoreDisplay}>
+							<span>
+								{player?.score} / {set?.option.scoreNeeded}
+							</span>
 						</div>
 					</div>
-				)}
-			{quizStarted &&
-				quizSet &&
-				currentQuestionIndex >= quizSet.option.numberOfQuestions &&
-				score < quizSet.option.scoreNeeded && (
-					<div>
-						<h2>Przegrałeś!</h2>
-						<p>
-							Twój wynik: {score} / {questions.length}
-						</p>
-						<Link to="/">Zakończ</Link>
+					<div className={styles.mediaWrapper}>
+						<img src={question?.media} alt="" />
 					</div>
-				)}
-			{quizStarted &&
-				quizSet &&
-				currentQuestionIndex >= quizSet.option.numberOfQuestions &&
-				score >= quizSet.option.scoreNeeded && (
-					<div>
-						<h2>Wygrałeś!</h2>
-						<p>
-							Twój wynik: {score} / {questions.length}
-						</p>
-						<Link to="/">Zakończ</Link>
+					<div className={styles.answerWrapper}>
+						<form onSubmit={handleSubmit(onSubmit)}>
+							<input defaultValue="" {...register("search")} />
+							<select {...register("answer")}>
+								<option value="">Wybierz z listy</option>
+								{filteredAnswers.map((a) => (
+									<option key={a.id} value={a.value}>
+										{a.value}
+									</option>
+								))}
+							</select>
+							<input type="submit" />
+						</form>
 					</div>
-				)}
+				</>
+			)}
 		</div>
 	);
 };

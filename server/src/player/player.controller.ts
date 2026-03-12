@@ -6,8 +6,8 @@ export class PlayerController {
   constructor(private readonly playerService: PlayerService) {}
 
   @Get()
-  findAll() {
-    return this.playerService.findAll();
+  findFirst() {
+    return this.playerService.findFirst();
   }
 
   @Patch(':id/earn-exp')
@@ -17,5 +17,15 @@ export class PlayerController {
     @Body('setId') setId: string,
   ) {
     return this.playerService.earnExp(id, exp, setId);
+  }
+
+  @Patch('/advance-question')
+  advanceQuestion() {
+    return this.playerService.advanceQuestion();
+  }
+
+  @Patch('/advance-score')
+  advanceScore() {
+    return this.playerService.advanceScore();
   }
 }

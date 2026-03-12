@@ -1,6 +1,6 @@
 import CategoryEnhancer from "../../features/CategoryEnhancer/CategoryEnhancer";
 import styles from "./Home.module.scss";
-import SetPicker from "../../layout/SetPicker/SetPicker";
+import SetPicker from "../../features/SetPicker/SetPicker";
 import { useState } from "react";
 import Logo from "../../layout/Logo/Logo";
 import StartQuiz from "../../layout/StartQuiz/StartQuiz";

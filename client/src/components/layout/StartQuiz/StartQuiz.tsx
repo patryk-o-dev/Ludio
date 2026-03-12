@@ -56,7 +56,7 @@ const StartQuiz = ({ refresh }: { refresh: boolean }) => {
 						<Spacer />
 					</div>
 				</div>
-				<Link to="/quiz" className={styles.startButtonLink}>
+				<Link to={`/quiz`} className={styles.startButtonLink}>
 					<div ref={pointsRef} className={styles.pointsWrapper}>
 						{[...Array(40)].map((_, i) => (
 							<i key={i} className={styles.point}></i>

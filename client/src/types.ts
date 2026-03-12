@@ -2,6 +2,8 @@ export type Question = {
 	id: string;
 	media: string;
 	tags: Tag[];
+	answerTypeId: string;
+	answerType: AnswerType;
 	answerId: string;
 	answer: Answer;
 };
@@ -37,6 +39,7 @@ export type Set = {
 	option: Option;
 	tags: Tag[];
 	done: boolean;
+	perfect: boolean;
 	unlocked: boolean;
 	selected: boolean;
 };
@@ -61,4 +64,6 @@ export type Category = {
 export type Player = {
 	id: string;
 	exp: number;
+	score: number;
+	questionIndex: number;
 };

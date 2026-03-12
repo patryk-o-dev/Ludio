@@ -2,20 +2,16 @@ import { useEffect, useState } from "react";
 import type { Category, Player } from "../../../types";
 import { getData } from "../../../api/getDataApi";
 import styles from "./CategoryEnhancer.module.scss";
-import addIcon from "../../../assets/icons/addPlaceholder.png";
 import categoriesPlaceholder from "../../../assets/icons/categoriesPlaceholder.png";
 import Spacer from "../../utils/Spacer/Spacer";
 
 const CategoryEnhancer = () => {
 	const [categories, setCategories] = useState<Category[]>([]);
-	const [player, setPlayer] = useState<Player>({
-		id: "",
-		exp: 0,
-	});
+	const [player, setPlayer] = useState<Player>();
 
 	useEffect(() => {
 		getData("category").then((data) => setCategories(data));
-		getData("player").then((data) => setPlayer(data[0]));
+		getData("player").then((data) => setPlayer(data));
 	}, []);
 
 	const enhanceCategory = (categoryId: string) => {
@@ -26,7 +22,7 @@ const CategoryEnhancer = () => {
 			)
 		) {
 			alert("Category has reached maximum level!");
-		} else if (player.exp > 0) {
+		} else if (player && player.exp > 0) {
 			fetch(`http://localhost:3000/api/category/${categoryId}/enhance`, {
 				method: "PATCH",
 			})
@@ -61,7 +57,10 @@ const CategoryEnhancer = () => {
 								Level {category.lvl}
 							</span>
 							<div className={styles.enhanceButtonContainer}>
-								<button className={styles.enhanceButton}>
+								<button
+									className={styles.enhanceButton}
+									onClick={() => enhanceCategory(category.id)}
+								>
 									<span className={styles.shadow}></span>
 									<span className={styles.edge}></span>
 									<span className={styles.frontText}>+</span>
