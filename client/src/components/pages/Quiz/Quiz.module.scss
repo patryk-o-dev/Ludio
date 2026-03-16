@@ -47,7 +47,7 @@
 	min-height: 0;
 	border-radius: vars.$radius-xl;
 	padding: 0 vars.$spacing-xs;
-	border: 1px solid vars.$background-secondary;
+	background-color: vars.$background-basic;
 
 	.mediaDisplay {
 		position: relative;
@@ -110,4 +110,5 @@
 	display: flex;
 	flex: 1;
 	height: 100%;
+	background-color: #9f5df5;
 }

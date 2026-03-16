@@ -5,6 +5,7 @@ import { getData } from "../../../api/getDataApi";
 import type { Answer, Player, Question, Set } from "../../../types";
 import styles from "./Quiz.module.scss";
 import QuizDownshift from "./utils/QuizDownshift";
+import AnimatedBorder from "../../utils/AnimatedBorder/AnimatedBorder";
 
 type Inputs = {
 	answer: string;
@@ -122,11 +123,18 @@ const Quiz = () => {
 					</div>
 					<div className={styles.questionWrapper}>
 						<div className={styles.questionDisplay}>
-							<div className={styles.mediaWrapper}>
-								<div className={styles.mediaDisplay}>
-									<img src={`/question_images/${question?.media}`} alt="" />
+							<AnimatedBorder
+								flex="4"
+								inset="2px"
+								borderColor="#ff7ed4"
+								borderRadius="48px"
+							>
+								<div className={styles.mediaWrapper}>
+									<div className={styles.mediaDisplay}>
+										<img src={`/question_images/${question?.media}`} alt="" />
+									</div>
 								</div>
-							</div>
+							</AnimatedBorder>
 							<div className={styles.answerWrapper}>
 								<form
 									onSubmit={handleSubmit(onSubmit)}

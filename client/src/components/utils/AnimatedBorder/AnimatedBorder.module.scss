@@ -1,0 +1,27 @@
+.animatedBorderWrapper {
+	position: relative;
+}
+
+.animatedBorder {
+	position: absolute;
+	inset: -4px;
+	pointer-events: none;
+	clip-path: inset(0 round vars.$radius-xl);
+	z-index: -1;
+}
+
+.lightOrb {
+	position: absolute;
+	width: 200px;
+	height: 200px;
+	background: radial-gradient(
+		circle,
+		rgba(255, 255, 255, 0.8) 0%,
+		rgba(251, 218, 245, 0.3) 30%,
+		transparent 70%
+	);
+	border-radius: 50%;
+	pointer-events: none;
+	transform: translate(-50%, -50%);
+	mix-blend-mode: screen;
+}
