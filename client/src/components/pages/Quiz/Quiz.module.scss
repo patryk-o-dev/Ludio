@@ -1,13 +1,113 @@
-.startQuizButton {
-	padding: 10px 20px;
-	font-size: 16px;
-	background-color: vars.$background-basic;
-	color: vars.$text-color;
-	border: none;
-	border-radius: 5px;
-	cursor: pointer;
-	position: absolute;
-	top: 50%;
-	left: 50%;
-	transform: translate(-50%, -50%);
+.quiz {
+	width: 100%;
+	height: 100%;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	overflow: hidden;
+}
+
+.mainContentWrapper {
+	display: flex;
+	flex-direction: row;
+	flex-wrap: wrap;
+	width: 94%;
+	height: 97%;
+}
+
+.quizHeader {
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	width: 100%;
+	height: 12%;
+}
+
+.questionWrapper {
+	display: flex;
+	flex-direction: row;
+	width: 100%;
+	height: 88%;
+}
+
+.questionDisplay {
+	display: flex;
+	flex-direction: column;
+	flex: 4;
+	height: 100%;
+}
+
+.mediaWrapper {
+	flex: 4;
+	height: 100%;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	min-width: 0;
+	min-height: 0;
+	border-radius: vars.$radius-xl;
+	padding: 0 vars.$spacing-xs;
+	border: 1px solid vars.$background-secondary;
+
+	.mediaDisplay {
+		position: relative;
+		width: 100%;
+		aspect-ratio: 2 / 1;
+		min-width: 0;
+		min-height: 0;
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		overflow: hidden;
+		clip-path: inset(0 round vars.$radius-xl);
+	}
+
+	.mediaDisplay img {
+		width: 100%;
+		object-fit: contain;
+		display: block;
+	}
+}
+
+.answerWrapper {
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	flex: 1;
+	width: 100%;
+}
+
+.answerForm {
+	display: flex;
+	flex-direction: row;
+	align-items: center;
+	justify-content: center;
+	gap: vars.$spacing-md;
+	width: 100%;
+	height: 50%;
+}
+
+.submitInput {
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	width: 20%;
+	height: 100%;
+	padding: 0 vars.$spacing-md;
+	border-radius: vars.$radius-lg;
+	border: 1px solid vars.$background-secondary;
+	background: vars.$background-input;
+	color: vars.$text-color-dark;
+	font-size: vars.$font-lg;
+	font-family: vars.$font-main;
+	outline: none;
+	box-shadow: 0 2px 8px vars.$glow-primary;
+	transition: border 0.2s;
+	z-index: 2;
+}
+
+.answerSuggestions {
+	display: flex;
+	flex: 1;
+	height: 100%;
 }

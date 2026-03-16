@@ -1,9 +1,10 @@
-import { useCallback, useEffect, useState } from "react";
+import { useCallback, useEffect, useMemo, useState } from "react";
 import { useForm } from "react-hook-form";
 import { Link } from "react-router-dom";
 import { getData } from "../../../api/getDataApi";
 import type { Answer, Player, Question, Set } from "../../../types";
 import styles from "./Quiz.module.scss";
+import QuizDownshift from "./utils/QuizDownshift";
 
 type Inputs = {
 	answer: string;
@@ -11,13 +12,14 @@ type Inputs = {
 };
 
 const Quiz = () => {
-	const { register, handleSubmit, watch } = useForm<Inputs>();
+	const { handleSubmit } = useForm<Inputs>();
 	const [set, setSet] = useState<Set>();
 	const [question, setQuestion] = useState<Question>();
 	const [player, setPlayer] = useState<Player>();
-	const [answers, setAnswers] = useState<Answer[]>([]);
 	const [showResults, setShowResults] = useState(false);
 	const [winInfo, setWinInfo] = useState<{ done: boolean; perfect: boolean }>();
+	const [userAnswer, setUserAnswer] = useState<Answer | null>(null);
+	const [answers, setAnswers] = useState<Answer[]>([]);
 
 	useEffect(() => {
 		const fetchSet = async () => {
@@ -50,12 +52,17 @@ const Quiz = () => {
 		fetch();
 	}, [set, fetchQuestions]);
 
-	const onSubmit = async (data: Inputs) => {
+	const possibleAnswers = useMemo(
+		() => answers.filter((a) => a.answerTypeId === question?.answerTypeId),
+		[answers, question],
+	);
+
+	const onSubmit = async () => {
 		await fetch(`http://localhost:3000/api/player/advance-question`, {
 			method: "PATCH",
 		});
 		const isAnswerCorrect = await fetch(
-			`http://localhost:3000/api/question/answer/${question!.id}/${data.answer}`,
+			`http://localhost:3000/api/question/answer/${question!.id}/${userAnswer!.id}`,
 		).then((res) => res.json());
 		if (isAnswerCorrect) {
 			await fetch(`http://localhost:3000/api/player/advance-score`, {
@@ -73,29 +80,6 @@ const Quiz = () => {
 			fetchQuestions();
 		}
 	};
-
-	// eslint-disable-next-line react-hooks/incompatible-library
-	const search = watch("search") || "";
-	const [filteredAnswers, setFilteredAnswers] = useState<Answer[]>([]);
-
-	useEffect(() => {
-		const timeout = setTimeout(() => {
-			const answersForType = answers.filter(
-				(a) => a.answerTypeId === question?.answerTypeId,
-			);
-			if (!search.trim()) {
-				setFilteredAnswers(answersForType);
-			} else {
-				setFilteredAnswers(
-					answersForType.filter((a) =>
-						a.value.toLowerCase().includes(search.toLowerCase()),
-					),
-				);
-			}
-		}, 300);
-
-		return () => clearTimeout(timeout);
-	}, [search, answers, question]);
 
 	const endGame = async () => {
 		const winInfo = await fetch(`http://localhost:3000/api/set/winCondition`, {
@@ -123,7 +107,7 @@ const Quiz = () => {
 				</div>
 			)}
 			{!showResults && (
-				<>
+				<div className={styles.mainContentWrapper}>
 					<div className={styles.quizHeader}>
 						<div className={styles.scoreDisplay}>
 							<span>
@@ -136,24 +120,33 @@ const Quiz = () => {
 							</span>
 						</div>
 					</div>
-					<div className={styles.mediaWrapper}>
-						<img src={question?.media} alt="" />
+					<div className={styles.questionWrapper}>
+						<div className={styles.questionDisplay}>
+							<div className={styles.mediaWrapper}>
+								<div className={styles.mediaDisplay}>
+									<img src={`/question_images/${question?.media}`} alt="" />
+								</div>
+							</div>
+							<div className={styles.answerWrapper}>
+								<form
+									onSubmit={handleSubmit(onSubmit)}
+									className={styles.answerForm}
+								>
+									<QuizDownshift
+										possibleAnswers={possibleAnswers}
+										setUserAnswer={setUserAnswer}
+									/>
+									<input
+										type="submit"
+										value=">"
+										className={styles.submitInput}
+									/>
+								</form>
+							</div>
+						</div>
+						<div className={styles.answerSuggestions}></div>
 					</div>
-					<div className={styles.answerWrapper}>
-						<form onSubmit={handleSubmit(onSubmit)}>
-							<input defaultValue="" {...register("search")} />
-							<select {...register("answer")}>
-								<option value="">Wybierz z listy</option>
-								{filteredAnswers.map((a) => (
-									<option key={a.id} value={a.value}>
-										{a.value}
-									</option>
-								))}
-							</select>
-							<input type="submit" />
-						</form>
-					</div>
-				</>
+				</div>
 			)}
 		</div>
 	);
