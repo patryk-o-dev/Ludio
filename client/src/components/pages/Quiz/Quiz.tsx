@@ -6,6 +6,7 @@ import type { Answer, Player, Question, Set } from "../../../types";
 import styles from "./Quiz.module.scss";
 import QuizDownshift from "./utils/QuizDownshift";
 import AnimatedBorder from "../../utils/AnimatedBorder/AnimatedBorder";
+import ScoreDisplay from "../../features/ScoreDisplay/ScoreDisplay";
 
 type Inputs = {
 	answer: string;
@@ -109,18 +110,7 @@ const Quiz = () => {
 			)}
 			{!showResults && (
 				<div className={styles.mainContentWrapper}>
-					<div className={styles.quizHeader}>
-						<div className={styles.scoreDisplay}>
-							<span>
-								{player?.questionIndex} / {set?.option.numberOfQuestions}
-							</span>
-						</div>
-						<div className={styles.scoreDisplay}>
-							<span>
-								{player?.score} / {set?.option.scoreNeeded}
-							</span>
-						</div>
-					</div>
+					{player && set && <ScoreDisplay player={player} set={set} />}
 					<div className={styles.questionWrapper}>
 						<div className={styles.questionDisplay}>
 							<AnimatedBorder

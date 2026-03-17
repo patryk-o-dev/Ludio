@@ -9,25 +9,21 @@
 
 .mainContentWrapper {
 	display: flex;
-	flex-direction: row;
+	flex-direction: column;
 	flex-wrap: wrap;
-	width: 94%;
-	height: 97%;
-}
-
-.quizHeader {
-	display: flex;
+	width: 95%;
+	height: 95%;
 	align-items: center;
 	justify-content: center;
-	width: 100%;
-	height: 12%;
+	gap: vars.$spacing-md;
 }
 
 .questionWrapper {
 	display: flex;
 	flex-direction: row;
 	width: 100%;
-	height: 88%;
+	flex: 9;
+	gap: vars.$spacing-md;
 }
 
 .questionDisplay {
@@ -35,6 +31,7 @@
 	flex-direction: column;
 	flex: 4;
 	height: 100%;
+	gap: vars.$spacing-md;
 }
 
 .mediaWrapper {
@@ -46,7 +43,7 @@
 	min-width: 0;
 	min-height: 0;
 	border-radius: vars.$radius-xl;
-	padding: 0 vars.$spacing-xs;
+	padding: vars.$spacing-xs;
 	background-color: vars.$background-basic;
 
 	.mediaDisplay {
