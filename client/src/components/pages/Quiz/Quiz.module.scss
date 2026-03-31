@@ -24,32 +24,31 @@
 	width: 100%;
 	flex: 9;
 	gap: vars.$spacing-md;
+	min-height: 0;
 }
 
 .questionDisplay {
 	display: flex;
 	flex-direction: column;
-	flex: 4;
+	width: 80%;
 	height: 100%;
 	gap: vars.$spacing-md;
 }
 
 .mediaWrapper {
-	flex: 4;
 	height: 100%;
+	width: 100%;
 	display: flex;
 	align-items: center;
 	justify-content: center;
-	min-width: 0;
-	min-height: 0;
 	border-radius: vars.$radius-xl;
 	padding: vars.$spacing-xs;
 	background-color: vars.$background-basic;
 
 	.mediaDisplay {
 		position: relative;
+		height: 100%;
 		width: 100%;
-		aspect-ratio: 2 / 1;
 		min-width: 0;
 		min-height: 0;
 		display: flex;
@@ -61,51 +60,86 @@
 
 	.mediaDisplay img {
 		width: 100%;
-		object-fit: contain;
-		display: block;
+		height: 100%;
+		object-fit: cover;
 	}
-}
-
-.answerWrapper {
-	display: flex;
-	align-items: center;
-	justify-content: center;
-	flex: 1;
-	width: 100%;
 }
 
 .answerForm {
 	display: flex;
-	flex-direction: row;
-	align-items: center;
-	justify-content: center;
-	gap: vars.$spacing-md;
-	width: 100%;
-	height: 50%;
-}
-
-.submitInput {
-	display: flex;
-	align-items: center;
-	justify-content: center;
 	width: 20%;
 	height: 100%;
-	padding: 0 vars.$spacing-md;
-	border-radius: vars.$radius-lg;
-	border: 1px solid vars.$background-secondary;
-	background: vars.$background-input;
-	color: vars.$text-color-dark;
-	font-size: vars.$font-lg;
-	font-family: vars.$font-main;
-	outline: none;
-	box-shadow: 0 2px 8px vars.$glow-primary;
-	transition: border 0.2s;
-	z-index: 2;
 }
 
 .answerSuggestions {
 	display: flex;
-	flex: 1;
+	flex-direction: column;
+	align-items: center;
+	width: 100%;
 	height: 100%;
-	background-color: #9f5df5;
+
+	h3 {
+		text-align: center;
+		color: vars.$text-color;
+	}
+}
+
+.suggestionsList {
+	height: 100%;
+	width: 100%;
+	overflow-y: auto;
+	display: flex;
+	flex-direction: column;
+	scrollbar-width: none;
+	gap: vars.$spacing-sm;
+	padding: vars.$spacing-sm;
+
+	&::-webkit-scrollbar {
+		display: none;
+	}
+}
+
+.suggestionItem {
+	width: 100%;
+	min-height: calc(100% / 9 - 8 / 9 * vars.$spacing-sm);
+	display: flex;
+	align-items: flex-start;
+	justify-content: center;
+	border: 1px solid vars.$background-secondary;
+	border-radius: vars.$radius-md;
+	padding: vars.$spacing-sm;
+	.submitInput {
+		font-size: vars.$font-lg;
+		display: block;
+		color: vars.$text-color;
+		width: 100%;
+		height: 100%;
+		background-color: transparent;
+		border: none;
+	}
+	&:hover {
+		background-color: vars.$background-secondary;
+	}
+}
+
+.searchInput {
+	cursor: default;
+	width: calc(100% - vars.$spacing-sm * 2);
+	background-color: rgb(28, 28, 30);
+	box-shadow:
+		0 0 2px rgba(0, 0, 0, 0.5),
+		0 0 0 2px transparent;
+	border-radius: vars.$radius-sm;
+	border: none;
+	outline: none;
+	padding: 0.4vw;
+	transition: 0.4s;
+
+	&:hover {
+		box-shadow: 0 0 0 2px rgba(135, 207, 235, 0.186);
+	}
+
+	&:focus {
+		box-shadow: 0 0 0 2px skyblue;
+	}
 }

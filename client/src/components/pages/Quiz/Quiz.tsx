@@ -4,7 +4,6 @@ import { Link } from "react-router-dom";
 import { getData } from "../../../api/getDataApi";
 import type { Answer, Player, Question, Set } from "../../../types";
 import styles from "./Quiz.module.scss";
-import QuizDownshift from "./utils/QuizDownshift";
 import AnimatedBorder from "../../utils/AnimatedBorder/AnimatedBorder";
 import ScoreDisplay from "../../features/ScoreDisplay/ScoreDisplay";
 
@@ -91,6 +90,16 @@ const Quiz = () => {
 		setShowResults(true);
 	};
 
+	const [inputValue, setInputValue] = useState("");
+
+	const filteredAnswers = useMemo(
+		() =>
+			possibleAnswers.filter(
+				(item) => !inputValue || item.value.includes(inputValue),
+			),
+		[possibleAnswers, inputValue],
+	);
+
 	return (
 		<div className={styles.quiz}>
 			{showResults && (
@@ -125,24 +134,35 @@ const Quiz = () => {
 									</div>
 								</div>
 							</AnimatedBorder>
-							<div className={styles.answerWrapper}>
-								<form
-									onSubmit={handleSubmit(onSubmit)}
-									className={styles.answerForm}
-								>
-									<QuizDownshift
-										possibleAnswers={possibleAnswers}
-										setUserAnswer={setUserAnswer}
-									/>
-									<input
-										type="submit"
-										value=">"
-										className={styles.submitInput}
-									/>
-								</form>
-							</div>
 						</div>
-						<div className={styles.answerSuggestions}></div>
+						<form
+							onSubmit={handleSubmit(onSubmit)}
+							className={styles.answerForm}
+						>
+							<div className={styles.answerSuggestions}>
+								<h3>Suggestions</h3>
+								<ul className={styles.suggestionsList}>
+									{filteredAnswers.map((a) => (
+										<li
+											key={a.id}
+											className={styles.suggestionItem}
+											onClick={() => {
+												setUserAnswer(a);
+												// setInputValue(a.value);
+											}}
+										>
+											<input type="submit" className={styles.submitInput} value={a.value} />
+										</li>
+									))}
+								</ul>
+								<input
+									type="text"
+									value={inputValue}
+									onChange={(e) => setInputValue(e.target.value)}
+									className={styles.searchInput}
+								/>
+							</div>
+						</form>
 					</div>
 				</div>
 			)}
