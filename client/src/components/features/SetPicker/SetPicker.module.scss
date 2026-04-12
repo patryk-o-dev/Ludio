@@ -1,145 +1,52 @@
-.setDisplayWrapper {
-	height: 100%;
-	width: 100%;
-	overflow: scroll;
-	scrollbar-width: none;
-	border-radius: 20px;
-	background-image: radial-gradient(
-		circle at 0% 80%,
-		vars.$background-basic 0%,
-		vars.$background-secondary 45%,
-		vars.$background-secondary 80%,
-		vars.$background-basic 100%
-	);
-}
-
-.setsDisplay {
-	padding: vars.$spacing-xs vars.$spacing-md;
-	display: flex;
-	flex-direction: column;
-	height: 100%;
-}
-
-.highlight {
-	position: absolute;
-	inset: -1px;
-	border-radius: inherit;
-	pointer-events: none;
-	z-index: -1;
-	box-shadow: 3px 8px 24px -2px rgba(0, 0, 0, 0.9);
-	background: radial-gradient(
-		circle at 0% 80%,
-		#dfc9d7 0%,
-		#c7a4d1 15%,
-		#603664 40%,
-		#603664 60%,
-		#e7beff 85%,
-		#5c4253 100%
-	);
-	background-size: 200% 100%;
-	background-position: 0% 0%;
-}
-
-.setsDisplayHeader {
-	padding: vars.$spacing-sm;
-	margin-bottom: vars.$spacing-md;
+.setPicker {
+	flex: 4;
 	display: flex;
 	align-items: center;
-	justify-content: center;
-	h3 {
-		margin: 0;
-		font-size: vars.$font-md;
-		color: vars.$text-color;
-	}
+	justify-content: space-around;
+	width: 100%;
+	min-height: 0;
 }
 
-.setsList {
+.setsSection {
+	flex: 2;
+	height: 100%;
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	justify-content: flex-start;
+	background-color: rgba(vars.$brand-50, 0.3);
+	box-shadow: 0px 0px 20px rgba(0, 0, 0, 0.4);
+	border-radius: vars.$radius-md;
+	min-height: 0;
+	padding: vars.$spacing-sm;
+}
+
+.setList {
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	justify-content: flex-start;
+	gap: vars.$spacing-xs;
+	flex: 1;
+	width: 100%;
+	min-height: 0;
+	padding: vars.$spacing-2xs;
+	overflow-y: auto;
+	border-radius: vars.$radius-md;
 	list-style: none;
-	padding: 0;
-	display: flex;
-	flex-direction: column;
-	gap: vars.$spacing-sm;
+	scrollbar-width: none;
 }
 
-.set {
-	position: relative;
+.setItem {
 	display: flex;
-	flex-direction: row;
-	gap: vars.$spacing-sm;
-	border-radius: 20px;
-	background-color: vars.$card-unlocked-bg;
 	align-items: center;
-	justify-content: space-between;
-
-	&:hover {
-		background-color: vars.$background-tertiary;
-	}
-}
-
-.unlockedSet {
-	width: 100%;
-	aspect-ratio: 6 / 1;
-	background-color: vars.$card-unlocked-bg;
-	box-shadow: rgba(0, 0, 0, 0.27) 0px -23px 25px 0px inset;
-
-	h4 {
-		color: vars.$text-color-dark;
-	}
-}
-
-.lockedSet {
-	width: 100%;
-	aspect-ratio: 6 / 1;
-	background-color: vars.$text-color-dark;
-	box-shadow: rgba(0, 0, 0, 0.27) 0px -23px 25px 0px inset;
-	h4 {
-		color: vars.$text-color;
-	}
-}
-
-.addSetButton {
-	position: absolute;
-	top: 0;
-	left: 0;
-	width: 100%;
-	height: 100%;
-	background-color: transparent;
-	border: none;
-	cursor: pointer;
-}
-
-.imgWrapper {
-	position: relative;
-	width: 100%;
-	height: 100%;
-	display: flex;
 	justify-content: center;
-	align-items: flex-end;
-
-	img {
-		width: 24px;
-		height: 24px;
-	}
+	width: 100%;
+	background-color: rgba(vars.$brand-50, 0.5);
+	border-radius: vars.$radius-md;
+	box-shadow: 0px 0px 5px rgba(0, 0, 0, 0.5);
 }
 
-.tooltip {
-	width: 200px;
-	position: fixed;
-	top: 5px;
-	left: 15px;
-	opacity: 0;
-	pointer-events: none;
-	z-index: 99;
-	background-color: vars.$background-basic;
-	padding: vars.$spacing-sm;
-	border: 3px solid vars.$alert-color;
-	border-radius: 10px;
-
-	ul {
-		list-style: none;
-		li {
-			color: vars.$alert-color;
-			font-size: vars.$font-sm;
-		}
-	}
+.sectionTitle {
+	color: #3a6f43;
 }

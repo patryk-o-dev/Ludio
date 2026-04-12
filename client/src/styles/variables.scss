@@ -1,66 +1,35 @@
 @use "sass:color";
 
-// COLORS
-
-$text-color: #fbdaf5;
-$text-color-dark: #412946;
-$contour-color: #110718;
-$glow-primary: #6420aa;
-$glow-spread-color: #ff7ed4;
-$enhanced-glow-color: #ff3ea5;
-$alert-color: #f43665;
-
 // BACKGROUNDS
 
-$background-basic: #2a1b34;
-$background-secondary: #502a5a;
-$background-tertiary: #803361;
-$background-button: linear-gradient(
-	90deg,
-	#854773 0%,
-	#985880 20%,
-	#985880 80%,
-	#854773 100%
-);
-$background-input: linear-gradient(
-	90deg,
-	#826a93 0%,
-	#9c81a8 60%,
-	#826a93 100%
-);
-$background-search-semitransparent: linear-gradient(
-	90deg,
-	#826a9335 0%,
-	#9c81a835 60%,
-	#826a9335 100%
-);
-$card-unlocked-bg: #f7b9c6;
-$card-locked-bg: #413252;
-$overlay-color: #380f6659;
+$brand-50: #f5fbf2;
+$brand-100: #e0f8d4;
+$brand-200: #b3d1a4;
+$brand-300: #88a57a;
+$brand-400: #5f7b52;
+$brand-500: #38532d;
+$brand-600: #142e09;
+
+// TEXT
+
+$text-color-light: #f6f9f4;
+$text-color-dark: #162211;
+
+// ACCENTS
+
+$accent-color: #aed5bd;
+$accent-color-secondary: #9fcedc;
+$accent-hover: #9fcedc;
+
+// OTHER COLORS
+
+$info-color: #82d2e7;
 
 // BUTTON & UPGRADE
 
-$button-bg: #643d88;
-$upgrade-button: #bce1e4;
-$upgrade-button-shadow: #445152;
-$upgrade-button-shadow-gradient: #655b61;
-$upgrade-button-bg: #8d538a;
-$upgrade-exp-bar-added-bg: linear-gradient(
-	#ebf7ed 0%,
-	#ebf7ed 45%,
-	#bce1e4 45%,
-	#bce1e4 55%,
-	#9cd0db 55%,
-	#9cd0db 100%
-);
-$upgrade-exp-bar-missing-bg: linear-gradient(
-	#f8aad2 0%,
-	#f8aad2 45%,
-	#53365c 45%,
-	#53365c 55%,
-	#1d142e 55%,
-	#1d142e 100%
-);
+$box-shadow-sm: 0px 0px 14px -2px rgba($brand-600, 0.9);
+$box-shadow-md: 0px 0px 24px -6px rgba($brand-600, 0.9);
+$box-shadow-lg: 0px 0px 40px -12px rgba($brand-600, 0.9);
 
 // FONTS
 @font-face {

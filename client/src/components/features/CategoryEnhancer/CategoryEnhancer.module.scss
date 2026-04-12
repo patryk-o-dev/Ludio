@@ -1,202 +1,155 @@
 .categoryEnhancer {
-	padding: vars.$spacing-sm vars.$spacing-2xl vars.$spacing-lg vars.$spacing-2xl;
-	height: 100%;
+	display: flex;
+	flex-direction: column;
+	flex: 1;
+	width: 100%;
 }
 
 .categoryList {
 	list-style: none;
-	padding: 0;
 	display: flex;
 	flex-direction: row;
-	gap: vars.$spacing-md;
+	align-items: center;
+	justify-content: space-around;
+	width: 100%;
 	height: 100%;
+	gap: vars.$spacing-md;
 }
 
 .categoryItem {
-	flex: 1;
-	max-width: 200px;
-	border: 3px solid vars.$background-tertiary;
-	border-radius: 12px;
 	display: flex;
 	flex-direction: column;
-	gap: vars.$spacing-2xs;
-	background-image: linear-gradient(
-		60deg,
-		vars.$background-secondary 0%,
-		vars.$background-tertiary 100%
-	);
-	position: relative;
+	padding: vars.$spacing-sm;
+	background-color: vars.$brand-200;
+	flex: 1;
+	height: 100%;
+	border-radius: vars.$radius-lg;
+	box-shadow: vars.$box-shadow-md;
 }
 
-.categoryName {
-	flex: 7;
-	font-size: vars.$font-lg;
-	border-radius: 12px 12px 0 0;
-	background-image: linear-gradient(
-		60deg,
-		vars.$text-color-dark 0%,
-		vars.$background-basic 100%
-	);
-	display: flex;
-	justify-content: center;
-	align-items: center;
-	flex-wrap: wrap;
-	position: relative;
-	h5 {
-		width: 100%;
-		text-align: center;
-		text-transform: uppercase;
+.cardHeading {
+	flex: 1;
+
+	p {
+		font-size: vars.$font-lg;
+		font-weight: 700;
+		color: vars.$brand-600;
 	}
 }
 
-.spacerWrapper {
-	position: absolute;
-	left: 0;
-	right: 0;
-	bottom: 0;
-	transform: translateY(50%);
-	display: flex;
-	justify-content: center;
-	z-index: 2;
-	pointer-events: none;
-}
-.categoryLevel {
-	flex: 5.5;
-	display: flex;
-	align-items: center;
-	justify-content: space-between;
-	gap: vars.$spacing-2xs;
-	padding: vars.$spacing-2xs;
-
-	img {
-		width: 24px;
-		filter: brightness(0) saturate(100%) invert(99%) sepia(65%) saturate(5974%)
-			hue-rotate(188deg) brightness(106%) contrast(97%);
-	}
+.spacer {
+	width: 100%;
+	height: 1px;
+	background-color: vars.$brand-600;
 }
 
-.categoryLevelText {
-	font-size: vars.$font-sm;
-	color: vars.$text-color;
-}
-
-.categoryProgress {
-	flex: 1.5;
+.cardProgress {
+	flex: 1;
 	display: flex;
 	flex-direction: row;
-	border: 2px solid vars.$contour-color;
-	border-bottom-left-radius: inherit;
-	border-bottom-right-radius: inherit;
-	overflow: hidden;
-	width: 100%;
-}
-
-.progressSquare {
-	flex: 1;
-	border-right: 2px solid vars.$contour-color;
-
-	&:last-child {
-		border-right: none;
-	}
-}
-
-.active {
-	background: vars.$upgrade-exp-bar-added-bg;
-	box-shadow: 0 0 12px 4px rgba(#bce1e4, 0.3);
-}
-
-.inactive {
-	background: vars.$upgrade-exp-bar-missing-bg;
-	opacity: 0.5;
-}
-
-.enhanceButtonContainer {
-	display: flex;
-	justify-content: flex-end;
 	align-items: center;
-	padding: vars.$spacing-2xs;
+	gap: vars.$spacing-xs;
 }
 
 .enhanceButton {
-	position: relative;
-	border: none;
-	background: transparent;
-	padding: 0;
-	cursor: pointer;
-	outline-offset: 4px;
-	transition: filter 250ms;
-	user-select: none;
-	touch-action: manipulation;
-	height: 80%;
-	width: 100%;
-}
-
-.shadow {
-	position: absolute;
-	top: 0;
-	left: 0;
-	width: 100%;
-	height: 100%;
-	border-radius: 4px;
-	background: rgba(0, 0, 0, 0.25);
-	will-change: transform;
-	transform: translateY(2px);
-	transition: transform 600ms cubic-bezier(0.3, 0.7, 0.4, 1);
-}
-
-.edge {
-	position: absolute;
-	top: 0;
-	left: 0;
-	width: 100%;
-	height: 100%;
-	border-radius: 4px;
-	background: linear-gradient(
-		to left,
-		vars.$upgrade-button-shadow-gradient 0%,
-		vars.$upgrade-button-shadow 8%,
-		vars.$upgrade-button-shadow 92%,
-		vars.$upgrade-button-shadow-gradient 100%
-	);
-}
-
-.frontText {
-	display: block;
-	position: relative;
-	padding: vars.$spacing-2xs vars.$spacing-xs;
-	border-radius: 4px;
+	font-family: vars.$font-main;
 	font-size: vars.$font-sm;
-	color: vars.$upgrade-button-shadow;
-	background: vars.$upgrade-button;
-	will-change: transform;
-	transform: translateY(-4px);
-	transition: transform 600ms cubic-bezier(0.3, 0.7, 0.4, 1);
+	font-weight: 700;
+	padding: vars.$spacing-2xs vars.$spacing-md;
+	height: 20px;
+	border: 1px solid vars.$brand-600;
+	border-radius: vars.$radius-sm;
+	background: linear-gradient(
+		180deg,
+		vars.$accent-color 0%,
+		vars.$accent-color-secondary 100%
+	);
+	color: vars.$text-color-light;
+	cursor: pointer;
+	text-shadow: 0 1px 2px rgba(0, 0, 0, 0.4);
+	box-shadow: 0 0 6px rgba(vars.$accent-color, 0.3);
+	transition:
+		background 0.2s ease,
+		box-shadow 0.2s ease,
+		transform 0.1s ease;
+	white-space: nowrap;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+
+	&:hover:not(:disabled) {
+		background: linear-gradient(
+			180deg,
+			vars.$accent-hover 0%,
+			darken(vars.$accent-hover, 15%) 100%
+		);
+		box-shadow: 0 0 10px rgba(vars.$accent-hover, 0.5);
+		transform: scale(1.05);
+	}
+
+	&:active:not(:disabled) {
+		transform: scale(0.95);
+	}
+
+	&:disabled {
+		opacity: 0.4;
+		cursor: not-allowed;
+		filter: grayscale(0.5);
+	}
 }
 
-button:hover {
-	filter: brightness(110%);
+.progressBar {
+	flex: 1;
+	position: relative;
+	width: 100%;
+	height: 20px;
+	background: linear-gradient(180deg, #1a1a2e 0%, #0f0f1a 100%);
+	border-radius: 4px;
+	border: 1px solid vars.$brand-600;
+	box-shadow:
+		inset 0 1px 3px rgba(0, 0, 0, 0.6),
+		0 0 6px rgba(200, 170, 110, 0.25);
+	overflow: hidden;
 }
 
-button:hover .frontText {
-	transform: translateY(-6px);
-	transition: transform 250ms cubic-bezier(0.3, 0.7, 0.4, 1.5);
+.progressFill {
+	position: absolute;
+	top: 0;
+	left: 0;
+	height: 100%;
+	background: linear-gradient(180deg, #1ce5b5 0%, #0ba884 40%, #06755c 100%);
+	border-radius: 3px 0 0 3px;
+	box-shadow:
+		0 0 8px rgba(28, 229, 181, 0.5),
+		inset 0 1px 0 rgba(255, 255, 255, 0.2);
+	transition: width 0.4s ease;
+
+	&::after {
+		content: "";
+		position: absolute;
+		top: 2px;
+		left: 2px;
+		right: 2px;
+		height: 40%;
+		background: linear-gradient(
+			180deg,
+			rgba(255, 255, 255, 0.25) 0%,
+			transparent 100%
+		);
+		border-radius: 2px;
+	}
 }
 
-button:active .frontText {
-	transform: translateY(-2px);
-	transition: transform 34ms;
-}
-
-button:hover .shadow {
-	transform: translateY(4px);
-	transition: transform 250ms cubic-bezier(0.3, 0.7, 0.4, 1.5);
-}
-
-button:active .shadow {
-	transform: translateY(1px);
-	transition: transform 34ms;
-}
-
-button:focus:not(:focus-visible) {
-	outline: none;
+.progressLabel {
+	position: absolute;
+	inset: 0;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	font-size: 11px;
+	font-weight: 700;
+	color: vars.$text-color-light;
+	text-shadow: 0 1px 2px rgba(0, 0, 0, 0.8);
+	letter-spacing: 1px;
+	z-index: 1;
 }

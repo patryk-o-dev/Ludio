@@ -2,8 +2,6 @@ import { useEffect, useState } from "react";
 import type { Category, Player } from "../../../types";
 import { getData } from "../../../api/getDataApi";
 import styles from "./CategoryEnhancer.module.scss";
-import categoriesPlaceholder from "../../../assets/icons/categoriesPlaceholder.png";
-import Spacer from "../../utils/Spacer/Spacer";
 
 const CategoryEnhancer = () => {
 	const [categories, setCategories] = useState<Category[]>([]);
@@ -41,43 +39,38 @@ const CategoryEnhancer = () => {
 
 	return (
 		<div className={styles.categoryEnhancer}>
+			<h2 className={styles.title}>
+				Kategorie {player ? player.exp : "Loading..."}
+			</h2>
 			<ul className={styles.categoryList}>
 				{categories.map((category) => (
 					<li key={category.id} className={styles.categoryItem}>
-						<div className={styles.categoryName}>
-							<h5>{category.name}</h5>
-							<div className={styles.spacerWrapper}>
-								<Spacer />
-							</div>
+						<div className={styles.cardHeading}>
+							<p>{category.name}</p>
+							<div className={styles.spacer}></div>
 						</div>
-
-						<div className={styles.categoryLevel}>
-							<img src={categoriesPlaceholder} alt="Category" />
-							<span className={styles.categoryLevelText}>
-								Level {category.lvl}
-							</span>
-							<div className={styles.enhanceButtonContainer}>
-								<button
-									className={styles.enhanceButton}
-									onClick={() => enhanceCategory(category.id)}
-								>
-									<span className={styles.shadow}></span>
-									<span className={styles.edge}></span>
-									<span className={styles.frontText}>+</span>
-								</button>
-							</div>
-						</div>
-						<div className={styles.categoryProgress}>
-							{Array.from({ length: category.expNeeded }).map((_, idx) => (
+						<div className={styles.cardProgress}>
+							<div className={styles.progressBar}>
 								<div
-									key={idx}
-									className={
-										idx < category.expAdded
-											? `${styles.progressSquare} ${styles.active}`
-											: `${styles.progressSquare} ${styles.inactive}`
-									}
+									className={styles.progressFill}
+									style={{
+										width: `${category.expNeeded > 0 ? (category.expAdded / category.expNeeded) * 100 : 0}%`,
+									}}
 								/>
-							))}
+								<span className={styles.progressLabel}>
+									{category.expAdded} / {category.expNeeded}
+								</span>
+							</div>
+							<button
+								className={styles.enhanceButton}
+								onClick={() => enhanceCategory(category.id)}
+								disabled={
+									category.lvl >= category.lvlMax ||
+									(player ? player.exp <= 0 : true)
+								}
+							>
+								+
+							</button>
 						</div>
 					</li>
 				))}

@@ -43,7 +43,7 @@
 	justify-content: center;
 	border-radius: vars.$radius-xl;
 	padding: vars.$spacing-xs;
-	background-color: vars.$background-basic;
+	background-color: vars.$brand-200;
 
 	.mediaDisplay {
 		position: relative;
@@ -80,7 +80,7 @@
 
 	h3 {
 		text-align: center;
-		color: vars.$text-color;
+		color: vars.$text-color-dark;
 	}
 }
 
@@ -105,27 +105,27 @@
 	display: flex;
 	align-items: flex-start;
 	justify-content: center;
-	border: 1px solid vars.$background-secondary;
+	border: 1px solid vars.$brand-600;
 	border-radius: vars.$radius-md;
 	padding: vars.$spacing-sm;
 	.submitInput {
 		font-size: vars.$font-lg;
 		display: block;
-		color: vars.$text-color;
+		color: vars.$text-color-dark;
 		width: 100%;
 		height: 100%;
 		background-color: transparent;
 		border: none;
 	}
 	&:hover {
-		background-color: vars.$background-secondary;
+		background-color: vars.$brand-100;
 	}
 }
 
 .searchInput {
 	cursor: default;
 	width: calc(100% - vars.$spacing-sm * 2);
-	background-color: rgb(28, 28, 30);
+	background-color: vars.$brand-600;
 	box-shadow:
 		0 0 2px rgba(0, 0, 0, 0.5),
 		0 0 0 2px transparent;

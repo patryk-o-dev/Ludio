@@ -1,5 +1,4 @@
 import styles from "./SetCard.module.scss";
-import categoryGameIcon from "../../../assets/icons/gameIcon.png";
 
 type SetCardProps = {
 	name: string;
@@ -11,17 +10,12 @@ const SetCard = ({ name, unlocked, special }: SetCardProps) => {
 		<div
 			className={`${styles.setCard} ${special === "horror" ? styles.horror : ""}`}
 		>
-			<img
-				src={categoryGameIcon}
-				alt={`categoryIcon`}
-				className={styles.categoryIcon}
-			/>
 			<h3 className={styles.setName}>{name}</h3>
-			<img
+			{/* <img
 				src={unlocked ? "#" : "#"}
 				alt={unlocked ? "Unlocked" : "Locked"}
 				className={styles.lockIcon}
-			/>
+			/> */}
 		</div>
 	);
 };
