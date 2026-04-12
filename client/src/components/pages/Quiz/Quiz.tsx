@@ -125,7 +125,7 @@ const Quiz = () => {
 							<AnimatedBorder
 								flex="4"
 								inset="2px"
-								borderColor="#ff7ed4"
+								borderColor="#f5fbf2"
 								borderRadius="48px"
 							>
 								<div className={styles.mediaWrapper}>
@@ -142,16 +142,19 @@ const Quiz = () => {
 							<div className={styles.answerSuggestions}>
 								<h3>Suggestions</h3>
 								<ul className={styles.suggestionsList}>
-									{filteredAnswers.map((a) => (
+									{filteredAnswers.slice(0, 8).map((a) => (
 										<li
 											key={a.id}
 											className={styles.suggestionItem}
 											onClick={() => {
 												setUserAnswer(a);
-												// setInputValue(a.value);
 											}}
 										>
-											<input type="submit" className={styles.submitInput} value={a.value} />
+											<input
+												type="submit"
+												className={styles.submitInput}
+												value={a.value}
+											/>
 										</li>
 									))}
 								</ul>
