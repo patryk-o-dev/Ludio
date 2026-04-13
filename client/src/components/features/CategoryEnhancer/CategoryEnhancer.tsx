@@ -26,7 +26,7 @@ const CategoryEnhancer = () => {
 			})
 				.then((res) => res.json())
 				.then(() => {
-					getData("player").then((data) => setPlayer(data[0]));
+					getData("player").then((data) => setPlayer(data));
 					getData("category").then((data) => setCategories(data));
 				})
 				.catch((err) => {

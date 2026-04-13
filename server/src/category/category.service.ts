@@ -17,58 +17,72 @@ export class CategoryService {
 
     if (!player || player.exp <= 0) {
       throw new Error('Not enough EXP to enhance category!');
-    } else if (category.maxed) {
+    }
+
+    if (category.maxed) {
+      return category;
+    }
+
+    await this.prisma.player.update({
+      where: { id: player.id },
+      data: { exp: { decrement: 1 } },
+    });
+    await this.prisma.category.update({
+      where: { id: categoryId },
+      data: { expAdded: { increment: 1 } },
+    });
+
+    if (
+      category.expAdded + 1 >= category.expNeeded &&
+      category.lvl < category.lvlMax
+    ) {
       await this.prisma.category.update({
         where: { id: categoryId },
-        data: { maxed: true },
+        data: {
+          lvl: { increment: 1 },
+          expAdded: 0,
+          expNeeded: category.lvl + 1,
+        },
       });
-    } else {
-      await this.prisma.player.update({
-        where: { id: player.id },
-        data: { exp: { decrement: 1 } },
-      });
-      await this.prisma.category.update({
+      const updatedCategory = await this.prisma.category.findUnique({
         where: { id: categoryId },
-        data: { expAdded: { increment: 1 } },
+      });
+      await this.prisma.tag.updateMany({
+        where: {
+          categoryId: categoryId,
+          unlocked: false,
+          lvl: updatedCategory.lvl,
+        },
+        data: { unlocked: true },
       });
 
-      if (
-        category.expAdded + 1 >= category.expNeeded &&
-        category.lvl < category.lvlMax
-      ) {
-        await this.prisma.category.update({
-          where: { id: categoryId },
-          data: {
-            lvl: { increment: 1 },
-            expAdded: 0,
-            expNeeded: category.lvl + 1,
-          },
-        });
-        const updatedCategory = await this.prisma.category.findUnique({
-          where: { id: categoryId },
-        });
-        await this.prisma.tag.updateMany({
-          where: {
-            categoryId: categoryId,
-            unlocked: false,
-            lvl: updatedCategory.lvl,
-          },
-          data: { unlocked: true },
-        });
-
-        await this.prisma.set.updateMany({
-          where: {
-            tags: {
-              every: {
-                unlocked: true,
-              },
+      await this.prisma.set.updateMany({
+        where: {
+          guess: {
+            every: {
+              unlocked: true,
             },
           },
-          data: { unlocked: true },
-        });
-
-        return updatedCategory;
-      }
+          by: {
+            every: {
+              unlocked: true,
+            },
+          },
+          only: {
+            every: {
+              unlocked: true,
+            },
+          },
+          without: {
+            every: {
+              unlocked: true,
+            },
+          },
+        },
+        data: { unlocked: true },
+      });
     }
+
+    return this.prisma.category.findUnique({ where: { id: categoryId } });
   }
 }

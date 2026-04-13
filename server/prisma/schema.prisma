@@ -27,7 +27,10 @@ model Tag {
   lvl         Int           @default(0)
   unlocked    Boolean       @default(false)
   questions   Question[]
-  set         Set[]
+  setGuess    Set[]         @relation("SetGuess")
+  setBy       Set[]         @relation("SetBy")
+  setOnly     Set[]         @relation("SetOnly")
+  setWithout  Set[]         @relation("SetWithout")
 }
 
 model Answer {
@@ -46,20 +49,24 @@ model AnswerType {
 }
 
 model Set {
-  id          String        @id       @default(uuid())
-  name        String
-  option      Option?
-  tags        Tag[]
-  unlocked    Boolean       @default(false)
-  selected    Boolean       @default(false)
-  done        Boolean       @default(false)
-  perfect     Boolean       @default(false)
+  id            String        @id       @default(uuid())
+  name          String
+  option        Option?
+  guess         Tag[]         @relation("SetGuess")
+  by            Tag[]         @relation("SetBy")
+  only          Tag[]         @relation("SetOnly")
+  without       Tag[]         @relation("SetWithout")
+  unlocked      Boolean       @default(false)
+  selected      Boolean       @default(false)
+  done          Boolean       @default(false)
+  perfect       Boolean       @default(false)
 }
 
 model Option {
   id                  String        @id       @default(uuid())
   numberOfQuestions   Int
   scoreNeeded         Int
+  expEarned           Int
   setId               String        @unique
   set                 Set           @relation(fields: [setId], references: [id])
 }

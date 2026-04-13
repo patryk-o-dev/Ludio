@@ -2,7 +2,9 @@
 CREATE TABLE `Question` (
     `id` VARCHAR(191) NOT NULL,
     `media` VARCHAR(191) NOT NULL,
+    `used` BOOLEAN NOT NULL DEFAULT false,
     `answerId` VARCHAR(191) NOT NULL,
+    `answerTypeId` VARCHAR(191) NOT NULL,
 
     PRIMARY KEY (`id`)
 ) DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
@@ -42,8 +44,10 @@ CREATE TABLE `AnswerType` (
 CREATE TABLE `Set` (
     `id` VARCHAR(191) NOT NULL,
     `name` VARCHAR(191) NOT NULL,
+    `unlocked` BOOLEAN NOT NULL DEFAULT false,
     `selected` BOOLEAN NOT NULL DEFAULT false,
     `done` BOOLEAN NOT NULL DEFAULT false,
+    `perfect` BOOLEAN NOT NULL DEFAULT false,
 
     PRIMARY KEY (`id`)
 ) DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
@@ -53,6 +57,7 @@ CREATE TABLE `Option` (
     `id` VARCHAR(191) NOT NULL,
     `numberOfQuestions` INTEGER NOT NULL,
     `scoreNeeded` INTEGER NOT NULL,
+    `expEarned` INTEGER NOT NULL,
     `setId` VARCHAR(191) NOT NULL,
 
     UNIQUE INDEX `Option_setId_key`(`setId`),
@@ -77,6 +82,8 @@ CREATE TABLE `Category` (
 CREATE TABLE `Player` (
     `id` VARCHAR(191) NOT NULL,
     `exp` INTEGER NOT NULL DEFAULT 0,
+    `questionIndex` INTEGER NOT NULL DEFAULT 0,
+    `score` INTEGER NOT NULL DEFAULT 0,
 
     PRIMARY KEY (`id`)
 ) DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
@@ -91,16 +98,46 @@ CREATE TABLE `_QuestionToTag` (
 ) DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
 
 -- CreateTable
-CREATE TABLE `_SetToTag` (
+CREATE TABLE `_SetGuess` (
     `A` VARCHAR(191) NOT NULL,
     `B` VARCHAR(191) NOT NULL,
 
-    UNIQUE INDEX `_SetToTag_AB_unique`(`A`, `B`),
-    INDEX `_SetToTag_B_index`(`B`)
+    UNIQUE INDEX `_SetGuess_AB_unique`(`A`, `B`),
+    INDEX `_SetGuess_B_index`(`B`)
+) DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
+
+-- CreateTable
+CREATE TABLE `_SetBy` (
+    `A` VARCHAR(191) NOT NULL,
+    `B` VARCHAR(191) NOT NULL,
+
+    UNIQUE INDEX `_SetBy_AB_unique`(`A`, `B`),
+    INDEX `_SetBy_B_index`(`B`)
+) DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
+
+-- CreateTable
+CREATE TABLE `_SetOnly` (
+    `A` VARCHAR(191) NOT NULL,
+    `B` VARCHAR(191) NOT NULL,
+
+    UNIQUE INDEX `_SetOnly_AB_unique`(`A`, `B`),
+    INDEX `_SetOnly_B_index`(`B`)
+) DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
+
+-- CreateTable
+CREATE TABLE `_SetWithout` (
+    `A` VARCHAR(191) NOT NULL,
+    `B` VARCHAR(191) NOT NULL,
+
+    UNIQUE INDEX `_SetWithout_AB_unique`(`A`, `B`),
+    INDEX `_SetWithout_B_index`(`B`)
 ) DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
 
 -- AddForeignKey
 ALTER TABLE `Question` ADD CONSTRAINT `Question_answerId_fkey` FOREIGN KEY (`answerId`) REFERENCES `Answer`(`id`) ON DELETE RESTRICT ON UPDATE CASCADE;
+
+-- AddForeignKey
+ALTER TABLE `Question` ADD CONSTRAINT `Question_answerTypeId_fkey` FOREIGN KEY (`answerTypeId`) REFERENCES `AnswerType`(`id`) ON DELETE RESTRICT ON UPDATE CASCADE;
 
 -- AddForeignKey
 ALTER TABLE `Tag` ADD CONSTRAINT `Tag_categoryId_fkey` FOREIGN KEY (`categoryId`) REFERENCES `Category`(`id`) ON DELETE RESTRICT ON UPDATE CASCADE;
@@ -118,7 +155,25 @@ ALTER TABLE `_QuestionToTag` ADD CONSTRAINT `_QuestionToTag_A_fkey` FOREIGN KEY 
 ALTER TABLE `_QuestionToTag` ADD CONSTRAINT `_QuestionToTag_B_fkey` FOREIGN KEY (`B`) REFERENCES `Tag`(`id`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 -- AddForeignKey
-ALTER TABLE `_SetToTag` ADD CONSTRAINT `_SetToTag_A_fkey` FOREIGN KEY (`A`) REFERENCES `Set`(`id`) ON DELETE CASCADE ON UPDATE CASCADE;
+ALTER TABLE `_SetGuess` ADD CONSTRAINT `_SetGuess_A_fkey` FOREIGN KEY (`A`) REFERENCES `Set`(`id`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 -- AddForeignKey
-ALTER TABLE `_SetToTag` ADD CONSTRAINT `_SetToTag_B_fkey` FOREIGN KEY (`B`) REFERENCES `Tag`(`id`) ON DELETE CASCADE ON UPDATE CASCADE;
+ALTER TABLE `_SetGuess` ADD CONSTRAINT `_SetGuess_B_fkey` FOREIGN KEY (`B`) REFERENCES `Tag`(`id`) ON DELETE CASCADE ON UPDATE CASCADE;
+
+-- AddForeignKey
+ALTER TABLE `_SetBy` ADD CONSTRAINT `_SetBy_A_fkey` FOREIGN KEY (`A`) REFERENCES `Set`(`id`) ON DELETE CASCADE ON UPDATE CASCADE;
+
+-- AddForeignKey
+ALTER TABLE `_SetBy` ADD CONSTRAINT `_SetBy_B_fkey` FOREIGN KEY (`B`) REFERENCES `Tag`(`id`) ON DELETE CASCADE ON UPDATE CASCADE;
+
+-- AddForeignKey
+ALTER TABLE `_SetOnly` ADD CONSTRAINT `_SetOnly_A_fkey` FOREIGN KEY (`A`) REFERENCES `Set`(`id`) ON DELETE CASCADE ON UPDATE CASCADE;
+
+-- AddForeignKey
+ALTER TABLE `_SetOnly` ADD CONSTRAINT `_SetOnly_B_fkey` FOREIGN KEY (`B`) REFERENCES `Tag`(`id`) ON DELETE CASCADE ON UPDATE CASCADE;
+
+-- AddForeignKey
+ALTER TABLE `_SetWithout` ADD CONSTRAINT `_SetWithout_A_fkey` FOREIGN KEY (`A`) REFERENCES `Set`(`id`) ON DELETE CASCADE ON UPDATE CASCADE;
+
+-- AddForeignKey
+ALTER TABLE `_SetWithout` ADD CONSTRAINT `_SetWithout_B_fkey` FOREIGN KEY (`B`) REFERENCES `Tag`(`id`) ON DELETE CASCADE ON UPDATE CASCADE;

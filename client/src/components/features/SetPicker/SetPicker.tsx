@@ -12,8 +12,9 @@ const SetPicker = () => {
 
 	useEffect(() => {
 		getData("set").then((data) => {
-			const unlocked = data.filter((set: Set) => set.unlocked);
-			const locked = data.filter((set: Set) => !set.unlocked);
+			const sortByName = (a: Set, b: Set) => a.name.localeCompare(b.name);
+			const unlocked = data.filter((set: Set) => set.unlocked).sort(sortByName);
+			const locked = data.filter((set: Set) => !set.unlocked).sort(sortByName);
 			setUnlockedSets(unlocked);
 			setLockedSets(locked);
 		});
@@ -56,7 +57,11 @@ const SetPicker = () => {
 							className={styles.setItem}
 							onClick={() => handleSelectSet(set)}
 						>
-							<SetCard name={set.name} unlocked={set.unlocked} />
+							<SetCard
+								name={set.name}
+								unlocked={set.unlocked}
+								done={set.done}
+							/>
 						</li>
 					))}
 				</ul>

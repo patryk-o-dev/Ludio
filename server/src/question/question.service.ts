@@ -20,30 +20,49 @@ export class QuestionService {
     });
   }
 
-  async findByTags(tags: string, resetAttempted = false) {
-    const tagsArray = tags.split(',').map((tag) => tag.trim());
-    const questions = await this.prisma.question
-      .findMany({
-        where: {
-          tags: {
-            some: { name: { in: tagsArray } },
-          },
-          used: false,
-        },
-        include: { tags: true, answer: false },
-      })
-      .then((questions) =>
-        questions.filter((q) =>
-          tagsArray.every((tag) => q.tags.some((t) => t.name === tag)),
-        ),
-      );
+  async findByTags(
+    guess: string,
+    by: string,
+    only: string,
+    without: string,
+    resetAttempted = false,
+  ) {
+    const guessArray = guess ? guess.split(',').map((t) => t.trim()) : [];
+    const byArray = by ? by.split(',').map((t) => t.trim()) : [];
+    const onlyArray = only ? only.split(',').map((t) => t.trim()) : [];
+    const withoutArray = without ? without.split(',').map((t) => t.trim()) : [];
+
+    const where: any = {
+      used: false,
+      AND: [
+        ...(guessArray.length
+          ? [{ tags: { some: { name: { in: guessArray } } } }]
+          : []),
+        ...(byArray.length
+          ? [{ tags: { some: { name: { in: byArray } } } }]
+          : []),
+        ...onlyArray.map((tag) => ({
+          tags: { some: { name: tag } },
+        })),
+        ...(withoutArray.length
+          ? [{ tags: { none: { name: { in: withoutArray } } } }]
+          : []),
+      ],
+    };
+
+    const questions = await this.prisma.question.findMany({
+      where,
+      include: { tags: true },
+    });
+
     if (questions.length === 0) {
       if (!resetAttempted) {
         await this.resetUsed();
-        return this.findByTags(tags, true);
+        return this.findByTags(guess, by, only, without, true);
       }
       return [];
     }
+
     const randomIndex = Math.floor(Math.random() * questions.length);
     await this.markUsed(questions[randomIndex].id);
     return questions[randomIndex];

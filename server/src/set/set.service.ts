@@ -8,7 +8,22 @@ export class SetService {
   findAll() {
     return this.prisma.set.findMany({
       include: {
-        tags: {
+        guess: {
+          include: {
+            category: true,
+          },
+        },
+        by: {
+          include: {
+            category: true,
+          },
+        },
+        only: {
+          include: {
+            category: true,
+          },
+        },
+        without: {
           include: {
             category: true,
           },
@@ -22,7 +37,10 @@ export class SetService {
     return this.prisma.set.findFirst({
       where: { selected: true },
       include: {
-        tags: true,
+        guess: true,
+        by: true,
+        only: true,
+        without: true,
         option: true,
       },
     });
@@ -42,7 +60,10 @@ export class SetService {
     return await this.prisma.set.findUnique({
       where: { id: setId },
       include: {
-        tags: true,
+        guess: true,
+        by: true,
+        only: true,
+        without: true,
         option: true,
       },
     });
@@ -102,12 +123,20 @@ export class SetService {
           where: { id: selectedSet.id },
           data: { done: true, perfect: false },
         });
+        await this.prisma.player.update({
+          where: { id: player.id },
+          data: { exp: { increment: selectedSet.option.expEarned } },
+        });
         await resetDB();
         return { done: true, perfect: false };
       } else if (playerScore && playerScore >= scorePerfect) {
         await this.prisma.set.update({
           where: { id: selectedSet.id },
           data: { done: true, perfect: true },
+        });
+        await this.prisma.player.update({
+          where: { id: player.id },
+          data: { exp: { increment: selectedSet.option.expEarned } },
         });
         await resetDB();
         return { done: true, perfect: true };

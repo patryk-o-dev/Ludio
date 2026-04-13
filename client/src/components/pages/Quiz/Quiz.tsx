@@ -38,8 +38,19 @@ const Quiz = () => {
 	}, []);
 
 	const fetchQuestions = useCallback(async () => {
+		const guess = set!.guess.map((t) => t.name).join(",");
+		const by = set!.by.map((t) => t.name).join(",");
+		const only = set!.only.map((t) => t.name).join(",");
+		const without = set!.without.map((t) => t.name).join(",");
+
+		const params = new URLSearchParams();
+		if (guess) params.set("guess", guess);
+		if (by) params.set("by", by);
+		if (only) params.set("only", only);
+		if (without) params.set("without", without);
+
 		const res = await fetch(
-			`http://localhost:3000/api/question/tags/${set!.tags.map((t) => t.name).join(",")}`,
+			`http://localhost:3000/api/question/tags?${params.toString()}`,
 		);
 		const data = await res.json();
 		setQuestion(data);
@@ -63,7 +74,7 @@ const Quiz = () => {
 			method: "PATCH",
 		});
 		const isAnswerCorrect = await fetch(
-			`http://localhost:3000/api/question/answer/${question!.id}/${userAnswer!.id}`,
+			`http://localhost:3000/api/question/answer/${question!.id}/${userAnswer!.value}`,
 		).then((res) => res.json());
 		if (isAnswerCorrect) {
 			await fetch(`http://localhost:3000/api/player/advance-score`, {

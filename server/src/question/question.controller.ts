@@ -1,4 +1,4 @@
-import { Controller, Get, Param, Patch } from '@nestjs/common';
+import { Controller, Get, Param, Patch, Query } from '@nestjs/common';
 import { QuestionService } from './question.service';
 
 @Controller('question')
@@ -10,9 +10,14 @@ export class QuestionController {
     return this.questionService.findAll();
   }
 
-  @Get('/tags/:tags/')
-  findByTags(@Param('tags') tags: string) {
-    return this.questionService.findByTags(tags);
+  @Get('/tags')
+  findByTags(
+    @Query('guess') guess: string,
+    @Query('by') by: string,
+    @Query('only') only?: string,
+    @Query('without') without?: string,
+  ) {
+    return this.questionService.findByTags(guess, by, only, without);
   }
 
   @Get('/answer/:questionId/:answer')

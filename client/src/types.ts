@@ -37,7 +37,10 @@ export type Set = {
 	id: string;
 	name: string;
 	option: Option;
-	tags: Tag[];
+	guess: Tag[];
+	by: Tag[];
+	only: Tag[];
+	without: Tag[];
 	done: boolean;
 	perfect: boolean;
 	unlocked: boolean;
