@@ -347,7 +347,7 @@ async function main() {
       answerType: 'guessGame',
     },
     {
-      media: 'spidermanmilesmorales.png',
+      media: 'milesmorales.jpg',
       answer: 'Spider-Man: Miles Morales',
       tags: ['game', 'screenshot', 'guessGame'],
       answerType: 'guessGame',
@@ -528,7 +528,7 @@ async function main() {
           create: {
             numberOfQuestions: s.option.numberOfQuestions,
             scoreNeeded: s.option.scoreNeeded,
-            expEarned: 8,
+            expEarned: 4,
           },
         },
       },

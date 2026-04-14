@@ -1,19 +1,14 @@
-import { useCallback, useEffect, useMemo, useState } from "react";
-import { useForm } from "react-hook-form";
+import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import { Link } from "react-router-dom";
 import { getData } from "../../../api/getDataApi";
 import type { Answer, Player, Question, Set } from "../../../types";
 import styles from "./Quiz.module.scss";
 import AnimatedBorder from "../../utils/AnimatedBorder/AnimatedBorder";
 import ScoreDisplay from "../../features/ScoreDisplay/ScoreDisplay";
-
-type Inputs = {
-	answer: string;
-	search: string;
-};
+import { FastAverageColor } from "fast-average-color";
+import gsap from "gsap";
 
 const Quiz = () => {
-	const { handleSubmit } = useForm<Inputs>();
 	const [set, setSet] = useState<Set>();
 	const [question, setQuestion] = useState<Question>();
 	const [player, setPlayer] = useState<Player>();
@@ -21,6 +16,17 @@ const Quiz = () => {
 	const [winInfo, setWinInfo] = useState<{ done: boolean; perfect: boolean }>();
 	const [userAnswer, setUserAnswer] = useState<Answer | null>(null);
 	const [answers, setAnswers] = useState<Answer[]>([]);
+	const [inputValue, setInputValue] = useState("");
+	const [dominantColor, setDominantColor] = useState<string>(
+		"rgba(255, 255, 255, 0.5)",
+	);
+	const [objectFit, setObjectFit] = useState<"cover" | "contain">("contain");
+
+	const mediaRef = useRef<HTMLDivElement>(null);
+	const animateOut = () =>
+		gsap.to(mediaRef.current, { opacity: 0, scale: 0.97, duration: 0.3 });
+	const animateIn = () =>
+		gsap.to(mediaRef.current, { opacity: 1, scale: 1, duration: 0.3 });
 
 	useEffect(() => {
 		const fetchSet = async () => {
@@ -69,7 +75,25 @@ const Quiz = () => {
 		[answers, question],
 	);
 
+	const handleImageLoad = (e: React.SyntheticEvent<HTMLImageElement>) => {
+		const img = e.currentTarget;
+		const fac = new FastAverageColor();
+		const color = fac.getColor(img);
+		setDominantColor(color.rgba);
+		fac.destroy();
+
+		const imageRatio = img.naturalWidth / img.naturalHeight;
+		const containerRatio = img.parentElement
+			? img.parentElement.clientWidth / img.parentElement.clientHeight
+			: 2;
+
+		setObjectFit(imageRatio >= containerRatio ? "cover" : "contain");
+	};
+
 	const onSubmit = async () => {
+		setInputValue("");
+		await animateOut();
+
 		await fetch(`http://localhost:3000/api/player/advance-question`, {
 			method: "PATCH",
 		});
@@ -89,7 +113,8 @@ const Quiz = () => {
 		if (updatedPlayer.questionIndex >= set!.option.numberOfQuestions) {
 			await endGame();
 		} else {
-			fetchQuestions();
+			await fetchQuestions();
+			animateIn();
 		}
 	};
 
@@ -101,12 +126,14 @@ const Quiz = () => {
 		setShowResults(true);
 	};
 
-	const [inputValue, setInputValue] = useState("");
-
 	const filteredAnswers = useMemo(
 		() =>
 			possibleAnswers.filter(
-				(item) => !inputValue || item.value.includes(inputValue),
+				(item) =>
+					!inputValue.toLocaleLowerCase() ||
+					item.value
+						.toLocaleLowerCase()
+						.includes(inputValue.toLocaleLowerCase()),
 			),
 		[possibleAnswers, inputValue],
 	);
@@ -133,25 +160,39 @@ const Quiz = () => {
 					{player && set && <ScoreDisplay player={player} set={set} />}
 					<div className={styles.questionWrapper}>
 						<div className={styles.questionDisplay}>
-							<AnimatedBorder
-								flex="4"
-								inset="2px"
-								borderColor="#f5fbf2"
-								borderRadius="48px"
+							<div
+								className={styles.mediaWrapper}
+								style={{
+									background: dominantColor,
+									border: `2px solid color-mix(in srgb, ${dominantColor}, black 20%)`,
+									boxShadow: `0 0 20px 3px ${dominantColor}, 0 2px 8px rgba(0, 0, 0, 0.6)`,
+								}}
 							>
-								<div className={styles.mediaWrapper}>
-									<div className={styles.mediaDisplay}>
-										<img src={`/question_images/${question?.media}`} alt="" />
-									</div>
+								<div className={styles.mediaDisplay} ref={mediaRef}>
+									<img
+										src={`/question_images/${question?.media}`}
+										alt=""
+										crossOrigin="anonymous"
+										onLoad={handleImageLoad}
+										style={{ objectFit }}
+									/>
 								</div>
-							</AnimatedBorder>
+							</div>
 						</div>
 						<form
-							onSubmit={handleSubmit(onSubmit)}
+							onSubmit={(e) => {
+								e.preventDefault();
+								onSubmit();
+							}}
 							className={styles.answerForm}
 						>
 							<div className={styles.answerSuggestions}>
-								<h3>Suggestions</h3>
+								{question?.answerType.name === "guessCharacter" && (
+									<h3>Co to za postać?</h3>
+								)}
+								{question?.answerType.name === "guessGame" && (
+									<h3>Co to za gra?</h3>
+								)}
 								<ul className={styles.suggestionsList}>
 									{filteredAnswers.slice(0, 8).map((a) => (
 										<li

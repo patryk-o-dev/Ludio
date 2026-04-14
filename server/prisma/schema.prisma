@@ -83,8 +83,10 @@ model Category {
 }
 
 model Player {
-  id            String        @id           @default(uuid())
-  exp           Int           @default(0)
-  questionIndex Int           @default(0)
-  score         Int           @default(0)
+  id                String        @id           @default(uuid())
+  exp               Int           @default(0)
+  currentSetId      String?
+  currentQuestionId String?
+  questionIndex     Int           @default(0)
+  score             Int           @default(0)
 }

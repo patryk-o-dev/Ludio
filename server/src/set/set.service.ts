@@ -52,6 +52,17 @@ export class SetService {
       data: { selected: false },
     });
 
+    const player = await this.prisma.player.findFirst();
+    await this.prisma.player.update({
+      where: { id: player?.id },
+      data: {
+        currentSetId: setId,
+        currentQuestionId: null,
+        questionIndex: 0,
+        score: 0,
+      },
+    });
+
     await this.prisma.set.update({
       where: { id: setId },
       data: { selected: true },
@@ -90,7 +101,7 @@ export class SetService {
       });
       await this.prisma.player.update({
         where: { id: player?.id },
-        data: { score: 0, questionIndex: 0 },
+        data: { score: 0, questionIndex: 0, currentQuestionId: null },
       });
     };
 

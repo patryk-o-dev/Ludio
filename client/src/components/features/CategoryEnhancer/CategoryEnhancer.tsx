@@ -3,7 +3,7 @@ import type { Category, Player } from "../../../types";
 import { getData } from "../../../api/getDataApi";
 import styles from "./CategoryEnhancer.module.scss";
 
-const CategoryEnhancer = () => {
+const CategoryEnhancer = ({ onEnhance }: { onEnhance: () => void }) => {
 	const [categories, setCategories] = useState<Category[]>([]);
 	const [player, setPlayer] = useState<Player>();
 
@@ -28,6 +28,7 @@ const CategoryEnhancer = () => {
 				.then(() => {
 					getData("player").then((data) => setPlayer(data));
 					getData("category").then((data) => setCategories(data));
+					onEnhance();
 				})
 				.catch((err) => {
 					console.error("Error enhancing category:", err);
@@ -40,13 +41,17 @@ const CategoryEnhancer = () => {
 	return (
 		<div className={styles.categoryEnhancer}>
 			<h2 className={styles.title}>
-				Kategorie {player ? player.exp : "Loading..."}
+				Dostępne punkty: {player ? player.exp : "Loading..."}
 			</h2>
 			<ul className={styles.categoryList}>
 				{categories.map((category) => (
 					<li key={category.id} className={styles.categoryItem}>
 						<div className={styles.cardHeading}>
-							<p>{category.name}</p>
+							<p>
+								{category.name.charAt(0).toUpperCase() + category.name.slice(1)}{" "}
+								{category.lvl}/{category.lvlMax}
+								{category.lvl >= category.lvlMax && " (MAX)"}
+							</p>
 							<div className={styles.spacer}></div>
 						</div>
 						<div className={styles.cardProgress}>

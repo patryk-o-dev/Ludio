@@ -15,3 +15,29 @@
 .lockIcon {
 	height: 70%;
 }
+
+.tooltip {
+	z-index: 100;
+	pointer-events: none;
+	background-color: rgba(vars.$alert-color-dark, 0.95);
+	padding: vars.$spacing-xs vars.$spacing-sm;
+	border: 1px solid vars.$alert-color;
+	border-radius: vars.$radius-sm;
+	box-shadow: vars.$box-shadow-md;
+	font-size: vars.$font-sm;
+	white-space: nowrap;
+
+	p {
+		color: vars.$alert-color-light;
+	}
+
+	ul {
+		list-style: none;
+		padding: 0;
+		margin: vars.$spacing-2xs 0 0;
+
+		li {
+			color: vars.$alert-color-light;
+		}
+	}
+}

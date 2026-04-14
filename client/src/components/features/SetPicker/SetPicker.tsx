@@ -5,12 +5,20 @@ import { type Set } from "../../../types";
 import SetCard from "../../utils/SetCard/SetCard";
 import StartQuiz from "../../layout/StartQuiz/StartQuiz";
 
-const SetPicker = () => {
+const SetPicker = ({ refreshKey }: { refreshKey: number }) => {
 	const [unlockedSets, setUnlockedSets] = useState<Set[]>([]);
 	const [lockedSets, setLockedSets] = useState<Set[]>([]);
 	const [selectedSet, setSelectedSet] = useState<Set | null>(null);
 
 	useEffect(() => {
+		getData("player").then((data) => {
+			if (data.currentSetId) {
+				getData(`set/${data.currentSetId}`).then((setData) => {
+					setSelectedSet(setData);
+				});
+			}
+		});
+
 		getData("set").then((data) => {
 			const sortByName = (a: Set, b: Set) => a.name.localeCompare(b.name);
 			const unlocked = data.filter((set: Set) => set.unlocked).sort(sortByName);
@@ -18,7 +26,7 @@ const SetPicker = () => {
 			setUnlockedSets(unlocked);
 			setLockedSets(locked);
 		});
-	}, []);
+	}, [refreshKey]);
 
 	const handleSelectSet = async (set: Set) => {
 		try {
@@ -48,7 +56,7 @@ const SetPicker = () => {
 		<div className={styles.setPicker}>
 			<section className={styles.setsSection}>
 				<div>
-					<h2 className={styles.sectionTitle}>Unlocked Sets</h2>
+					<h2 className={styles.sectionTitle}>Odblokowane Zestawy</h2>
 				</div>
 				<ul className={styles.setList}>
 					{unlockedSets.map((set) => (
@@ -68,13 +76,20 @@ const SetPicker = () => {
 			</section>
 			<StartQuiz setTitle={selectedSet ? selectedSet.name : "Wybierz Zestaw"} />
 			<section className={styles.setsSection}>
-				<div>
-					<h2 className={styles.sectionTitle}>Locked Sets</h2>
-				</div>
+				<h2 className={styles.sectionTitle}>Zablokowane Zestawy</h2>
 				<ul className={styles.setList}>
 					{lockedSets.map((set) => (
 						<li key={set.id} className={styles.setItem}>
-							<SetCard name={set.name} unlocked={set.unlocked} />
+							<SetCard
+								name={set.name}
+								unlocked={set.unlocked}
+								lockedTags={[
+									...set.guess,
+									...set.by,
+									...set.only,
+									...set.without,
+								].filter((tag) => !tag.unlocked)}
+							/>
 						</li>
 					))}
 				</ul>

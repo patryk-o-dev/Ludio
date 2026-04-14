@@ -27,6 +27,13 @@ export class QuestionService {
     without: string,
     resetAttempted = false,
   ) {
+    const player = await this.prisma.player.findFirst();
+    if (player.currentQuestionId) {
+      return this.prisma.question.findUnique({
+        where: { id: player.currentQuestionId },
+        include: { tags: true, answerType: true },
+      });
+    }
     const guessArray = guess ? guess.split(',').map((t) => t.trim()) : [];
     const byArray = by ? by.split(',').map((t) => t.trim()) : [];
     const onlyArray = only ? only.split(',').map((t) => t.trim()) : [];
@@ -52,7 +59,7 @@ export class QuestionService {
 
     const questions = await this.prisma.question.findMany({
       where,
-      include: { tags: true },
+      include: { tags: true, answerType: true },
     });
 
     if (questions.length === 0) {
@@ -65,13 +72,17 @@ export class QuestionService {
 
     const randomIndex = Math.floor(Math.random() * questions.length);
     await this.markUsed(questions[randomIndex].id);
+    await this.prisma.player.update({
+      where: { id: player.id },
+      data: { currentQuestionId: questions[randomIndex].id },
+    });
     return questions[randomIndex];
   }
 
   async findAnswer(questionId: string, answer: string) {
     const question = await this.prisma.question.findUnique({
       where: { id: questionId },
-      include: { answer: true },
+      include: { answer: true, answerType: true },
     });
     const answerRecord = await this.prisma.answer.findUnique({
       where: { value: answer },

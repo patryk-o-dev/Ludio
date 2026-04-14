@@ -31,7 +31,7 @@ export class PlayerService {
     const player = await this.prisma.player.findFirst();
     const updatedPlayer = await this.prisma.player.update({
       where: { id: player.id },
-      data: { questionIndex: { increment: 1 } },
+      data: { questionIndex: { increment: 1 }, currentQuestionId: null },
     });
     return updatedPlayer;
   }
