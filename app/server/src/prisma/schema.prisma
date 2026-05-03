@@ -4,11 +4,131 @@
 // Get a free hosted Postgres database in seconds: `npx create-db`
 
 generator client {
-  provider = "prisma-client"
-  output   = "../src/generated/prisma"
-  moduleFormat    = "cjs"
+  provider     = "prisma-client"
+  output       = "../generated/prisma"
+  moduleFormat = "cjs"
 }
 
 datasource db {
   provider = "mysql"
+}
+
+enum AnswerType {
+  GAMING
+  WATCHING
+  ANIMATION
+  SOUND
+  TWITCH
+  HEART
+  CHARACTERS
+  VARIOUS
+}
+
+model Player {
+  id          String @id @default(uuid())
+  exp         Int    @default(0)
+  expNextLvl  Int    @default(10)
+  lvl         Int    @default(0)
+  kp          Int    @default(0)
+}
+
+model ChipGuess {
+  id              String          @id @default(uuid())
+  name            String          @unique
+  unlocked        Boolean         @default(false)
+  compatibleChips ChipBy[]        @relation("ChipGuessChipBy")
+  gamingLvl       Int             @default(0)
+  watchingLvl     Int             @default(0)
+  animationsLvl   Int             @default(0)
+  soundsLvl       Int             @default(0)
+  twitchLvl       Int             @default(0)
+  hearthLvl       Int             @default(0)
+  charactersLvl   Int             @default(0)
+  variousLvl      Int             @default(0)
+  selectedChips   SelectedChip[]  @relation("ChipGuessSelectedChip")
+}
+
+model ChipBy {
+  id              String          @id @default(uuid())
+  name            String          @unique
+  unlocked        Boolean         @default(false)
+  gamingLvl       Int             @default(0)
+  watchingLvl     Int             @default(0)
+  animationsLvl   Int             @default(0)
+  soundsLvl       Int             @default(0)
+  twitchLvl       Int             @default(0)
+  hearthLvl       Int             @default(0)
+  charactersLvl   Int             @default(0)
+  variousLvl      Int             @default(0)
+  selectedChips   SelectedChip[]  @relation("ChipBySelectedChip")
+  compatibleGuess ChipGuess[]     @relation("ChipGuessChipBy")
+  questionChips   Question[]      @relation("QuestionChipBy")
+}
+
+model globalModifier {
+  id            String @id @default(uuid())
+  name          String @unique
+  gamingLvl     Int    @default(0)
+  watchingLvl   Int    @default(0)
+  animationsLvl Int    @default(0)
+  soundsLvl     Int    @default(0)
+  twitchLvl     Int    @default(0)
+  hearthLvl     Int    @default(0)
+  charactersLvl Int    @default(0)
+  variousLvl    Int    @default(0)
+  games         Game[] @relation("GameGlobalModifier")
+}
+
+model Media {
+  id        String     @id @default(uuid())
+  url       String?
+  text      String?
+  questions Question[]
+}
+
+model Answer {
+  id          String     @id @default(uuid())
+  value       String     @unique
+  questions   Question[]
+  answerType  AnswerType
+}
+
+model Question {
+  id            String   @id @default(uuid())
+  mediaId       String
+  media         Media    @relation(fields: [mediaId], references: [id])
+  alreadyAsked  Boolean  @default(false)
+  answerId      String
+  answer        Answer   @relation(fields: [answerId], references: [id])
+  answerType    AnswerType
+  chipsBy        ChipBy[] @relation("QuestionChipBy")
+  currentInGames Game[]   @relation("GameCurrentQuestion")
+}
+
+model SelectedChip {
+  id          String    @id @default(uuid())
+  chipGuessId String
+  chipGuess   ChipGuess @relation("ChipGuessSelectedChip", fields: [chipGuessId], references: [id])
+  chipById    String
+  chipBy      ChipBy    @relation("ChipBySelectedChip", fields: [chipById], references: [id])
+  usageCount  Int       @default(0)
+  gameId      String
+  game        Game      @relation("GameSelectedChip", fields: [gameId], references: [id])
+}
+
+model Game {
+  id                String            @id @default(uuid())
+  selectedChips     SelectedChip[]    @relation("GameSelectedChip")
+  globalModifiers   globalModifier[]  @relation("GameGlobalModifier")
+  currentQuestionId String?
+  currentQuestion   Question? @relation("GameCurrentQuestion", fields: [currentQuestionId], references: [id])
+  score             Int               @default(0)
+  difficulty        Int               @default(0)
+}
+
+model Category {
+  id        String  @id @default(uuid())
+  name      String  @unique
+  lvl       Int     @default(0)
+  lvlMax    Int     @default(10)
 }
