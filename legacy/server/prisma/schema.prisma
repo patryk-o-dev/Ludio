@@ -1,0 +1,101 @@
+generator client {
+  provider = "prisma-client"
+  output   = "../src/generated/prisma"
+  moduleFormat    = "cjs"
+}
+
+datasource db {
+  provider = "mysql"
+}
+
+model Player {
+  id                String        @id           @default(uuid())
+  exp               Int           @default(0)
+  lvl               Int           @default(0)
+  kp                Int           @default(0)
+}
+
+model ChipGuess {
+  id          String        @id       @default(uuid())
+  name        String        @unique
+  gamingLvl     Int           @default(0)
+  watchingLvl     Int           @default(0)
+  animationsLvl     Int           @default(0)
+  soundsLvl     Int           @default(0)
+  twitchLvl     Int           @default(0)
+  hearthLvl     Int           @default(0)
+  charactersLvl     Int           @default(0)
+  variousLvl     Int           @default(0)
+}
+
+model ChipBy {
+  id          String        @id       @default(uuid())
+  name        String
+  gamingLvl     Int           @default(0)
+  watchingLvl     Int           @default(0)
+  animationsLvl     Int           @default(0)
+  soundsLvl     Int           @default(0)
+  twitchLvl     Int           @default(0)
+  hearthLvl     Int           @default(0)
+  charactersLvl     Int           @default(0)
+  variousLvl     Int           @default(0)
+}
+
+model globalModifier {
+  id          String        @id       @default(uuid())
+  name        String
+  gamingLvl     Int           @default(0)
+  watchingLvl     Int           @default(0)
+  animationsLvl     Int           @default(0)
+  soundsLvl     Int           @default(0)
+  twitchLvl     Int           @default(0)
+  hearthLvl     Int           @default(0)
+  charactersLvl     Int           @default(0)
+  variousLvl     Int           @default(0)
+}
+
+model Media {
+  id            String        @id       @default(uuid())
+  url           String?
+  text          String?
+  questions     Question[]
+}
+
+model Answer {
+  id            String        @id       @default(uuid())
+  value         String        @unique
+  questions     Question[]
+  chipsBy       ChipBy[]          @relation("QuestionChipBy")
+}
+
+model Question {
+  id           String        @id       @default(uuid())
+  mediaId       String
+  media         Media         @relation(fields: [mediaId], references: [id])
+  used          Boolean       @default(false)
+  answerId      String
+  answer        Answer        @relation(fields: [answerId], references: [id])
+  chipsBy       ChipBy[]          @relation("QuestionChipBy")
+}
+
+model Game {
+  id                  String        @id       @default(uuid())
+  chipGuessIds        String
+  chipByIds           String
+  themeModifierId     String
+  questionIds         String
+  currentQuestionId   String
+  score               Int           @default(0)
+  difficulty          Int           @default(0)
+}
+
+model Category {
+  id          String      @id       @default(uuid())
+  name        String      @unique
+  lvl         Int         @default(0)
+  lvlMax      Int         @default(10)
+  maxed       Boolean     @default(false)
+  expNeeded   Int         @default(1)
+  expAdded    Int         @default(0)
+  tags        Tag[]
+}

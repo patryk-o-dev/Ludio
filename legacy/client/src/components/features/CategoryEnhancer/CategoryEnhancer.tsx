@@ -40,7 +40,7 @@ const CategoryEnhancer = ({ onEnhance }: { onEnhance: () => void }) => {
 
 	return (
 		<div className={styles.categoryEnhancer}>
-			<h2 className={styles.title}>
+			<h2 className="text-2xl font-bold mb-4">
 				Dostępne punkty: {player ? player.exp : "Loading..."}
 			</h2>
 			<ul className={styles.categoryList}>
