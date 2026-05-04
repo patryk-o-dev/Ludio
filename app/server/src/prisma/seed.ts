@@ -36,6 +36,7 @@ async function main() {
   await prisma.chipGuess.deleteMany();
   await prisma.chipBy.deleteMany();
   await prisma.player.deleteMany();
+  await prisma.category.deleteMany();
 
   // Player
   await prisma.player.create({
@@ -94,6 +95,21 @@ async function main() {
     'cosplayAnswer2',
     AnswerType.CHARACTERS,
   );
+
+  // Categories
+  const categoryNames = [
+    'gaming',
+    'watching',
+    'animations',
+    'sounds',
+    'twitch',
+    'hearth',
+    'characters',
+    'various',
+  ];
+  for (const name of categoryNames) {
+    await prisma.category.create({ data: { name } });
+  }
 
   console.log('Seeded done 🌳');
 }

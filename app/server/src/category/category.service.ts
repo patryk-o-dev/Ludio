@@ -72,12 +72,12 @@ export class CategoryService {
     if (!field) return;
 
     await this.prisma.chipGuess.updateMany({
-      where: { unlocked: false, [field]: { gte: newLvl } },
+      where: { unlocked: false, [field]: { lte: newLvl } },
       data: { unlocked: true },
     });
 
     await this.prisma.chipBy.updateMany({
-      where: { unlocked: false, [field]: { gte: newLvl } },
+      where: { unlocked: false, [field]: { lte: newLvl } },
       data: { unlocked: true },
     });
   }

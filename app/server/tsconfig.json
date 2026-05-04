@@ -11,6 +11,7 @@
     "outDir": "./dist",
     "rootDir": "./src",
     "incremental": true,
+    "tsBuildInfoFile": "./dist/tsconfig.build.tsbuildinfo",
     "skipLibCheck": true,
     "strictNullChecks": false,
     "noImplicitAny": false,
@@ -22,5 +23,6 @@
     },
     "types": ["node"]
   },
+  "include": ["src/**/*"],
   "exclude": ["prisma.config.ts"]
 }
