@@ -5,10 +5,14 @@ import { PrismaService } from '../prisma/prisma.service';
 export class ChipsService {
   constructor(private readonly prisma: PrismaService) {}
   getChipGuesses() {
-    return this.prisma.chipGuess.findMany();
+    return this.prisma.chipGuess.findMany({
+      include: { compatibleChips: { select: { id: true } } },
+    });
   }
 
   getChipBys() {
-    return this.prisma.chipBy.findMany();
+    return this.prisma.chipBy.findMany({
+      include: { compatibleGuess: { select: { id: true } } },
+    });
   }
 }

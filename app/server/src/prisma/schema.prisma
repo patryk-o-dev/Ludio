@@ -46,11 +46,13 @@ model ChipGuess {
   charactersLvl   Int             @default(0)
   variousLvl      Int             @default(0)
   selectedChips   SelectedChip[]  @relation("ChipGuessSelectedChip")
+  questionChips   Question[]      @relation("QuestionChipGuess")
 }
 
 model ChipBy {
   id              String          @id @default(uuid())
   name            String          @unique
+  lvl             Int             @default(0)
   unlocked        Boolean         @default(false)
   gamingLvl       Int             @default(0)
   watchingLvl     Int             @default(0)
@@ -94,15 +96,16 @@ model Answer {
 }
 
 model Question {
-  id            String   @id @default(uuid())
-  mediaId       String
-  media         Media    @relation(fields: [mediaId], references: [id])
-  alreadyAsked  Boolean  @default(false)
-  answerId      String
-  answer        Answer   @relation(fields: [answerId], references: [id])
-  answerType    AnswerType
-  chipsBy        ChipBy[] @relation("QuestionChipBy")
-  currentInGames Game[]   @relation("GameCurrentQuestion")
+  id              String      @id @default(uuid())
+  mediaId         String
+  media           Media       @relation(fields: [mediaId], references: [id])
+  alreadyAsked    Boolean     @default(false)
+  answerId        String
+  answer          Answer      @relation(fields: [answerId], references: [id])
+  answerType      AnswerType
+  chipsGuess      ChipGuess[] @relation("QuestionChipGuess")
+  chipsBy         ChipBy[]    @relation("QuestionChipBy")
+  currentInGames  Game[]      @relation("GameCurrentQuestion")
 }
 
 model SelectedChip {
@@ -123,6 +126,7 @@ model Game {
   currentQuestionId String?
   currentQuestion   Question? @relation("GameCurrentQuestion", fields: [currentQuestionId], references: [id])
   score             Int               @default(0)
+  lives             Int               @default(3)
   difficulty        Int               @default(0)
 }
 

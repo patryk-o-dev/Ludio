@@ -7,6 +7,7 @@ const prisma = new PrismaClient({ adapter });
 
 async function createQuestion(
   prisma: PrismaClient,
+  chipGuessId: string,
   chipById: string,
   answerValue: string,
   answerType: AnswerType,
@@ -20,6 +21,7 @@ async function createQuestion(
       mediaId: media.id,
       answerId: answer.id,
       answerType,
+      chipsGuess: { connect: { id: chipGuessId } },
       chipsBy: { connect: { id: chipById } },
     },
   });
@@ -50,13 +52,13 @@ async function main() {
   const cosplay = await prisma.chipBy.create({ data: { name: 'cosplay' } });
 
   // ChipGuess
-  await prisma.chipGuess.create({
+  const game = await prisma.chipGuess.create({
     data: {
       name: 'game',
       compatibleChips: { connect: [{ id: mainMenu.id }, { id: mods.id }] },
     },
   });
-  await prisma.chipGuess.create({
+  const characterGame = await prisma.chipGuess.create({
     data: {
       name: 'characterGame',
       compatibleChips: { connect: [{ id: image.id }, { id: cosplay.id }] },
@@ -66,31 +68,59 @@ async function main() {
   // Questions
   await createQuestion(
     prisma,
+    game.id,
     mainMenu.id,
     'mainMenuAnswer1',
     AnswerType.GAMING,
   );
   await createQuestion(
     prisma,
+    game.id,
     mainMenu.id,
     'mainMenuAnswer2',
     AnswerType.GAMING,
   );
 
-  await createQuestion(prisma, mods.id, 'modsAnswer1', AnswerType.GAMING);
-  await createQuestion(prisma, mods.id, 'modsAnswer2', AnswerType.GAMING);
-
-  await createQuestion(prisma, image.id, 'imageAnswer1', AnswerType.CHARACTERS);
-  await createQuestion(prisma, image.id, 'imageAnswer2', AnswerType.CHARACTERS);
+  await createQuestion(
+    prisma,
+    game.id,
+    mods.id,
+    'modsAnswer1',
+    AnswerType.GAMING,
+  );
+  await createQuestion(
+    prisma,
+    game.id,
+    mods.id,
+    'modsAnswer2',
+    AnswerType.GAMING,
+  );
 
   await createQuestion(
     prisma,
+    characterGame.id,
+    image.id,
+    'imageAnswer1',
+    AnswerType.CHARACTERS,
+  );
+  await createQuestion(
+    prisma,
+    characterGame.id,
+    image.id,
+    'imageAnswer2',
+    AnswerType.CHARACTERS,
+  );
+
+  await createQuestion(
+    prisma,
+    characterGame.id,
     cosplay.id,
     'cosplayAnswer1',
     AnswerType.CHARACTERS,
   );
   await createQuestion(
     prisma,
+    characterGame.id,
     cosplay.id,
     'cosplayAnswer2',
     AnswerType.CHARACTERS,
