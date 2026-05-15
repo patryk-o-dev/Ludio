@@ -5,11 +5,15 @@ import StreamerLogo from "./StreamerLogo";
 
 const NavBar = () => {
 	return (
-		<nav>
-			<StreamerLogo />
-			<ModeSelection />
-			<Settings />
-			<Profile />
+		<nav className="flex items-center justify-between">
+			<div className="flex items-center gap-4">
+				<StreamerLogo />
+				<ModeSelection />
+			</div>
+			<div className="flex items-center gap-4">
+				<Settings />
+				<Profile />
+			</div>
 		</nav>
 	);
 };
