@@ -2,9 +2,9 @@ import ChipList from "./ChipList";
 
 const ChipSelector = () => {
 	return (
-		<div>
+		<aside className="flex-1 bg-(--bgc-secondary) p-4 rounded-lg">
 			<ChipList />
-		</div>
+		</aside>
 	);
 };
 

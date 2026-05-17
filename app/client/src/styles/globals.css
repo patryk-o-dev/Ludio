@@ -1,13 +1,13 @@
 :root {
-	--accent: #dc6690;
-	--accent-dark: #72374b;
-	--accent-light: #e3b3c5;
-	--bgc-primary: #08090c;
-	--bgc-secondary: #111218;
-	--bgc-tertiary: #1a1b25;
+	--accent: #f75891;
+	--accent-dark: #81324d;
+	--accent-light: #f1a1be;
+	--bgc-primary: #0b0b09;
+	--bgc-secondary: #161613;
+	--bgc-tertiary: #20201d;
 	--text: #eaeaea;
-	--positive: #63cd86;
-	--info: #41ead4;
+	--positive: #37ff8b;
+	--info: #45f0df;
 	--font-nunito: "Nunito", sans-serif;
 }
 

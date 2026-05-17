@@ -3,7 +3,7 @@ import StartQuiz from "../features/StartQuiz";
 
 const QuizCreator = () => {
 	return (
-		<div>
+		<div className="flex-3 bg-(--bgc-secondary) p-4 rounded-lg">
 			<RulesList />
 			<StartQuiz />
 		</div>
