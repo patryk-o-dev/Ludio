@@ -1,0 +1,19 @@
+:root {
+	--accent: #dc6690;
+	--accent-dark: #72374b;
+	--accent-light: #e3b3c5;
+	--bgc-primary: #08090c;
+	--bgc-secondary: #111218;
+	--bgc-tertiary: #1a1b25;
+	--text: #eaeaea;
+	--positive: #63cd86;
+	--info: #41ead4;
+	--font-nunito: "Nunito", sans-serif;
+}
+
+@font-face {
+	font-family: "Nunito";
+	src: url("../assets/fonts/Nunito/Nunito-VariableFont_wght.ttf")
+		format("truetype");
+	font-weight: 100 900;
+}

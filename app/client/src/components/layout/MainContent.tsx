@@ -4,7 +4,7 @@ import QuizCreator from "./QuizCreator";
 
 const MainContent = () => {
 	return (
-		<main>
+		<main className="flex flex-row gap-4 bg-(--bgc-secondary) p-4">
 			<LeftAside />
 			<QuizCreator />
 			<ChipSelector />

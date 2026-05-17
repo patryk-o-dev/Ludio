@@ -192,8 +192,8 @@ const Index = () => {
 	const lockedBys = compatibleBys.filter((c) => !c.unlocked);
 
 	return (
-		<div className="p-4 space-y-8 bg-gray-900 text-white min-h-screen">
-			<div className="p-4 bg-gray-900 min-h-screen">
+		<div className="bg-(--bgc-primary) text-(--text) min-h-screen flex flex-col items-center font-nunito">
+			<div className="bg-(--bgc-primary) min-h-screen w-screen max-w-450">
 				<NavBar />
 				<MainContent />
 			</div>

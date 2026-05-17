@@ -2,14 +2,14 @@ import profileImg from "../../assets/images/streamerProfilePlaceholder.jpeg";
 
 const StreamerLogo = () => {
 	return (
-		<div className="flex items-center gap-3">
+		<div className="flex items-center gap-4">
 			<img
 				src={profileImg}
 				alt="Streamer Logo"
-				className="w-10 h-10 rounded-full object-cover border-2 border-[#dc6690]"
+				className="w-14 h-14 rounded-full object-cover border-2 border-(--accent)"
 			/>
-			<p className="text-[#dedede]">
-				Streamer's <span className="text-[#dc6690]">Quiz</span>
+			<p className="text-(--text) uppercase text-lg font-bold">
+				Streamer's <span className="text-(--accent)">Quiz</span>
 			</p>
 		</div>
 	);
