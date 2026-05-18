@@ -1,13 +1,17 @@
 :root {
-	--accent: #f75891;
-	--accent-dark: #81324d;
-	--accent-light: #f1a1be;
+	--accent-lighter: #DD92AE;
+	--accent-light: #CF638B;
+	--accent: #b53866;
+	--accent-dark: #8C2B4F;
+	--accent-darker: #5E1D35;
 	--bgc-primary: #0b0b09;
-	--bgc-secondary: #161613;
-	--bgc-tertiary: #20201d;
+	--bgc-secondary: #131311;
+	--bgc-tertiary: #1b1b19;
+	--bgc-quaternary: #2a2a28;
 	--text: #eaeaea;
+	--text-secondary: #b0b0b0;
 	--positive: #37ff8b;
-	--info: #45f0df;
+	--info: #82d4bb;
 	--font-nunito: "Nunito", sans-serif;
 }
 
