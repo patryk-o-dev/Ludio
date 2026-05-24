@@ -7,6 +7,9 @@ interface RulesListProps {
 	onSelectChipType: (type: ChipSelectorMode) => void;
 	selectedGuess: SelectedChip | null;
 	selectedBy: SelectedChip | null;
+	availableFilters: SelectedChip[];
+	selectedFilters: SelectedChip[];
+	onToggleFilter: (filter: SelectedChip) => void;
 }
 
 const RulesList = ({
@@ -14,6 +17,9 @@ const RulesList = ({
 	onSelectChipType,
 	selectedGuess,
 	selectedBy,
+	availableFilters,
+	selectedFilters,
+	onToggleFilter,
 }: RulesListProps) => {
 	return (
 		<div>
@@ -22,6 +28,9 @@ const RulesList = ({
 				onSelectChipType={onSelectChipType}
 				selectedGuess={selectedGuess}
 				selectedBy={selectedBy}
+				availableFilters={availableFilters}
+				selectedFilters={selectedFilters}
+				onToggleFilter={onToggleFilter}
 			/>
 			<AddNewRule />
 		</div>

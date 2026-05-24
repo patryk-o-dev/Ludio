@@ -7,6 +7,9 @@ interface QuizCreatorProps {
 	onSelectChipType: (type: ChipSelectorMode) => void;
 	selectedGuess: SelectedChip | null;
 	selectedBy: SelectedChip | null;
+	availableFilters: SelectedChip[];
+	selectedFilters: SelectedChip[];
+	onToggleFilter: (filter: SelectedChip) => void;
 }
 
 const QuizCreator = ({
@@ -14,6 +17,9 @@ const QuizCreator = ({
 	onSelectChipType,
 	selectedGuess,
 	selectedBy,
+	availableFilters,
+	selectedFilters,
+	onToggleFilter,
 }: QuizCreatorProps) => {
 	return (
 		<div className="flex flex-col flex-3 bg-(--bgc-secondary) p-4 rounded-lg h-full">
@@ -30,6 +36,9 @@ const QuizCreator = ({
 				onSelectChipType={onSelectChipType}
 				selectedGuess={selectedGuess}
 				selectedBy={selectedBy}
+				availableFilters={availableFilters}
+				selectedFilters={selectedFilters}
+				onToggleFilter={onToggleFilter}
 			/>
 			<StartQuiz />
 		</div>
