@@ -1,4 +1,4 @@
-import { Controller, Get } from '@nestjs/common';
+import { Controller, Get, Param } from '@nestjs/common';
 import { ChipsService } from './chips.service';
 
 @Controller('chips')
@@ -10,8 +10,8 @@ export class ChipsController {
     return this.chipsService.getChipGuesses();
   }
 
-  @Get('by')
-  getChipBys() {
-    return this.chipsService.getChipBys();
+  @Get('by/:chipGuessId')
+  getChipBys(@Param('chipGuessId') chipGuessId: string) {
+    return this.chipsService.getChipBys(chipGuessId);
   }
 }

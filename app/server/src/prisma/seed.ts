@@ -1,4 +1,4 @@
-import { AnswerType, PrismaClient } from '../generated/prisma/client';
+import { PrismaClient } from '../generated/prisma/client';
 import { PrismaMariaDb } from '@prisma/adapter-mariadb';
 import 'dotenv/config';
 
@@ -6,23 +6,30 @@ const adapter = new PrismaMariaDb(process.env.DATABASE_URL!);
 const prisma = new PrismaClient({ adapter });
 
 async function createQuestion(
-  prisma: PrismaClient,
-  chipGuessId: string,
-  chipById: string,
+  url: string,
   answerValue: string,
-  answerType: AnswerType,
+  chipById: string,
+  chipGuessIds: string[],
+  chipFilterIds: string[] = [],
 ) {
-  const media = await prisma.media.create({ data: { url: 'mediaurl.png' } });
   const answer = await prisma.answer.create({
-    data: { value: answerValue, answerType },
+    data: {
+      value: answerValue,
+      chipGuesses: { connect: chipGuessIds.map((id) => ({ id })) },
+      ...(chipFilterIds.length > 0 && {
+        chipFilters: { connect: chipFilterIds.map((id) => ({ id })) },
+      }),
+    },
   });
   await prisma.question.create({
     data: {
-      mediaId: media.id,
+      url,
+      chipById,
       answerId: answer.id,
-      answerType,
-      chipsGuess: { connect: { id: chipGuessId } },
-      chipsBy: { connect: { id: chipById } },
+      chipGuesses: { connect: chipGuessIds.map((id) => ({ id })) },
+      ...(chipFilterIds.length > 0 && {
+        chipFilters: { connect: chipFilterIds.map((id) => ({ id })) },
+      }),
     },
   });
 }
@@ -31,175 +38,173 @@ async function main() {
   console.log('🌱 Starting database seeding...');
 
   // Cleanup
-  await prisma.selectedChip.deleteMany();
   await prisma.question.deleteMany();
   await prisma.answer.deleteMany();
-  await prisma.media.deleteMany();
+  await prisma.rule.deleteMany();
   await prisma.chipGuess.deleteMany();
   await prisma.chipBy.deleteMany();
-  await prisma.player.deleteMany();
-  await prisma.category.deleteMany();
+  await prisma.chipFilter.deleteMany();
 
-  // Player
-  await prisma.player.create({
-    data: { lvl: 1, kp: 2, exp: 0 },
+  // ChipFilter
+  const onlyHorror = await prisma.chipFilter.create({
+    data: { name: 'onlyHorror' },
+  });
+  const onlyMale = await prisma.chipFilter.create({
+    data: { name: 'onlyMale' },
+  });
+  const onlyFemale = await prisma.chipFilter.create({
+    data: { name: 'onlyFemale' },
   });
 
   // ChipBy
-  const menu = await prisma.chipBy.create({ data: { name: 'menu' } });
-  const screenshot = await prisma.chipBy.create({
-    data: { name: 'screenshot' },
+  const byMainMenu = await prisma.chipBy.create({
+    data: {
+      name: 'byMainMenu',
+      compatibleChipFilter: { connect: [{ id: onlyHorror.id }] },
+    },
   });
-  const achivement = await prisma.chipBy.create({
-    data: { name: 'achivement' },
+  const byAchievement = await prisma.chipBy.create({
+    data: { name: 'byAchievement' },
   });
-  const skillDesc = await prisma.chipBy.create({ data: { name: 'skillDesc' } });
-  const gameOver = await prisma.chipBy.create({ data: { name: 'gameOver' } });
-  const item = await prisma.chipBy.create({ data: { name: 'item' } });
-  const weapon = await prisma.chipBy.create({ data: { name: 'weapon' } });
-  const frame = await prisma.chipBy.create({ data: { name: 'frame' } });
-  const trailer = await prisma.chipBy.create({ data: { name: 'trailer' } });
-  const location = await prisma.chipBy.create({ data: { name: 'location' } });
-  const cast = await prisma.chipBy.create({ data: { name: 'cast' } });
-  const poster = await prisma.chipBy.create({ data: { name: 'poster' } });
-  const set = await prisma.chipBy.create({ data: { name: 'set' } });
-  const review = await prisma.chipBy.create({ data: { name: 'review' } });
-  const quote = await prisma.chipBy.create({ data: { name: 'quote' } });
-  const creature = await prisma.chipBy.create({ data: { name: 'creature' } });
-  const song = await prisma.chipBy.create({ data: { name: 'song' } });
-  const vocal = await prisma.chipBy.create({ data: { name: 'vocal' } });
-  const ost = await prisma.chipBy.create({ data: { name: 'ost' } });
-  const sfx = await prisma.chipBy.create({ data: { name: 'sfx' } });
-  const voiceActing = await prisma.chipBy.create({
-    data: { name: 'voiceActing' },
+  const byImage = await prisma.chipBy.create({
+    data: {
+      name: 'byImage',
+      compatibleChipFilter: {
+        connect: [{ id: onlyMale.id }, { id: onlyFemale.id }],
+      },
+    },
   });
-  const clip = await prisma.chipBy.create({ data: { name: 'clip' } });
-  const drama = await prisma.chipBy.create({ data: { name: 'drama' } });
-  const chatMessage = await prisma.chipBy.create({
-    data: { name: 'chatMessage' },
+  const byCosplay = await prisma.chipBy.create({
+    data: {
+      name: 'byCosplay',
+      compatibleChipFilter: {
+        connect: [{ id: onlyMale.id }, { id: onlyFemale.id }],
+      },
+    },
   });
-  const loveIntrest = await prisma.chipBy.create({
-    data: { name: 'loveIntrest' },
-  });
-  const characterImage = await prisma.chipBy.create({
-    data: { name: 'characterImage' },
-  });
-  const personPhoto = await prisma.chipBy.create({
-    data: { name: 'personPhoto' },
-  });
-  const hair = await prisma.chipBy.create({ data: { name: 'hair' } });
-  const silhouette = await prisma.chipBy.create({
-    data: { name: 'silhouette' },
-  });
-  const cosplay = await prisma.chipBy.create({ data: { name: 'cosplay' } });
 
   // ChipGuess
   const guessGame = await prisma.chipGuess.create({
     data: {
       name: 'guessGame',
-      compatibleChips: { connect: [{ id: menu.id }, { id: screenshot.id }] },
-    },
-  });
-  const guessMovie = await prisma.chipGuess.create({
-    data: {
-      name: 'guessMovie',
-      compatibleChips: { connect: [{ id: menu.id }, { id: screenshot.id }] },
-    },
-  });
-  const guessTv = await prisma.chipGuess.create({
-    data: {
-      name: 'guessTv',
-      compatibleChips: { connect: [{ id: menu.id }, { id: screenshot.id }] },
-    },
-  });
-  const guessAnimation = await prisma.chipGuess.create({
-    data: {
-      name: 'guessAnimation',
-      compatibleChips: { connect: [{ id: menu.id }, { id: screenshot.id }] },
-    },
-  });
-  const guessAnime = await prisma.chipGuess.create({
-    data: {
-      name: 'guessAnime',
-      compatibleChips: { connect: [{ id: menu.id }, { id: screenshot.id }] },
-    },
-  });
-  const guessSong = await prisma.chipGuess.create({
-    data: {
-      name: 'guessSong',
-      compatibleChips: { connect: [{ id: menu.id }, { id: screenshot.id }] },
-    },
-  });
-  const guessViewer = await prisma.chipGuess.create({
-    data: {
-      name: 'guessViewer',
-      compatibleChips: { connect: [{ id: menu.id }, { id: screenshot.id }] },
-    },
-  });
-  const guessRandomNumber = await prisma.chipGuess.create({
-    data: {
-      name: 'guessRandomNumber',
-      compatibleChips: { connect: [{ id: menu.id }, { id: screenshot.id }] },
-    },
-  });
-  const guessDate = await prisma.chipGuess.create({
-    data: {
-      name: 'guessDate',
-      compatibleChips: { connect: [{ id: menu.id }, { id: screenshot.id }] },
-    },
-  });
-  const guessForeignWord = await prisma.chipGuess.create({
-    data: {
-      name: 'guessForeignWord',
-      compatibleChips: { connect: [{ id: menu.id }, { id: screenshot.id }] },
-    },
-  });
-  const guessAnimal = await prisma.chipGuess.create({
-    data: {
-      name: 'guessAnimal',
-      compatibleChips: { connect: [{ id: menu.id }, { id: screenshot.id }] },
-    },
-  });
-  const guessCharacter = await prisma.chipGuess.create({
-    data: {
-      name: 'guessCharacter',
-      compatibleChips: {
-        connect: [{ id: characterImage.id }, { id: cosplay.id }],
+      compatibleChipBy: {
+        connect: [{ id: byMainMenu.id }, { id: byAchievement.id }],
       },
     },
   });
-  const guessPerson = await prisma.chipGuess.create({
+  const guessGameCharacter = await prisma.chipGuess.create({
     data: {
-      name: 'guessPerson',
-      compatibleChips: {
-        connect: [{ id: personPhoto.id }, { id: cosplay.id }],
+      name: 'guessGameCharacter',
+      compatibleChipBy: {
+        connect: [{ id: byImage.id }, { id: byCosplay.id }],
       },
     },
   });
 
-  // Questions
-  await createQuestion(
-    prisma,
+  // Questions — byMainMenu (guessGame, no filter)
+  await createQuestion('byMainMenu.png', 'Game1', byMainMenu.id, [
     guessGame.id,
-    menu.id,
-    'mainMenuAnswer1',
-    AnswerType.GAMING,
+  ]);
+  await createQuestion('byMainMenu2.png', 'Game2', byMainMenu.id, [
+    guessGame.id,
+  ]);
+  await createQuestion('byMainMenu3.png', 'Game3', byMainMenu.id, [
+    guessGame.id,
+  ]);
+
+  // Questions — byMainMenuHorror (guessGame + onlyHorror)
+  await createQuestion(
+    'byMainMenuHorror.png',
+    'HorrorGame1',
+    byMainMenu.id,
+    [guessGame.id],
+    [onlyHorror.id],
+  );
+  await createQuestion(
+    'byMainMenuHorro2.png',
+    'HorrorGame2',
+    byMainMenu.id,
+    [guessGame.id],
+    [onlyHorror.id],
   );
 
-  // Categories
-  const categoryNames = [
-    'gaming',
-    'watching',
-    'animations',
-    'sounds',
-    'twitch',
-    'hearth',
-    'characters',
-    'various',
-  ];
-  for (const name of categoryNames) {
-    await prisma.category.create({ data: { name } });
-  }
+  // Questions — byAchievement (guessGame, no filter)
+  await createQuestion('byAchivement.png', 'AchGame1', byAchievement.id, [
+    guessGame.id,
+  ]);
+  await createQuestion('byAchivement2.png', 'AchGame2', byAchievement.id, [
+    guessGame.id,
+  ]);
+  await createQuestion('byAchivement3.png', 'AchGame3', byAchievement.id, [
+    guessGame.id,
+  ]);
+
+  // Questions — byImageFemale (guessGameCharacter + onlyFemale)
+  await createQuestion(
+    'byImageFemale.png',
+    'FemaleChar1',
+    byImage.id,
+    [guessGameCharacter.id],
+    [onlyFemale.id],
+  );
+  await createQuestion(
+    'byImageFemale1.png',
+    'FemaleChar2',
+    byImage.id,
+    [guessGameCharacter.id],
+    [onlyFemale.id],
+  );
+  await createQuestion(
+    'byImageFemale2.png',
+    'FemaleChar3',
+    byImage.id,
+    [guessGameCharacter.id],
+    [onlyFemale.id],
+  );
+  await createQuestion(
+    'byImageFemale3.png',
+    'FemaleChar4',
+    byImage.id,
+    [guessGameCharacter.id],
+    [onlyFemale.id],
+  );
+  await createQuestion(
+    'byImageFemale4.png',
+    'FemaleChar5',
+    byImage.id,
+    [guessGameCharacter.id],
+    [onlyFemale.id],
+  );
+  await createQuestion(
+    'byImageFemale5.png',
+    'FemaleChar6',
+    byImage.id,
+    [guessGameCharacter.id],
+    [onlyFemale.id],
+  );
+
+  // Questions — byImageMale (guessGameCharacter + onlyMale)
+  await createQuestion(
+    'byImageMale1.png',
+    'MaleChar1',
+    byImage.id,
+    [guessGameCharacter.id],
+    [onlyMale.id],
+  );
+  await createQuestion(
+    'byImageMale2.png',
+    'MaleChar2',
+    byImage.id,
+    [guessGameCharacter.id],
+    [onlyMale.id],
+  );
+  await createQuestion(
+    'byImageMale3.png',
+    'MaleChar3',
+    byImage.id,
+    [guessGameCharacter.id],
+    [onlyMale.id],
+  );
 
   console.log('Seeded done 🌳');
 }

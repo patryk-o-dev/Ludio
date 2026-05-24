@@ -10,9 +10,13 @@ export class ChipsService {
     });
   }
 
-  getChipBys() {
+  getChipBys(chipGuessId: string) {
     return this.prisma.chipBy.findMany({
-      include: { compatibleGuess: { select: { id: true } } },
+      where: {
+        compatibleGuess: {
+          some: { id: chipGuessId },
+        },
+      },
     });
   }
 }

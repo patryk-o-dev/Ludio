@@ -32,7 +32,11 @@ const MainContent = () => {
 				selectedGuess={selectedGuess}
 				selectedBy={selectedBy}
 			/>
-			<ChipSelector mode={selectorMode} onChipSelect={handleChipSelect} />
+			<ChipSelector
+				mode={selectorMode}
+				selectedChipGuessId={selectedGuess?.id}
+				onChipSelect={handleChipSelect}
+			/>
 		</main>
 	);
 };

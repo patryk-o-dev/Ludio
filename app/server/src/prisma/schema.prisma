@@ -1,8 +1,3 @@
-// This is your Prisma schema file,
-// learn more about it in the docs: https://pris.ly/d/prisma-schema
-
-// Get a free hosted Postgres database in seconds: `npx create-db`
-
 generator client {
   provider     = "prisma-client"
   output       = "../generated/prisma"
@@ -13,126 +8,134 @@ datasource db {
   provider = "mysql"
 }
 
-enum AnswerType {
-  GAMING
-  WATCHING
-  ANIMATION
-  SOUND
-  TWITCH
-  HEART
-  CHARACTERS
-  VARIOUS
-}
+model User {
+  id        String   @id @default(uuid())
+  username  String   @db.VarChar(64)
+  createdAt DateTime @default(now())
 
-model Player {
-  id          String @id @default(uuid())
-  exp         Int    @default(0)
-  expNextLvl  Int    @default(10)
-  lvl         Int    @default(0)
-  kp          Int    @default(0)
-}
-
-model ChipGuess {
-  id              String          @id @default(uuid())
-  name            String          @unique
-  unlocked        Boolean         @default(false)
-  compatibleChips ChipBy[]        @relation("ChipGuessChipBy")
-  gamingLvl       Int             @default(0)
-  watchingLvl     Int             @default(0)
-  animationsLvl   Int             @default(0)
-  soundsLvl       Int             @default(0)
-  twitchLvl       Int             @default(0)
-  hearthLvl       Int             @default(0)
-  charactersLvl   Int             @default(0)
-  variousLvl      Int             @default(0)
-  selectedChips   SelectedChip[]  @relation("ChipGuessSelectedChip")
-  questionChips   Question[]      @relation("QuestionChipGuess")
-}
-
-model ChipBy {
-  id              String          @id @default(uuid())
-  name            String          @unique
-  lvl             Int             @default(0)
-  unlocked        Boolean         @default(false)
-  gamingLvl       Int             @default(0)
-  watchingLvl     Int             @default(0)
-  animationsLvl   Int             @default(0)
-  soundsLvl       Int             @default(0)
-  twitchLvl       Int             @default(0)
-  hearthLvl       Int             @default(0)
-  charactersLvl   Int             @default(0)
-  variousLvl      Int             @default(0)
-  selectedChips   SelectedChip[]  @relation("ChipBySelectedChip")
-  compatibleGuess ChipGuess[]     @relation("ChipGuessChipBy")
-  questionChips   Question[]      @relation("QuestionChipBy")
-}
-
-model globalModifier {
-  id            String @id @default(uuid())
-  name          String @unique
-  gamingLvl     Int    @default(0)
-  watchingLvl   Int    @default(0)
-  animationsLvl Int    @default(0)
-  soundsLvl     Int    @default(0)
-  twitchLvl     Int    @default(0)
-  hearthLvl     Int    @default(0)
-  charactersLvl Int    @default(0)
-  variousLvl    Int    @default(0)
-  games         Game[] @relation("GameGlobalModifier")
-}
-
-model Media {
-  id        String     @id @default(uuid())
-  url       String?
-  text      String?
+  sessions GameSessionPlayer[]
   questions Question[]
 }
 
-model Answer {
-  id          String     @id @default(uuid())
-  value       String     @unique
-  questions   Question[]
-  answerType  AnswerType
+model GameConfig {
+  id        String   @id @default(uuid())
+  createdAt DateTime @default(now())
+
+  gameSession GameSession?
+  rules       Rule[]
+  options     Options?
+}
+
+model GameSession {
+  id        String   @id @default(uuid())
+  startedAt DateTime @default(now())
+  endedAt   DateTime?
+
+  gameConfigId String     @unique
+  gameConfig   GameConfig @relation(fields: [gameConfigId], references: [id])
+
+  players GameSessionPlayer[]
+}
+
+model GameSessionPlayer {
+  gameSessionId String
+  userId        String
+
+  score  Int @default(0)
+  timeMs Int @default(0)
+
+  gameSession GameSession @relation(fields: [gameSessionId], references: [id])
+  user        User        @relation(fields: [userId], references: [id])
+
+  @@id([gameSessionId, userId])
+}
+
+model Options {
+  id String @id @default(uuid())
+
+  gameConfigId String     @unique
+  gameConfig   GameConfig @relation(fields: [gameConfigId], references: [id])
+
+  difficulty       Int @default(1)
+  questionLimit    Int @default(10)
+  timeLimitSeconds Int?
+}
+
+model Rule {
+  id          String @id @default(uuid())
+  description String?
+
+  gameConfigId String
+  gameConfig   GameConfig @relation(fields: [gameConfigId], references: [id])
+
+  chipGuessId String
+  chipGuess   ChipGuess @relation(fields: [chipGuessId], references: [id])
+
+  chipById String
+  chipBy   ChipBy @relation(fields: [chipById], references: [id])
+
+  chipFilterId String?
+  chipFilter   ChipFilter? @relation(fields: [chipFilterId], references: [id])
+}
+
+model ChipGuess {
+  id   String @id @default(uuid())
+  name String
+
+  rules    Rule[]
+  questions Question[]
+  answers  Answer[]
+
+  compatibleChipBy ChipBy[]
+}
+
+model ChipBy {
+  id   String @id @default(uuid())
+  name String
+
+  rules     Rule[]
+  questions Question[]
+
+  compatibleChipGuess  ChipGuess[]
+  compatibleChipFilter ChipFilter[]
+}
+
+model ChipFilter {
+  id   String @id @default(uuid())
+  name String
+
+  rules     Rule[]
+  questions Question[]
+  answers   Answer[]
+
+  compatibleChipBy ChipBy[]
 }
 
 model Question {
-  id              String      @id @default(uuid())
-  mediaId         String
-  media           Media       @relation(fields: [mediaId], references: [id])
-  alreadyAsked    Boolean     @default(false)
-  answerId        String
-  answer          Answer      @relation(fields: [answerId], references: [id])
-  answerType      AnswerType
-  chipsGuess      ChipGuess[] @relation("QuestionChipGuess")
-  chipsBy         ChipBy[]    @relation("QuestionChipBy")
-  currentInGames  Game[]      @relation("GameCurrentQuestion")
+  id String @id @default(uuid())
+
+  url String
+  difficulty Int @default(1)
+
+  answerId String
+  answer Answer @relation(fields: [answerId], references: [id])
+
+  chipById String
+  chipBy ChipBy @relation(fields: [chipById], references: [id])
+
+  chipGuesses ChipGuess[]
+  chipFilters ChipFilter[]
+
+  users User[]
 }
 
-model SelectedChip {
-  id          String    @id @default(uuid())
-  chipGuessId String
-  chipGuess   ChipGuess @relation("ChipGuessSelectedChip", fields: [chipGuessId], references: [id])
-  chipById    String
-  chipBy      ChipBy    @relation("ChipBySelectedChip", fields: [chipById], references: [id])
-  usageCount  Int       @default(0)
-  gameId      String
-  game        Game      @relation("GameSelectedChip", fields: [gameId], references: [id])
+model Answer {
+  id    String @id @default(uuid())
+  value String
+
+  chipGuesses ChipGuess[]
+  chipFilters ChipFilter[]
+
+  questions Question[]
 }
 
-model Game {
-  id                String            @id @default(uuid())
-  selectedChips     SelectedChip[]    @relation("GameSelectedChip")
-  globalModifiers   globalModifier[]  @relation("GameGlobalModifier")
-  currentQuestionId String?
-  currentQuestion   Question? @relation("GameCurrentQuestion", fields: [currentQuestionId], references: [id])
-  score             Int               @default(0)
-  lives             Int               @default(3)
-  difficulty        Int               @default(0)
-}
-
-model Category {
-  id        String  @id @default(uuid())
-  name      String  @unique
-  lvl       Int     @default(0)
-  lvlMax    Int     @default(10)
-}

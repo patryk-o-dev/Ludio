@@ -9,6 +9,7 @@ interface Chip {
 
 interface ChipListProps {
 	mode: ChipSelectorMode;
+	selectedChipGuessId?: string;
 	onChipSelect: (chip: SelectedChip) => void;
 }
 
@@ -17,15 +18,20 @@ const modeLabel: Record<ChipSelectorMode, string> = {
 	by: "Wybierz Chip By:",
 };
 
-const ChipList = ({ mode, onChipSelect }: ChipListProps) => {
+const ChipList = ({ mode, selectedChipGuessId, onChipSelect }: ChipListProps) => {
 	const [chips, setChips] = useState<Chip[]>([]);
 
 	useEffect(() => {
-		fetch(`http://localhost:3000/api/chips/${mode}`)
+		const url =
+			mode === "by" && selectedChipGuessId
+				? `http://localhost:3000/api/chips/by/${selectedChipGuessId}`
+				: `http://localhost:3000/api/chips/${mode}`;
+
+		fetch(url)
 			.then((res) => res.json())
 			.then((data: Chip[]) => setChips(data))
 			.catch(() => setChips([]));
-	}, [mode]);
+	}, [mode, selectedChipGuessId]);
 
 	return (
 		<div className="flex flex-col p-4">
