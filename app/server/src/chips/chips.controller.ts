@@ -14,4 +14,9 @@ export class ChipsController {
   getChipBys(@Param('chipGuessId') chipGuessId: string) {
     return this.chipsService.getChipBys(chipGuessId);
   }
+
+  @Get('filter/:chipById')
+  getChipFilters(@Param('chipById') chipById: string) {
+    return this.chipsService.getChipFilters(chipById);
+  }
 }
