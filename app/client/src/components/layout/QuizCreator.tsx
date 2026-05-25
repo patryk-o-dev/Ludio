@@ -1,6 +1,10 @@
 import RulesList from "../features/RulesList";
 import StartQuiz from "../features/StartQuiz";
-import type { ChipSelectorMode, SelectedChip } from "./MainContent";
+import type {
+	ChipSelectorMode,
+	GameOptionsState,
+	SelectedChip,
+} from "./MainContent";
 
 interface QuizCreatorProps {
 	selectorMode: ChipSelectorMode;
@@ -10,6 +14,7 @@ interface QuizCreatorProps {
 	availableFilters: SelectedChip[];
 	selectedFilters: SelectedChip[];
 	onToggleFilter: (filter: SelectedChip) => void;
+	gameOptions: GameOptionsState;
 }
 
 const QuizCreator = ({
@@ -20,6 +25,7 @@ const QuizCreator = ({
 	availableFilters,
 	selectedFilters,
 	onToggleFilter,
+	gameOptions,
 }: QuizCreatorProps) => {
 	return (
 		<div className="flex flex-col flex-3 bg-(--bgc-secondary) p-4 rounded-lg h-full">
@@ -40,7 +46,12 @@ const QuizCreator = ({
 				selectedFilters={selectedFilters}
 				onToggleFilter={onToggleFilter}
 			/>
-			<StartQuiz />
+			<StartQuiz
+				selectedGuess={selectedGuess}
+				selectedBy={selectedBy}
+				selectedFilters={selectedFilters}
+				gameOptions={gameOptions}
+			/>
 		</div>
 	);
 };

@@ -9,12 +9,30 @@ export interface SelectedChip {
 	name: string;
 }
 
+export type Difficulty = 1 | 2 | 3 | 4 | 5;
+export type QuestionsPerRule = 3 | 5 | 7 | 10;
+export type TimeLimitSeconds = null | 10 | 20 | 30 | 50;
+
+export interface GameOptionsState {
+	difficulty: Difficulty;
+	questionLimit: QuestionsPerRule;
+	timeLimitSeconds: TimeLimitSeconds;
+}
+
+const defaultGameOptions: GameOptionsState = {
+	difficulty: 3,
+	questionLimit: 5,
+	timeLimitSeconds: null,
+};
+
 const MainContent = () => {
 	const [selectorMode, setSelectorMode] = useState<ChipSelectorMode>("guess");
 	const [selectedGuess, setSelectedGuess] = useState<SelectedChip | null>(null);
 	const [selectedBy, setSelectedBy] = useState<SelectedChip | null>(null);
 	const [availableFilters, setAvailableFilters] = useState<SelectedChip[]>([]);
 	const [selectedFilters, setSelectedFilters] = useState<SelectedChip[]>([]);
+	const [gameOptions, setGameOptions] =
+		useState<GameOptionsState>(defaultGameOptions);
 
 	useEffect(() => {
 		if (!selectedBy) return;
@@ -56,11 +74,15 @@ const MainContent = () => {
 				availableFilters={availableFilters}
 				selectedFilters={selectedFilters}
 				onToggleFilter={handleToggleFilter}
+				gameOptions={gameOptions}
 			/>
 			<ChipSelector
 				mode={selectorMode}
 				selectedChipGuessId={selectedGuess?.id}
+				selectedBy={selectedBy}
 				onChipSelect={handleChipSelect}
+				gameOptions={gameOptions}
+				onOptionsChange={setGameOptions}
 			/>
 		</main>
 	);
