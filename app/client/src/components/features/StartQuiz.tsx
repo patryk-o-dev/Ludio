@@ -1,3 +1,4 @@
+import { useNavigate } from "react-router-dom";
 import type { GameOptionsState, SelectedChip } from "../layout/MainContent";
 
 interface StartQuizProps {
@@ -13,9 +14,10 @@ const StartQuiz = ({
 	selectedFilters,
 	gameOptions,
 }: StartQuizProps) => {
+	const navigate = useNavigate();
 	const canStart = !!selectedGuess && !!selectedBy;
 
-	const handleStart = () => {
+	const handleStart = async () => {
 		if (!selectedGuess || !selectedBy) return;
 
 		const rules =
@@ -27,16 +29,21 @@ const StartQuiz = ({
 					}))
 				: [{ chipGuessId: selectedGuess.id, chipById: selectedBy.id }];
 
-		const gameConfig = {
-			rules,
-			options: {
-				difficulty: gameOptions.difficulty,
-				questionLimit: gameOptions.questionLimit,
-				timeLimitSeconds: gameOptions.timeLimitSeconds,
-			},
-		};
+		const res = await fetch("http://localhost:3000/api/game-config/session", {
+			method: "POST",
+			headers: { "Content-Type": "application/json" },
+			body: JSON.stringify({
+				rules,
+				options: {
+					difficulty: gameOptions.difficulty,
+					questionLimit: gameOptions.questionLimit,
+					timeLimitSeconds: gameOptions.timeLimitSeconds,
+				},
+			}),
+		});
 
-		console.log("GameConfig:", gameConfig);
+		const data = await res.json();
+		navigate(`/session/${data.gameSession.id}`);
 	};
 
 	return (
