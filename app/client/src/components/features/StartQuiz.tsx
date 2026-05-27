@@ -1,63 +1,55 @@
+import { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import type { GameOptionsState, SelectedChip } from "../layout/MainContent";
 
-interface StartQuizProps {
-	selectedGuess: SelectedChip | null;
-	selectedBy: SelectedChip | null;
-	selectedFilters: SelectedChip[];
-	gameOptions: GameOptionsState;
-}
+const API = "http://localhost:3000/api";
 
-const StartQuiz = ({
-	selectedGuess,
-	selectedBy,
-	selectedFilters,
-	gameOptions,
-}: StartQuizProps) => {
+
+const StartQuiz = () => {
 	const navigate = useNavigate();
-	const canStart = !!selectedGuess && !!selectedBy;
+	const [loading, setLoading] = useState(false);
+	const [error, setError] = useState<string | null>(null);
 
 	const handleStart = async () => {
-		if (!selectedGuess || !selectedBy) return;
-
-		const rules =
-			selectedFilters.length > 0
-				? selectedFilters.map((f) => ({
-						chipGuessId: selectedGuess.id,
-						chipById: selectedBy.id,
-						chipFilterId: f.id,
-					}))
-				: [{ chipGuessId: selectedGuess.id, chipById: selectedBy.id }];
-
-		const res = await fetch("http://localhost:3000/api/game-config/session", {
-			method: "POST",
-			headers: { "Content-Type": "application/json" },
-			body: JSON.stringify({
-				rules,
-				options: {
-					difficulty: gameOptions.difficulty,
-					questionLimit: gameOptions.questionLimit,
-					timeLimitSeconds: gameOptions.timeLimitSeconds,
-				},
-			}),
-		});
-
-		const data = await res.json();
-		navigate(`/session/${data.gameSession.id}`);
+		setLoading(true);
+		setError(null);
+		try {
+			const response = await fetch(`${API}/quiz/start`, {
+				method: "POST",
+				headers: { "Content-Type": "application/json" },
+				body: JSON.stringify({
+					guessId: selectedGuess.id,
+					byId: selectedBy.id,
+					filterIds: selectedFilters.map((f) => f.id),
+					options: gameOptions,
+				}),
+			});
+			if (!response.ok) {
+				const errorData = await response.json();
+				throw new Error(errorData.message || "Failed to start quiz session");
+			}
+			const data = await response.json();
+			navigate(`/quiz/${data.sessionId}`);
+		} catch (err) {
+			setError(
+				"Something went wrong while creating the quiz session. Please try again. " +
+					(err instanceof Error ? err.message : ""),
+			);
+			setLoading(false);
+		}
 	};
 
 	return (
-		<div className="flex flex-col items-end mt-auto">
+		<div className="flex flex-col items-end mt-auto gap-2">
+			{error && (
+				<p className="text-(--negative) text-xs text-right max-w-64">{error}</p>
+			)}
 			<button
 				onClick={handleStart}
 				disabled={!canStart}
 				className="p-4 bg-(--accent) text-(--text) uppercase text-xl rounded-lg hover:bg-(--accent-light) disabled:opacity-40 disabled:cursor-not-allowed disabled:hover:bg-(--accent) transition-opacity"
 			>
-				Rozpocznij QUIZ
+				{loading ? "Tworzenie sesji..." : "Rozpocznij QUIZ"}
 			</button>
-			<p className="text-(--text-secondary) text-xs mt-2">
-				przeciwnik: <span className="text-(--info)">FriendName</span>
-			</p>
 		</div>
 	);
 };

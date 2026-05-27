@@ -8,6 +8,21 @@ datasource db {
   provider = "mysql"
 }
 
+enum GameSessionPlayerStatus {
+  Invited
+  Accepted
+  Declined
+  Answering
+  Completed
+  Left
+}
+
+enum GameSessionStatus {
+  NotStarted
+  InProgress
+  Completed
+}
+
 model User {
   id        String   @id @default(uuid())
   username  String   @db.VarChar(64)
@@ -30,6 +45,9 @@ model GameSession {
   id        String   @id @default(uuid())
   startedAt DateTime @default(now())
   endedAt   DateTime?
+  status    GameSessionStatus @default(NotStarted)
+
+  usedQuestions Question[]
 
   gameConfigId String     @unique
   gameConfig   GameConfig @relation(fields: [gameConfigId], references: [id])
@@ -43,6 +61,8 @@ model GameSessionPlayer {
 
   score  Int @default(0)
   timeMs Int @default(0)
+  rank   Int @default(0)
+  status GameSessionPlayerStatus @default(Invited)
 
   gameSession GameSession @relation(fields: [gameSessionId], references: [id])
   user        User        @relation(fields: [userId], references: [id])
@@ -125,6 +145,7 @@ model Question {
 
   chipGuesses ChipGuess[]
   chipFilters ChipFilter[]
+  usedInSessions GameSession[]
 
   users User[]
 }

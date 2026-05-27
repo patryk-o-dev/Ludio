@@ -51,4 +51,9 @@ export class CreateGameConfigDto {
   @ValidateNested()
   @Type(() => CreateOptionsDto)
   options: CreateOptionsDto;
+
+  @IsOptional()
+  @IsArray()
+  @IsUUID('4', { each: true })
+  playerIds?: string[];
 }

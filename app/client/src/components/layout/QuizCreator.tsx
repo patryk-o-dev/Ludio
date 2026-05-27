@@ -1,32 +1,7 @@
 import RulesList from "../features/RulesList";
 import StartQuiz from "../features/StartQuiz";
-import type {
-	ChipSelectorMode,
-	GameOptionsState,
-	SelectedChip,
-} from "./MainContent";
 
-interface QuizCreatorProps {
-	selectorMode: ChipSelectorMode;
-	onSelectChipType: (type: ChipSelectorMode) => void;
-	selectedGuess: SelectedChip | null;
-	selectedBy: SelectedChip | null;
-	availableFilters: SelectedChip[];
-	selectedFilters: SelectedChip[];
-	onToggleFilter: (filter: SelectedChip) => void;
-	gameOptions: GameOptionsState;
-}
-
-const QuizCreator = ({
-	selectorMode,
-	onSelectChipType,
-	selectedGuess,
-	selectedBy,
-	availableFilters,
-	selectedFilters,
-	onToggleFilter,
-	gameOptions,
-}: QuizCreatorProps) => {
+const QuizCreator = () => {
 	return (
 		<div className="flex flex-col flex-3 bg-(--bgc-secondary) p-4 rounded-lg h-full">
 			<div className="mb-8">
@@ -37,21 +12,8 @@ const QuizCreator = ({
 					Ustal zasady i rozpocznij swój quiz
 				</span>
 			</div>
-			<RulesList
-				selectorMode={selectorMode}
-				onSelectChipType={onSelectChipType}
-				selectedGuess={selectedGuess}
-				selectedBy={selectedBy}
-				availableFilters={availableFilters}
-				selectedFilters={selectedFilters}
-				onToggleFilter={onToggleFilter}
-			/>
-			<StartQuiz
-				selectedGuess={selectedGuess}
-				selectedBy={selectedBy}
-				selectedFilters={selectedFilters}
-				gameOptions={gameOptions}
-			/>
+			<RulesList />
+			<StartQuiz />
 		</div>
 	);
 };

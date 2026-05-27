@@ -24,14 +24,14 @@ export class GameConfigService {
             description: r.description,
           })),
         },
-        gameSession: {
-          create: {},
+        invitees: {
+          create: (dto.playerIds ?? []).map((userId) => ({ userId })),
         },
       },
       include: {
         options: true,
         rules: true,
-        gameSession: true,
+        invitees: true,
       },
     });
   }

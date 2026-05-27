@@ -1,9 +1,9 @@
 :root {
-	--accent-lighter: #DD92AE;
-	--accent-light: #CF638B;
+	--accent-lighter: #dd92ae;
+	--accent-light: #cf638b;
 	--accent: #b53866;
-	--accent-dark: #8C2B4F;
-	--accent-darker: #5E1D35;
+	--accent-dark: #8c2b4f;
+	--accent-darker: #5e1d35;
 	--bgc-primary: #0b0b09;
 	--bgc-secondary: #131311;
 	--bgc-tertiary: #1b1b19;
@@ -20,4 +20,13 @@
 	src: url("../assets/fonts/Nunito/Nunito-VariableFont_wght.ttf")
 		format("truetype");
 	font-weight: 100 900;
+}
+
+.scrollbar-thin {
+	scrollbar-width: thin;
+	scrollbar-color: var(--accent) transparent;
+}
+
+.scrollbar-thin::-webkit-scrollbar-button {
+	display: none;
 }
