@@ -46,6 +46,7 @@ model GameSession {
   startedAt DateTime @default(now())
   endedAt   DateTime?
   status    GameSessionStatus @default(NotStarted)
+  qIndex    Int @default(0)
 
   usedQuestions Question[]
 
@@ -94,8 +95,7 @@ model Rule {
   chipById String
   chipBy   ChipBy @relation(fields: [chipById], references: [id])
 
-  chipFilterId String?
-  chipFilter   ChipFilter? @relation(fields: [chipFilterId], references: [id])
+  chipFilters ChipFilter[]
 }
 
 model ChipGuess {

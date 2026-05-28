@@ -1,2 +1,0 @@
--- AlterTable
-ALTER TABLE `chipby` ADD COLUMN `lvl` INTEGER NOT NULL DEFAULT 0;
