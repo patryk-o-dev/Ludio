@@ -1,22 +1,9 @@
-import { useState } from "react";
-import type {
-	ChipSelectorMode,
-	GameOptionsState,
-	SelectedChip,
-} from "./MainContent";
+import { useEffect, useState } from "react";
 import ChipList from "./ChipList";
 import GameOptions from "./GameOptions";
-
+import useGameConfigStore from "../../store/gameConfigStore";
+import useChipsStore from "../../store/chipsStore";
 type Tab = "chips" | "options";
-
-interface ChipSelectorProps {
-	mode: ChipSelectorMode;
-	selectedChipGuessId?: string;
-	selectedBy: SelectedChip | null;
-	onChipSelect: (chip: SelectedChip) => void;
-	gameOptions: GameOptionsState;
-	onOptionsChange: (options: GameOptionsState) => void;
-}
 
 const tabBase =
 	"flex-1 py-1.5 text-sm font-semibold transition-colors cursor-pointer rounded";
@@ -24,49 +11,65 @@ const tabActive = "bg-(--accent) text-white";
 const tabIdle =
 	"bg-(--bgc-quaternary) text-(--text-secondary) hover:text-(--text)";
 
-const ChipSelector = ({
-	mode,
-	selectedChipGuessId,
-	selectedBy,
-	onChipSelect,
-	gameOptions,
-	onOptionsChange,
-}: ChipSelectorProps) => {
-	const [manualTab, setManualTab] = useState<Tab | null>(null);
-	const [prevSelectedBy, setPrevSelectedBy] = useState(selectedBy);
+const ChipSelector = () => {
+	const [activeTab, setActiveTab] = useState<Tab>("chips");
+	const options = useGameConfigStore((state) => state.options);
+	const updateOption = useGameConfigStore((state) => state.updateOption);
+	const setAllChips = useChipsStore((state) => state.setAllChips);
 
-	if (selectedBy !== prevSelectedBy) {
-		setPrevSelectedBy(selectedBy);
-		if (selectedBy && !prevSelectedBy) setManualTab(null);
-	}
-
-	const activeTab = manualTab ?? (selectedBy ? "options" : "chips");
+	useEffect(() => {
+		fetch("http://localhost:3000/api/chips")
+			.then((res) => res.json())
+			.then((data) => {
+				setAllChips({
+					chipsGuess: data.guess.map(
+						(c: {
+							id: string;
+							name: string;
+							compatibleChipBy: { id: string }[];
+						}) => ({
+							id: c.id,
+							name: c.name,
+							compatibleByIds: c.compatibleChipBy.map((b) => b.id),
+						}),
+					),
+					chipsBy: data.by.map(
+						(c: {
+							id: string;
+							name: string;
+							compatibleChipFilter: { id: string }[];
+						}) => ({
+							id: c.id,
+							name: c.name,
+							compatibleFilterIds: c.compatibleChipFilter.map((f) => f.id),
+						}),
+					),
+					chipsFilter: data.filter,
+				});
+			});
+	}, []);
 
 	return (
 		<aside className="flex-1 flex flex-col bg-(--bgc-secondary) p-4 rounded-lg gap-3">
 			<div className="flex gap-1 p-1 bg-(--bgc-primary) rounded-lg">
 				<button
 					className={`${tabBase} ${activeTab === "chips" ? tabActive : tabIdle}`}
-					onClick={() => setManualTab("chips")}
+					onClick={() => setActiveTab("chips")}
 				>
 					Chipy
 				</button>
 				<button
 					className={`${tabBase} ${activeTab === "options" ? tabActive : tabIdle}`}
-					onClick={() => setManualTab("options")}
+					onClick={() => setActiveTab("options")}
 				>
 					Opcje
 				</button>
 			</div>
 
 			{activeTab === "chips" ? (
-				<ChipList
-					mode={mode}
-					selectedChipGuessId={selectedChipGuessId}
-					onChipSelect={onChipSelect}
-				/>
+				<ChipList />
 			) : (
-				<GameOptions options={gameOptions} onChange={onOptionsChange} />
+				<GameOptions options={options} onChange={updateOption} />
 			)}
 		</aside>
 	);

@@ -36,6 +36,15 @@ async function main() {
   await prisma.chipBy.deleteMany();
   await prisma.chipFilter.deleteMany();
 
+  // ── User ───────────────────────────────────────────────────────────────────
+
+  await prisma.user.create({
+    data: {
+      id: '1',
+      username: 'admin',
+    },
+  });
+
   // ── ChipFilter ─────────────────────────────────────────────────────────────
   const onlyHorror = await prisma.chipFilter.create({
     data: { name: 'onlyHorror' },

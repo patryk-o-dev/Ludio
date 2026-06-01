@@ -1,13 +1,8 @@
-import type {
-	Difficulty,
-	GameOptionsState,
-	QuestionsPerRule,
-	TimeLimitSeconds,
-} from "./MainContent";
+import type { GameOptionsState } from "../../types";
 
-const difficultyOptions: Difficulty[] = [1, 2, 3, 4, 5];
-const questionsOptions: QuestionsPerRule[] = [3, 5, 7, 10];
-const timeOptions: TimeLimitSeconds[] = [null, 10, 20, 30, 50];
+const difficulty = [1] as const;
+const questionsPerRule = [3, 5] as const;
+const timeLimitSeconds = [null, 10, 20, 30, 50] as const;
 
 const btnBase =
 	"px-3 py-1.5 rounded text-sm font-semibold transition-colors cursor-pointer";
@@ -29,7 +24,7 @@ const GameOptions = ({ options, onChange }: GameOptionsProps) => {
 					Poziom trudności:
 				</p>
 				<div className="flex gap-2 flex-wrap">
-					{difficultyOptions.map((d) => (
+					{difficulty.map((d) => (
 						<button
 							key={d}
 							onClick={() => onChange({ ...options, difficulty: d })}
@@ -46,11 +41,11 @@ const GameOptions = ({ options, onChange }: GameOptionsProps) => {
 					Ilość pytań per reguła:
 				</p>
 				<div className="flex gap-2 flex-wrap">
-					{questionsOptions.map((q) => (
+					{questionsPerRule.map((q) => (
 						<button
 							key={q}
-							onClick={() => onChange({ ...options, questionLimit: q })}
-							className={`${btnBase} ${options.questionLimit === q ? btnSelected : btnIdle}`}
+							onClick={() => onChange({ ...options, questionsPerRule: q })}
+							className={`${btnBase} ${options.questionsPerRule === q ? btnSelected : btnIdle}`}
 						>
 							{q}
 						</button>
@@ -63,7 +58,7 @@ const GameOptions = ({ options, onChange }: GameOptionsProps) => {
 					Czas na odpowiedź:
 				</p>
 				<div className="flex gap-2 flex-wrap">
-					{timeOptions.map((t) => (
+					{timeLimitSeconds.map((t) => (
 						<button
 							key={t ?? "inf"}
 							onClick={() => onChange({ ...options, timeLimitSeconds: t })}

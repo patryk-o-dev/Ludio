@@ -19,7 +19,18 @@ interface QuizStageProps {
 }
 
 const QuizStage = ({ session }: QuizStageProps) => {
+	const API = "http://localhost:3000/api";
 	const currentPool = session.rulePools[session.currentRuleIndex];
+	const currentQuestion = session.live.question;
+	const acceptInvitation = () => {
+		fetch(`${API}/game-session/${session.id}/accept`, {
+			method: "PATCH",
+			body: JSON.stringify({ userId: "1" }), // Temporary hardcoded user ID
+			headers: {
+				"Content-Type": "application/json",
+			},
+		});
+	};
 
 	return (
 		<div className="flex flex-col flex-1 gap-4 min-h-0">
@@ -44,6 +55,12 @@ const QuizStage = ({ session }: QuizStageProps) => {
 						<span className="text-(--text-secondary)">
 							({currentPool._count.candidates} kandydatów)
 						</span>
+						<button
+							onClick={acceptInvitation}
+							className="ml-4 px-2 py-1 bg-(--accent) text-(--text) text-xs rounded hover:bg-(--accent-light) transition-colors"
+						>
+							Dołącz jako gracz
+						</button>
 					</span>
 				)}
 				<div className="ml-auto flex gap-2">
@@ -64,8 +81,16 @@ const QuizStage = ({ session }: QuizStageProps) => {
 
 			{/* Main stage */}
 			<div className="flex flex-1 gap-8 min-h-0">
-				<MediaDisplay />
-				<AnswerPanel />
+				<MediaDisplay
+					imageUrl={currentQuestion?.url ?? null}
+					phase={session.live.phase}
+				/>
+				<AnswerPanel
+					answers={currentQuestion?.answers ?? []}
+					phase={session.live.phase}
+					expiresAt={session.live.expiresAt}
+					timeLimitSeconds={session.live.timeLimitSeconds}
+				/>
 			</div>
 		</div>
 	);

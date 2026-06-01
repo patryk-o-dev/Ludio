@@ -14,6 +14,12 @@ export type GameOptionsState = {
 	timeLimitSeconds: null | 10 | 20 | 30 | 50;
 };
 
+export type AllChips = {
+	chipsGuess: ChipGuess[];
+	chipsBy: ChipBy[];
+	chipsFilter: ChipFilter[];
+};
+
 export type ChipGuess = {
 	id: string;
 	name: string;

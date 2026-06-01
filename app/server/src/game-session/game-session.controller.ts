@@ -11,6 +11,11 @@ export class GameSessionController {
     return this.gameSessionService.create(dto);
   }
 
+  @Get(':id/state')
+  findState(@Param('id') id: string) {
+    return this.gameSessionService.findState(id);
+  }
+
   @Get(':id')
   findOne(@Param('id') id: string) {
     return this.gameSessionService.findOne(id);

@@ -20,11 +20,15 @@ export class GameSessionGateway {
   ) {}
 
   @SubscribeMessage('join')
-  handleJoin(
+  async handleJoin(
     @MessageBody() data: { sessionId: string },
     @ConnectedSocket() client: Socket,
   ) {
     client.join(data.sessionId);
+    client.emit(
+      'session:state',
+      await this.gameSessionService.findState(data.sessionId),
+    );
   }
 
   @SubscribeMessage('session:answer')

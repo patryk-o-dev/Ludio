@@ -20,18 +20,16 @@ export class GameConfigService {
           create: dto.rules.map((r) => ({
             chipGuessId: r.chipGuessId,
             chipById: r.chipById,
-            chipFilterId: r.chipFilterId,
+            chipFilters: {
+              connect: (r.chipFilterIds ?? []).map((id) => ({ id })),
+            },
             description: r.description,
           })),
-        },
-        invitees: {
-          create: (dto.playerIds ?? []).map((userId) => ({ userId })),
         },
       },
       include: {
         options: true,
         rules: true,
-        invitees: true,
       },
     });
   }

@@ -1,4 +1,3 @@
-import { useEffect } from "react";
 import ChipSelector from "./ChipSelector";
 import LeftAside from "./LeftAside";
 import QuizCreator from "./QuizCreator";

@@ -1,39 +1,91 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
+import useGameConfigStore from "../../store/gameConfigStore";
 
 const API = "http://localhost:3000/api";
 
+type CreateGameConfigResponse = {
+	id: string;
+};
+
+type CreateGameSessionResponse = {
+	id: string;
+};
 
 const StartQuiz = () => {
 	const navigate = useNavigate();
 	const [loading, setLoading] = useState(false);
 	const [error, setError] = useState<string | null>(null);
+	const rules = useGameConfigStore((state) => state.rules);
+	const options = useGameConfigStore((state) => state.options);
 
-	const handleStart = async () => {
-		setLoading(true);
+	const handleStartQuiz = async () => {
 		setError(null);
+		setLoading(true);
+
+		const completeRules = rules.filter(
+			(rule) => rule.guessId !== null && rule.byId !== null,
+		);
+
+		if (completeRules.length === 0) {
+			setError("Dodaj przynajmniej jedną kompletną regułę.");
+			setLoading(false);
+			return;
+		}
+
+		const configPayload = {
+			rules: completeRules.map((rule) => ({
+				chipGuessId: rule.guessId!,
+				chipById: rule.byId!,
+				chipFilterIds: rule.filterIds,
+			})),
+			options: {
+				difficulty: options.difficulty,
+				questionLimit: options.questionsPerRule,
+				timeLimitSeconds: options.timeLimitSeconds,
+			},
+			playerIds: [],
+		};
+
 		try {
-			const response = await fetch(`${API}/quiz/start`, {
+			const configResponse = await fetch(`${API}/game-config/session`, {
 				method: "POST",
-				headers: { "Content-Type": "application/json" },
+				headers: {
+					"Content-Type": "application/json",
+				},
+				body: JSON.stringify(configPayload),
+			});
+
+			if (!configResponse.ok) {
+				throw new Error("Nie udało się zapisać konfiguracji quizu.");
+			}
+
+			const gameConfig =
+				(await configResponse.json()) as CreateGameConfigResponse;
+
+			const sessionResponse = await fetch(`${API}/game-session`, {
+				method: "POST",
+				headers: {
+					"Content-Type": "application/json",
+				},
 				body: JSON.stringify({
-					guessId: selectedGuess.id,
-					byId: selectedBy.id,
-					filterIds: selectedFilters.map((f) => f.id),
-					options: gameOptions,
+					gameConfigId: gameConfig.id,
+					playerIds: ["1"],
 				}),
 			});
-			if (!response.ok) {
-				const errorData = await response.json();
-				throw new Error(errorData.message || "Failed to start quiz session");
+
+			if (!sessionResponse.ok) {
+				throw new Error("Nie udało się utworzyć sesji quizu.");
 			}
-			const data = await response.json();
-			navigate(`/quiz/${data.sessionId}`);
+
+			const session =
+				(await sessionResponse.json()) as CreateGameSessionResponse;
+			navigate(`/session/${session.id}`);
 		} catch (err) {
 			setError(
-				"Something went wrong while creating the quiz session. Please try again. " +
-					(err instanceof Error ? err.message : ""),
+				err instanceof Error ? err.message : "Wystąpił nieoczekiwany błąd.",
 			);
+		} finally {
 			setLoading(false);
 		}
 	};
@@ -44,8 +96,7 @@ const StartQuiz = () => {
 				<p className="text-(--negative) text-xs text-right max-w-64">{error}</p>
 			)}
 			<button
-				onClick={handleStart}
-				disabled={!canStart}
+				onClick={handleStartQuiz}
 				className="p-4 bg-(--accent) text-(--text) uppercase text-xl rounded-lg hover:bg-(--accent-light) disabled:opacity-40 disabled:cursor-not-allowed disabled:hover:bg-(--accent) transition-opacity"
 			>
 				{loading ? "Tworzenie sesji..." : "Rozpocznij QUIZ"}

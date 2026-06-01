@@ -12,13 +12,8 @@ interface RuleElementProps {
 }
 
 const RuleElement = ({ rule, ruleNumber }: RuleElementProps) => {
-	const chipsGuess = useChipsStore((state) => state.chipsGuess);
-	const chipsBy = useChipsStore((state) => state.chipsBy);
-	const chipsFilter = useChipsStore((state) => state.chipsFilter);
-	const chipSelectionStep = useChipsStore((state) => state.chipSelectionStep);
-	const updateChipSelectionStep = useChipsStore(
-		(state) => state.updateChipSelectionStep,
-	);
+	const { allChips, chipSelectionStep, updateChipSelectionStep } =
+		useChipsStore();
 	const removeRule = useGameConfigStore((state) => state.removeRule);
 	const updateRuleFilterChips = useGameConfigStore(
 		(state) => state.updateRuleFilterChips,
@@ -37,16 +32,19 @@ const RuleElement = ({ rule, ruleNumber }: RuleElementProps) => {
 					<p>Rozpoznaj</p>
 					<div
 						className={`flex flex-row items-center align-middle p-2 bg-(--bgc-quaternary) rounded-md gap-2 hover:cursor-pointer hover:opacity-80 border-2 ${
-							chipSelectionStep.type === "guess"
+							chipSelectionStep.type === "guess" &&
+							chipSelectionStep.ruleIndex === rule.index
 								? "border-(--accent)"
 								: "border-transparent"
 						}`}
-						onClick={() => updateChipSelectionStep({ type: "guess" })}
+						onClick={() =>
+							updateChipSelectionStep({ type: "guess", ruleIndex: rule.index })
+						}
 					>
 						<img className="w-6 h-6" src={categoryIcon} alt="Category" />
 						<p>
-							{chipsGuess.find((chip) => chip.id === rule.guessId)?.name ??
-								"Chip Guess"}
+							{allChips.chipsGuess.find((chip) => chip.id === rule.guessId)
+								?.name ?? "Chip Guess"}
 						</p>
 						<img
 							className="w-4 h-4 hover:cursor-pointer"
@@ -56,16 +54,24 @@ const RuleElement = ({ rule, ruleNumber }: RuleElementProps) => {
 					</div>
 					<p>Po</p>
 					<div
-						className={`flex flex-row items-center align-middle p-2 bg-(--bgc-quaternary) rounded-md gap-2 border-2 transition-opacity ${
-							rule.guessId && !rule.byId
-								? "hover:cursor-pointer hover:opacity-80"
-								: "opacity-40 pointer-events-none"
-						} ${chipSelectionStep.type === "by" ? "border-(--accent)" : "border-transparent"}`}
-						onClick={() => rule.byId && updateChipSelectionStep({ type: "by" })}
+						className={`flex flex-row items-center align-middle p-2 bg-(--bgc-quaternary) rounded-md gap-2 border-2 transition-opacity hover:cursor-pointer hover:opacity-80 ${
+							chipSelectionStep.type === "by" &&
+							chipSelectionStep.ruleIndex === rule.index
+								? "border-(--accent)"
+								: "border-transparent"
+						}`}
+						onClick={() =>
+							updateChipSelectionStep({
+								type: "by",
+								ruleIndex: rule.index,
+								guessId: rule.guessId ?? undefined,
+							})
+						}
 					>
 						<img className="w-6 h-6" src={chipByIcon} alt="Chip By" />
 						<p>
-							{chipsBy.find((chip) => chip.id === rule.byId)?.name ?? "Chip By"}
+							{allChips.chipsBy.find((chip) => chip.id === rule.byId)?.name ??
+								"Chip By"}
 						</p>
 						<img
 							className="w-4 h-4 hover:cursor-pointer"
@@ -87,11 +93,11 @@ const RuleElement = ({ rule, ruleNumber }: RuleElementProps) => {
 			</div>
 
 			{rule.byId &&
-				(chipsBy.find((chip) => chip.id === rule.byId)?.compatibleFilterIds
-					?.length ?? 0) > 0 && (
+				(allChips.chipsBy.find((chip) => chip.id === rule.byId)
+					?.compatibleFilterIds?.length ?? 0) > 0 && (
 					<div className="flex flex-row items-center gap-2 pl-14">
 						<p className="text-(--text-secondary) text-sm">Filtry:</p>
-						{chipsFilter.map((filter) => (
+						{allChips.chipsFilter.map((filter) => (
 							<button
 								key={filter.id}
 								onClick={() => updateRuleFilterChips(rule.index, filter.id)}

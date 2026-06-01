@@ -1,37 +1,26 @@
-import { useEffect, useState } from "react";
 import ChipCard from "../utils/ChipCard";
-import type { ChipSelectorMode, SelectedChip } from "./MainContent";
+import useChipsStore from "../../store/chipsStore";
 
-interface Chip {
-	id: string;
-	name: string;
-}
+const ChipList = () => {
+	const chipSelectionStep = useChipsStore((state) => state.chipSelectionStep);
+	const { allChips } = useChipsStore();
 
-interface ChipListProps {
-	mode: ChipSelectorMode;
-	selectedChipGuessId?: string;
-	onChipSelect: (chip: SelectedChip) => void;
-}
+	const mode = chipSelectionStep.type;
+	const guessId = chipSelectionStep.guessId;
+	const ruleIndex = chipSelectionStep.ruleIndex;
+	const chips =
+		mode === "guess"
+			? allChips.chipsGuess
+			: allChips.chipsBy.filter((by) =>
+					allChips.chipsGuess
+						.find((g) => g.id === guessId)
+						?.compatibleByIds.includes(by.id),
+				);
 
-const modeLabel: Record<ChipSelectorMode, string> = {
-	guess: "Wybierz Chip Guess:",
-	by: "Wybierz Chip By:",
-};
-
-const ChipList = ({ mode, selectedChipGuessId, onChipSelect }: ChipListProps) => {
-	const [chips, setChips] = useState<Chip[]>([]);
-
-	useEffect(() => {
-		const url =
-			mode === "by" && selectedChipGuessId
-				? `http://localhost:3000/api/chips/by/${selectedChipGuessId}`
-				: `http://localhost:3000/api/chips/${mode}`;
-
-		fetch(url)
-			.then((res) => res.json())
-			.then((data: Chip[]) => setChips(data))
-			.catch(() => setChips([]));
-	}, [mode, selectedChipGuessId]);
+	const modeLabel = {
+		guess: "Co odgadujesz?",
+		by: "Po czym chcesz to odgadnąć?",
+	};
 
 	return (
 		<div className="flex flex-col p-4">
@@ -44,7 +33,8 @@ const ChipList = ({ mode, selectedChipGuessId, onChipSelect }: ChipListProps) =>
 					<ChipCard
 						key={chip.id}
 						name={chip.name}
-						onSelect={() => onChipSelect({ id: chip.id, name: chip.name })}
+						ruleIndex={ruleIndex!}
+						chipId={chip.id}
 					/>
 				))}
 			</div>

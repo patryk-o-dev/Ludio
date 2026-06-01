@@ -47,6 +47,7 @@ model GameSession {
   endedAt   DateTime?
   status    GameSessionStatus @default(NotStarted)
   qIndex    Int @default(0)
+  hostId    String
 
   usedQuestions Question[]
 

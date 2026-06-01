@@ -5,6 +5,11 @@ import { ChipsService } from './chips.service';
 export class ChipsController {
   constructor(private readonly chipsService: ChipsService) {}
 
+  @Get()
+  findAll() {
+    return this.chipsService.findAll();
+  }
+
   @Get('guess')
   getChipGuesses() {
     return this.chipsService.getChipGuesses();

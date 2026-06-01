@@ -8,11 +8,7 @@ const RulesList = () => {
 	return (
 		<div>
 			{rules.map((rule, i) => (
-				<RuleElement
-					key={rule.index}
-					rule={rule}
-					ruleNumber={i + 1}
-				/>
+				<RuleElement key={rule.index} rule={rule} ruleNumber={i + 1} />
 			))}
 			<AddNewRule />
 		</div>

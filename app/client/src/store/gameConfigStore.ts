@@ -17,7 +17,14 @@ type GameConfigStore = {
 
 const useGameConfigStore = create<GameConfigStore>((set) => ({
 	players: [],
-	rules: [],
+	rules: [
+		{
+			index: 0,
+			guessId: null,
+			byId: null,
+			filterIds: [],
+		},
+	],
 	options: {
 		difficulty: 1,
 		questionsPerRule: 3,

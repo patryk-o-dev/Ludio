@@ -1,8 +1,38 @@
 import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
+import { io, type Socket } from "socket.io-client";
 import Controls from "../layout/Controls";
 import QuizStage from "../layout/QuizStage";
 import TopBar from "../layout/TopBar";
+
+type QuestionAnswer = {
+	id: string;
+	value: string;
+};
+
+export interface CurrentQuestion {
+	id: string;
+	url: string;
+	answers: QuestionAnswer[];
+}
+
+export interface LiveSessionState {
+	phase: "waiting" | "question" | "summary" | "completed";
+	question: CurrentQuestion | null;
+	questionId: string | null;
+	qIndex: number;
+	currentRuleIndex: number;
+	startedAt: number | null;
+	expiresAt: number | null;
+	summaryEndsAt: number | null;
+	timeLimitSeconds: number | null;
+	answeredUserIds: string[];
+}
+
+type SessionPlayer = {
+	userId: string;
+	status: string;
+};
 
 export interface RulePool {
 	id: string;
@@ -18,8 +48,11 @@ export interface SessionData {
 	status: "WAITING" | "ACTIVE" | "FINISHED";
 	currentRuleIndex: number;
 	rulePools: RulePool[];
-	players: { userId: string; status: string }[];
+	players: SessionPlayer[];
+	live: LiveSessionState;
 }
+
+const API = "http://localhost:3000/api";
 
 const QuizSession = () => {
 	const { id } = useParams<{ id: string }>();
@@ -29,14 +62,69 @@ const QuizSession = () => {
 
 	useEffect(() => {
 		if (!id) return;
-		fetch(`http://localhost:3000/api/game-session/${id}`)
+		fetch(`${API}/game-session/${id}/state`)
 			.then((res) => {
 				if (!res.ok) throw new Error(`${res.status}`);
 				return res.json();
 			})
-			.then(setSession)
+			.then((data: SessionData) => setSession(data))
 			.catch((e) => setError(e.message))
 			.finally(() => setLoading(false));
+	}, [id]);
+
+	useEffect(() => {
+		if (!id) return;
+
+		const socket: Socket = io(API.replace(/\/api$/, ""));
+
+		socket.on("connect", () => {
+			socket.emit("join", { sessionId: id });
+		});
+
+		socket.on("session:state", (data: SessionData) => {
+			setSession(data);
+		});
+
+		socket.on("session:question", (live: LiveSessionState) => {
+			setSession((current) =>
+				current
+					? {
+							...current,
+							status: "ACTIVE",
+							currentRuleIndex: live.currentRuleIndex,
+							live,
+						}
+					: current,
+			);
+		});
+
+		socket.on("session:summary", (live: LiveSessionState) => {
+			setSession((current) =>
+				current
+					? {
+							...current,
+							currentRuleIndex: live.currentRuleIndex,
+							live,
+						}
+					: current,
+			);
+		});
+
+		socket.on("session:completed", (data: { live: LiveSessionState }) => {
+			setSession((current) =>
+				current
+					? {
+							...current,
+							status: "FINISHED",
+							live: data.live,
+						}
+					: current,
+			);
+		});
+
+		return () => {
+			socket.disconnect();
+		};
 	}, [id]);
 
 	if (loading) {

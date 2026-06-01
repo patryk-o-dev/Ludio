@@ -5,6 +5,19 @@ import { PrismaService } from '../prisma/prisma.service';
 export class ChipsService {
   constructor(private readonly prisma: PrismaService) {}
 
+  async findAll() {
+    const [guess, by, filter] = await Promise.all([
+      this.prisma.chipGuess.findMany({
+        include: { compatibleChipBy: { select: { id: true } } },
+      }),
+      this.prisma.chipBy.findMany({
+        include: { compatibleChipFilter: { select: { id: true } } },
+      }),
+      this.prisma.chipFilter.findMany(),
+    ]);
+    return { guess, by, filter };
+  }
+
   getChipGuesses() {
     return this.prisma.chipGuess.findMany({
       include: { compatibleChipBy: { select: { id: true } } },

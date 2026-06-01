@@ -18,8 +18,9 @@ export class CreateRuleDto {
   chipById: string;
 
   @IsOptional()
-  @IsUUID()
-  chipFilterId?: string;
+  @IsArray()
+  @IsUUID('4', { each: true })
+  chipFilterIds?: string[];
 
   @IsOptional()
   @IsString()
