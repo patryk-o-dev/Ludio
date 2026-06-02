@@ -11,6 +11,11 @@ interface AnswerPanelProps {
 	phase: "waiting" | "question" | "summary" | "completed";
 	expiresAt: number | null;
 	timeLimitSeconds: number | null;
+	onSelectAnswer: (
+		answerId: string,
+		answerValue: string,
+		timeMs: number,
+	) => void;
 }
 
 const AnswerPanel = ({
@@ -18,14 +23,14 @@ const AnswerPanel = ({
 	phase,
 	expiresAt,
 	timeLimitSeconds,
+	onSelectAnswer,
 }: AnswerPanelProps) => {
-	const [selected, setSelected] = useState<number | null>(null);
+	const [selectedAnswerId, setSelectedAnswerId] = useState<string | null>(null);
 	const [inputValue, setInputValue] = useState("");
 	const [remainingMs, setRemainingMs] = useState<number | null>(null);
 
 	useEffect(() => {
 		if (expiresAt === null) {
-			setRemainingMs(null);
 			return;
 		}
 
@@ -41,10 +46,18 @@ const AnswerPanel = ({
 		};
 	}, [expiresAt]);
 
-	useEffect(() => {
-		setSelected(null);
-		setInputValue("");
-	}, [answers, phase]);
+	const handleSelectAnswer = (answerId: string, answerValue: string) => {
+		if (phase !== "question") {
+			return;
+		}
+
+		const timeMs =
+			timeLimitSeconds === null || remainingMs === null
+				? 0
+				: Math.max(0, timeLimitSeconds * 1000 - remainingMs);
+		setSelectedAnswerId(answerId);
+		onSelectAnswer(answerId, answerValue, timeMs);
+	};
 
 	const filteredAnswers = answers.filter((answer) =>
 		answer.value.toLowerCase().includes(inputValue.toLowerCase()),
@@ -84,12 +97,12 @@ const AnswerPanel = ({
 			</div>
 			<div className="flex-1 min-h-0 relative">
 				<ul className="absolute inset-0 flex flex-col gap-2 overflow-y-auto pr-1 [&::-webkit-scrollbar]:w-1 [&::-webkit-scrollbar-track]:bg-transparent [&::-webkit-scrollbar-thumb]:bg-(--accent)/40 [&::-webkit-scrollbar-thumb]:rounded-full [&::-webkit-scrollbar-thumb]:hover:bg-(--accent)/70">
-					{filteredAnswers.map((answer, i) => (
-						<li key={i}>
+					{filteredAnswers.map((answer) => (
+						<li key={answer.id}>
 							<button
-								onClick={() => setSelected(i)}
+								onClick={() => handleSelectAnswer(answer.id, answer.value)}
 								disabled={phase !== "question"}
-								aria-selected={selected === i}
+								aria-selected={selectedAnswerId === answer.id}
 								className="w-full text-left px-4 py-2 rounded border border-(--accent)/50 bg-(--bgc-secondary) text-(--text) cursor-pointer transition-colors duration-200 hover:bg-(--accent)/15 aria-selected:bg-(--accent) aria-selected:border-(--accent)"
 							>
 								{answer.value}

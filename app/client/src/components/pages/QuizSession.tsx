@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { useParams } from "react-router-dom";
 import { io, type Socket } from "socket.io-client";
 import Controls from "../layout/Controls";
@@ -14,6 +14,7 @@ export interface CurrentQuestion {
 	id: string;
 	url: string;
 	answers: QuestionAnswer[];
+	correctAnswer: QuestionAnswer;
 }
 
 export interface LiveSessionState {
@@ -32,6 +33,16 @@ export interface LiveSessionState {
 type SessionPlayer = {
 	userId: string;
 	status: string;
+	score: number;
+	timeMs: number;
+	rank: number;
+};
+
+type SessionRanking = {
+	userId: string;
+	rank: number;
+	score: number;
+	timeMs: number;
 };
 
 export interface RulePool {
@@ -57,8 +68,15 @@ const API = "http://localhost:3000/api";
 const QuizSession = () => {
 	const { id } = useParams<{ id: string }>();
 	const [session, setSession] = useState<SessionData | null>(null);
+	const [summaryWasCorrect, setSummaryWasCorrect] = useState<boolean | null>(
+		null,
+	);
+	const [summaryPoints, setSummaryPoints] = useState<number | null>(null);
+	const [hasAnsweredCurrentQuestion, setHasAnsweredCurrentQuestion] =
+		useState(false);
 	const [loading, setLoading] = useState(true);
 	const [error, setError] = useState<string | null>(null);
+	const socketRef = useRef<Socket | null>(null);
 
 	useEffect(() => {
 		if (!id) return;
@@ -76,6 +94,7 @@ const QuizSession = () => {
 		if (!id) return;
 
 		const socket: Socket = io(API.replace(/\/api$/, ""));
+		socketRef.current = socket;
 
 		socket.on("connect", () => {
 			socket.emit("join", { sessionId: id });
@@ -86,6 +105,9 @@ const QuizSession = () => {
 		});
 
 		socket.on("session:question", (live: LiveSessionState) => {
+			setSummaryWasCorrect(null);
+			setSummaryPoints(null);
+			setHasAnsweredCurrentQuestion(false);
 			setSession((current) =>
 				current
 					? {
@@ -110,22 +132,91 @@ const QuizSession = () => {
 			);
 		});
 
-		socket.on("session:completed", (data: { live: LiveSessionState }) => {
-			setSession((current) =>
-				current
-					? {
-							...current,
-							status: "FINISHED",
-							live: data.live,
-						}
-					: current,
-			);
-		});
+		socket.on(
+			"session:player-answered",
+			(data: { userId: string; correct: boolean; points: number }) => {
+				if (data.userId === "1") {
+					setSummaryWasCorrect(data.correct);
+					setSummaryPoints(data.points);
+					setHasAnsweredCurrentQuestion(true);
+					setSession((current) =>
+						current
+							? {
+									...current,
+									players: current.players.map((player) =>
+										player.userId === data.userId
+											? {
+													...player,
+													score: player.score + data.points,
+												}
+											: player,
+									),
+									live: {
+										...current.live,
+										answeredUserIds: [
+											...new Set([
+												...current.live.answeredUserIds,
+												data.userId,
+											]),
+										],
+									},
+								}
+							: current,
+					);
+				}
+			},
+		);
+
+		socket.on(
+			"session:completed",
+			(data: { live: LiveSessionState; rankings: SessionRanking[] }) => {
+				setSession((current) =>
+					current
+						? {
+								...current,
+								status: "FINISHED",
+								players: current.players.map((player) => {
+									const ranking = data.rankings.find(
+										(entry) => entry.userId === player.userId,
+									);
+
+									return ranking ? { ...player, ...ranking } : player;
+								}),
+								live: data.live,
+							}
+						: current,
+				);
+			},
+		);
 
 		return () => {
+			socketRef.current = null;
 			socket.disconnect();
 		};
 	}, [id]);
+
+	const handleSelectAnswer = (
+		answerId: string,
+		_answerValue: string,
+		timeMs: number,
+	) => {
+		if (!id || !socketRef.current) {
+			return;
+		}
+
+		if (!socketRef.current.connected) {
+			return;
+		}
+
+		setHasAnsweredCurrentQuestion(true);
+
+		socketRef.current.emit("session:answer", {
+			sessionId: id,
+			userId: "1",
+			answerId,
+			timeMs,
+		});
+	};
 
 	if (loading) {
 		return (
@@ -149,8 +240,14 @@ const QuizSession = () => {
 
 	return (
 		<main className="flex flex-col h-screen bg-(--bgc-primary) text-(--text) px-16 py-8 gap-8">
-			<TopBar />
-			<QuizStage session={session} />
+			<TopBar session={session} />
+			<QuizStage
+				session={session}
+				summaryWasCorrect={summaryWasCorrect}
+				summaryPoints={summaryPoints}
+				hasAnsweredCurrentQuestion={hasAnsweredCurrentQuestion}
+				onSelectAnswer={handleSelectAnswer}
+			/>
 			<Controls />
 		</main>
 	);

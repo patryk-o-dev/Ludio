@@ -3,21 +3,13 @@ import {
   forwardRef,
   Inject,
   Injectable,
+  Logger,
   NotFoundException,
 } from '@nestjs/common';
 import { PrismaService } from '../prisma/prisma.service';
 import { CreateGameSessionDto } from './dto/create-game-session.dto';
 import { GameSessionGateway } from './game-session/game-session.gateway';
-import { REDLOCK } from '@/redis/redis.module';
 import { RedisService } from '@/redis/redis.service';
-
-type RedlockUsing = {
-  using<T>(
-    resources: string[],
-    duration: number,
-    routine: (signal: unknown) => Promise<T>,
-  ): Promise<T>;
-};
 
 type ActiveSession = {
   currentQuestionId: string;
@@ -38,6 +30,7 @@ type SessionQuestionPayload = {
   id: string;
   url: string;
   answers: SessionAnswerOption[];
+  correctAnswer: SessionAnswerOption;
 };
 
 type SessionLiveState = {
@@ -56,14 +49,35 @@ type SessionLiveState = {
 @Injectable()
 export class GameSessionService {
   private readonly activeSessions = new Map<string, ActiveSession>();
+  private readonly runningSessionLoops = new Set<string>();
+  private readonly logger = new Logger(GameSessionService.name);
 
   constructor(
     private readonly prisma: PrismaService,
     @Inject(forwardRef(() => GameSessionGateway))
     private readonly gateway: GameSessionGateway,
-    @Inject(REDLOCK) private readonly redlock: RedlockUsing,
     private readonly redisService: RedisService,
   ) {}
+
+  private async withSessionLoopLock(
+    sessionId: string,
+    routine: () => Promise<void>,
+  ) {
+    if (this.runningSessionLoops.has(sessionId)) {
+      this.logger.warn(
+        `Quiz loop for session ${sessionId} is already running. Skipping duplicate start request`,
+      );
+      return;
+    }
+
+    this.runningSessionLoops.add(sessionId);
+
+    try {
+      await routine();
+    } finally {
+      this.runningSessionLoops.delete(sessionId);
+    }
+  }
 
   private getStateKey(sessionId: string) {
     return `game-session:${sessionId}:state`;
@@ -295,20 +309,31 @@ export class GameSessionService {
       !activeSession ||
       activeSession.answeredUserIds.has(userId)
     ) {
+      this.logger.warn(
+        `Ignoring answer for session ${sessionId}, user ${userId}. live=${Boolean(liveState)}, phase=${liveState?.phase ?? 'none'}, questionId=${liveState?.questionId ?? 'none'}, activeSession=${Boolean(activeSession)}, alreadyAnswered=${activeSession?.answeredUserIds.has(userId) ?? false}`,
+      );
       return;
     }
 
     if (liveState.expiresAt !== null && Date.now() > liveState.expiresAt) {
+      this.logger.warn(
+        `Ignoring expired answer for session ${sessionId}, user ${userId}`,
+      );
       return;
     }
 
     const question = await this.prisma.question.findUnique({
       where: { id: liveState.questionId },
     });
-    if (!question) return;
+    if (!question) {
+      this.logger.warn(
+        `Question ${liveState.questionId} not found for session ${sessionId}`,
+      );
+      return;
+    }
 
     const correct = question.answerId === answerId;
-    const points = correct ? Math.max(100, 1000 - Math.floor(timeMs / 100)) : 0;
+    const points = correct ? 1 : 0;
 
     await this.prisma.gameSessionPlayer.update({
       where: {
@@ -342,7 +367,7 @@ export class GameSessionService {
   }
 
   private async startQuizLoop(sessionId: string) {
-    await this.redlock.using([`quiz:${sessionId}`], 5000, async () => {
+    await this.withSessionLoopLock(sessionId, async () => {
       const session = await this.prisma.gameSession.findUnique({
         where: { id: sessionId },
         include: {
@@ -378,11 +403,11 @@ export class GameSessionService {
       const currentRuleIndex =
         Math.floor(qIndex / questionsPerRule) % totalRules;
       const usedIds = session.usedQuestions.map((q) => q.id);
-      const summaryTimeSeconds = 3;
+      const summaryTimeSeconds = 10;
       const currentRule = session.gameConfig.rules[currentRuleIndex];
       const filterIds = currentRule.chipFilters.map((f) => f.id);
 
-      const questions = await this.prisma.question.findMany({
+      let questions = await this.prisma.question.findMany({
         where: {
           id: {
             notIn: usedIds,
@@ -393,7 +418,7 @@ export class GameSessionService {
             },
           },
           difficulty: session.gameConfig.options.difficulty,
-          chipBys: {
+          chipBy: {
             id: currentRule.chipById,
           },
           ...(filterIds.length > 0 && {
@@ -409,16 +434,50 @@ export class GameSessionService {
       });
 
       if (!questions.length) {
-        await this.prisma.gameSession.update({
-          where: { id: sessionId },
-          data: {
-            usedQuestions: {
-              set: [],
+        if (usedIds.length > 0) {
+          this.logger.warn(
+            `No unused questions left for session ${sessionId}. Resetting usedQuestions and retrying within the same lock`,
+          );
+
+          await this.prisma.gameSession.update({
+            where: { id: sessionId },
+            data: {
+              usedQuestions: {
+                set: [],
+              },
             },
-          },
-        });
-        await this.startQuizLoop(sessionId);
-        return;
+          });
+
+          questions = await this.prisma.question.findMany({
+            where: {
+              chipGuesses: {
+                some: {
+                  id: currentRule.chipGuessId,
+                },
+              },
+              difficulty: session.gameConfig.options.difficulty,
+              chipBy: {
+                id: currentRule.chipById,
+              },
+              ...(filterIds.length > 0 && {
+                chipFilters: {
+                  some: {
+                    id: {
+                      in: filterIds,
+                    },
+                  },
+                },
+              }),
+            },
+          });
+        }
+
+        if (!questions.length) {
+          this.logger.warn(
+            `No questions matched session ${sessionId} ruleIndex=${currentRuleIndex}. Session will stay active without starting a question until the rule/config is fixed`,
+          );
+          return;
+        }
       }
 
       const randomQuestion =
@@ -457,6 +516,9 @@ export class GameSessionService {
         }));
 
       if (!correctAnswer) {
+        this.logger.error(
+          `Missing correct answer ${randomQuestion.answerId} for question ${randomQuestion.id} in session ${sessionId}`,
+        );
         throw new NotFoundException('Question answer not found');
       }
 
@@ -493,6 +555,7 @@ export class GameSessionService {
           id: randomQuestion.id,
           url: randomQuestion.url,
           answers: answerOptions,
+          correctAnswer,
         },
         questionId: randomQuestion.id,
         qIndex: qIndex + 1,
