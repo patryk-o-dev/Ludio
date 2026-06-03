@@ -124,6 +124,12 @@ export class GameSessionService {
   }
 
   async create(dto: CreateGameSessionDto) {
+    const hostId = dto.playerIds[0];
+
+    if (!hostId) {
+      throw new BadRequestException('At least one player is required');
+    }
+
     const gameConfig = await this.prisma.gameConfig.findUnique({
       where: { id: dto.gameConfigId },
       include: { rules: true, options: true },
@@ -133,7 +139,7 @@ export class GameSessionService {
     }
 
     const players = await this.prisma.user.findMany({
-      where: { id: { in: ['1'] } },
+      where: { id: { in: dto.playerIds } },
     });
     if (players.length !== dto.playerIds.length) {
       throw new BadRequestException('One or more players are invalid');
@@ -141,7 +147,10 @@ export class GameSessionService {
 
     const session = await this.prisma.gameSession.create({
       data: {
-        gameConfigId: dto.gameConfigId,
+        hostId,
+        gameConfig: {
+          connect: { id: dto.gameConfigId },
+        },
         players: {
           create: dto.playerIds.map((userId) => ({ userId })),
         },

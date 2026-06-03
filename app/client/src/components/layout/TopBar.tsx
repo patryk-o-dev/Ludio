@@ -1,7 +1,7 @@
 import SessionStats from "../features/SessionStats";
 import StreamerLogo from "../layout/StreamerLogo";
 import surrenderIcon from "../../assets/icons/ff.png";
-import type { SessionData } from "../pages/QuizSession";
+import type { SessionData } from "../../types";
 
 const TopBar = ({ session }: { session: SessionData }) => {
 	return (

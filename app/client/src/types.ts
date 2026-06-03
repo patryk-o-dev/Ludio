@@ -1,13 +1,19 @@
-export type Player = {
-	name: string;
+export type User = {
+	id: string;
+	displayName?: string;
 	status: "online" | "offline";
+	avatarUrl?: string;
 };
+
+export type Player = User;
+
 export type Rule = {
 	index: number;
 	guessId: string | null;
 	byId: string | null;
 	filterIds: string[];
 };
+
 export type GameOptionsState = {
 	difficulty: 1;
 	questionsPerRule: 3 | 5;
@@ -36,3 +42,67 @@ export type ChipFilter = {
 	id: string;
 	name: string;
 };
+
+export type ChipSelectionStep = {
+	type: "guess" | "by";
+	ruleIndex?: number;
+	guessId?: string;
+};
+
+export type QuestionAnswer = {
+	id: string;
+	value: string;
+};
+
+export type CurrentQuestion = {
+	id: string;
+	url: string;
+	answers: QuestionAnswer[];
+	correctAnswer: QuestionAnswer;
+}
+
+export type LiveSessionState = {
+	phase: "waiting" | "question" | "summary" | "completed";
+	question: CurrentQuestion | null;
+	questionId: string | null;
+	qIndex: number;
+	currentRuleIndex: number;
+	startedAt: number | null;
+	expiresAt: number | null;
+	summaryEndsAt: number | null;
+	timeLimitSeconds: number | null;
+	answeredUserIds: string[];
+}
+
+export type SessionPlayer = {
+	userId: string;
+	status: string;
+	score: number;
+	timeMs: number;
+	rank: number;
+};
+
+export type SessionRanking = {
+	userId: string;
+	rank: number;
+	score: number;
+	timeMs: number;
+};
+
+export type RulePool = {
+	id: string;
+	ruleIndex: number;
+	ruleId: string;
+	questionCount: number;
+	drawnCount: number;
+	_count: { candidates: number };
+}
+
+export type SessionData = {
+	id: string;
+	status: "WAITING" | "ACTIVE" | "FINISHED";
+	currentRuleIndex: number;
+	rulePools: RulePool[];
+	players: SessionPlayer[];
+	live: LiveSessionState;
+}

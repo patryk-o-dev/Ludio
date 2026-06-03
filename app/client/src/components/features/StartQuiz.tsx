@@ -2,7 +2,7 @@ import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import useGameConfigStore from "../../store/gameConfigStore";
 
-const API = "http://localhost:3000/api";
+const API = import.meta.env.VITE_API_URL;
 
 type CreateGameConfigResponse = {
 	id: string;

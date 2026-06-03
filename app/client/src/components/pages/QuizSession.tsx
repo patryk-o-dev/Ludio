@@ -1,69 +1,16 @@
 import { useEffect, useRef, useState } from "react";
 import { useParams } from "react-router-dom";
 import { io, type Socket } from "socket.io-client";
+import type {
+	LiveSessionState,
+	SessionData,
+	SessionRanking,
+} from "../../types";
 import Controls from "../layout/Controls";
 import QuizStage from "../layout/QuizStage";
 import TopBar from "../layout/TopBar";
 
-type QuestionAnswer = {
-	id: string;
-	value: string;
-};
-
-export interface CurrentQuestion {
-	id: string;
-	url: string;
-	answers: QuestionAnswer[];
-	correctAnswer: QuestionAnswer;
-}
-
-export interface LiveSessionState {
-	phase: "waiting" | "question" | "summary" | "completed";
-	question: CurrentQuestion | null;
-	questionId: string | null;
-	qIndex: number;
-	currentRuleIndex: number;
-	startedAt: number | null;
-	expiresAt: number | null;
-	summaryEndsAt: number | null;
-	timeLimitSeconds: number | null;
-	answeredUserIds: string[];
-}
-
-type SessionPlayer = {
-	userId: string;
-	status: string;
-	score: number;
-	timeMs: number;
-	rank: number;
-};
-
-type SessionRanking = {
-	userId: string;
-	rank: number;
-	score: number;
-	timeMs: number;
-};
-
-export interface RulePool {
-	id: string;
-	ruleIndex: number;
-	ruleId: string;
-	questionCount: number;
-	drawnCount: number;
-	_count: { candidates: number };
-}
-
-export interface SessionData {
-	id: string;
-	status: "WAITING" | "ACTIVE" | "FINISHED";
-	currentRuleIndex: number;
-	rulePools: RulePool[];
-	players: SessionPlayer[];
-	live: LiveSessionState;
-}
-
-const API = "http://localhost:3000/api";
+const API = import.meta.env.VITE_API_URL;
 
 const QuizSession = () => {
 	const { id } = useParams<{ id: string }>();

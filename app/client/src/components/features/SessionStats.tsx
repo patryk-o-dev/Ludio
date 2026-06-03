@@ -1,6 +1,6 @@
 import clockIcon from "../../assets/icons/clock.png";
 import scoreIcon from "../../assets/icons/score.png";
-import type { SessionData } from "../pages/QuizSession";
+import type { SessionData } from "../../types";
 
 const SessionStats = ({ session }: { session: SessionData }) => {
 	const totalQuestions = session.rulePools.reduce(

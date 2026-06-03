@@ -1,19 +1,11 @@
 import { create } from "zustand";
-import type { AllChips } from "../types";
+import type { AllChips, ChipSelectionStep } from "../types";
 
 type ChipsStore = {
 	allChips: AllChips;
-	chipSelectionStep: {
-		type: "guess" | "by";
-		ruleIndex?: number;
-		guessId?: string;
-	};
+	chipSelectionStep: ChipSelectionStep;
 	setAllChips: (allChips: AllChips) => void;
-	updateChipSelectionStep: (step: {
-		type: "guess" | "by";
-		ruleIndex?: number;
-		guessId?: string;
-	}) => void;
+	updateChipSelectionStep: (step: ChipSelectionStep) => void;
 };
 
 const useChipsStore = create<ChipsStore>((set) => ({

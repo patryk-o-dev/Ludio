@@ -16,12 +16,28 @@ const STATUS_COLOR: Record<FriendStatus, string> = {
 interface FriendCardProps {
 	name?: string;
 	status?: FriendStatus;
+	request?: boolean;
+	userId?: string;
+	friendId?: string;
 }
 
 const FriendCard = ({
 	name = "FriendName",
 	status = "offline",
+	request = false,
+	userId,
+	friendId,
 }: FriendCardProps) => {
+	const API = import.meta.env.VITE_API_URL;
+	const handleAcceptRequest = (accept: boolean) => {
+		fetch(`${API}/user/${userId}/friendship/${friendId}/respond`, {
+			method: "POST",
+			headers: {
+				"Content-Type": "application/json",
+			},
+			body: JSON.stringify({ accept }),
+		});
+	};
 	return (
 		<div className="flex items-center justify-between p-4 bg-(--bgc-tertiary) rounded-lg">
 			<img
@@ -35,9 +51,27 @@ const FriendCard = ({
 					{STATUS_LABEL[status]}
 				</span>
 			</div>
-			<button className="p-2 bg-(--accent-dark) rounded-lg">
-				<img className="w-6 h-6" src={battleIcon} alt="Battle Icon" />
-			</button>
+			{request && (
+				<div className="flex space-x-2">
+					<button
+						className="p-2 bg-(--positive) rounded-lg hover:cursor-pointer"
+						onClick={() => handleAcceptRequest(true)}
+					>
+						<img className="w-6 h-6" src={battleIcon} alt="Accept Icon" />
+					</button>
+					<button
+						className="p-2 bg-(--negative) rounded-lg"
+						onClick={() => handleAcceptRequest(false)}
+					>
+						<img className="w-6 h-6" src={battleIcon} alt="Decline Icon" />
+					</button>
+				</div>
+			)}
+			{!request && (
+				<button className="p-2 bg-(--accent-dark) rounded-lg">
+					<img className="w-6 h-6" src={battleIcon} alt="Battle Icon" />
+				</button>
+			)}
 		</div>
 	);
 };

@@ -1,4 +1,4 @@
-import type { SessionData } from "../pages/QuizSession";
+import type { SessionData } from "../../types";
 import AnswerPanel from "../features/AnswerPanel";
 import MediaDisplay from "../features/MediaDisplay";
 
@@ -21,7 +21,7 @@ const QuizStage = ({
 	hasAnsweredCurrentQuestion,
 	onSelectAnswer,
 }: QuizStageProps) => {
-	const API = "http://localhost:3000/api";
+	const API = import.meta.env.VITE_API_URL;
 	const currentQuestion = session.live.question;
 	const acceptInvitation = () => {
 		fetch(`${API}/game-session/${session.id}/accept`, {
