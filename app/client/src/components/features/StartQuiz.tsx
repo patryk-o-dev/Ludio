@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import useGameConfigStore from "../../store/gameConfigStore";
+import { getStoredAuthUser } from "../utils/authStorage";
 
 const API = import.meta.env.VITE_API_URL;
 
@@ -18,6 +19,8 @@ const StartQuiz = () => {
 	const [error, setError] = useState<string | null>(null);
 	const rules = useGameConfigStore((state) => state.rules);
 	const options = useGameConfigStore((state) => state.options);
+	const players = useGameConfigStore((state) => state.players);
+	const userId = getStoredAuthUser()?.id ?? null;
 
 	const handleStartQuiz = async () => {
 		setError(null);
@@ -44,7 +47,7 @@ const StartQuiz = () => {
 				questionLimit: options.questionsPerRule,
 				timeLimitSeconds: options.timeLimitSeconds,
 			},
-			playerIds: [],
+			playerIds: [...players.map((p) => p.id)],
 		};
 
 		try {
@@ -70,7 +73,8 @@ const StartQuiz = () => {
 				},
 				body: JSON.stringify({
 					gameConfigId: gameConfig.id,
-					playerIds: ["1"],
+					playerIds: [...players.map((p) => p.id)],
+					hostId: userId,
 				}),
 			});
 
@@ -80,6 +84,15 @@ const StartQuiz = () => {
 
 			const session =
 				(await sessionResponse.json()) as CreateGameSessionResponse;
+
+			await fetch(`${API}/game-session/${session.id}/respond`, {
+				method: "PATCH",
+				headers: {
+					"Content-Type": "application/json",
+				},
+				body: JSON.stringify({ userId, accept: true }),
+			});
+
 			navigate(`/session/${session.id}`);
 		} catch (err) {
 			setError(
@@ -101,6 +114,12 @@ const StartQuiz = () => {
 			>
 				{loading ? "Tworzenie sesji..." : "Rozpocznij QUIZ"}
 			</button>
+			<p className="text-xs text-(--text-secondary) text-left w-full">
+				Zaproszeni:{" "}
+				<span className="text-(--info)">
+					{players.map((p) => p.displayName).join(", ")}
+				</span>
+			</p>
 		</div>
 	);
 };

@@ -33,7 +33,9 @@ const useGameConfigStore = create<GameConfigStore>((set) => ({
 	addPlayer: (player) =>
 		set((state) => ({ players: [...state.players, player] })),
 	removePlayer: (player) =>
-		set((state) => ({ players: state.players.filter((p) => p !== player) })),
+		set((state) => ({
+			players: state.players.filter((p) => p.id !== player.id),
+		})),
 	addRule: (rule) => set((state) => ({ rules: [...state.rules, rule] })),
 	removeRule: (rule) =>
 		set((state) => ({ rules: state.rules.filter((r) => r !== rule) })),

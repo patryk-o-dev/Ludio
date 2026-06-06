@@ -49,4 +49,12 @@ export class GameSessionGateway {
       data.timeMs,
     );
   }
+
+  handleConnection(client: Socket) {
+    const userId = client.handshake.auth.userId;
+
+    if (userId) {
+      client.join(userId);
+    }
+  }
 }

@@ -9,11 +9,13 @@ import type {
 import Controls from "../layout/Controls";
 import QuizStage from "../layout/QuizStage";
 import TopBar from "../layout/TopBar";
+import { getStoredAuthUser } from "../utils/authStorage";
 
 const API = import.meta.env.VITE_API_URL;
 
 const QuizSession = () => {
 	const { id } = useParams<{ id: string }>();
+	const currentUserId = getStoredAuthUser()?.id ?? null;
 	const [session, setSession] = useState<SessionData | null>(null);
 	const [summaryWasCorrect, setSummaryWasCorrect] = useState<boolean | null>(
 		null,
@@ -38,9 +40,11 @@ const QuizSession = () => {
 	}, [id]);
 
 	useEffect(() => {
-		if (!id) return;
+		if (!id || !currentUserId) return;
 
-		const socket: Socket = io(API.replace(/\/api$/, ""));
+		const socket: Socket = io(API.replace(/\/api$/, ""), {
+			auth: { userId: currentUserId },
+		});
 		socketRef.current = socket;
 
 		socket.on("connect", () => {
@@ -82,7 +86,7 @@ const QuizSession = () => {
 		socket.on(
 			"session:player-answered",
 			(data: { userId: string; correct: boolean; points: number }) => {
-				if (data.userId === "1") {
+				if (data.userId === currentUserId) {
 					setSummaryWasCorrect(data.correct);
 					setSummaryPoints(data.points);
 					setHasAnsweredCurrentQuestion(true);
@@ -140,14 +144,14 @@ const QuizSession = () => {
 			socketRef.current = null;
 			socket.disconnect();
 		};
-	}, [id]);
+	}, [id, currentUserId]);
 
 	const handleSelectAnswer = (
 		answerId: string,
 		_answerValue: string,
 		timeMs: number,
 	) => {
-		if (!id || !socketRef.current) {
+		if (!id || !socketRef.current || !currentUserId) {
 			return;
 		}
 
@@ -159,7 +163,7 @@ const QuizSession = () => {
 
 		socketRef.current.emit("session:answer", {
 			sessionId: id,
-			userId: "1",
+			userId: currentUserId,
 			answerId,
 			timeMs,
 		});
@@ -190,6 +194,7 @@ const QuizSession = () => {
 			<TopBar session={session} />
 			<QuizStage
 				session={session}
+				currentUserId={currentUserId}
 				summaryWasCorrect={summaryWasCorrect}
 				summaryPoints={summaryPoints}
 				hasAnsweredCurrentQuestion={hasAnsweredCurrentQuestion}

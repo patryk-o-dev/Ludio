@@ -1,8 +1,14 @@
 export type User = {
 	id: string;
 	displayName?: string;
-	status: "online" | "offline";
+	status?: "online" | "offline";
 	avatarUrl?: string;
+};
+
+export type SessionInvite = {
+	sessionId: string;
+	hostId: string;
+	status?: string;
 };
 
 export type Player = User;
@@ -59,7 +65,7 @@ export type CurrentQuestion = {
 	url: string;
 	answers: QuestionAnswer[];
 	correctAnswer: QuestionAnswer;
-}
+};
 
 export type LiveSessionState = {
 	phase: "waiting" | "question" | "summary" | "completed";
@@ -72,7 +78,7 @@ export type LiveSessionState = {
 	summaryEndsAt: number | null;
 	timeLimitSeconds: number | null;
 	answeredUserIds: string[];
-}
+};
 
 export type SessionPlayer = {
 	userId: string;
@@ -80,6 +86,9 @@ export type SessionPlayer = {
 	score: number;
 	timeMs: number;
 	rank: number;
+	user: {
+		displayName?: string;
+	};
 };
 
 export type SessionRanking = {
@@ -96,7 +105,7 @@ export type RulePool = {
 	questionCount: number;
 	drawnCount: number;
 	_count: { candidates: number };
-}
+};
 
 export type SessionData = {
 	id: string;
@@ -105,4 +114,4 @@ export type SessionData = {
 	rulePools: RulePool[];
 	players: SessionPlayer[];
 	live: LiveSessionState;
-}
+};

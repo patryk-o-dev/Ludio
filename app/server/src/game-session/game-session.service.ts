@@ -5,18 +5,12 @@ import {
   Injectable,
   Logger,
   NotFoundException,
+  OnModuleInit,
 } from '@nestjs/common';
 import { PrismaService } from '../prisma/prisma.service';
 import { CreateGameSessionDto } from './dto/create-game-session.dto';
 import { GameSessionGateway } from './game-session/game-session.gateway';
 import { RedisService } from '@/redis/redis.service';
-
-type ActiveSession = {
-  currentQuestionId: string;
-  answeredUserIds: Set<string>;
-  timeoutHandle: ReturnType<typeof setTimeout> | null;
-  totalPlayers: number;
-};
 
 type UiSessionStatus = 'WAITING' | 'ACTIVE' | 'FINISHED';
 type SessionPhase = 'waiting' | 'question' | 'summary' | 'completed';
@@ -43,14 +37,16 @@ type SessionLiveState = {
   expiresAt: number | null;
   summaryEndsAt: number | null;
   timeLimitSeconds: number | null;
+  totalPlayers: number;
   answeredUserIds: string[];
 };
 
 @Injectable()
-export class GameSessionService {
-  private readonly activeSessions = new Map<string, ActiveSession>();
+export class GameSessionService implements OnModuleInit {
   private readonly runningSessionLoops = new Set<string>();
   private readonly logger = new Logger(GameSessionService.name);
+  private readonly summaryTimeSeconds = 3;
+  private readonly sessionLoopLockTtlSeconds = 15;
 
   constructor(
     private readonly prisma: PrismaService,
@@ -58,6 +54,17 @@ export class GameSessionService {
     private readonly gateway: GameSessionGateway,
     private readonly redisService: RedisService,
   ) {}
+
+  async onModuleInit() {
+    const activeSessions = await this.prisma.gameSession.findMany({
+      where: { status: 'InProgress' },
+      select: { id: true },
+    });
+
+    for (const session of activeSessions) {
+      await this.scheduleStoredStateProgress(session.id);
+    }
+  }
 
   private async withSessionLoopLock(
     sessionId: string,
@@ -72,10 +79,42 @@ export class GameSessionService {
 
     this.runningSessionLoops.add(sessionId);
 
+    const lockKey = `game-session:${sessionId}:loop-lock`;
+    const lockValue = `${process.pid}:${Date.now()}:${Math.random()}`;
+
+    try {
+      const acquired = await this.redisService.setIfAbsent(
+        lockKey,
+        lockValue,
+        this.sessionLoopLockTtlSeconds,
+      );
+      if (!acquired) {
+        this.logger.warn(
+          `Quiz loop for session ${sessionId} is already locked. Skipping duplicate start request`,
+        );
+        return;
+      }
+    } catch (error) {
+      this.runningSessionLoops.delete(sessionId);
+      this.logger.error(
+        `Failed to acquire quiz loop lock for session ${sessionId}`,
+        error instanceof Error ? error.stack : undefined,
+      );
+      return;
+    }
+
     try {
       await routine();
     } finally {
       this.runningSessionLoops.delete(sessionId);
+
+      try {
+        await this.redisService.delIfEqual(lockKey, lockValue);
+      } catch {
+        this.logger.warn(
+          `Failed to release quiz loop lock for session ${sessionId}`,
+        );
+      }
     }
   }
 
@@ -101,6 +140,103 @@ export class GameSessionService {
     await this.redisService.del(this.getStateKey(sessionId));
   }
 
+  private async getPlayerCount(sessionId: string) {
+    return this.prisma.gameSessionPlayer.count({
+      where: { gameSessionId: sessionId },
+    });
+  }
+
+  private async ensureTotalPlayers(
+    sessionId: string,
+    state: SessionLiveState,
+  ): Promise<SessionLiveState> {
+    if (Number.isInteger(state.totalPlayers) && state.totalPlayers > 0) {
+      return state;
+    }
+
+    const nextState = {
+      ...state,
+      totalPlayers: await this.getPlayerCount(sessionId),
+    };
+    await this.setStoredState(sessionId, nextState);
+    return nextState;
+  }
+
+  private scheduleSessionProgress(sessionId: string, state: SessionLiveState) {
+    if (state.phase === 'question' && state.expiresAt !== null) {
+      const delayMs = Math.max(state.expiresAt - Date.now(), 0);
+      setTimeout(() => {
+        void this.reconcileStoredState(sessionId);
+      }, delayMs);
+      return;
+    }
+
+    if (state.phase === 'summary' && state.summaryEndsAt !== null) {
+      const delayMs = Math.max(state.summaryEndsAt - Date.now(), 0);
+      setTimeout(() => {
+        void this.reconcileStoredState(sessionId);
+      }, delayMs);
+    }
+  }
+
+  private async scheduleStoredStateProgress(sessionId: string) {
+    const state = await this.getStoredState(sessionId);
+    if (!state) {
+      return;
+    }
+
+    const normalizedState = await this.ensureTotalPlayers(sessionId, state);
+
+    if (
+      (normalizedState.phase === 'question' &&
+        normalizedState.expiresAt !== null &&
+        normalizedState.expiresAt <= Date.now()) ||
+      (normalizedState.phase === 'summary' &&
+        normalizedState.summaryEndsAt !== null &&
+        normalizedState.summaryEndsAt <= Date.now())
+    ) {
+      await this.reconcileStoredState(sessionId, normalizedState);
+      return;
+    }
+
+    this.scheduleSessionProgress(sessionId, normalizedState);
+  }
+
+  private async reconcileStoredState(
+    sessionId: string,
+    state?: SessionLiveState | null,
+  ) {
+    const currentState = state ?? (await this.getStoredState(sessionId));
+    if (!currentState) {
+      return null;
+    }
+
+    const normalizedState = await this.ensureTotalPlayers(
+      sessionId,
+      currentState,
+    );
+
+    if (
+      normalizedState.phase === 'question' &&
+      normalizedState.expiresAt !== null &&
+      normalizedState.expiresAt <= Date.now()
+    ) {
+      await this.finishQuestion(sessionId, this.summaryTimeSeconds);
+      return this.getStoredState(sessionId);
+    }
+
+    if (
+      normalizedState.phase === 'summary' &&
+      normalizedState.summaryEndsAt !== null &&
+      normalizedState.summaryEndsAt <= Date.now()
+    ) {
+      await this.startQuizLoop(sessionId);
+      return this.getStoredState(sessionId);
+    }
+
+    return normalizedState;
+  }
+
   private toUiStatus(
     status: 'NotStarted' | 'InProgress' | 'Completed',
   ): UiSessionStatus {
@@ -124,25 +260,42 @@ export class GameSessionService {
   }
 
   async create(dto: CreateGameSessionDto) {
-    const hostId = dto.playerIds[0];
+    const hostId = dto.hostId;
 
     if (!hostId) {
-      throw new BadRequestException('At least one player is required');
+      throw new BadRequestException('Host ID is required');
     }
+
+    const allPlayerIds = [...new Set([hostId, ...dto.playerIds])];
 
     const gameConfig = await this.prisma.gameConfig.findUnique({
       where: { id: dto.gameConfigId },
       include: { rules: true, options: true },
     });
+
     if (!gameConfig) {
       throw new NotFoundException('Game configuration not found or invalid');
     }
 
     const players = await this.prisma.user.findMany({
-      where: { id: { in: dto.playerIds } },
+      where: { id: { in: allPlayerIds } },
     });
-    if (players.length !== dto.playerIds.length) {
+
+    if (players.length !== allPlayerIds.length) {
       throw new BadRequestException('One or more players are invalid');
+    }
+
+    const active = await this.prisma.gameSessionPlayer.findFirst({
+      where: {
+        userId: { in: allPlayerIds },
+        gameSession: {
+          status: { in: ['NotStarted', 'InProgress'] },
+        },
+      },
+    });
+
+    if (active) {
+      throw new BadRequestException('One of players is already in a session');
     }
 
     const session = await this.prisma.gameSession.create({
@@ -152,7 +305,7 @@ export class GameSessionService {
           connect: { id: dto.gameConfigId },
         },
         players: {
-          create: dto.playerIds.map((userId) => ({ userId })),
+          create: allPlayerIds.map((userId) => ({ userId })),
         },
       },
       include: {
@@ -162,6 +315,18 @@ export class GameSessionService {
         players: true,
       },
     });
+
+    for (const player of session.players) {
+      if (player.userId === hostId) {
+        continue;
+      }
+
+      this.gateway.server.to(player.userId).emit('session:invited', {
+        sessionId: session.id,
+        hostId,
+        status: player.status,
+      });
+    }
 
     return session;
   }
@@ -173,7 +338,13 @@ export class GameSessionService {
         gameConfig: {
           include: { rules: true, options: true },
         },
-        players: true,
+        players: {
+          include: {
+            user: {
+              select: { displayName: true },
+            },
+          },
+        },
       },
     });
     if (!session) {
@@ -192,7 +363,13 @@ export class GameSessionService {
             options: true,
           },
         },
-        players: true,
+        players: {
+          include: {
+            user: {
+              select: { displayName: true },
+            },
+          },
+        },
       },
     });
     if (!session) {
@@ -200,7 +377,7 @@ export class GameSessionService {
     }
 
     const questionLimit = session.gameConfig.options?.questionLimit ?? 0;
-    const live = await this.getStoredState(id);
+    const live = await this.reconcileStoredState(id);
     const currentRuleIndex =
       live?.currentRuleIndex ??
       (session.gameConfig.rules.length > 0 && questionLimit > 0
@@ -246,12 +423,13 @@ export class GameSessionService {
           expiresAt: null,
           summaryEndsAt: null,
           timeLimitSeconds: null,
+          totalPlayers: session.players.length,
           answeredUserIds: [],
         } satisfies SessionLiveState),
     };
   }
 
-  async acceptInvitation(sessionId: string, userId: string) {
+  async respondInvitation(sessionId: string, userId: string, accept: boolean) {
     const session = await this.prisma.gameSession.findUnique({
       where: { id: sessionId },
       include: { players: true },
@@ -265,6 +443,10 @@ export class GameSessionService {
       throw new BadRequestException('User is not invited to this session');
     }
 
+    if (session.status === 'Completed') {
+      throw new BadRequestException('Game session is already completed');
+    }
+
     await this.prisma.gameSession.update({
       where: { id: sessionId },
       data: {
@@ -276,11 +458,15 @@ export class GameSessionService {
                 userId: userId,
               },
             },
-            data: { status: 'Accepted' },
+            data: { status: accept ? 'Accepted' : 'Declined' },
           },
         },
       },
     });
+
+    if (!accept) {
+      return this.findOne(sessionId);
+    }
 
     const updatedSession = await this.prisma.gameSession.findUnique({
       where: { id: sessionId },
@@ -288,10 +474,18 @@ export class GameSessionService {
     });
 
     if (updatedSession.players.every((p) => p.status === 'Accepted')) {
-      await this.prisma.gameSession.update({
-        where: { id: sessionId },
+      const sessionTransition = await this.prisma.gameSession.updateMany({
+        where: {
+          id: sessionId,
+          status: 'NotStarted',
+        },
         data: { status: 'InProgress' },
       });
+
+      if (sessionTransition.count === 0) {
+        return this.findOne(sessionId);
+      }
+
       await this.prisma.gameSessionPlayer.updateMany({
         where: { gameSessionId: sessionId },
         data: { status: 'Answering' },
@@ -309,17 +503,15 @@ export class GameSessionService {
     answerId: string,
     timeMs: number,
   ) {
-    const liveState = await this.getStoredState(sessionId);
-    const activeSession = this.activeSessions.get(sessionId);
+    const liveState = await this.reconcileStoredState(sessionId);
     if (
       !liveState ||
       liveState.phase !== 'question' ||
       !liveState.questionId ||
-      !activeSession ||
-      activeSession.answeredUserIds.has(userId)
+      liveState.answeredUserIds.includes(userId)
     ) {
       this.logger.warn(
-        `Ignoring answer for session ${sessionId}, user ${userId}. live=${Boolean(liveState)}, phase=${liveState?.phase ?? 'none'}, questionId=${liveState?.questionId ?? 'none'}, activeSession=${Boolean(activeSession)}, alreadyAnswered=${activeSession?.answeredUserIds.has(userId) ?? false}`,
+        `Ignoring answer for session ${sessionId}, user ${userId}. live=${Boolean(liveState)}, phase=${liveState?.phase ?? 'none'}, questionId=${liveState?.questionId ?? 'none'}, alreadyAnswered=${liveState?.answeredUserIds.includes(userId) ?? false}`,
       );
       return;
     }
@@ -354,11 +546,15 @@ export class GameSessionService {
       },
     });
 
-    activeSession.answeredUserIds.add(userId);
-    await this.setStoredState(sessionId, {
+    const answeredUserIds = [
+      ...new Set([...liveState.answeredUserIds, userId]),
+    ];
+    const nextState = {
       ...liveState,
-      answeredUserIds: [...activeSession.answeredUserIds],
-    });
+      answeredUserIds,
+    } satisfies SessionLiveState;
+
+    await this.setStoredState(sessionId, nextState);
 
     this.gateway.server.to(sessionId).emit('session:player-answered', {
       userId,
@@ -366,17 +562,24 @@ export class GameSessionService {
       points,
     });
 
-    if (activeSession.answeredUserIds.size >= activeSession.totalPlayers) {
-      if (activeSession.timeoutHandle) {
-        clearTimeout(activeSession.timeoutHandle);
-        activeSession.timeoutHandle = null;
-      }
-      await this.finishQuestion(sessionId, 3);
+    if (answeredUserIds.length >= liveState.totalPlayers) {
+      await this.finishQuestion(sessionId, this.summaryTimeSeconds);
     }
   }
 
   private async startQuizLoop(sessionId: string) {
     await this.withSessionLoopLock(sessionId, async () => {
+      const currentLiveState = await this.getStoredState(sessionId);
+      if (
+        currentLiveState?.phase === 'question' ||
+        currentLiveState?.phase === 'completed' ||
+        (currentLiveState?.phase === 'summary' &&
+          currentLiveState.summaryEndsAt !== null &&
+          currentLiveState.summaryEndsAt > Date.now())
+      ) {
+        return;
+      }
+
       const session = await this.prisma.gameSession.findUnique({
         where: { id: sessionId },
         include: {
@@ -412,7 +615,6 @@ export class GameSessionService {
       const currentRuleIndex =
         Math.floor(qIndex / questionsPerRule) % totalRules;
       const usedIds = session.usedQuestions.map((q) => q.id);
-      const summaryTimeSeconds = 10;
       const currentRule = session.gameConfig.rules[currentRuleIndex];
       const filterIds = currentRule.chipFilters.map((f) => f.id);
 
@@ -558,7 +760,7 @@ export class GameSessionService {
           ? null
           : startedAt + timeLimitSeconds * 1000;
 
-      const liveState: SessionLiveState = {
+      const nextLiveState: SessionLiveState = {
         phase: 'question',
         question: {
           id: randomQuestion.id,
@@ -573,33 +775,21 @@ export class GameSessionService {
         expiresAt,
         summaryEndsAt: null,
         timeLimitSeconds: timeLimitSeconds ?? null,
+        totalPlayers: session.players.length,
         answeredUserIds: [],
       };
 
-      await this.setStoredState(sessionId, liveState);
+      await this.setStoredState(sessionId, nextLiveState);
 
-      this.activeSessions.set(sessionId, {
-        currentQuestionId: randomQuestion.id,
-        answeredUserIds: new Set(),
-        timeoutHandle: null,
-        totalPlayers: session.players.length,
-      });
+      this.scheduleSessionProgress(sessionId, nextLiveState);
 
-      const activeEntry = this.activeSessions.get(sessionId)!;
-
-      if (timeLimitSeconds !== null && timeLimitSeconds !== undefined) {
-        activeEntry.timeoutHandle = setTimeout(async () => {
-          await this.finishQuestion(sessionId, summaryTimeSeconds);
-        }, timeLimitSeconds * 1000);
-      }
-
-      this.gateway.server.to(sessionId).emit('session:question', liveState);
+      this.gateway.server.to(sessionId).emit('session:question', nextLiveState);
     });
   }
 
   private async finishQuestion(sessionId: string, summaryTimeSeconds: number) {
     const liveState = await this.getStoredState(sessionId);
-    if (!liveState) {
+    if (!liveState || liveState.phase !== 'question') {
       return;
     }
 
@@ -614,13 +804,10 @@ export class GameSessionService {
 
     this.gateway.server.to(sessionId).emit('session:summary', summaryState);
 
-    setTimeout(async () => {
-      await this.startQuizLoop(sessionId);
-    }, summaryTimeSeconds * 1000);
+    this.scheduleSessionProgress(sessionId, summaryState);
   }
 
   private async endGame(sessionId: string) {
-    this.activeSessions.delete(sessionId);
     await this.clearStoredState(sessionId);
 
     const players = await this.prisma.gameSessionPlayer.findMany({
@@ -664,6 +851,7 @@ export class GameSessionService {
       expiresAt: null,
       summaryEndsAt: null,
       timeLimitSeconds: null,
+      totalPlayers: players.length,
       answeredUserIds: [],
     };
 

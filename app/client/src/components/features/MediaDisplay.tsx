@@ -1,5 +1,8 @@
+import type { SessionPlayer } from "../../types";
+
 interface MediaDisplayProps {
 	imageUrl: string | null;
+	players?: SessionPlayer[];
 	phase: "waiting" | "question" | "summary" | "completed";
 	summaryLabel?: string | null;
 	summaryWasCorrect?: boolean | null;
@@ -23,23 +26,57 @@ const resolveImageUrl = (imageUrl: string) => {
 
 const MediaDisplay = ({
 	imageUrl,
+	players = [],
 	phase,
 	summaryLabel,
 	summaryWasCorrect,
 	showAnswerOverlay = false,
 }: MediaDisplayProps) => {
+	const statusColorClass: Record<string, string> = {
+		Accepted: "text-(--positive)",
+		Invited: "text-(--negative)",
+		Declined: "text-(--text-secondary)",
+	};
 	if (!imageUrl) {
 		return (
-			<div className="relative flex-4 min-h-0 overflow-hidden rounded-3xl border border-(--accent)/40 bg-(--bgc-secondary) shadow-[0_0_24px_2px_color-mix(in_srgb,var(--accent)_20%,transparent)] flex items-center justify-center">
-				<p className="text-(--text-secondary) text-xl uppercase tracking-wide">
-					{phase === "waiting"
-						? "Oczekiwanie na pytanie"
-						: phase === "summary"
+			<div className="relative flex-4 min-h-0 overflow-hidden rounded-3xl border border-(--accent)/40 bg-(--bgc-secondary) shadow-[0_0_24px_2px_color-mix(in_srgb,var(--accent)_20%,transparent)] flex items-center justify-center p-8">
+				{phase === "waiting" ? (
+					<div className="flex w-full max-w-3xl flex-col items-center gap-4 text-center">
+						<p className="text-(--text-secondary) text-sm uppercase tracking-[0.35em]">
+							Oczekiwanie na graczy
+						</p>
+						{players.length > 0 ? (
+							<div className="flex flex-wrap justify-center gap-3">
+								{players.map((player) => {
+									const colorClass =
+										statusColorClass[player.status ?? "thinking"] ??
+										"text-(--text)";
+
+									return (
+										<span
+											key={player.user.displayName || player.userId}
+											className={`rounded-full border border-(--accent)/30 bg-(--bgc-primary) px-4 py-2 text-lg font-medium ${colorClass}`}
+										>
+											{player.user.displayName || player.userId}
+										</span>
+									);
+								})}
+							</div>
+						) : (
+							<p className="text-(--text-secondary) text-xl uppercase tracking-wide">
+								Wszyscy gracze są gotowi
+							</p>
+						)}
+					</div>
+				) : (
+					<p className="text-(--text-secondary) text-xl uppercase tracking-wide">
+						{phase === "summary"
 							? "Podsumowanie rundy"
 							: phase === "completed"
 								? "Koniec sesji"
 								: "Ładowanie pytania"}
-				</p>
+					</p>
+				)}
 			</div>
 		);
 	}

@@ -26,6 +26,15 @@ export class GameSessionController {
     @Param('id') sessionId: string,
     @Body('userId') userId: string,
   ) {
-    return this.gameSessionService.acceptInvitation(sessionId, userId);
+    return this.gameSessionService.respondInvitation(sessionId, userId, true);
+  }
+
+  @Patch(':id/respond')
+  respondInvitation(
+    @Param('id') sessionId: string,
+    @Body('userId') userId: string,
+    @Body('accept') accept: boolean,
+  ) {
+    return this.gameSessionService.respondInvitation(sessionId, userId, accept);
   }
 }

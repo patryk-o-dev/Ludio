@@ -1,13 +1,17 @@
 import clockIcon from "../../assets/icons/clock.png";
 import scoreIcon from "../../assets/icons/score.png";
 import type { SessionData } from "../../types";
+import { getStoredAuthUser } from "../utils/authStorage";
 
 const SessionStats = ({ session }: { session: SessionData }) => {
+	const currentUserId = getStoredAuthUser()?.id ?? null;
 	const totalQuestions = session.rulePools.reduce(
 		(total, pool) => total + pool.questionCount,
 		0,
 	);
-	const currentPlayer = session.players.find((player) => player.userId === "1");
+	const currentPlayer = session.players.find(
+		(player) => player.userId === currentUserId,
+	);
 	const playerScore = currentPlayer?.score ?? 0;
 	const timerLabel = session.live.timeLimitSeconds
 		? `${session.live.timeLimitSeconds}s`
