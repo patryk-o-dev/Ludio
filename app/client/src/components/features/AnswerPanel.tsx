@@ -1,5 +1,7 @@
 import { useEffect, useState } from "react";
 import searchIcon from "../../assets/icons/magnifying-glass.png";
+import Ranking from "./Ranking";
+import type { SessionData } from "../../types";
 
 interface AnswerOption {
 	id: string;
@@ -11,6 +13,7 @@ interface AnswerPanelProps {
 	phase: "waiting" | "question" | "summary" | "completed";
 	expiresAt: number | null;
 	timeLimitSeconds: number | null;
+	session: SessionData;
 	onSelectAnswer: (
 		answerId: string,
 		answerValue: string,
@@ -23,6 +26,7 @@ const AnswerPanel = ({
 	phase,
 	expiresAt,
 	timeLimitSeconds,
+	session,
 	onSelectAnswer,
 }: AnswerPanelProps) => {
 	const [selectedAnswerId, setSelectedAnswerId] = useState<string | null>(null);
@@ -72,52 +76,57 @@ const AnswerPanel = ({
 
 	return (
 		<div className="flex flex-1 flex-col gap-4 min-h-0">
-			<div className="flex items-center justify-between text-sm uppercase tracking-wide text-(--text-secondary)">
-				<span>
-					{phase === "question"
-						? "Wybierz odpowiedź"
-						: phase === "summary"
-							? "Podsumowanie pytania"
-							: phase === "completed"
-								? "Sesja zakończona"
-								: "Oczekiwanie na start"}
-				</span>
-				<span>{timerLabel}</span>
-			</div>
-			<div className="flex items-center gap-2 border border-(--accent)/40 rounded px-4 py-2 bg-(--bgc-basic) transition-shadow duration-300 focus-within:border-(--accent)/80 focus-within:shadow-[0_0_20px_2px_color-mix(in_srgb,var(--accent)_22%,transparent)]">
-				<img className="w-6 h-6" src={searchIcon} alt="question icon" />
-				<input
-					type="text"
-					placeholder="Wyszukaj odpowiedź..."
-					value={inputValue}
-					onChange={(event) => setInputValue(event.target.value)}
-					disabled={phase !== "question"}
-					className="flex-1 bg-transparent outline-none text-(--text) caret-(--accent)"
-				/>
-			</div>
-			<div className="flex-1 min-h-0 relative">
-				<ul className="absolute inset-0 flex flex-col gap-2 overflow-y-auto pr-1 [&::-webkit-scrollbar]:w-1 [&::-webkit-scrollbar-track]:bg-transparent [&::-webkit-scrollbar-thumb]:bg-(--accent)/40 [&::-webkit-scrollbar-thumb]:rounded-full [&::-webkit-scrollbar-thumb]:hover:bg-(--accent)/70">
-					{filteredAnswers.map((answer) => (
-						<li key={answer.id}>
-							<button
-								onClick={() => handleSelectAnswer(answer.id, answer.value)}
-								disabled={phase !== "question"}
-								aria-selected={selectedAnswerId === answer.id}
-								className="w-full text-left px-4 py-2 rounded border border-(--accent)/50 bg-(--bgc-secondary) text-(--text) cursor-pointer transition-colors duration-200 hover:bg-(--accent)/15 aria-selected:bg-(--accent) aria-selected:border-(--accent)"
-							>
-								{answer.value}
-							</button>
-						</li>
-					))}
-					{filteredAnswers.length === 0 && (
-						<li className="text-(--text-secondary) text-sm px-2 py-4">
+			{phase === "question" && (
+				<>
+					<div className="flex items-center justify-between text-sm uppercase tracking-wide text-(--text-secondary)">
+						<span>
 							{phase === "question"
-								? "Brak dopasowanych odpowiedzi"
-								: "Oczekiwanie na listę odpowiedzi"}
-						</li>
-					)}
-				</ul>
-			</div>
+								? "Wybierz odpowiedź"
+								: phase === "summary"
+									? "Podsumowanie pytania"
+									: phase === "completed"
+										? "Sesja zakończona"
+										: "Oczekiwanie na start"}
+						</span>
+						<span>{timerLabel}</span>
+					</div>
+					<div className="flex items-center gap-2 border border-(--accent)/40 rounded px-4 py-2 bg-(--bgc-basic) transition-shadow duration-300 focus-within:border-(--accent)/80 focus-within:shadow-[0_0_20px_2px_color-mix(in_srgb,var(--accent)_22%,transparent)]">
+						<img className="w-6 h-6" src={searchIcon} alt="question icon" />
+						<input
+							type="text"
+							placeholder="Wyszukaj odpowiedź..."
+							value={inputValue}
+							onChange={(event) => setInputValue(event.target.value)}
+							disabled={phase !== "question"}
+							className="flex-1 bg-transparent outline-none text-(--text) caret-(--accent)"
+						/>
+					</div>
+					<div className="flex-1 min-h-0 relative">
+						<ul className="absolute inset-0 flex flex-col gap-2 overflow-y-auto pr-1 [&::-webkit-scrollbar]:w-1 [&::-webkit-scrollbar-track]:bg-transparent [&::-webkit-scrollbar-thumb]:bg-(--accent)/40 [&::-webkit-scrollbar-thumb]:rounded-full [&::-webkit-scrollbar-thumb]:hover:bg-(--accent)/70">
+							{filteredAnswers.map((answer) => (
+								<li key={answer.id}>
+									<button
+										onClick={() => handleSelectAnswer(answer.id, answer.value)}
+										disabled={phase !== "question"}
+										aria-selected={selectedAnswerId === answer.id}
+										className="w-full text-left px-4 py-2 rounded border border-(--accent)/50 bg-(--bgc-secondary) text-(--text) cursor-pointer transition-colors duration-200 hover:bg-(--accent)/15 aria-selected:bg-(--accent) aria-selected:border-(--accent)"
+									>
+										{answer.value}
+									</button>
+								</li>
+							))}
+							{filteredAnswers.length === 0 && (
+								<li className="text-(--text-secondary) text-sm px-2 py-4">
+									{phase === "question"
+										? "Brak dopasowanych odpowiedzi"
+										: "Oczekiwanie na listę odpowiedzi"}
+								</li>
+							)}
+						</ul>
+					</div>
+				</>
+			)}
+			{(phase === "summary" || phase === "completed") && <Ranking session={session} />}
 		</div>
 	);
 };

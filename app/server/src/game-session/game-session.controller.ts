@@ -21,6 +21,11 @@ export class GameSessionController {
     return this.gameSessionService.findOne(id);
   }
 
+  @Get(':id/players')
+  getPlayers(@Param('id') sessionId: string) {
+    return this.gameSessionService.getPlayers(sessionId);
+  }
+
   @Patch(':id/accept')
   acceptInvitation(
     @Param('id') sessionId: string,

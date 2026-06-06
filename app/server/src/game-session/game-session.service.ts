@@ -567,6 +567,16 @@ export class GameSessionService implements OnModuleInit {
     }
   }
 
+  async getPlayers(sessionId: string) {
+    const players = await this.prisma.gameSessionPlayer.findMany({
+      where: { gameSessionId: sessionId },
+      include: {
+        user: true,
+      },
+    });
+    return players;
+  }
+
   private async startQuizLoop(sessionId: string) {
     await this.withSessionLoopLock(sessionId, async () => {
       const currentLiveState = await this.getStoredState(sessionId);

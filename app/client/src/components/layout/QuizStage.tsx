@@ -71,6 +71,7 @@ const QuizStage = ({
 				/>
 				<AnswerPanel
 					key={`${session.live.questionId ?? "none"}:${session.live.phase}`}
+					session={session}
 					answers={currentQuestion?.answers ?? []}
 					phase={session.live.phase}
 					expiresAt={session.live.expiresAt}
