@@ -29,7 +29,6 @@ const QuizStage = ({
 		(player) => player.userId === currentUserId,
 	);
 	const canAcceptInvitation = currentPlayer?.status === "Invited";
-	console.log("session: ", session);
 
 	const acceptInvitation = () => {
 		if (!currentUserId) {
@@ -61,7 +60,7 @@ const QuizStage = ({
 			{/* Main stage */}
 			<div className="flex flex-1 gap-8 min-h-0">
 				<MediaDisplay
-					imageUrl={currentQuestion?.url ?? null}
+					mediaUrl={currentQuestion?.url ?? null}
 					players={session.players}
 					phase={session.live.phase}
 					summaryLabel={currentQuestion?.correctAnswer.value ?? null}

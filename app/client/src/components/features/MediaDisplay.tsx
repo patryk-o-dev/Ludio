@@ -1,7 +1,8 @@
 import type { SessionPlayer } from "../../types";
+import { useEffect, useRef } from "react";
 
 interface MediaDisplayProps {
-	imageUrl: string | null;
+	mediaUrl: string | null;
 	players?: SessionPlayer[];
 	phase: "waiting" | "question" | "summary" | "completed";
 	summaryLabel?: string | null;
@@ -12,32 +13,51 @@ interface MediaDisplayProps {
 
 const API_ORIGIN = "http://localhost:3000";
 
-const resolveImageUrl = (imageUrl: string) => {
-	if (/^https?:\/\//.test(imageUrl)) {
-		return imageUrl;
-	}
-
-	if (imageUrl.startsWith("/")) {
-		return `${API_ORIGIN}${imageUrl}`;
-	}
-
-	return imageUrl;
-};
-
 const MediaDisplay = ({
-	imageUrl,
+	mediaUrl,
 	players = [],
 	phase,
 	summaryLabel,
 	summaryWasCorrect,
 	showAnswerOverlay = false,
 }: MediaDisplayProps) => {
+	const mediaType =
+		(mediaUrl && mediaUrl.endsWith(".MP4")) ||
+		(mediaUrl && mediaUrl.endsWith(".mp4"))
+			? "video"
+			: mediaUrl && (mediaUrl.endsWith(".mp3") || mediaUrl.endsWith(".ogg"))
+				? "sound"
+				: "image";
+
+	const resolveMediaUrl = (mediaUrl: string) => {
+		return `${API_ORIGIN}${mediaUrl.startsWith("/") ? "" : "/"}${mediaUrl}`;
+	};
+
+	console.log("MediaDisplay props: ", {
+		mediaUrl,
+		mediaType,
+	});
+
 	const statusColorClass: Record<string, string> = {
 		Accepted: "text-(--positive)",
 		Invited: "text-(--negative)",
 		Declined: "text-(--text-secondary)",
 	};
-	if (!imageUrl) {
+	const videoRef = useRef<HTMLVideoElement>(null);
+	const audioUnlocked = localStorage.getItem("audioUnlocked") === "true";
+
+	useEffect(() => {
+		if (mediaType !== "video") return;
+		if (!audioUnlocked) return;
+
+		const video = videoRef.current;
+		if (!video) return;
+
+		video.muted = false;
+		video.play().catch(() => {});
+	}, [mediaUrl, audioUnlocked, mediaType]);
+
+	if (!mediaUrl) {
 		return (
 			<div className="relative flex-4 min-h-0 overflow-hidden rounded-3xl border border-(--accent)/40 bg-(--bgc-secondary) shadow-[0_0_24px_2px_color-mix(in_srgb,var(--accent)_20%,transparent)] flex items-center justify-center p-8">
 				{phase === "waiting" ? (
@@ -81,7 +101,7 @@ const MediaDisplay = ({
 		);
 	}
 
-	const resolvedImageUrl = resolveImageUrl(imageUrl);
+	const resolvedImageUrl = resolveMediaUrl(mediaUrl);
 	const summaryTextColorClass =
 		summaryWasCorrect === true
 			? "text-(--positive)"
@@ -91,16 +111,36 @@ const MediaDisplay = ({
 
 	return (
 		<div className="relative flex-4 min-h-0 overflow-hidden rounded-3xl border border-(--accent)/40 bg-(--bgc-secondary) shadow-[0_0_24px_2px_color-mix(in_srgb,var(--accent)_20%,transparent)]">
-			<img
-				src={resolvedImageUrl}
-				aria-hidden
-				className="absolute inset-0 w-full h-full object-cover object-center scale-110 blur-2xl opacity-60"
-			/>
-			<img
-				src={resolvedImageUrl}
-				alt="media display"
-				className="absolute inset-0 w-full h-full object-contain object-center"
-			/>
+			{mediaType === "image" && (
+				<>
+					<img
+						src={resolvedImageUrl}
+						aria-hidden
+						className="absolute inset-0 w-full h-full object-cover object-center scale-110 blur-2xl opacity-60"
+					/>
+					<img
+						src={resolvedImageUrl}
+						alt="media display"
+						className="absolute inset-0 w-full h-full object-contain object-center"
+					/>
+				</>
+			)}
+			{mediaType === "video" && (
+				<video
+					ref={videoRef}
+					src={resolvedImageUrl}
+					controls
+					muted={!audioUnlocked}
+					autoPlay
+					className="absolute inset-0 w-full h-full object-cover object-center"
+				/>
+			)}
+			{mediaType === "sound" && (
+				<div className="absolute inset-0 flex items-center justify-center">
+					<audio src={resolvedImageUrl} controls autoPlay className="w-full" />
+				</div>
+			)}
+
 			{showAnswerOverlay && summaryLabel && (
 				<div className="pointer-events-none absolute inset-x-0 bottom-0 flex justify-center px-8 pb-2 text-center md:px-12 md:pb-4">
 					<div className="w-full max-w-4xl rounded-4xl bg-[radial-gradient(ellipse_82%_60%_at_center,color-mix(in_srgb,var(--bgc-primary)_88%,transparent)_0%,color-mix(in_srgb,var(--bgc-primary)_72%,transparent)_18%,color-mix(in_srgb,var(--bgc-primary)_48%,transparent)_34%,color-mix(in_srgb,var(--bgc-primary)_20%,transparent)_48%,transparent_64%)] px-8 py-14 md:py-16">

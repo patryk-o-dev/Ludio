@@ -2,6 +2,7 @@ import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import useGameConfigStore from "../../store/gameConfigStore";
 import { getStoredAuthUser } from "../utils/authStorage";
+import ding from "../../assets/sounds/ding.mp3";
 
 const API = import.meta.env.VITE_API_URL;
 
@@ -25,6 +26,11 @@ const StartQuiz = () => {
 	const handleStartQuiz = async () => {
 		setError(null);
 		setLoading(true);
+
+		const audio = new Audio(ding);
+		audio.play();
+		audio.muted = false;
+		localStorage.setItem("audioUnlocked", "true");
 
 		const completeRules = rules.filter(
 			(rule) => rule.guessId !== null && rule.byId !== null,

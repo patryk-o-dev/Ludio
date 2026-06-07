@@ -3,6 +3,7 @@ import battleIcon from "../../assets/icons/battle.png";
 import cancelIcon from "../../assets/icons/cancel.png";
 import useGameConfigStore from "../../store/gameConfigStore";
 import type { SessionInvite } from "../../types";
+import ding from "../../assets/sounds/ding.mp3";
 
 type FriendStatus = "online" | "offline";
 
@@ -59,6 +60,10 @@ const FriendCard = ({
 		setActionPending(true);
 		setActionError(null);
 
+		const audio = new Audio(ding);
+		audio.play();
+		audio.muted = false;
+		localStorage.setItem("audioUnlocked", "true");
 		try {
 			if (request) {
 				await handleFriendRequestResponse(accept);
