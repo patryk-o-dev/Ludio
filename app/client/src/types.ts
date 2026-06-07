@@ -88,6 +88,7 @@ export type SessionPlayer = {
 	rank: number;
 	user: {
 		displayName?: string;
+		avatarUrl?: string;
 	};
 };
 

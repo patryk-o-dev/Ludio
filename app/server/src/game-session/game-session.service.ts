@@ -366,7 +366,7 @@ export class GameSessionService implements OnModuleInit {
         players: {
           include: {
             user: {
-              select: { displayName: true },
+              select: { displayName: true, avatarUrl: true },
             },
           },
         },

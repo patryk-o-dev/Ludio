@@ -57,10 +57,16 @@ const MediaDisplay = ({
 		video.play().catch(() => {});
 	}, [mediaUrl, audioUnlocked, mediaType]);
 
+	const winningPlayer = players.find((p) => p.rank === 1);
+
+	const handleReturn = () => {
+		window.location.href = "/";
+	};
+
 	if (!mediaUrl) {
 		return (
 			<div className="relative flex-4 min-h-0 overflow-hidden rounded-3xl border border-(--accent)/40 bg-(--bgc-secondary) shadow-[0_0_24px_2px_color-mix(in_srgb,var(--accent)_20%,transparent)] flex items-center justify-center p-8">
-				{phase === "waiting" ? (
+				{phase === "waiting" && (
 					<div className="flex w-full max-w-3xl flex-col items-center gap-4 text-center">
 						<p className="text-(--text-secondary) text-sm uppercase tracking-[0.35em]">
 							Oczekiwanie na graczy
@@ -88,14 +94,14 @@ const MediaDisplay = ({
 							</p>
 						)}
 					</div>
-				) : (
-					<p className="text-(--text-secondary) text-xl uppercase tracking-wide">
-						{phase === "summary"
-							? "Podsumowanie rundy"
-							: phase === "completed"
-								? "Koniec sesji"
-								: "Ładowanie pytania"}
-					</p>
+				)}
+				{phase === "completed" && (
+					<div className="flex w-full max-w-3xl flex-col items-center gap-4 text-center">
+						<p>Zwycięzca:</p>
+						<img src={winningPlayer?.user.avatarUrl} alt="Avatar zwycięzcy" />
+						<p>{winningPlayer?.user.displayName}</p>
+						<button className="mt-4 rounded-full bg-(--accent) px-4 py-2 text-(--text)" onClick={handleReturn}>Powrót</button>
+					</div>
 				)}
 			</div>
 		);
