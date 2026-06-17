@@ -7,6 +7,7 @@ type GameConfigStore = {
 	options: GameOptionsState;
 	addPlayer: (player: Player) => void;
 	removePlayer: (player: Player) => void;
+	clearPlayers: () => void;
 	addRule: (rule: Rule) => void;
 	removeRule: (rule: Rule) => void;
 	updateOption: (option: Partial<GameOptionsState>) => void;
@@ -36,6 +37,7 @@ const useGameConfigStore = create<GameConfigStore>((set) => ({
 		set((state) => ({
 			players: state.players.filter((p) => p.id !== player.id),
 		})),
+	clearPlayers: () => set({ players: [] }),
 	addRule: (rule) => set((state) => ({ rules: [...state.rules, rule] })),
 	removeRule: (rule) =>
 		set((state) => ({ rules: state.rules.filter((r) => r !== rule) })),

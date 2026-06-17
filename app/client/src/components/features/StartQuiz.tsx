@@ -99,6 +99,8 @@ const StartQuiz = () => {
 				body: JSON.stringify({ userId, accept: true }),
 			});
 
+			useGameConfigStore.getState().clearPlayers();
+
 			navigate(`/session/${session.id}`);
 		} catch (err) {
 			setError(
