@@ -63,9 +63,11 @@ const AnswerPanel = ({
 		onSelectAnswer(answerId, answerValue, timeMs);
 	};
 
-	const filteredAnswers = answers.filter((answer) =>
-		answer.value.toLowerCase().includes(inputValue.toLowerCase()),
-	);
+	const filteredAnswers = answers
+		.filter((answer) =>
+			answer.value.toLowerCase().includes(inputValue.toLowerCase()),
+		)
+		.sort((a, b) => a.value.localeCompare(b.value));
 
 	const timerLabel =
 		timeLimitSeconds === null
@@ -126,7 +128,9 @@ const AnswerPanel = ({
 					</div>
 				</>
 			)}
-			{(phase === "summary" || phase === "completed") && <Ranking session={session} />}
+			{(phase === "summary" || phase === "completed") && (
+				<Ranking session={session} />
+			)}
 		</div>
 	);
 };
