@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useCallback, useEffect, useRef, useState } from "react";
 import searchIcon from "../../assets/icons/magnifying-glass.png";
 import Ranking from "./Ranking";
 import type { SessionData } from "../../types";
@@ -32,7 +32,6 @@ const AnswerPanel = ({
 	const [selectedAnswerId, setSelectedAnswerId] = useState<string | null>(null);
 	const [inputValue, setInputValue] = useState("");
 	const [remainingMs, setRemainingMs] = useState<number | null>(null);
-
 	useEffect(() => {
 		if (expiresAt === null) {
 			return;
@@ -50,18 +49,16 @@ const AnswerPanel = ({
 		};
 	}, [expiresAt]);
 
-	const handleSelectAnswer = (answerId: string, answerValue: string) => {
-		if (phase !== "question") {
-			return;
-		}
+	const timerLabel =
+		timeLimitSeconds === null
+			? "Bez limitu czasu"
+			: remainingMs === null
+				? `${timeLimitSeconds}s`
+				: `${Math.ceil(remainingMs / 1000)}s`;
 
-		const timeMs =
-			timeLimitSeconds === null || remainingMs === null
-				? 0
-				: Math.max(0, timeLimitSeconds * 1000 - remainingMs);
-		setSelectedAnswerId(answerId);
-		onSelectAnswer(answerId, answerValue, timeMs);
-	};
+	// Arrow answer selection
+	const itemRefs = useRef<HTMLButtonElement[]>([]);
+	const [activeIndex, setActiveIndex] = useState(0);
 
 	const filteredAnswers = answers
 		.filter((answer) =>
@@ -69,12 +66,61 @@ const AnswerPanel = ({
 		)
 		.sort((a, b) => a.value.localeCompare(b.value));
 
-	const timerLabel =
-		timeLimitSeconds === null
-			? "Bez limitu czasu"
-			: remainingMs === null
-				? `${timeLimitSeconds}s`
-				: `${Math.ceil(remainingMs / 1000)}s`;
+	const handleSelectAnswer = useCallback(
+		(answerId: string, answerValue: string) => {
+			if (phase !== "question") return;
+
+			const index = filteredAnswers.findIndex((a) => a.id === answerId);
+			if (index !== -1) setActiveIndex(index);
+
+			const timeMs =
+				timeLimitSeconds === null || remainingMs === null
+					? 0
+					: Math.max(0, timeLimitSeconds * 1000 - remainingMs);
+
+			setSelectedAnswerId(answerId);
+			onSelectAnswer(answerId, answerValue, timeMs);
+		},
+		[phase, filteredAnswers, timeLimitSeconds, remainingMs, onSelectAnswer],
+	);
+
+	useEffect(() => {
+		const handler = (e: KeyboardEvent) => {
+			if (phase !== "question") return;
+
+			if (e.key === "ArrowDown") {
+				e.preventDefault();
+				setActiveIndex((i) => Math.min(i + 1, filteredAnswers.length - 1));
+			}
+
+			if (e.key === "ArrowUp") {
+				e.preventDefault();
+				setActiveIndex((i) => Math.max(i - 1, 0));
+			}
+
+			if (e.key === "Enter") {
+				e.preventDefault();
+				const item = filteredAnswers[activeIndex];
+				if (item) handleSelectAnswer(item.id, item.value);
+			}
+		};
+
+		window.addEventListener("keydown", handler);
+		return () => window.removeEventListener("keydown", handler);
+	}, [filteredAnswers, activeIndex, phase, handleSelectAnswer]);
+
+	useEffect(() => {
+		const el = itemRefs.current[activeIndex];
+		el?.scrollIntoView({ block: "nearest" });
+	}, [activeIndex]);
+
+	// Input auto-focus
+	const inputRef = useRef<HTMLInputElement>(null);
+	useEffect(() => {
+		if (phase === "question") {
+			inputRef.current?.focus();
+		}
+	}, [phase]);
 
 	return (
 		<div className="flex flex-1 flex-col gap-4 min-h-0">
@@ -105,18 +151,27 @@ const AnswerPanel = ({
 					</div>
 					<div className="flex-1 min-h-0 relative">
 						<ul className="absolute inset-0 flex flex-col gap-2 overflow-y-auto pr-1 [&::-webkit-scrollbar]:w-1 [&::-webkit-scrollbar-track]:bg-transparent [&::-webkit-scrollbar-thumb]:bg-(--accent)/40 [&::-webkit-scrollbar-thumb]:rounded-full [&::-webkit-scrollbar-thumb]:hover:bg-(--accent)/70">
-							{filteredAnswers.map((answer) => (
-								<li key={answer.id}>
-									<button
-										onClick={() => handleSelectAnswer(answer.id, answer.value)}
-										disabled={phase !== "question"}
-										aria-selected={selectedAnswerId === answer.id}
-										className="w-full text-left px-4 py-2 rounded border border-(--accent)/50 bg-(--bgc-secondary) text-(--text) cursor-pointer transition-colors duration-200 hover:bg-(--accent)/15 aria-selected:bg-(--accent) aria-selected:border-(--accent)"
-									>
-										{answer.value}
-									</button>
-								</li>
-							))}
+							{filteredAnswers.map((answer, index) => {
+								const isActive = index === activeIndex;
+								const isSelected = selectedAnswerId === answer.id;
+
+								return (
+									<li key={answer.id}>
+										<button
+											ref={(el) => {
+												if (el) itemRefs.current[index] = el;
+											}}
+											onClick={() =>
+												handleSelectAnswer(answer.id, answer.value)
+											}
+											aria-selected={isSelected}
+											className={`w-full text-left px-4 py-2 rounded border transition-all duration-200 ${isActive ? "bg-(--accent)/22 border-(--accent)" : "border-(--accent)/50"} ${isSelected ? "bg-(--accent) border-(--accent)" : ""} hover:bg-(--accent)/15`}
+										>
+											{answer.value}
+										</button>
+									</li>
+								);
+							})}
 							{filteredAnswers.length === 0 && (
 								<li className="text-(--text-secondary) text-sm px-2 py-4">
 									{phase === "question"
