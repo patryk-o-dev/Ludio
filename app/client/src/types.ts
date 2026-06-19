@@ -64,7 +64,7 @@ export type CurrentQuestion = {
 	id: string;
 	url: string;
 	answers: QuestionAnswer[];
-	correctAnswer: QuestionAnswer;
+	correctAnswer?: QuestionAnswer;
 };
 
 export type LiveSessionState = {
@@ -116,3 +116,7 @@ export type SessionData = {
 	players: SessionPlayer[];
 	live: LiveSessionState;
 };
+
+export type quizSessionData = {
+	answerValue: string;
+}

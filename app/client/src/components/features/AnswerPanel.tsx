@@ -144,6 +144,7 @@ const AnswerPanel = ({
 							type="text"
 							placeholder="Wyszukaj odpowiedź..."
 							value={inputValue}
+							ref={inputRef}
 							onChange={(event) => setInputValue(event.target.value)}
 							disabled={phase !== "question"}
 							className="flex-1 bg-transparent outline-none text-(--text) caret-(--accent)"

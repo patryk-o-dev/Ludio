@@ -1,3 +1,4 @@
+import useQuizSessionStore from "../../store/quizSessionStore";
 import type { SessionPlayer } from "../../types";
 import { useEffect, useRef } from "react";
 
@@ -17,7 +18,6 @@ const MediaDisplay = ({
 	mediaUrl,
 	players = [],
 	phase,
-	summaryLabel,
 	summaryWasCorrect,
 	showAnswerOverlay = false,
 }: MediaDisplayProps) => {
@@ -63,6 +63,10 @@ const MediaDisplay = ({
 		window.location.href = "/";
 	};
 
+	const answerValue = useQuizSessionStore(
+		(state) => state.quizSessionData.answerValue,
+	);
+
 	if (!mediaUrl) {
 		return (
 			<div className="relative flex-4 min-h-0 overflow-hidden rounded-3xl border border-(--accent)/40 bg-(--bgc-secondary) shadow-[0_0_24px_2px_color-mix(in_srgb,var(--accent)_20%,transparent)] flex items-center justify-center p-8">
@@ -100,7 +104,12 @@ const MediaDisplay = ({
 						<p>Zwycięzca:</p>
 						<img src={winningPlayer?.user.avatarUrl} alt="Avatar zwycięzcy" />
 						<p>{winningPlayer?.user.displayName}</p>
-						<button className="mt-4 rounded-full bg-(--accent) px-4 py-2 text-(--text)" onClick={handleReturn}>Powrót</button>
+						<button
+							className="mt-4 rounded-full bg-(--accent) px-4 py-2 text-(--text)"
+							onClick={handleReturn}
+						>
+							Powrót
+						</button>
 					</div>
 				)}
 			</div>
@@ -147,13 +156,13 @@ const MediaDisplay = ({
 				</div>
 			)}
 
-			{showAnswerOverlay && summaryLabel && (
+			{showAnswerOverlay && answerValue && (
 				<div className="pointer-events-none absolute inset-x-0 bottom-0 flex justify-center px-8 pb-2 text-center md:px-12 md:pb-4">
 					<div className="w-full max-w-4xl rounded-4xl bg-[radial-gradient(ellipse_82%_60%_at_center,color-mix(in_srgb,var(--bgc-primary)_88%,transparent)_0%,color-mix(in_srgb,var(--bgc-primary)_72%,transparent)_18%,color-mix(in_srgb,var(--bgc-primary)_48%,transparent)_34%,color-mix(in_srgb,var(--bgc-primary)_20%,transparent)_48%,transparent_64%)] px-8 py-14 md:py-16">
 						<p
-							className={`text-3xl font-semibold text-balance leading-tight [text-shadow:0_4px_18px_color-mix(in_srgb,var(--bgc-primary)_95%,transparent)] md:text-5xl ${summaryTextColorClass}`}
+							className={`text-3xl font-semibold text-balance leading-tight [text-shadow:0_4px_18px_color-mix(in_srgb,var(--bgc-primary)_95%,transparent)] md:text-5xl ${phase === "summary" ? summaryTextColorClass : "text-(--text)"}`}
 						>
-							{summaryLabel}
+							{answerValue}
 						</p>
 					</div>
 				</div>

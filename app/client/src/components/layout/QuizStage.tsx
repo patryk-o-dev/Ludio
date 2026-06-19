@@ -63,7 +63,6 @@ const QuizStage = ({
 					mediaUrl={currentQuestion?.url ?? null}
 					players={session.players}
 					phase={session.live.phase}
-					summaryLabel={currentQuestion?.correctAnswer.value ?? null}
 					summaryWasCorrect={summaryWasCorrect}
 					summaryPoints={summaryPoints}
 					showAnswerOverlay={hasAnsweredCurrentQuestion}

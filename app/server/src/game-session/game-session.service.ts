@@ -24,7 +24,7 @@ type SessionQuestionPayload = {
   id: string;
   url: string;
   answers: SessionAnswerOption[];
-  correctAnswer: SessionAnswerOption;
+  correctAnswer?: SessionAnswerOption;
 };
 
 type SessionLiveState = {
@@ -747,7 +747,7 @@ export class GameSessionService implements OnModuleInit {
         correctAnswer,
         ...this.shuffleArray(
           possibleAnswers.filter((answer) => answer.id !== correctAnswer.id),
-        ).slice(0, 7),
+        ).slice(0, 49),
       ]);
 
       await this.prisma.gameSession.update({
@@ -776,7 +776,6 @@ export class GameSessionService implements OnModuleInit {
           id: randomQuestion.id,
           url: randomQuestion.url,
           answers: answerOptions,
-          correctAnswer,
         },
         questionId: randomQuestion.id,
         qIndex: qIndex + 1,
@@ -803,11 +802,26 @@ export class GameSessionService implements OnModuleInit {
       return;
     }
 
+    const question = await this.prisma.question.findUnique({
+      where: { id: liveState.questionId },
+    });
+
+    const correctAnswer = await this.prisma.answer.findUnique({
+      where: { id: question.answerId },
+      select: { id: true, value: true },
+    });
+
     const summaryState: SessionLiveState = {
       ...liveState,
       phase: 'summary',
       expiresAt: null,
       summaryEndsAt: Date.now() + summaryTimeSeconds * 1000,
+      question: liveState.question
+        ? {
+            ...liveState.question,
+            correctAnswer,
+          }
+        : null,
     };
 
     await this.setStoredState(sessionId, summaryState);

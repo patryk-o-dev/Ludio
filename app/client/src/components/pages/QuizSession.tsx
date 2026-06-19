@@ -10,6 +10,7 @@ import Controls from "../layout/Controls";
 import QuizStage from "../layout/QuizStage";
 import TopBar from "../layout/TopBar";
 import { getStoredAuthUser } from "../utils/authStorage";
+import useQuizSessionStore from "../../store/quizSessionStore";
 
 const API = import.meta.env.VITE_API_URL;
 
@@ -146,6 +147,10 @@ const QuizSession = () => {
 		};
 	}, [id, currentUserId]);
 
+	const setQuizSessionData = useQuizSessionStore(
+		(state) => state.setQuizSessionData,
+	);
+
 	const handleSelectAnswer = (
 		answerId: string,
 		_answerValue: string,
@@ -160,6 +165,8 @@ const QuizSession = () => {
 		}
 
 		setHasAnsweredCurrentQuestion(true);
+
+		setQuizSessionData({ answerValue: _answerValue });
 
 		socketRef.current.emit("session:answer", {
 			sessionId: id,

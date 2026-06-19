@@ -579,6 +579,54 @@ async function main() {
       chipGuesses: { connect: [{ id: guessGame.id }] },
     },
   });
+  const ansBioShock = await prisma.answer.create({
+    data: {
+      value: 'BioShock',
+      chipGuesses: { connect: [{ id: guessGame.id }] },
+    },
+  });
+  const ansAlienIsolation = await prisma.answer.create({
+    data: {
+      value: 'Alien: Isolation',
+      chipGuesses: { connect: [{ id: guessGame.id }] },
+    },
+  });
+  const ansBloodborn = await prisma.answer.create({
+    data: {
+      value: 'Bloodborn',
+      chipGuesses: { connect: [{ id: guessGame.id }] },
+    },
+  });
+  const ansBaldursGate1 = await prisma.answer.create({
+    data: {
+      value: "Baldur's Gate: Enhanced Edition",
+      chipGuesses: { connect: [{ id: guessGame.id }] },
+    },
+  });
+  const ansAssasinsCreedBlackFlag = await prisma.answer.create({
+    data: {
+      value: "Assassin's Creed IV: Black Flag",
+      chipGuesses: { connect: [{ id: guessGame.id }] },
+    },
+  });
+  const ansAmnesiaRebirth = await prisma.answer.create({
+    data: {
+      value: 'Amnesia: Rebirth',
+      chipGuesses: { connect: [{ id: guessGame.id }] },
+    },
+  });
+  const ansAloneInTheDark = await prisma.answer.create({
+    data: {
+      value: 'Alone in the Dark',
+      chipGuesses: { connect: [{ id: guessGame.id }] },
+    },
+  });
+  const ansAFKArena = await prisma.answer.create({
+    data: {
+      value: 'AFK Arena',
+      chipGuesses: { connect: [{ id: guessGame.id }] },
+    },
+  });
 
   // GuessGameCharacter
   const ansHornet = await prisma.answer.create({
@@ -1575,6 +1623,20 @@ async function main() {
   );
 
   await createQuestion(
+    '/static/guessGame/byTitleScreen/ggts003ubglfqi.jpg',
+    ansAloneInTheDark.id,
+    byTitleScreen.id,
+    [guessGame.id],
+  );
+
+  await createQuestion(
+    '/static/guessGame/byTitleScreen/ggts006vftfygh.jpg',
+    ansAFKArena.id,
+    byTitleScreen.id,
+    [guessGame.id],
+  );
+
+  await createQuestion(
     '/static/guessGame/byTitleScreen/ggts010dfwpanc.png',
     ansDispatch.id,
     byTitleScreen.id,
@@ -1582,8 +1644,22 @@ async function main() {
   );
 
   await createQuestion(
+    '/static/guessGame/byTitleScreen/ggts011itbubmo.jpg',
+    ansBioShock.id,
+    byTitleScreen.id,
+    [guessGame.id],
+  );
+
+  await createQuestion(
     '/static/guessGame/byTitleScreen/ggts016ctsvmaa.jpg',
     ansSuperMarioParty.id,
+    byTitleScreen.id,
+    [guessGame.id],
+  );
+
+  await createQuestion(
+    '/static/guessGame/byTitleScreen/ggts017louhinf.jpg',
+    ansAlienIsolation.id,
     byTitleScreen.id,
     [guessGame.id],
   );
@@ -1598,6 +1674,13 @@ async function main() {
   await createQuestion(
     '/static/guessGame/byTitleScreen/ggts040nkyapdr.png',
     ansPsychonauts2.id,
+    byTitleScreen.id,
+    [guessGame.id],
+  );
+
+  await createQuestion(
+    '/static/guessGame/byTitleScreen/ggts043dsuracv.jpg',
+    ansBloodborn.id,
     byTitleScreen.id,
     [guessGame.id],
   );
@@ -1624,6 +1707,13 @@ async function main() {
   );
 
   await createQuestion(
+    '/static/guessGame/byTitleScreen/ggts071sfbsigu.jpg',
+    ansBaldursGate1.id,
+    byTitleScreen.id,
+    [guessGame.id],
+  );
+
+  await createQuestion(
     '/static/guessGame/byTitleScreen/ggts073wjvqdby.png',
     ansPortal2.id,
     byTitleScreen.id,
@@ -1638,8 +1728,22 @@ async function main() {
   );
 
   await createQuestion(
+    '/static/guessGame/byTitleScreen/ggts079uqahlsq.jpg',
+    ansAssasinsCreedBlackFlag.id,
+    byTitleScreen.id,
+    [guessGame.id],
+  );
+
+  await createQuestion(
     '/static/guessGame/byTitleScreen/ggts089bulhfkx.png',
     ansStarCraftII.id,
+    byTitleScreen.id,
+    [guessGame.id],
+  );
+
+  await createQuestion(
+    '/static/guessGame/byTitleScreen/ggts079uqahlsq.jpg',
+    ansAmnesiaRebirth.id,
     byTitleScreen.id,
     [guessGame.id],
   );
