@@ -12,6 +12,7 @@ const useChipsStore = create<ChipsStore>((set) => ({
 	allChips: { chipsGuess: [], chipsBy: [], chipsFilter: [] },
 	chipSelectionStep: {
 		type: "guess",
+		ruleIndex: 0,
 	},
 	setAllChips: (allChips) => set({ allChips }),
 	updateChipSelectionStep: (step) => set({ chipSelectionStep: step }),

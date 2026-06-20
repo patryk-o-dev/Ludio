@@ -46,13 +46,17 @@ const useGameConfigStore = create<GameConfigStore>((set) => ({
 	updateRuleGuessChip: (ruleIndex: number, chipGuessId: string | null) =>
 		set((state) => ({
 			rules: state.rules.map((rule) =>
-				rule.index === ruleIndex ? { ...rule, guessId: chipGuessId } : rule,
+				rule.index === ruleIndex
+					? { ...rule, guessId: chipGuessId, byId: null, filterIds: [] }
+					: rule,
 			),
 		})),
 	updateRuleByChip: (ruleIndex: number, chipById: string | null) =>
 		set((state) => ({
 			rules: state.rules.map((rule) =>
-				rule.index === ruleIndex ? { ...rule, byId: chipById } : rule,
+				rule.index === ruleIndex
+					? { ...rule, byId: chipById, filterIds: [] }
+					: rule,
 			),
 		})),
 	updateRuleFilterChips: (ruleIndex: number, filterChipId: string) =>

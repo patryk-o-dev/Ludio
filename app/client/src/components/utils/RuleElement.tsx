@@ -15,6 +15,12 @@ const RuleElement = ({ rule, ruleNumber }: RuleElementProps) => {
 	const { allChips, chipSelectionStep, updateChipSelectionStep } =
 		useChipsStore();
 	const removeRule = useGameConfigStore((state) => state.removeRule);
+	const updateRuleGuessChip = useGameConfigStore(
+		(state) => state.updateRuleGuessChip,
+	);
+	const updateRuleByChip = useGameConfigStore(
+		(state) => state.updateRuleByChip,
+	);
 	const updateRuleFilterChips = useGameConfigStore(
 		(state) => state.updateRuleFilterChips,
 	);
@@ -46,11 +52,15 @@ const RuleElement = ({ rule, ruleNumber }: RuleElementProps) => {
 							{allChips.chipsGuess.find((chip) => chip.id === rule.guessId)
 								?.name ?? "Chip Guess"}
 						</p>
-						<img
-							className="w-4 h-4 hover:cursor-pointer"
-							src={cancelIcon}
-							alt="Cancel"
-						/>
+						{allChips.chipsGuess.find((chip) => chip.id === rule.guessId) && (
+							<button onClick={() => updateRuleGuessChip(rule.index, null)}>
+								<img
+									className="w-4 h-4 hover:cursor-pointer"
+									src={cancelIcon}
+									alt="Cancel"
+								/>
+							</button>
+						)}
 					</div>
 					<p>Po</p>
 					<div
@@ -73,11 +83,15 @@ const RuleElement = ({ rule, ruleNumber }: RuleElementProps) => {
 							{allChips.chipsBy.find((chip) => chip.id === rule.byId)?.name ??
 								"Chip By"}
 						</p>
-						<img
-							className="w-4 h-4 hover:cursor-pointer"
-							src={cancelIcon}
-							alt="Cancel"
-						/>
+						{allChips.chipsGuess.find((chip) => chip.id === rule.guessId) && (
+							<button onClick={() => updateRuleByChip(rule.index, null)}>
+								<img
+									className="w-4 h-4 hover:cursor-pointer"
+									src={cancelIcon}
+									alt="Cancel"
+								/>
+							</button>
+						)}
 					</div>
 				</div>
 				<div
@@ -97,19 +111,27 @@ const RuleElement = ({ rule, ruleNumber }: RuleElementProps) => {
 					?.compatibleFilterIds?.length ?? 0) > 0 && (
 					<div className="flex flex-row items-center gap-2 pl-14">
 						<p className="text-(--text-secondary) text-sm">Filtry:</p>
-						{allChips.chipsFilter.map((filter) => (
-							<button
-								key={filter.id}
-								onClick={() => updateRuleFilterChips(rule.index, filter.id)}
-								className={`px-3 py-1 rounded-full text-sm border-2 transition-colors hover:cursor-pointer ${
-									rule.filterIds.some((f) => f === filter.id)
-										? "border-(--accent) bg-(--accent-darker) text-(--accent-lighter)"
-										: "border-transparent bg-(--bgc-quaternary) text-(--text-secondary) hover:opacity-80"
-								}`}
-							>
-								{filter.name}
-							</button>
-						))}
+						{allChips.chipsFilter
+							.filter((filter) => {
+								const selectedBy = allChips.chipsBy.find(
+									(chip) => chip.id === rule.byId,
+								);
+
+								return selectedBy?.compatibleFilterIds.includes(filter.id);
+							})
+							.map((filter) => (
+								<button
+									key={filter.id}
+									onClick={() => updateRuleFilterChips(rule.index, filter.id)}
+									className={`px-3 py-1 rounded-full text-sm border-2 transition-colors hover:cursor-pointer ${
+										rule.filterIds.some((f) => f === filter.id)
+											? "border-(--accent) bg-(--accent-darker) text-(--accent-lighter)"
+											: "border-transparent bg-(--bgc-quaternary) text-(--text-secondary) hover:opacity-80"
+									}`}
+								>
+									{filter.name}
+								</button>
+							))}
 					</div>
 				)}
 		</div>
