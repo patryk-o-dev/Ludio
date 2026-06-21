@@ -1,5 +1,6 @@
 import ChipCard from "../utils/ChipCard";
 import useChipsStore from "../../store/chipsStore";
+import { chipNameToData } from "../utils/chipNameToData";
 
 const ChipList = () => {
 	const chipSelectionStep = useChipsStore((state) => state.chipSelectionStep);
@@ -22,6 +23,12 @@ const ChipList = () => {
 		by: "Po czym chcesz to odgadnąć?",
 	};
 
+	const chipsData = chips.map((chip) => chipNameToData(chip.id, chip.name));
+	const colorOrder: Record<string, number> = {
+		gaming: 1,
+		watching: 2,
+		league: 3,
+	};
 	return (
 		<div className="flex flex-col p-4">
 			<p className="text-(--text) font-bold text-md uppercase">Zasady Quizu</p>
@@ -29,14 +36,23 @@ const ChipList = () => {
 				{modeLabel[mode]}
 			</p>
 			<div className="flex flex-col gap-4 mt-4">
-				{chips.map((chip) => (
-					<ChipCard
-						key={chip.id}
-						name={chip.name}
-						ruleIndex={ruleIndex!}
-						chipId={chip.id}
-					/>
-				))}
+				{[...chipsData]
+					.sort((a, b) => {
+						const colorDiff =
+							(colorOrder[a.color] ?? 999) - (colorOrder[b.color] ?? 999);
+
+						if (colorDiff !== 0) return colorDiff;
+
+						return a.label.localeCompare(b.label);
+					})
+					.map((chip) => (
+						<ChipCard
+							key={chip.label}
+							ruleIndex={ruleIndex!}
+							chipId={chip.id}
+							chipData={chip}
+						/>
+					))}
 			</div>
 		</div>
 	);

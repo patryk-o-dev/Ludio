@@ -119,4 +119,10 @@ export type SessionData = {
 
 export type quizSessionData = {
 	answerValue: string;
-}
+};
+
+export type chipData = {
+	icon: string[];
+	label: string;
+	color: string;
+};

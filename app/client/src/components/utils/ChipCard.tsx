@@ -1,15 +1,16 @@
-import categoryIcon from "../../assets/icons/category.png";
 import addIcon from "../../assets/icons/add.png";
+import Icons from "../../Icons";
 import useChipsStore from "../../store/chipsStore";
 import useGameConfigStore from "../../store/gameConfigStore";
+import type { chipData } from "../../types";
 
-interface ChipCardProps {
-	name: string;
+type ChipCardProps = {
 	chipId: string;
 	ruleIndex: number;
-}
+	chipData: chipData;
+};
 
-const ChipCard = ({ name, chipId, ruleIndex }: ChipCardProps) => {
+const ChipCard = ({ chipId, ruleIndex, chipData }: ChipCardProps) => {
 	const chipSelectionStep = useChipsStore((state) => state.chipSelectionStep);
 	const updateChipSelectionStep = useChipsStore(
 		(state) => state.updateChipSelectionStep,
@@ -33,12 +34,21 @@ const ChipCard = ({ name, chipId, ruleIndex }: ChipCardProps) => {
 
 	return (
 		<div
-			className="border-2 border-transparent flex items-center justify-between gap-4 p-4 bg-(--bgc-tertiary) rounded-lg hover:cursor-pointer hover:border-(--accent)"
+			className="border-2 border-transparent flex items-center justify-between gap-4 p-2 bg-(--bgc-tertiary) rounded-lg hover:cursor-pointer hover:border-(--accent) hover:bg-(--bgc-quaternary)"
 			onClick={handleChipSelect}
 		>
-			<div className="flex items-center gap-4">
-				<img className="w-8 h-8" src={categoryIcon} alt="Category" />
-				<p className="text-(--text)">{name}</p>
+			<div className="flex items-center gap-4 min-w-0">
+				{chipData.icon.map((icon, index) => (
+					<Icons
+						name={icon}
+						color={chipData.color}
+						size={36}
+						isAddon={index === 1 && true}
+					/>
+				))}
+				<p className="text-(--text) flex-1 line-clamp-2 min-w-0">
+					{chipData.label}
+				</p>
 			</div>
 			<div className="bg-(--accent-darker) opacity-90 rounded-2xl p-2">
 				<img className="w-3 h-3" src={addIcon} alt="Add" />

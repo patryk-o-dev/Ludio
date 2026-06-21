@@ -1,10 +1,8 @@
-import binIcon from "../../assets/icons/bin.png";
-import categoryIcon from "../../assets/icons/category.png";
-import chipByIcon from "../../assets/icons/chipBy.png";
-import cancelIcon from "../../assets/icons/cancel.png";
 import type { Rule } from "../../types";
 import useChipsStore from "../../store/chipsStore";
 import useGameConfigStore from "../../store/gameConfigStore";
+import { chipNameToData } from "./chipNameToData";
+import Icons from "../../Icons";
 
 interface RuleElementProps {
 	rule: Rule;
@@ -26,6 +24,18 @@ const RuleElement = ({ rule, ruleNumber }: RuleElementProps) => {
 	);
 	const canDelete = rule.guessId === null && rule.byId === null;
 
+	const guessChip = allChips.chipsGuess.find(
+		(chip) => chip.id === rule.guessId,
+	);
+
+	const byChip = allChips.chipsBy.find((chip) => chip.id === rule.byId);
+
+	const chipGuessData = chipNameToData(
+		guessChip?.id ?? "",
+		guessChip?.name ?? "...",
+	);
+	const chipByData = chipNameToData(byChip?.id ?? "", byChip?.name ?? "...");
+
 	return (
 		<div className="bg-(--bgc-tertiary) p-4 rounded-lg mb-4 flex flex-col gap-3">
 			<div className="flex flex-row items-center justify-between gap-4">
@@ -37,7 +47,7 @@ const RuleElement = ({ rule, ruleNumber }: RuleElementProps) => {
 					</div>
 					<p>Rozpoznaj</p>
 					<div
-						className={`flex flex-row items-center align-middle p-2 bg-(--bgc-quaternary) rounded-md gap-2 hover:cursor-pointer hover:opacity-80 border-2 ${
+						className={`flex flex-row items-center align-middle p-2 bg-(--bgc-quaternary) rounded-md gap-2 hover:opacity-80 border-2 ${
 							chipSelectionStep.type === "guess" &&
 							chipSelectionStep.ruleIndex === rule.index
 								? "border-(--accent)"
@@ -47,24 +57,25 @@ const RuleElement = ({ rule, ruleNumber }: RuleElementProps) => {
 							updateChipSelectionStep({ type: "guess", ruleIndex: rule.index })
 						}
 					>
-						<img className="w-6 h-6" src={categoryIcon} alt="Category" />
-						<p>
-							{allChips.chipsGuess.find((chip) => chip.id === rule.guessId)
-								?.name ?? "Chip Guess"}
-						</p>
+						{chipGuessData.icon.map((chipIcon, index) => (
+							<Icons
+								name={chipIcon}
+								color={chipGuessData.color}
+								size={24}
+								isAddon={index > 0}
+							/>
+						))}
+
+						<p>{chipGuessData.label}</p>
 						{allChips.chipsGuess.find((chip) => chip.id === rule.guessId) && (
 							<button onClick={() => updateRuleGuessChip(rule.index, null)}>
-								<img
-									className="w-4 h-4 hover:cursor-pointer"
-									src={cancelIcon}
-									alt="Cancel"
-								/>
+								<Icons name="cancel" color="text" size={12} isAddon={false} />
 							</button>
 						)}
 					</div>
 					<p>Po</p>
 					<div
-						className={`flex flex-row items-center align-middle p-2 bg-(--bgc-quaternary) rounded-md gap-2 border-2 transition-opacity hover:cursor-pointer hover:opacity-80 ${
+						className={`flex flex-row items-center align-middle p-2 bg-(--bgc-quaternary) rounded-md gap-2 border-2 transition-opacity hover:opacity-80 ${
 							chipSelectionStep.type === "by" &&
 							chipSelectionStep.ruleIndex === rule.index
 								? "border-(--accent)"
@@ -78,18 +89,18 @@ const RuleElement = ({ rule, ruleNumber }: RuleElementProps) => {
 							})
 						}
 					>
-						<img className="w-6 h-6" src={chipByIcon} alt="Chip By" />
-						<p>
-							{allChips.chipsBy.find((chip) => chip.id === rule.byId)?.name ??
-								"Chip By"}
-						</p>
+						{chipByData.icon.map((chipIcon, index) => (
+							<Icons
+								name={chipIcon}
+								color={chipByData.color}
+								size={24}
+								isAddon={index > 0}
+							/>
+						))}
+						<p>{chipByData.label}</p>
 						{allChips.chipsGuess.find((chip) => chip.id === rule.guessId) && (
 							<button onClick={() => updateRuleByChip(rule.index, null)}>
-								<img
-									className="w-4 h-4 hover:cursor-pointer"
-									src={cancelIcon}
-									alt="Cancel"
-								/>
+								<Icons name="cancel" color="text" size={12} isAddon={false} />
 							</button>
 						)}
 					</div>
@@ -97,12 +108,9 @@ const RuleElement = ({ rule, ruleNumber }: RuleElementProps) => {
 				<div
 					className={`items-center border-l border-(--text-secondary) pl-4 ${canDelete ? "" : "opacity-30 pointer-events-none"}`}
 				>
-					<img
-						className="w-6 hover:cursor-pointer"
-						src={binIcon}
-						alt="Delete"
-						onClick={() => removeRule(rule)}
-					/>
+					<button onClick={() => removeRule(rule)}>
+						<Icons name="delete" color="text" size={12} isAddon={false} />
+					</button>
 				</div>
 			</div>
 
