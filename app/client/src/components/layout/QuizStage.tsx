@@ -5,9 +5,9 @@ import MediaDisplay from "../features/MediaDisplay";
 interface QuizStageProps {
 	session: SessionData;
 	currentUserId: string | null;
-	summaryWasCorrect: boolean | null;
 	summaryPoints: number | null;
 	hasAnsweredCurrentQuestion: boolean;
+	correctAnswerValue: string;
 	onSelectAnswer: (
 		answerId: string,
 		answerValue: string,
@@ -18,9 +18,9 @@ interface QuizStageProps {
 const QuizStage = ({
 	session,
 	currentUserId,
-	summaryWasCorrect,
 	summaryPoints,
 	hasAnsweredCurrentQuestion,
+	correctAnswerValue,
 	onSelectAnswer,
 }: QuizStageProps) => {
 	const API = import.meta.env.VITE_API_URL;
@@ -63,9 +63,9 @@ const QuizStage = ({
 					mediaUrl={currentQuestion?.url ?? null}
 					players={session.players}
 					phase={session.live.phase}
-					summaryWasCorrect={summaryWasCorrect}
 					summaryPoints={summaryPoints}
 					showAnswerOverlay={hasAnsweredCurrentQuestion}
+					summaryLabel={correctAnswerValue}
 				/>
 				<AnswerPanel
 					key={`${session.live.questionId ?? "none"}:${session.live.phase}`}
@@ -75,6 +75,7 @@ const QuizStage = ({
 					expiresAt={session.live.expiresAt}
 					timeLimitSeconds={session.live.timeLimitSeconds}
 					onSelectAnswer={onSelectAnswer}
+					hasAnsweredCurrentQuestion={hasAnsweredCurrentQuestion}
 				/>
 			</div>
 		</div>

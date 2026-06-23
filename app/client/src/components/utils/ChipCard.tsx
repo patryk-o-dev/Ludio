@@ -1,5 +1,5 @@
 import addIcon from "../../assets/icons/add.png";
-import Icons from "../../Icons";
+import Icons from "./Icons/Icons";
 import useChipsStore from "../../store/chipsStore";
 import useGameConfigStore from "../../store/gameConfigStore";
 import type { chipData } from "../../types";

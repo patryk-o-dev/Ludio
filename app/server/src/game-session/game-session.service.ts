@@ -497,6 +497,65 @@ export class GameSessionService implements OnModuleInit {
     return this.findOne(sessionId);
   }
 
+  async playerSurrender(userId: string, sessionId: string) {
+    const gameSession = await this.prisma.gameSession.findUnique({
+      where: { id: sessionId },
+      include: { players: true },
+    });
+
+    if (!gameSession) {
+      throw new NotFoundException('Game session not found');
+    }
+
+    const player = gameSession.players.find((p) => p.userId === userId);
+    if (!player) {
+      throw new BadRequestException('Player is not in this session');
+    }
+
+    if (player.status === 'Left') {
+      throw new BadRequestException('Player has already surrendered');
+    }
+
+    await this.prisma.gameSessionPlayer.update({
+      where: {
+        gameSessionId_userId: { gameSessionId: sessionId, userId },
+      },
+      data: { status: 'Left' },
+    });
+
+    this.logger.log(`Player ${userId} surrendered from session ${sessionId}`);
+
+    const liveState = await this.reconcileStoredState(sessionId);
+
+    if (liveState && liveState.phase === 'question') {
+      if (!liveState.answeredUserIds.includes(userId)) {
+        const updatedAnsweredUserIds = [...liveState.answeredUserIds, userId];
+        const nextState = {
+          ...liveState,
+          answeredUserIds: updatedAnsweredUserIds,
+        } satisfies SessionLiveState;
+
+        await this.setStoredState(sessionId, nextState);
+
+        this.gateway.server.to(sessionId).emit('session:player-answered', {
+          userId,
+          correct: false,
+          points: 0,
+        });
+
+        if (updatedAnsweredUserIds.length >= liveState.totalPlayers) {
+          await this.finishQuestion(sessionId, this.summaryTimeSeconds);
+        }
+      }
+    }
+
+    this.gateway.server.to(sessionId).emit('session:player-left', {
+      userId,
+    });
+
+    return this.findOne(sessionId);
+  }
+
   async submitAnswer(
     sessionId: string,
     userId: string,
@@ -533,8 +592,14 @@ export class GameSessionService implements OnModuleInit {
       return;
     }
 
-    const correct = question.answerId === answerId;
-    const points = correct ? 1 : 0;
+    const player = await this.prisma.gameSessionPlayer.findFirst({
+      where: {
+        userId: userId,
+      },
+    });
+
+    const correct = question.answerId === answerId && player.status != 'Left';
+    const points = correct && player.status != 'Left' ? 1 : 0;
 
     await this.prisma.gameSessionPlayer.update({
       where: {
@@ -558,7 +623,6 @@ export class GameSessionService implements OnModuleInit {
 
     this.gateway.server.to(sessionId).emit('session:player-answered', {
       userId,
-      correct,
       points,
     });
 
@@ -770,6 +834,15 @@ export class GameSessionService implements OnModuleInit {
           ? null
           : startedAt + timeLimitSeconds * 1000;
 
+      const playerLeftIds = await this.prisma.gameSessionPlayer.findMany({
+        where: {
+          gameSessionId: sessionId,
+          status: 'Left',
+        },
+      });
+
+      const answeredUserIds = playerLeftIds.map((p) => p.userId);
+
       const nextLiveState: SessionLiveState = {
         phase: 'question',
         question: {
@@ -785,7 +858,7 @@ export class GameSessionService implements OnModuleInit {
         summaryEndsAt: null,
         timeLimitSeconds: timeLimitSeconds ?? null,
         totalPlayers: session.players.length,
-        answeredUserIds: [],
+        answeredUserIds: answeredUserIds,
       };
 
       await this.setStoredState(sessionId, nextLiveState);
@@ -809,6 +882,10 @@ export class GameSessionService implements OnModuleInit {
     const correctAnswer = await this.prisma.answer.findUnique({
       where: { id: question.answerId },
       select: { id: true, value: true },
+    });
+
+    this.gateway.server.to(sessionId).emit('session:player-answered', {
+      correct: correctAnswer,
     });
 
     const summaryState: SessionLiveState = {

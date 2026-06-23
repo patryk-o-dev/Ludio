@@ -50,6 +50,18 @@ export class GameSessionGateway {
     );
   }
 
+  @SubscribeMessage('session:surrender')
+  async handleSurrender(
+    @MessageBody()
+    data: {
+      sessionId: string;
+      userId: string;
+    },
+    @ConnectedSocket() _client: Socket,
+  ) {
+    await this.gameSessionService.playerSurrender(data.userId, data.sessionId);
+  }
+
   handleConnection(client: Socket) {
     const userId = client.handshake.auth.userId;
 

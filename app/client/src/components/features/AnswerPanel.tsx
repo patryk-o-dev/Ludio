@@ -19,6 +19,7 @@ interface AnswerPanelProps {
 		answerValue: string,
 		timeMs: number,
 	) => void;
+	hasAnsweredCurrentQuestion: boolean;
 }
 
 const AnswerPanel = ({
@@ -28,6 +29,7 @@ const AnswerPanel = ({
 	timeLimitSeconds,
 	session,
 	onSelectAnswer,
+	hasAnsweredCurrentQuestion,
 }: AnswerPanelProps) => {
 	const [selectedAnswerId, setSelectedAnswerId] = useState<string | null>(null);
 	const [inputValue, setInputValue] = useState("");
@@ -150,7 +152,9 @@ const AnswerPanel = ({
 							className="flex-1 bg-transparent outline-none text-(--text) caret-(--accent)"
 						/>
 					</div>
-					<div className="flex-1 min-h-0 relative">
+					<div
+						className={`flex-1 min-h-0 relative ${hasAnsweredCurrentQuestion && `hidden`}`}
+					>
 						<ul className="absolute inset-0 flex flex-col gap-2 overflow-y-auto pr-1 [&::-webkit-scrollbar]:w-1 [&::-webkit-scrollbar-track]:bg-transparent [&::-webkit-scrollbar-thumb]:bg-(--accent)/40 [&::-webkit-scrollbar-thumb]:rounded-full [&::-webkit-scrollbar-thumb]:hover:bg-(--accent)/70">
 							{filteredAnswers.map((answer, index) => {
 								const isActive = index === activeIndex;

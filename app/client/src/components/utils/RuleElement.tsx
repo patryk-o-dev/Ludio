@@ -2,7 +2,7 @@ import type { Rule } from "../../types";
 import useChipsStore from "../../store/chipsStore";
 import useGameConfigStore from "../../store/gameConfigStore";
 import { chipNameToData } from "./chipNameToData";
-import Icons from "../../Icons";
+import Icons from "./Icons/Icons";
 
 interface RuleElementProps {
 	rule: Rule;
@@ -22,8 +22,6 @@ const RuleElement = ({ rule, ruleNumber }: RuleElementProps) => {
 	const updateRuleFilterChips = useGameConfigStore(
 		(state) => state.updateRuleFilterChips,
 	);
-	const canDelete = rule.guessId === null && rule.byId === null;
-
 	const guessChip = allChips.chipsGuess.find(
 		(chip) => chip.id === rule.guessId,
 	);
@@ -105,11 +103,9 @@ const RuleElement = ({ rule, ruleNumber }: RuleElementProps) => {
 						)}
 					</div>
 				</div>
-				<div
-					className={`items-center border-l border-(--text-secondary) pl-4 ${canDelete ? "" : "opacity-30 pointer-events-none"}`}
-				>
-					<button onClick={() => removeRule(rule)}>
-						<Icons name="delete" color="text" size={12} isAddon={false} />
+				<div className={`items-center border-l border-(--text-secondary) pl-4`}>
+					<button onClick={() => removeRule(rule)} className="h-full flex">
+						<Icons name="delete" color="text" size={24} isAddon={false} />
 					</button>
 				</div>
 			</div>

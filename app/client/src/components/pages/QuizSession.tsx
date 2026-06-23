@@ -1,5 +1,5 @@
 import { useEffect, useRef, useState } from "react";
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import { io, type Socket } from "socket.io-client";
 import type {
 	LiveSessionState,
@@ -14,19 +14,23 @@ import useQuizSessionStore from "../../store/quizSessionStore";
 
 const API = import.meta.env.VITE_API_URL;
 
+type CorrectAnswerData = {
+	id: string;
+	value: string;
+};
+
 const QuizSession = () => {
 	const { id } = useParams<{ id: string }>();
 	const currentUserId = getStoredAuthUser()?.id ?? null;
 	const [session, setSession] = useState<SessionData | null>(null);
-	const [summaryWasCorrect, setSummaryWasCorrect] = useState<boolean | null>(
-		null,
-	);
 	const [summaryPoints, setSummaryPoints] = useState<number | null>(null);
 	const [hasAnsweredCurrentQuestion, setHasAnsweredCurrentQuestion] =
 		useState(false);
 	const [loading, setLoading] = useState(true);
 	const [error, setError] = useState<string | null>(null);
 	const socketRef = useRef<Socket | null>(null);
+	const [correctAnswer, setCorrectAnswer] = useState("");
+	const navigate = useNavigate();
 
 	useEffect(() => {
 		if (!id) return;
@@ -43,21 +47,20 @@ const QuizSession = () => {
 	useEffect(() => {
 		if (!id || !currentUserId) return;
 
-		const socket: Socket = io(API.replace(/\/api$/, ""), {
+		const newSocket: Socket = io(API.replace(/\/api$/, ""), {
 			auth: { userId: currentUserId },
 		});
-		socketRef.current = socket;
+		socketRef.current = newSocket;
 
-		socket.on("connect", () => {
-			socket.emit("join", { sessionId: id });
+		newSocket.on("connect", () => {
+			newSocket.emit("join", { sessionId: id });
 		});
 
-		socket.on("session:state", (data: SessionData) => {
+		newSocket.on("session:state", (data: SessionData) => {
 			setSession(data);
 		});
 
-		socket.on("session:question", (live: LiveSessionState) => {
-			setSummaryWasCorrect(null);
+		newSocket.on("session:question", (live: LiveSessionState) => {
 			setSummaryPoints(null);
 			setHasAnsweredCurrentQuestion(false);
 			setSession((current) =>
@@ -72,7 +75,7 @@ const QuizSession = () => {
 			);
 		});
 
-		socket.on("session:summary", (live: LiveSessionState) => {
+		newSocket.on("session:summary", (live: LiveSessionState) => {
 			setSession((current) =>
 				current
 					? {
@@ -84,11 +87,14 @@ const QuizSession = () => {
 			);
 		});
 
-		socket.on(
+		newSocket.on(
 			"session:player-answered",
-			(data: { userId: string; correct: boolean; points: number }) => {
+			(data: {
+				userId: string;
+				correct: CorrectAnswerData;
+				points: number;
+			}) => {
 				if (data.userId === currentUserId) {
-					setSummaryWasCorrect(data.correct);
 					setSummaryPoints(data.points);
 					setHasAnsweredCurrentQuestion(true);
 					setSession((current) =>
@@ -116,10 +122,26 @@ const QuizSession = () => {
 							: current,
 					);
 				}
+				setCorrectAnswer(data.correct.value);
 			},
 		);
 
-		socket.on(
+		newSocket.on("session:player-surrendered", async () => {
+			try {
+				const res = await fetch(`${API}/game-session/${id}/state`);
+				if (res.ok) {
+					const updated: SessionData = await res.json();
+					setSession(updated);
+				}
+			} catch (error) {
+				console.error(
+					"Failed to refetch session state after surrender:",
+					error,
+				);
+			}
+		});
+
+		newSocket.on(
 			"session:completed",
 			(data: { live: LiveSessionState; rankings: SessionRanking[] }) => {
 				setSession((current) =>
@@ -142,8 +164,7 @@ const QuizSession = () => {
 		);
 
 		return () => {
-			socketRef.current = null;
-			socket.disconnect();
+			newSocket.disconnect();
 		};
 	}, [id, currentUserId]);
 
@@ -176,6 +197,22 @@ const QuizSession = () => {
 		});
 	};
 
+	const handleSurrender = () => {
+		if (!id || !socketRef.current || !currentUserId) return;
+
+		if (!socketRef.current.connected) {
+			alert("Brak połączenia z serwerem");
+			return;
+		}
+
+		socketRef.current.emit("session:surrender", {
+			sessionId: id,
+			userId: currentUserId,
+		});
+
+		navigate("/");
+	};
+
 	if (loading) {
 		return (
 			<main className="flex items-center justify-center h-screen bg-(--bgc-primary) text-(--text)">
@@ -198,14 +235,14 @@ const QuizSession = () => {
 
 	return (
 		<main className="flex flex-col h-screen bg-(--bgc-primary) text-(--text) px-16 py-8 gap-8">
-			<TopBar session={session} />
+			<TopBar session={session} sessionId={id} onSurrender={handleSurrender} />
 			<QuizStage
 				session={session}
 				currentUserId={currentUserId}
-				summaryWasCorrect={summaryWasCorrect}
 				summaryPoints={summaryPoints}
 				hasAnsweredCurrentQuestion={hasAnsweredCurrentQuestion}
 				onSelectAnswer={handleSelectAnswer}
+				correctAnswerValue={correctAnswer}
 			/>
 			<Controls />
 		</main>

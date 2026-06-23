@@ -21,6 +21,14 @@ export class GameSessionController {
     return this.gameSessionService.findOne(id);
   }
 
+  @Patch(':id/surrender')
+  playerSurrender(
+    @Param('id') sessionId: string,
+    @Body('userId') userId: string,
+  ) {
+    return this.gameSessionService.playerSurrender(userId, sessionId);
+  }
+
   @Get(':id/players')
   getPlayers(@Param('id') sessionId: string) {
     return this.gameSessionService.getPlayers(sessionId);
