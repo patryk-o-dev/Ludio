@@ -31,4 +31,9 @@ export class UserController {
   getFriendRequests(@Param('id') id: string) {
     return this.userService.getFriendRequests(id);
   }
+
+  @Get(`:userId/sessions`)
+  getMySessions(userId: string) {
+    return this.userService.getMySessions(userId);
+  }
 }

@@ -14,6 +14,7 @@ const FriendsList = () => {
 	const [friends, setFriends] = useState<User[]>([]);
 	const [friendRequests, setFriendRequests] = useState<User[]>([]);
 	const [sessionInvites, setSessionInvites] = useState<SessionInvite[]>([]);
+	const [mySessions, setMySessions] = useState<SessionInvite[]>([]);
 	const userId = getStoredAuthUser()?.id ?? null;
 
 	const handleSendFriendRequest = async (
@@ -66,6 +67,7 @@ const FriendsList = () => {
 			if (userId) {
 				const response = await fetch(`${API}/user/${userId}`);
 				const data = await response.json();
+				console.log(data);
 				setFriends(data);
 			}
 		};
@@ -76,8 +78,15 @@ const FriendsList = () => {
 				setFriendRequests(data);
 			}
 		};
+		const fetchMySessions = async () => {
+			const response = await fetch(`${API}/user/${userId}/sessions`);
+			const data = await response.json();
+			console.log("data: " + data);
+			setMySessions(data);
+		};
 		fetchFriendRequests();
 		fetchFriends();
+		fetchMySessions();
 	}, [userId, API]);
 
 	useEffect(() => {
@@ -122,6 +131,12 @@ const FriendsList = () => {
 	const regularFriends = friends.filter(
 		(friend) => !sessionInvites.some((invite) => invite.hostId === friend.id),
 	);
+
+	const getFriendAvatar = (sessionId: string) => {
+		const session = mySessions.find((s) => s.sessionId === sessionId);
+		const sessionFriend = friends.find((f) => f.id === session?.hostId);
+		return sessionFriend;
+	};
 
 	return (
 		<div className="p-2 scrollbar-thin overflow-auto h-full">
@@ -202,6 +217,20 @@ const FriendsList = () => {
 						status={friend.status ?? "offline"}
 						userId={userId ?? undefined}
 						friendId={friend.id}
+					/>
+				))}
+			</div>
+			<div className="space-y-2">
+				{mySessions.map((session) => (
+					<FriendCard
+						key={session.sessionId}
+						status={undefined}
+						friendId={session.hostId}
+						sessionInvite={session}
+						onSessionInviteResponse={(accept) =>
+							handleSessionInviteResponse(session.sessionId, accept)
+						}
+						avatarUrl={getFriendAvatar(session.sessionId)?.avatarUrl}
 					/>
 				))}
 			</div>

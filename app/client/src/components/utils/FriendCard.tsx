@@ -4,6 +4,7 @@ import cancelIcon from "../../assets/icons/cancel.png";
 import useGameConfigStore from "../../store/gameConfigStore";
 import type { SessionInvite } from "../../types";
 import ding from "../../assets/sounds/ding.mp3";
+import Icons from "./Icons/Icons";
 
 type FriendStatus = "online" | "offline";
 
@@ -150,18 +151,18 @@ const FriendCard = ({
 			{hasSessionInvite && (
 				<div className="flex items-center gap-2 shrink-0">
 					<button
-						className="px-3 py-2 bg-(--accent) text-(--text) text-xs font-semibold uppercase tracking-[0.16em] rounded-lg hover:bg-(--accent-light) disabled:opacity-50"
+						className="h-8 px-2 py-1 bg-(--accent) text-(--text) text-xs font-semibold uppercase tracking-[0.16em] rounded-lg hover:bg-(--accent-light) disabled:opacity-50"
 						disabled={actionPending}
 						onClick={() => void handleAction(true)}
 					>
 						Dołącz
 					</button>
 					<button
-						className="p-2 bg-(--negative) rounded-lg disabled:opacity-50"
+						className="h-8 p-1 bg-(--negative) rounded-lg disabled:opacity-50"
 						disabled={actionPending}
 						onClick={() => void handleAction(false)}
 					>
-						<img className="w-6 h-6" src={cancelIcon} alt="Cancel Icon" />
+						<Icons name="cancel" color="text" size={24} isAddon={false} />
 					</button>
 				</div>
 			)}

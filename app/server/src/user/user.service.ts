@@ -64,4 +64,24 @@ export class UserService {
     });
     return relations.map((r) => r.fromUser);
   }
+
+  async getMySessions(userId: string) {
+    return this.prisma.gameSession.findMany({
+      where: {
+        OR: [
+          {
+            hostId: userId,
+          },
+          {
+            players: {
+              some: {
+                userId,
+              },
+            },
+          },
+        ],
+        status: 'NotStarted',
+      },
+    });
+  }
 }
