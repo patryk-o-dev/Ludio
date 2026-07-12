@@ -429,6 +429,12 @@ export class GameSessionService implements OnModuleInit {
     };
   }
 
+  async joinSession(sessionId: string) {
+    const state = await this.findState(sessionId);
+    this.gateway.server.to(sessionId).emit('session:state', state);
+    return state;
+  }
+
   async respondInvitation(sessionId: string, userId: string, accept: boolean) {
     const session = await this.prisma.gameSession.findUnique({
       where: { id: sessionId },
@@ -463,6 +469,8 @@ export class GameSessionService implements OnModuleInit {
         },
       },
     });
+
+    await this.joinSession(sessionId);
 
     if (!accept) {
       return this.findOne(sessionId);

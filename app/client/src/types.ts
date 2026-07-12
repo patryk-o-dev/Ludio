@@ -1,5 +1,6 @@
 export type User = {
 	id: string;
+	twitchId?: string;
 	displayName?: string;
 	status?: "online" | "offline";
 	avatarUrl?: string;

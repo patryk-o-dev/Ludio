@@ -1,7 +1,7 @@
 import { useState } from "react";
 import profileImg from "../../assets/images/userProfilePlaceholder.png";
-import downArrow from "../../assets/icons/down-arrow.png";
 import { getStoredAuthUser } from "../utils/authStorage";
+import Icons from "../utils/Icons/Icons";
 
 const API = import.meta.env.VITE_API_URL;
 
@@ -33,30 +33,42 @@ const Profile = () => {
 
 	return (
 		<div className="border-l border-(--text-secondary) pl-12 flex items-center gap-4 flex-row">
-			<img
-				className="w-12 h-12 rounded-full object-cover"
-				src={authUser?.avatarUrl || profileImg}
-				alt="Profile"
-			/>
-			<div className="flex flex-col leading-tight">
-				<p className="text-(--text) font-bold text-lg">
-					{authUser?.displayName || authUser?.username || "TechnicznaKapibara"}
-				</p>
-				<p className="text-sm text-(--text-secondary)">
-					{authUser ? "Polaczono z Twitch" : "Niepolaczone konto"}
-				</p>
-			</div>
 			{!authUser && (
 				<button
 					type="button"
 					onClick={handleConnectWithTwitch}
 					disabled={isConnecting}
-					className="text-(--text) disabled:text-(--text-secondary)"
+					className="text-(--text) disabled:text-(--text-secondary) flex gap-2"
 				>
 					{isConnecting ? "Connecting..." : "Connect with Twitch"}
+					<Icons name="twitch" color="text" size={24} isAddon={false} />
 				</button>
 			)}
-			<img className="w-6 h-6" src={downArrow} alt="Dropdown" />
+			{authUser && (
+				<div className="flex items-center gap-3 rounded-xl px-4 py-3 transition-colors hover:border-(--accent)/80">
+					<div className="relative">
+						<img
+							className="h-12 w-12 rounded-full object-cover ring-2 ring-(--primary)/40"
+							src={authUser.avatarUrl || profileImg}
+							alt="Avatar"
+						/>
+
+						<div className="absolute -bottom-0.5 -right-0.5 h-3.5 w-3.5 rounded-full border-2 border-[#171717] bg-green-500" />
+					</div>
+
+					<div className="flex flex-col">
+						<div className="flex items-center gap-2">
+							<p className="font-semibold text-(--text)">
+								{authUser.displayName}
+							</p>
+						</div>
+
+						<p className="text-xs text-(--text-secondary)">
+							ID: {authUser.twitchId}
+						</p>
+					</div>
+				</div>
+			)}
 		</div>
 	);
 };

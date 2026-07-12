@@ -21,6 +21,7 @@ const STATUS_COLOR: Record<FriendStatus, string> = {
 interface FriendCardProps {
 	name?: string;
 	status?: FriendStatus;
+	metaLabel?: string;
 	request?: boolean;
 	userId?: string;
 	friendId?: string;
@@ -32,6 +33,7 @@ interface FriendCardProps {
 const FriendCard = ({
 	name = "FriendName",
 	status = "offline",
+	metaLabel,
 	request = false,
 	userId,
 	friendId,
@@ -46,6 +48,10 @@ const FriendCard = ({
 	const [actionPending, setActionPending] = useState(false);
 	const [actionError, setActionError] = useState<string | null>(null);
 	const hasSessionInvite = !request && Boolean(sessionInvite);
+	const secondaryLabel = metaLabel ?? STATUS_LABEL[status];
+	const secondaryLabelClass = metaLabel
+		? "text-(--text-secondary)"
+		: STATUS_COLOR[status];
 
 	const handleFriendRequestResponse = async (accept: boolean) => {
 		await fetch(`${API}/user/${userId}/friendship/${friendId}/respond`, {
@@ -68,6 +74,7 @@ const FriendCard = ({
 		try {
 			if (request) {
 				await handleFriendRequestResponse(accept);
+				window.location.reload();
 				return;
 			}
 
@@ -116,8 +123,8 @@ const FriendCard = ({
 						)}
 					</div>
 					<div className="flex items-center gap-2 flex-wrap">
-						<span className={`text-sm ${STATUS_COLOR[status]}`}>
-							{STATUS_LABEL[status]}
+						<span className={`text-sm ${secondaryLabelClass}`}>
+							ID: {secondaryLabel}
 						</span>
 						{hasSessionInvite && (
 							<span className="text-xs text-(--text-secondary)">
@@ -133,18 +140,23 @@ const FriendCard = ({
 			{request && (
 				<div className="flex space-x-2 shrink-0">
 					<button
-						className="p-2 bg-(--positive) rounded-lg hover:cursor-pointer disabled:opacity-50"
+						className="p-2 border-2 border-(--positive) rounded-lg hover:cursor-pointer hover:bg-(--positive)/15 disabled:opacity-50"
 						disabled={actionPending}
 						onClick={() => void handleAction(true)}
 					>
-						<img className="w-6 h-6" src={battleIcon} alt="Accept Icon" />
+						<Icons
+							name="circleCheck"
+							color="positive"
+							size={24}
+							isAddon={false}
+						/>
 					</button>
 					<button
-						className="p-2 bg-(--negative) rounded-lg disabled:opacity-50"
+						className="p-2 border-2 border-(--negative) rounded-lg hover:cursor-pointer hover:bg-(--negative)/15 disabled:opacity-50"
 						disabled={actionPending}
 						onClick={() => void handleAction(false)}
 					>
-						<img className="w-6 h-6" src={cancelIcon} alt="Decline Icon" />
+						<Icons name="circleX" color="negative" size={24} isAddon={false} />
 					</button>
 				</div>
 			)}

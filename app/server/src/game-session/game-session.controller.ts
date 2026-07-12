@@ -21,6 +21,11 @@ export class GameSessionController {
     return this.gameSessionService.findOne(id);
   }
 
+  @Post(':id/join')
+  join(@Param('id') sessionId: string) {
+    return this.gameSessionService.joinSession(sessionId);
+  }
+
   @Patch(':id/surrender')
   playerSurrender(
     @Param('id') sessionId: string,

@@ -5,12 +5,14 @@ import { useNavigate } from "react-router-dom";
 import type { SessionInvite, User } from "../../types";
 import { getStoredAuthUser } from "../utils/authStorage";
 import { io } from "socket.io-client";
+import Popup from "../utils/Popup";
 
 const FriendsList = () => {
 	const navigate = useNavigate();
 	const API = import.meta.env.VITE_API_URL;
 	const [searchFriendInput, setSearchFriend] = useState(false);
 	const [searchQuery, setSearchQuery] = useState("");
+	const [inviteSent, setInviteSent] = useState(false);
 	const [friends, setFriends] = useState<User[]>([]);
 	const [friendRequests, setFriendRequests] = useState<User[]>([]);
 	const [sessionInvites, setSessionInvites] = useState<SessionInvite[]>([]);
@@ -22,15 +24,25 @@ const FriendsList = () => {
 		e: React.SubmitEvent<HTMLFormElement>,
 	) => {
 		e.preventDefault();
-		await fetch(`${API}/user/${userId}/friendship/${friendId}`, {
-			method: "POST",
-			headers: {
-				"Content-Type": "application/json",
-			},
-			body: JSON.stringify({
-				key: "value",
-			}),
-		});
+		try {
+			await fetch(`${API}/user/${userId}/friendship/${friendId}`, {
+				method: "POST",
+				headers: {
+					"Content-Type": "application/json",
+				},
+				body: JSON.stringify({
+					key: "value",
+				}),
+			});
+		} catch (err) {
+			console.error("Error sending friend request:", err);
+			return;
+		}
+		setSearchQuery("");
+		setInviteSent(true);
+		setTimeout(() => {
+			setInviteSent(false);
+		}, 3000);
 	};
 
 	const handleSessionInviteResponse = async (
@@ -67,7 +79,6 @@ const FriendsList = () => {
 			if (userId) {
 				const response = await fetch(`${API}/user/${userId}`);
 				const data = await response.json();
-				console.log(data);
 				setFriends(data);
 			}
 		};
@@ -108,8 +119,11 @@ const FriendsList = () => {
 			});
 		});
 
-		socket.onAny((event, ...args) => {
-			console.log("SOCKET:", event, args);
+		socket.on("friend-request-created", () => {
+			fetch(`${API}/user/${userId}/friend-requests`)
+				.then((res) => res.json())
+				.then((data) => setFriendRequests(data))
+				.catch((error) => console.error("Friend request error:", error));
 		});
 
 		return () => {
@@ -140,25 +154,9 @@ const FriendsList = () => {
 
 	return (
 		<div className="p-2 scrollbar-thin overflow-auto h-full">
-			<div className="flex items-center justify-between mb-4">
-				{!searchFriendInput && (
-					<p className="text-(--text) font-bold text-md uppercase">Znajomi</p>
-				)}
-				{searchFriendInput && (
-					<form
-						onSubmit={(e) => handleSendFriendRequest(searchQuery, e)}
-						className="w-full"
-					>
-						<input
-							type="text"
-							placeholder="Szukaj znajomych..."
-							className="w-full px-3 py-2 rounded-md bg-(--background) text-(--text) focus:outline-none focus:ring-2 focus:ring-(--primary)"
-							value={searchQuery}
-							onChange={(e) => setSearchQuery(e.target.value)}
-						/>
-						<button type="submit" className="hidden" />
-					</form>
-				)}
+			{inviteSent && <Popup value="Invite Sent" />}
+			<div className="flex flex-wrap items-center justify-between mb-4">
+				<p className="text-(--text) font-bold text-md uppercase">Znajomi</p>
 				<button onClick={() => setSearchFriend((prev) => !prev)}>
 					<img
 						src={addFriendIcon}
@@ -166,6 +164,21 @@ const FriendsList = () => {
 						className="w-6 h-6 cursor-pointer"
 					/>
 				</button>
+				{searchFriendInput && (
+					<form
+						onSubmit={(e) => handleSendFriendRequest(searchQuery, e)}
+						className="w-full"
+					>
+						<input
+							type="text"
+							placeholder="Szukaj znajomych po ID"
+							className="py-2 rounded-md bg-(--background) text-(--text) focus:outline-none"
+							value={searchQuery}
+							onChange={(e) => setSearchQuery(e.target.value)}
+						/>
+						<button type="submit" className="hidden" />
+					</form>
+				)}
 			</div>
 			<div className="space-y-2">
 				{friendRequests.map((request) => (
@@ -175,8 +188,9 @@ const FriendsList = () => {
 						friendId={request.id}
 						name={request.displayName}
 						avatarUrl={request.avatarUrl}
+						metaLabel={request.twitchId ?? "Brak Twitch ID"}
 						request={true}
-						status={"offline"}
+						status={request.status ?? "offline"}
 					/>
 				))}
 			</div>
@@ -196,6 +210,7 @@ const FriendsList = () => {
 								key={`invite-${friend.id}`}
 								name={friend.displayName}
 								avatarUrl={friend.avatarUrl ?? undefined}
+								metaLabel={friend.twitchId ?? "Brak Twitch ID"}
 								status={friend.status ?? "offline"}
 								userId={userId ?? undefined}
 								friendId={friend.id}
@@ -214,6 +229,7 @@ const FriendsList = () => {
 						key={friend.id}
 						name={friend.displayName}
 						avatarUrl={friend.avatarUrl ?? undefined}
+						metaLabel={friend.twitchId ?? "Brak Twitch ID"}
 						status={friend.status ?? "offline"}
 						userId={userId ?? undefined}
 						friendId={friend.id}
@@ -225,6 +241,9 @@ const FriendsList = () => {
 					<FriendCard
 						key={session.sessionId}
 						status={undefined}
+						metaLabel={
+							getFriendAvatar(session.sessionId)?.twitchId ?? "Brak Twitch ID"
+						}
 						friendId={session.hostId}
 						sessionInvite={session}
 						onSessionInviteResponse={(accept) =>

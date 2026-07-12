@@ -30,7 +30,7 @@ const ChipList = () => {
 		league: 3,
 	};
 	return (
-		<div className="flex flex-col p-4">
+		<div className="flex flex-col p-4 overflow-auto scrollbar-thin">
 			<p className="text-(--text) font-bold text-md uppercase">Zasady Quizu</p>
 			<p className="text-(--accent) text-sm font-semibold mt-4">
 				{modeLabel[mode]}

@@ -1,6 +1,8 @@
 import useQuizSessionStore from "../../store/quizSessionStore";
 import type { SessionPlayer } from "../../types";
 import { useEffect, useRef } from "react";
+import AnswerResults from "./AnswerResults";
+import Icons from "../utils/Icons/Icons";
 
 interface MediaDisplayProps {
 	mediaUrl: string | null;
@@ -62,8 +64,6 @@ const MediaDisplay = ({
 		(state) => state.quizSessionData.answerValue,
 	);
 
-	const summaryWasCorrect = answerValue === summaryLabel;
-
 	if (!mediaUrl) {
 		return (
 			<div className="relative flex-4 min-h-0 overflow-hidden rounded-3xl border border-(--accent)/40 bg-(--bgc-secondary) shadow-[0_0_24px_2px_color-mix(in_srgb,var(--accent)_20%,transparent)] flex items-center justify-center p-8">
@@ -80,12 +80,22 @@ const MediaDisplay = ({
 										"text-(--text)";
 
 									return (
-										<span
-											key={player.user.displayName || player.userId}
-											className={`rounded-full border border-(--accent)/30 bg-(--bgc-primary) px-4 py-2 text-lg font-medium ${colorClass}`}
-										>
-											{player.user.displayName || player.userId}
-										</span>
+										<>
+											<div
+												key={player.user.displayName}
+												className={`flex gap-2 items-center rounded-full border border-(--accent)/30 bg-(--bgc-primary) px-4 py-2 text-lg font-medium ${colorClass}`}
+											>
+												{player.user.displayName}
+												{player.status === "Invited" && (
+													<Icons
+														name="spinner"
+														size={24}
+														color="text"
+														isAddon={false}
+													/>
+												)}
+											</div>
+										</>
 									);
 								})}
 							</div>
@@ -114,12 +124,6 @@ const MediaDisplay = ({
 	}
 
 	const resolvedImageUrl = resolveMediaUrl(mediaUrl);
-	const summaryTextColorClass =
-		summaryWasCorrect === true
-			? "text-(--positive)"
-			: summaryWasCorrect === false
-				? "text-(--negative)"
-				: "text-(--text)";
 
 	return (
 		<div className="relative flex-4 min-h-0 overflow-hidden rounded-3xl border border-(--accent)/40 bg-(--bgc-secondary) shadow-[0_0_24px_2px_color-mix(in_srgb,var(--accent)_20%,transparent)]">
@@ -153,18 +157,12 @@ const MediaDisplay = ({
 				</div>
 			)}
 
-			{showAnswerOverlay && answerValue && summaryLabel && (
-				<div className="pointer-events-none absolute inset-x-0 bottom-0 flex justify-center px-8 pb-2 text-center md:px-12 md:pb-4">
-					<div className="w-full max-w-4xl rounded-4xl bg-[radial-gradient(ellipse_82%_60%_at_center,color-mix(in_srgb,var(--bgc-primary)_88%,transparent)_0%,color-mix(in_srgb,var(--bgc-primary)_72%,transparent)_18%,color-mix(in_srgb,var(--bgc-primary)_48%,transparent)_34%,color-mix(in_srgb,var(--bgc-primary)_20%,transparent)_48%,transparent_64%)] px-8 py-14 md:py-16">
-						<p
-							className={`text-3xl font-semibold text-balance leading-tight [text-shadow:0_4px_18px_color-mix(in_srgb,var(--bgc-primary)_95%,transparent)] md:text-5xl ${phase === "summary" ? summaryTextColorClass : "text-(--text)"}`}
-						>
-							{phase === "question" && `${answerValue}`}
-							{phase === "summary" && `${summaryLabel}`}
-						</p>
-					</div>
-				</div>
-			)}
+			<AnswerResults
+				answerValue={answerValue}
+				phase={phase}
+				summaryLabel={summaryLabel}
+				showAnswerOverlay={showAnswerOverlay}
+			/>
 		</div>
 	);
 };

@@ -1,17 +1,38 @@
-import { Injectable } from '@nestjs/common';
+import {
+  BadRequestException,
+  Injectable,
+  NotFoundException,
+} from '@nestjs/common';
 import { PrismaService } from '../prisma/prisma.service';
+import { UserSocketGateway } from './user-socket/user-socket.gateway';
 
 @Injectable()
 export class UserService {
-  constructor(private readonly prisma: PrismaService) {}
+  constructor(
+    private readonly prisma: PrismaService,
+    private readonly userSocketGateway: UserSocketGateway,
+  ) {}
 
   async addFriend(userId: string, friendId: string) {
-    await this.prisma.friendship.create({
-      data: {
-        fromUserId: userId,
-        toUserId: friendId,
-      },
+    const targetUser = await this.prisma.user.findUnique({
+      where: { twitchId: friendId },
     });
+
+    if (!targetUser) {
+      throw new NotFoundException('User not found');
+    }
+    try {
+      await this.prisma.friendship.create({
+        data: {
+          fromUserId: userId,
+          toUserId: targetUser.id,
+        },
+      });
+
+      this.userSocketGateway.notifyUser(targetUser.id);
+    } catch (err) {
+      throw new BadRequestException('Friend request failed', err);
+    }
   }
 
   async handleFriendRequest(userId: string, friendId: string, accept: boolean) {

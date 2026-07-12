@@ -16,7 +16,7 @@ interface GameOptionsProps {
 
 const GameOptions = ({ options, onChange }: GameOptionsProps) => {
 	return (
-		<div className="flex flex-col p-4 gap-6">
+		<div className="flex flex-col p-4 gap-6 overflow-auto scrollbar-thin">
 			<p className="text-(--text) font-bold text-md uppercase">Opcje Gry</p>
 
 			<div className="flex flex-col gap-2">
