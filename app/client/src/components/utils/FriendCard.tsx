@@ -1,10 +1,10 @@
-import { useState } from "react";
-import battleIcon from "../../assets/icons/battle.png";
-import cancelIcon from "../../assets/icons/cancel.png";
+import { useRef, useState } from "react";
 import useGameConfigStore from "../../store/gameConfigStore";
 import type { SessionInvite } from "../../types";
 import ding from "../../assets/sounds/ding.mp3";
 import Icons from "./Icons/Icons";
+import { useGSAP } from "@gsap/react";
+import gsap from "gsap";
 
 type FriendStatus = "online" | "offline";
 
@@ -45,6 +45,9 @@ const FriendCard = ({
 	const addPlayer = useGameConfigStore((state) => state.addPlayer);
 	const removePlayer = useGameConfigStore((state) => state.removePlayer);
 	const [playerAdded, setPlayerAdded] = useState(false);
+	const [iconName, setIconName] = useState<"pluscircle" | "cancel">(
+		"pluscircle",
+	);
 	const [actionPending, setActionPending] = useState(false);
 	const [actionError, setActionError] = useState<string | null>(null);
 	const hasSessionInvite = !request && Boolean(sessionInvite);
@@ -52,6 +55,37 @@ const FriendCard = ({
 	const secondaryLabelClass = metaLabel
 		? "text-(--text-secondary)"
 		: STATUS_COLOR[status];
+	const buttonRef = useRef<HTMLButtonElement>(null);
+	const [animateButton, setAnimateButton] = useState(false);
+
+	useGSAP(() => {
+		if (!animateButton || !buttonRef.current) return;
+		if (!buttonRef.current) return;
+
+		const tl = gsap.timeline();
+
+		tl.to(buttonRef.current, {
+			x: "100%",
+			pointerEvents: "none",
+			duration: 0.5,
+			ease: "power2.in",
+		})
+			.to(buttonRef.current, {
+				x: "100%",
+				backgroundColor: playerAdded ? "var(--negative)" : "var(--info)",
+				duration: 0.5,
+			})
+			.to(buttonRef.current, {
+				x: "100%",
+				duration: 0,
+			})
+			.to(buttonRef.current, {
+				x: "0%",
+				pointerEvents: "auto",
+				duration: 0.5,
+				ease: "power2.out",
+			});
+	}, [playerAdded]);
 
 	const handleFriendRequestResponse = async (accept: boolean) => {
 		await fetch(`${API}/user/${userId}/friendship/${friendId}/respond`, {
@@ -89,6 +123,8 @@ const FriendCard = ({
 	};
 
 	const handleAddPlayer = () => {
+		const nextState = !playerAdded;
+
 		if (!playerAdded) {
 			addPlayer({ id: friendId || "", displayName: name, status, avatarUrl });
 		} else {
@@ -99,12 +135,18 @@ const FriendCard = ({
 				avatarUrl,
 			});
 		}
-		setPlayerAdded(!playerAdded);
+
+		setPlayerAdded(nextState);
+		setAnimateButton(true);
+
+		setTimeout(() => {
+			setIconName(nextState ? "cancel" : "pluscircle");
+		}, 600);
 	};
 
 	return (
 		<div
-			className="flex items-center justify-between gap-3 p-4 bg-(--bgc-tertiary) rounded-lg border border-transparent transition-colors data-[invite=true]:border-(--accent)/60 data-[invite=true]:bg-(--bgc-secondary)"
+			className="flex items-center relative overflow-hidden justify-between gap-3 p-4 bg-(--bgc-tertiary) rounded-lg border border-transparent transition-colors data-[invite=true]:border-(--accent)/60 data-[invite=true]:bg-(--bgc-secondary)"
 			data-invite={hasSessionInvite}
 		>
 			<div className="flex items-center min-w-0 flex-1">
@@ -180,15 +222,11 @@ const FriendCard = ({
 			)}
 			{!request && !hasSessionInvite && (
 				<button
-					className="p-2 bg-(--accent-dark) rounded-lg"
+					ref={buttonRef}
+					className="absolute right-0 top-0 h-full flex items-center align-middle p-1 rounded-lg bg-(--info) hover:cursor-pointer transition-colors disabled:opacity-50"
 					onClick={handleAddPlayer}
 				>
-					{!playerAdded && (
-						<img className="w-6 h-6" src={battleIcon} alt="Battle Icon" />
-					)}
-					{playerAdded && (
-						<img className="w-6 h-6" src={cancelIcon} alt="Cancel Icon" />
-					)}
+					<Icons name={iconName} color="text" size={32} isAddon={false} />
 				</button>
 			)}
 		</div>

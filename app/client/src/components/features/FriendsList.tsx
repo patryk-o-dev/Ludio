@@ -1,11 +1,13 @@
 import FriendCard from "../utils/FriendCard";
 import addFriendIcon from "../../assets/icons/add-friend.png";
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import type { SessionInvite, User } from "../../types";
 import { getStoredAuthUser } from "../utils/authStorage";
 import { io } from "socket.io-client";
 import Popup from "../utils/Popup";
+import { useGSAP } from "@gsap/react";
+import gsap from "gsap";
 
 const FriendsList = () => {
 	const navigate = useNavigate();
@@ -152,6 +154,50 @@ const FriendsList = () => {
 		return sessionFriend;
 	};
 
+	const searchFormRef = useRef<HTMLFormElement>(null);
+
+	useGSAP(() => {
+		if (!searchFormRef.current) return;
+
+		const tl = gsap.timeline();
+		if (searchFriendInput) {
+			tl.fromTo(
+				searchFormRef.current,
+				{
+					opacity: 0,
+					y: -20,
+					height: 0,
+					border: "1px solid transparent",
+					borderBottomColor: "transparent",
+				},
+				{
+					opacity: 1,
+					y: 0,
+					height: "auto",
+					duration: 0.5,
+				},
+			)
+				.to(searchFormRef.current, {
+					duration: 0.5,
+				})
+				.to(searchFormRef.current, {
+					borderBottomColor: "var(--text-secondary)",
+					duration: 1,
+				});
+		} else {
+			tl.to(searchFormRef.current, {
+				borderBottomColor: "transparent",
+				border: "1px solid transparent",
+				duration: 0.5,
+			}).to(searchFormRef.current, {
+				opacity: 0,
+				y: -20,
+				height: 0,
+				duration: 0.5,
+			});
+		}
+	}, [searchFriendInput]);
+
 	return (
 		<div className="p-2 scrollbar-thin overflow-auto h-full">
 			{inviteSent && <Popup value="Invite Sent" />}
@@ -164,21 +210,20 @@ const FriendsList = () => {
 						className="w-6 h-6 cursor-pointer"
 					/>
 				</button>
-				{searchFriendInput && (
-					<form
-						onSubmit={(e) => handleSendFriendRequest(searchQuery, e)}
-						className="w-full"
-					>
-						<input
-							type="text"
-							placeholder="Szukaj znajomych po ID"
-							className="py-2 rounded-md bg-(--background) text-(--text) focus:outline-none"
-							value={searchQuery}
-							onChange={(e) => setSearchQuery(e.target.value)}
-						/>
-						<button type="submit" className="hidden" />
-					</form>
-				)}
+				<form
+					onSubmit={(e) => handleSendFriendRequest(searchQuery, e)}
+					ref={searchFormRef}
+					className="w-full h-0 opacity-0"
+				>
+					<input
+						type="text"
+						placeholder="Szukaj znajomych po ID"
+						className="py-2 rounded-md bg-(--background) text-(--text) focus:outline-none"
+						value={searchQuery}
+						onChange={(e) => setSearchQuery(e.target.value)}
+					/>
+					<button type="submit" className="hidden" />
+				</form>
 			</div>
 			<div className="space-y-2">
 				{friendRequests.map((request) => (
