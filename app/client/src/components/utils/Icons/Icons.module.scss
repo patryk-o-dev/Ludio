@@ -1,3 +1,7 @@
+.text {
+	color: var(--text);
+}
+
 .gaming {
 	color: var(--gaming);
 }
@@ -8,6 +12,7 @@
 
 .league {
 	color: var(--league);
+	stroke: var(--league);
 }
 
 .positive {

@@ -38,14 +38,17 @@ const ChipCard = ({ chipId, ruleIndex, chipData }: ChipCardProps) => {
 			onClick={handleChipSelect}
 		>
 			<div className="flex items-center gap-4 min-w-0">
-				{chipData.icon.map((icon, index) => (
-					<Icons
-						name={icon}
-						color={chipData.color}
-						size={36}
-						isAddon={index === 1 && true}
-					/>
-				))}
+				<div className="relative w-9 h-9 shrink-0">
+					{chipData.icon.map((icon, index) => (
+						<Icons
+							key={icon}
+							name={icon}
+							color={chipData.color}
+							size={36}
+							isAddon={index === 1}
+						/>
+					))}
+				</div>
 				<p className="text-(--text) flex-1 line-clamp-2 min-w-0">
 					{chipData.label}
 				</p>

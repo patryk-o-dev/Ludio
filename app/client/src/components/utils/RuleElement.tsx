@@ -45,7 +45,7 @@ const RuleElement = ({ rule, ruleNumber }: RuleElementProps) => {
 					</div>
 					<p>Rozpoznaj</p>
 					<div
-						className={`flex flex-row items-center align-middle p-2 bg-(--bgc-quaternary) rounded-md gap-2 hover:opacity-80 border-2 ${
+						className={`flex flex-row items-center align-middle p-2 bg-(--bgc-quaternary) rounded-md gap-2 hover:opacity-80 hover:cursor-pointer border-2 ${
 							chipSelectionStep.type === "guess" &&
 							chipSelectionStep.ruleIndex === rule.index
 								? "border-(--accent)"
@@ -73,7 +73,7 @@ const RuleElement = ({ rule, ruleNumber }: RuleElementProps) => {
 					</div>
 					<p>Po</p>
 					<div
-						className={`flex flex-row items-center align-middle p-2 bg-(--bgc-quaternary) rounded-md gap-2 border-2 transition-opacity hover:opacity-80 ${
+						className={`flex flex-row items-center align-middle p-2 bg-(--bgc-quaternary) rounded-md gap-2 border-2 transition-opacity hover:opacity-80 hover:cursor-pointer ${
 							chipSelectionStep.type === "by" &&
 							chipSelectionStep.ruleIndex === rule.index
 								? "border-(--accent)"
@@ -104,8 +104,16 @@ const RuleElement = ({ rule, ruleNumber }: RuleElementProps) => {
 					</div>
 				</div>
 				<div className={`items-center border-l border-(--text-secondary) pl-4`}>
-					<button onClick={() => removeRule(rule)} className="h-full flex">
-						<Icons name="delete" color="text" size={24} isAddon={false} />
+					<button
+						onClick={() => removeRule(rule)}
+						className="h-full flex hover:text-(--negative) hover:cursor-pointer"
+					>
+						<Icons
+							name="delete"
+							color="currentColor"
+							size={24}
+							isAddon={false}
+						/>
 					</button>
 				</div>
 			</div>

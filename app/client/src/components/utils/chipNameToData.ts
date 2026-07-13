@@ -27,7 +27,7 @@ export const chipNameToData = (
 		},
 		guessLeagueChampion: {
 			id: chipId,
-			icon: ["league-of-legends"],
+			icon: ["leagueoflegends"],
 			label: "Postać z lola",
 			color: "league",
 		},

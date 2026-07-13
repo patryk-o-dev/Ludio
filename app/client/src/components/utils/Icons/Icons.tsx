@@ -154,11 +154,11 @@ const Delete = ({ size, color, isAddon }: IconElementProps) => (
 		width={size}
 		height={size}
 		viewBox="0 0 24 24"
-		fill="#aeaeae"
+		fill="none"
 		className={`${styles[color]} ${isAddon ? "rounded-[27.5%] border-2 border-(--bgc-quaternary)" : ""}`}
 	>
 		<path
-			fill="none"
+			stroke="currentColor"
 			stroke-linecap="round"
 			stroke-linejoin="round"
 			stroke-width="1.5"
@@ -252,7 +252,7 @@ const Person = ({ size, color, isAddon }: IconElementProps) => (
 		fill="none"
 		style={{
 			position: "absolute",
-			transform: `translate(${size ? size / 4 : 6}px, ${size ? size / 4 : 6}px) scale(0.5)`,
+			transform: `translate(${size! / 2}px, ${(-size! * 2) / 3}px) scale(0.5)`,
 			backgroundColor: "rgba(0,0,0,0.8)",
 		}}
 		className={`${styles[color]} ${isAddon ? "rounded-[27.5%] border-2 border-(--bgc-quaternary)" : ""}`}
