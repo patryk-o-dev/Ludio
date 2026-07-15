@@ -3,6 +3,7 @@ import ChipList from "./ChipList";
 import GameOptions from "./GameOptions";
 import useGameConfigStore from "../../store/gameConfigStore";
 import useChipsStore from "../../store/chipsStore";
+import { useTranslation } from "react-i18next";
 type Tab = "chips" | "options";
 
 const tabBase =
@@ -13,6 +14,7 @@ const tabIdle =
 
 const ChipSelector = () => {
 	const [activeTab, setActiveTab] = useState<Tab>("chips");
+	const { t } = useTranslation();
 	const options = useGameConfigStore((state) => state.options);
 	const updateOption = useGameConfigStore((state) => state.updateOption);
 	const setAllChips = useChipsStore((state) => state.setAllChips);
@@ -50,19 +52,19 @@ const ChipSelector = () => {
 	}, []);
 
 	return (
-		<aside className="flex-1 flex flex-col bg-(--bgc-secondary) p-4 rounded-lg gap-3">
+		<aside className="flex-1 flex flex-col bg-(--bgc-secondary) p-4 rounded-lg gap-3 min-w-70">
 			<div className="flex gap-1 p-1 bg-(--bgc-primary) rounded-lg">
 				<button
 					className={`${tabBase} ${activeTab === "chips" ? tabActive : tabIdle}`}
 					onClick={() => setActiveTab("chips")}
 				>
-					Chipy
+					{t("chip_selector.chips")}
 				</button>
 				<button
 					className={`${tabBase} ${activeTab === "options" ? tabActive : tabIdle}`}
 					onClick={() => setActiveTab("options")}
 				>
-					Opcje
+					{t("chip_selector.options")}
 				</button>
 			</div>
 

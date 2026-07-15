@@ -3,6 +3,7 @@ import { useNavigate } from "react-router-dom";
 import useGameConfigStore from "../../store/gameConfigStore";
 import { getStoredAuthUser } from "../utils/authStorage";
 import ding from "../../assets/sounds/ding.mp3";
+import { useTranslation } from "react-i18next";
 
 const API = import.meta.env.VITE_API_URL;
 
@@ -18,6 +19,7 @@ const StartQuiz = () => {
 	const navigate = useNavigate();
 	const [loading, setLoading] = useState(false);
 	const [error, setError] = useState<string | null>(null);
+	const { t } = useTranslation();
 	const rules = useGameConfigStore((state) => state.rules);
 	const options = useGameConfigStore((state) => state.options);
 	const players = useGameConfigStore((state) => state.players);
@@ -37,7 +39,7 @@ const StartQuiz = () => {
 		);
 
 		if (completeRules.length === 0) {
-			setError("Dodaj przynajmniej jedną kompletną regułę.");
+			setError(t("quiz_creator.errors.add_complete_rule"));
 			setLoading(false);
 			return;
 		}
@@ -66,7 +68,7 @@ const StartQuiz = () => {
 			});
 
 			if (!configResponse.ok) {
-				throw new Error("Nie udało się zapisać konfiguracji quizu.");
+				throw new Error(t("quiz_creator.errors.save_config"));
 			}
 
 			const gameConfig =
@@ -85,7 +87,7 @@ const StartQuiz = () => {
 			});
 
 			if (!sessionResponse.ok) {
-				throw new Error("Nie udało się utworzyć sesji quizu.");
+				throw new Error(t("quiz_creator.errors.create_session"));
 			}
 
 			const session =
@@ -104,7 +106,7 @@ const StartQuiz = () => {
 			navigate(`/session/${session.id}`);
 		} catch (err) {
 			setError(
-				err instanceof Error ? err.message : "Wystąpił nieoczekiwany błąd.",
+				err instanceof Error ? err.message : t("common.unexpected_error"),
 			);
 		} finally {
 			setLoading(false);
@@ -120,10 +122,12 @@ const StartQuiz = () => {
 				onClick={handleStartQuiz}
 				className="p-4 bg-(--accent) text-(--text) uppercase text-xl rounded-lg hover:bg-(--accent-light) disabled:opacity-40 disabled:cursor-not-allowed disabled:hover:bg-(--accent) transition-opacity"
 			>
-				{loading ? "Tworzenie sesji..." : "Rozpocznij QUIZ"}
+				{loading
+					? t("quiz_creator.creating_session")
+					: t("quiz_creator.start_quiz")}
 			</button>
 			<p className="text-xs text-(--text-secondary) text-left w-full">
-				Zaproszeni:{" "}
+				{t("quiz_creator.invited_players")}:{" "}
 				<span className="text-(--info)">
 					{players.map((p) => p.displayName).join(", ")}
 				</span>

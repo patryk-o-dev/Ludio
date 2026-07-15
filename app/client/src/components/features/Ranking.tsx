@@ -1,5 +1,6 @@
 import { useEffect, useMemo, useState } from "react";
 import type { SessionData } from "../../types";
+import { useTranslation } from "react-i18next";
 
 type RankingPlayer = {
 	userId: string;
@@ -12,6 +13,7 @@ type RankingPlayer = {
 
 const Ranking = ({ session }: { session: SessionData }) => {
 	const [players, setPlayers] = useState<RankingPlayer[]>([]);
+	const { t } = useTranslation();
 
 	useEffect(() => {
 		fetch(`${import.meta.env.VITE_API_URL}/game-session/${session.id}/players`)
@@ -44,7 +46,7 @@ const Ranking = ({ session }: { session: SessionData }) => {
 
 					<div className="flex items-center gap-4 shrink-0">
 						<p className="text-(--text) font-semibold whitespace-nowrap">
-							{player.score} pkt
+							{player.score} {t("quiz_session.labels.points_short")}
 						</p>
 
 						<span className="px-2 py-1 text-xs rounded-full bg-(--bgc-secondary) text-(--text-secondary) border border-(--accent-dark) whitespace-nowrap">

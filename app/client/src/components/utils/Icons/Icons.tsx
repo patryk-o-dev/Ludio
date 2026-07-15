@@ -536,6 +536,52 @@ const Spinner = ({ size, color, isAddon }: IconElementProps) => (
 	</svg>
 );
 
+const Settings = ({ size, color, isAddon }: IconElementProps) => (
+	<svg
+		width={size}
+		height={size}
+		viewBox="0 0 24 24"
+		fill="none"
+		className={`${styles[color]} ${isAddon ? "rounded-[27.5%] border-2 border-(--bgc-quaternary)" : ""}`}
+	>
+		<g
+			fill="none"
+			stroke="currentColor"
+			stroke-linecap="round"
+			stroke-linejoin="round"
+			stroke-width="2"
+		>
+			<path d="M9.671 4.136a2.34 2.34 0 0 1 4.659 0a2.34 2.34 0 0 0 3.319 1.915a2.34 2.34 0 0 1 2.33 4.033a2.34 2.34 0 0 0 0 3.831a2.34 2.34 0 0 1-2.33 4.033a2.34 2.34 0 0 0-3.319 1.915a2.34 2.34 0 0 1-4.659 0a2.34 2.34 0 0 0-3.32-1.915a2.34 2.34 0 0 1-2.33-4.033a2.34 2.34 0 0 0 0-3.831A2.34 2.34 0 0 1 6.35 6.051a2.34 2.34 0 0 0 3.319-1.915" />
+			<circle cx="12" cy="12" r="3" />
+		</g>
+	</svg>
+);
+
+const PolandFlag = ({ size }: IconElementProps) => (
+	<svg width={size} height={size} viewBox="0 0 640 480">
+		<g fill-rule="evenodd">
+			<path fill="#fff" d="M0 0h640v240H0z" />
+			<path fill="#dc143c" d="M0 240h640v240H0z" />
+		</g>
+	</svg>
+);
+
+const UKFlag = ({ size }: IconElementProps) => (
+	<svg width={size} height={size} viewBox="0 0 640 480">
+		<path fill="#012169" d="M0 0h640v480H0z" />
+		<path
+			fill="#fff"
+			d="m75 0l244 181L562 0h78v62L400 241l240 178v61h-80L320 301L81 480H0v-60l239-178L0 64V0z"
+		/>
+		<path
+			fill="#c8102e"
+			d="m424 281l216 159v40L369 281zm-184 20l6 35L54 480H0zM640 0v3L391 191l2-44L590 0zM0 0l239 176h-60L0 42z"
+		/>
+		<path fill="#fff" d="M241 0v480h160V0zM0 160v160h640V160z" />
+		<path fill="#c8102e" d="M0 193v96h640v-96zM273 0v480h96V0z" />
+	</svg>
+);
+
 type IconComponent = React.ComponentType<IconElementProps>;
 
 const iconsMap: Record<string, IconComponent> = {
@@ -566,6 +612,9 @@ const iconsMap: Record<string, IconComponent> = {
 	title: Title,
 	twitch: Twitch,
 	spinner: Spinner,
+	settings: Settings,
+	polandFlag: PolandFlag,
+	ukFlag: UKFlag,
 };
 
 type IconsProps = {

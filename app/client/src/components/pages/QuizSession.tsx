@@ -11,6 +11,7 @@ import QuizStage from "../layout/QuizStage";
 import TopBar from "../layout/TopBar";
 import { getStoredAuthUser } from "../utils/authStorage";
 import useQuizSessionStore from "../../store/quizSessionStore";
+import { useTranslation } from "react-i18next";
 
 const API = import.meta.env.VITE_API_URL;
 
@@ -31,6 +32,7 @@ const QuizSession = () => {
 	const socketRef = useRef<Socket | null>(null);
 	const [correctAnswer, setCorrectAnswer] = useState("");
 	const navigate = useNavigate();
+	const { t } = useTranslation();
 
 	useEffect(() => {
 		if (!id) return;
@@ -201,7 +203,7 @@ const QuizSession = () => {
 		if (!id || !socketRef.current || !currentUserId) return;
 
 		if (!socketRef.current.connected) {
-			alert("Brak połączenia z serwerem");
+			alert(t("quiz_session.no_server_connection"));
 			return;
 		}
 
@@ -217,7 +219,7 @@ const QuizSession = () => {
 		return (
 			<main className="flex items-center justify-center h-screen bg-(--bgc-primary) text-(--text)">
 				<p className="text-(--text-secondary) text-xl animate-pulse">
-					Ładowanie sesji...
+					{t("quiz_session.loading")}
 				</p>
 			</main>
 		);
@@ -227,14 +229,14 @@ const QuizSession = () => {
 		return (
 			<main className="flex items-center justify-center h-screen bg-(--bgc-primary) text-(--text)">
 				<p className="text-(--negative) text-xl">
-					Nie znaleziono sesji ({error})
+					{t("quiz_session.not_found", { error })}
 				</p>
 			</main>
 		);
 	}
 
 	return (
-		<main className="flex flex-col h-screen bg-(--bgc-primary) text-(--text) px-16 py-8 gap-8">
+		<main className="flex flex-col h-screen bg-(--bgc-primary) text-(--text) px-16 py-8 gap-8 min-w-240 min-h-120">
 			<TopBar session={session} sessionId={id} onSurrender={handleSurrender} />
 			<QuizStage
 				session={session}

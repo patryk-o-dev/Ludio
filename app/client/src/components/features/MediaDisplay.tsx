@@ -3,6 +3,7 @@ import type { SessionPlayer } from "../../types";
 import { useEffect, useRef } from "react";
 import AnswerResults from "./AnswerResults";
 import Icons from "../utils/Icons/Icons";
+import { useTranslation } from "react-i18next";
 
 interface MediaDisplayProps {
 	mediaUrl: string | null;
@@ -23,6 +24,7 @@ const MediaDisplay = ({
 	summaryLabel,
 	showAnswerOverlay = false,
 }: MediaDisplayProps) => {
+	const { t } = useTranslation();
 	const mediaType =
 		(mediaUrl && mediaUrl.endsWith(".MP4")) ||
 		(mediaUrl && mediaUrl.endsWith(".mp4"))
@@ -70,7 +72,7 @@ const MediaDisplay = ({
 				{phase === "waiting" && (
 					<div className="flex w-full max-w-3xl flex-col items-center gap-4 text-center">
 						<p className="text-(--text-secondary) text-sm uppercase tracking-[0.35em]">
-							Oczekiwanie na graczy
+							{t("quiz_session.status.waiting_for_players")}
 						</p>
 						{players.length > 0 ? (
 							<div className="flex flex-wrap justify-center gap-3">
@@ -101,21 +103,24 @@ const MediaDisplay = ({
 							</div>
 						) : (
 							<p className="text-(--text-secondary) text-xl uppercase tracking-wide">
-								Wszyscy gracze są gotowi
+								{t("quiz_session.status.all_players_ready")}
 							</p>
 						)}
 					</div>
 				)}
 				{phase === "completed" && (
 					<div className="flex w-full max-w-3xl flex-col items-center gap-4 text-center">
-						<p>Zwycięzca:</p>
-						<img src={winningPlayer?.user.avatarUrl} alt="Avatar zwycięzcy" />
+						<p>{t("quiz_session.labels.winner")}</p>
+						<img
+							src={winningPlayer?.user.avatarUrl}
+							alt={t("quiz_session.labels.winner_avatar")}
+						/>
 						<p>{winningPlayer?.user.displayName}</p>
 						<button
 							className="mt-4 rounded-full bg-(--accent) px-4 py-2 text-(--text)"
 							onClick={handleReturn}
 						>
-							Powrót
+							{t("quiz_session.actions.return")}
 						</button>
 					</div>
 				)}

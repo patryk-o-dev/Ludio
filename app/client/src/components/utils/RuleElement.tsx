@@ -1,8 +1,12 @@
 import type { Rule } from "../../types";
 import useChipsStore from "../../store/chipsStore";
 import useGameConfigStore from "../../store/gameConfigStore";
-import { chipNameToData } from "./chipNameToData";
+import {
+	chipFilterNameToTranslationKey,
+	chipNameToData,
+} from "./chipNameToData";
 import Icons from "./Icons/Icons";
+import { useTranslation } from "react-i18next";
 
 interface RuleElementProps {
 	rule: Rule;
@@ -10,6 +14,8 @@ interface RuleElementProps {
 }
 
 const RuleElement = ({ rule, ruleNumber }: RuleElementProps) => {
+	const { t } = useTranslation();
+
 	const { allChips, chipSelectionStep, updateChipSelectionStep } =
 		useChipsStore();
 	const removeRule = useGameConfigStore((state) => state.removeRule);
@@ -35,7 +41,7 @@ const RuleElement = ({ rule, ruleNumber }: RuleElementProps) => {
 	const chipByData = chipNameToData(byChip?.id ?? "", byChip?.name ?? "...");
 
 	return (
-		<div className="bg-(--bgc-tertiary) p-4 rounded-lg mb-4 flex flex-col gap-3">
+		<div className="bg-(--bgc-tertiary) p-4 rounded-lg mb-4 flex flex-col gap-3 overflow-hidden">
 			<div className="flex flex-row items-center justify-between gap-4">
 				<div className="flex flex-row gap-4 items-center">
 					<div className="bg-(--accent-darker) rounded-md h-10 w-10 flex items-center justify-center">
@@ -43,7 +49,8 @@ const RuleElement = ({ rule, ruleNumber }: RuleElementProps) => {
 							{ruleNumber}
 						</p>
 					</div>
-					<p>Rozpoznaj</p>
+
+					<p className="hidden min-[1050px]:block">{t("rule.recognize")}</p>
 					<div
 						className={`flex flex-row items-center align-middle p-2 bg-(--bgc-quaternary) rounded-md gap-2 hover:opacity-80 hover:cursor-pointer border-2 ${
 							chipSelectionStep.type === "guess" &&
@@ -64,14 +71,16 @@ const RuleElement = ({ rule, ruleNumber }: RuleElementProps) => {
 							/>
 						))}
 
-						<p>{chipGuessData.label}</p>
+						<p className="hidden min-[1250px]:block">
+							{t(chipGuessData.label)}
+						</p>
 						{allChips.chipsGuess.find((chip) => chip.id === rule.guessId) && (
 							<button onClick={() => updateRuleGuessChip(rule.index, null)}>
 								<Icons name="cancel" color="text" size={12} isAddon={false} />
 							</button>
 						)}
 					</div>
-					<p>Po</p>
+					<p>{t("rule.by")}</p>
 					<div
 						className={`flex flex-row items-center align-middle p-2 bg-(--bgc-quaternary) rounded-md gap-2 border-2 transition-opacity hover:opacity-80 hover:cursor-pointer ${
 							chipSelectionStep.type === "by" &&
@@ -95,7 +104,7 @@ const RuleElement = ({ rule, ruleNumber }: RuleElementProps) => {
 								isAddon={index > 0}
 							/>
 						))}
-						<p>{chipByData.label}</p>
+						<p className="hidden min-[1250px]:block">{t(chipByData.label)}</p>
 						{allChips.chipsGuess.find((chip) => chip.id === rule.guessId) && (
 							<button onClick={() => updateRuleByChip(rule.index, null)}>
 								<Icons name="cancel" color="text" size={12} isAddon={false} />
@@ -122,7 +131,9 @@ const RuleElement = ({ rule, ruleNumber }: RuleElementProps) => {
 				(allChips.chipsBy.find((chip) => chip.id === rule.byId)
 					?.compatibleFilterIds?.length ?? 0) > 0 && (
 					<div className="flex flex-row items-center gap-2 pl-14">
-						<p className="text-(--text-secondary) text-sm">Filtry:</p>
+						<p className="text-(--text-secondary) text-sm">
+							{t("rule.filters")}:
+						</p>
 						{allChips.chipsFilter
 							.filter((filter) => {
 								const selectedBy = allChips.chipsBy.find(
@@ -141,7 +152,7 @@ const RuleElement = ({ rule, ruleNumber }: RuleElementProps) => {
 											: "border-transparent bg-(--bgc-quaternary) text-(--text-secondary) hover:opacity-80"
 									}`}
 								>
-									{filter.name}
+									{t(chipFilterNameToTranslationKey(filter.name))}
 								</button>
 							))}
 					</div>

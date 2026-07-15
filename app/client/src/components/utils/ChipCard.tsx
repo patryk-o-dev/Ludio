@@ -3,6 +3,7 @@ import Icons from "./Icons/Icons";
 import useChipsStore from "../../store/chipsStore";
 import useGameConfigStore from "../../store/gameConfigStore";
 import type { chipData } from "../../types";
+import { useTranslation } from "react-i18next";
 
 type ChipCardProps = {
 	chipId: string;
@@ -11,6 +12,7 @@ type ChipCardProps = {
 };
 
 const ChipCard = ({ chipId, ruleIndex, chipData }: ChipCardProps) => {
+	const { t } = useTranslation();
 	const chipSelectionStep = useChipsStore((state) => state.chipSelectionStep);
 	const updateChipSelectionStep = useChipsStore(
 		(state) => state.updateChipSelectionStep,
@@ -50,7 +52,7 @@ const ChipCard = ({ chipId, ruleIndex, chipData }: ChipCardProps) => {
 					))}
 				</div>
 				<p className="text-(--text) flex-1 line-clamp-2 min-w-0">
-					{chipData.label}
+					{t(chipData.label)}
 				</p>
 			</div>
 			<div className="bg-(--accent-darker) opacity-90 rounded-2xl p-2">

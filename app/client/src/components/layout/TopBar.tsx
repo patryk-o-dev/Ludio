@@ -3,6 +3,7 @@ import SessionStats from "../features/SessionStats";
 import StreamerLogo from "../layout/StreamerLogo";
 import surrenderIcon from "../../assets/icons/ff.png";
 import type { SessionData } from "../../types";
+import { useTranslation } from "react-i18next";
 
 const TopBar = ({
 	session,
@@ -14,6 +15,7 @@ const TopBar = ({
 	onSurrender: () => void;
 }) => {
 	const [isLoading, setIsLoading] = useState(false);
+	const { t } = useTranslation();
 
 	const handleSurrender = () => {
 		if (isLoading || !sessionId) return;
@@ -38,7 +40,9 @@ const TopBar = ({
 					alt="surrender icon"
 					className="inline-block w-6 h-6 mr-2"
 				/>
-				{isLoading ? "Poddawanie się..." : "Poddaj się"}
+				{isLoading
+					? t("quiz_session.actions.surrendering")
+					: t("quiz_session.actions.surrender")}
 			</button>
 		</header>
 	);

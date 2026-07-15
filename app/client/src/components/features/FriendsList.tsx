@@ -8,6 +8,7 @@ import { io } from "socket.io-client";
 import Popup from "../utils/Popup";
 import { useGSAP } from "@gsap/react";
 import gsap from "gsap";
+import { useTranslation } from "react-i18next";
 
 const FriendsList = () => {
 	const navigate = useNavigate();
@@ -20,6 +21,7 @@ const FriendsList = () => {
 	const [sessionInvites, setSessionInvites] = useState<SessionInvite[]>([]);
 	const [mySessions, setMySessions] = useState<SessionInvite[]>([]);
 	const userId = getStoredAuthUser()?.id ?? null;
+	const { t } = useTranslation();
 
 	const handleSendFriendRequest = async (
 		friendId: string,
@@ -200,13 +202,15 @@ const FriendsList = () => {
 
 	return (
 		<div className="p-2 scrollbar-thin overflow-auto h-full">
-			{inviteSent && <Popup value="Invite Sent" />}
+			{inviteSent && <Popup value={t("invite_sent")} />}
 			<div className="flex flex-wrap items-center justify-between mb-4">
-				<p className="text-(--text) font-bold text-md uppercase">Znajomi</p>
+				<p className="text-(--text) font-bold text-md uppercase">
+					{t("friends")}
+				</p>
 				<button onClick={() => setSearchFriend((prev) => !prev)}>
 					<img
 						src={addFriendIcon}
-						alt="Add Friend"
+						alt="Add friend"
 						className="w-6 h-6 cursor-pointer"
 					/>
 				</button>
@@ -217,7 +221,7 @@ const FriendsList = () => {
 				>
 					<input
 						type="text"
-						placeholder="Szukaj znajomych po ID"
+						placeholder={t("search_friends_by_id")}
 						className="py-2 rounded-md bg-(--background) text-(--text) focus:outline-none"
 						value={searchQuery}
 						onChange={(e) => setSearchQuery(e.target.value)}
@@ -233,7 +237,7 @@ const FriendsList = () => {
 						friendId={request.id}
 						name={request.displayName}
 						avatarUrl={request.avatarUrl}
-						metaLabel={request.twitchId ?? "Brak Twitch ID"}
+						metaLabel={request.twitchId ?? t("no_twitch_id")}
 						request={true}
 						status={request.status ?? "offline"}
 					/>
@@ -243,7 +247,7 @@ const FriendsList = () => {
 				<div className="mb-4">
 					<div className="flex items-center justify-between mb-2">
 						<p className="text-(--accent) font-bold text-xs uppercase tracking-[0.18em]">
-							Zaproszenia do sesji
+							{t("session_invites")}
 						</p>
 						<span className="px-2 py-1 rounded-full bg-(--accent)/15 text-(--accent) text-[10px] font-bold">
 							{invitedFriends.length}
@@ -255,7 +259,7 @@ const FriendsList = () => {
 								key={`invite-${friend.id}`}
 								name={friend.displayName}
 								avatarUrl={friend.avatarUrl ?? undefined}
-								metaLabel={friend.twitchId ?? "Brak Twitch ID"}
+								metaLabel={friend.twitchId ?? t("no_twitch_id")}
 								status={friend.status ?? "offline"}
 								userId={userId ?? undefined}
 								friendId={friend.id}
@@ -274,7 +278,7 @@ const FriendsList = () => {
 						key={friend.id}
 						name={friend.displayName}
 						avatarUrl={friend.avatarUrl ?? undefined}
-						metaLabel={friend.twitchId ?? "Brak Twitch ID"}
+						metaLabel={friend.twitchId ?? t("no_twitch_id")}
 						status={friend.status ?? "offline"}
 						userId={userId ?? undefined}
 						friendId={friend.id}
@@ -287,7 +291,7 @@ const FriendsList = () => {
 						key={session.sessionId}
 						status={undefined}
 						metaLabel={
-							getFriendAvatar(session.sessionId)?.twitchId ?? "Brak Twitch ID"
+							getFriendAvatar(session.sessionId)?.twitchId ?? t("no_twitch_id")
 						}
 						friendId={session.hostId}
 						sessionInvite={session}

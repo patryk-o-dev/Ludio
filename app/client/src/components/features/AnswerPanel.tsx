@@ -2,6 +2,7 @@ import { useCallback, useEffect, useRef, useState } from "react";
 import searchIcon from "../../assets/icons/magnifying-glass.png";
 import Ranking from "./Ranking";
 import type { SessionData } from "../../types";
+import { useTranslation } from "react-i18next";
 
 interface AnswerOption {
 	id: string;
@@ -31,6 +32,7 @@ const AnswerPanel = ({
 	onSelectAnswer,
 	hasAnsweredCurrentQuestion,
 }: AnswerPanelProps) => {
+	const { t } = useTranslation();
 	const [selectedAnswerId, setSelectedAnswerId] = useState<string | null>(null);
 	const [inputValue, setInputValue] = useState("");
 	const [remainingMs, setRemainingMs] = useState<number | null>(null);
@@ -53,7 +55,7 @@ const AnswerPanel = ({
 
 	const timerLabel =
 		timeLimitSeconds === null
-			? "Bez limitu czasu"
+			? t("quiz_session.status.no_time_limit")
 			: remainingMs === null
 				? `${timeLimitSeconds}s`
 				: `${Math.ceil(remainingMs / 1000)}s`;
@@ -129,22 +131,14 @@ const AnswerPanel = ({
 			{phase === "question" && (
 				<>
 					<div className="flex items-center justify-between text-sm uppercase tracking-wide text-(--text-secondary)">
-						<span>
-							{phase === "question"
-								? "Wybierz odpowiedź"
-								: phase === "summary"
-									? "Podsumowanie pytania"
-									: phase === "completed"
-										? "Sesja zakończona"
-										: "Oczekiwanie na start"}
-						</span>
+						<span>{t("quiz_session.status.question")}</span>
 						<span>{timerLabel}</span>
 					</div>
 					<div className="flex items-center gap-2 border border-(--accent)/40 rounded px-4 py-2 bg-(--bgc-basic) transition-shadow duration-300 focus-within:border-(--accent)/80 focus-within:shadow-[0_0_20px_2px_color-mix(in_srgb,var(--accent)_22%,transparent)]">
 						<img className="w-6 h-6" src={searchIcon} alt="question icon" />
 						<input
 							type="text"
-							placeholder="Wyszukaj odpowiedź..."
+							placeholder={t("quiz_session.labels.search_answer_placeholder")}
 							value={inputValue}
 							ref={inputRef}
 							onChange={(event) => setInputValue(event.target.value)}
@@ -180,8 +174,8 @@ const AnswerPanel = ({
 							{filteredAnswers.length === 0 && (
 								<li className="text-(--text-secondary) text-sm px-2 py-4">
 									{phase === "question"
-										? "Brak dopasowanych odpowiedzi"
-										: "Oczekiwanie na listę odpowiedzi"}
+										? t("quiz_session.status.no_matching_answers")
+										: t("quiz_session.status.waiting_for_answers")}
 								</li>
 							)}
 						</ul>

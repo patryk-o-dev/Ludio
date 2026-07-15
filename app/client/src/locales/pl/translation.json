@@ -1,0 +1,124 @@
+{
+	"friends": "Znajomi",
+	"add_friend": "Dodaj znajomego",
+	"invite_sent": "Zaproszenie wysłane",
+	"search_friends_by_id": "Szukaj znajomych po ID",
+	"no_twitch_id": "Brak Twitch ID",
+	"session_invites": "Zaproszenia do sesji",
+	"session_invite": "Zaproszenie do quizu",
+	"pending_session_invite": "Czeka zaproszenie do wspólnej sesji.",
+	"join": "Dołącz",
+	"status": {
+		"online": "Online",
+		"offline": "Offline"
+	},
+	"common": {
+		"unexpected_error": "Wystąpił nieoczekiwany błąd.",
+		"action_failed_retry": "Akcja nie powiodła się. Spróbuj ponownie."
+	},
+	"modes": {
+		"solo": "Solo",
+		"multi": "Multi"
+	},
+	"brand": {
+		"streamers": "Quiz",
+		"quiz": "Streamera"
+	},
+	"profile": {
+		"connect_with_twitch": "Połącz z Twitchem",
+		"connecting": "Łączenie...",
+		"id_label": "ID"
+	},
+	"quiz_creator": {
+		"title": "Kreator Quizu",
+		"subtitle": "Ustal zasady i rozpocznij swój quiz",
+		"add_new_rule": "Dodaj nową regułę",
+		"start_quiz": "Rozpocznij quiz",
+		"creating_session": "Tworzenie sesji...",
+		"invited_players": "Zaproszeni",
+		"errors": {
+			"add_complete_rule": "Dodaj przynajmniej jedną kompletną regułę.",
+			"save_config": "Nie udało się zapisać konfiguracji quizu.",
+			"create_session": "Nie udało się utworzyć sesji quizu."
+		}
+	},
+	"quiz_session": {
+		"loading": "Ładowanie sesji...",
+		"not_found": "Nie znaleziono sesji ({{error}})",
+		"no_server_connection": "Brak połączenia z serwerem",
+		"status": {
+			"question": "Wybierz odpowiedź",
+			"waiting_to_start": "Oczekiwanie na start",
+			"waiting_for_players": "Oczekiwanie na graczy",
+			"all_players_ready": "Wszyscy gracze są gotowi",
+			"completed": "Sesja zakończona",
+			"no_matching_answers": "Brak dopasowanych odpowiedzi",
+			"waiting_for_answers": "Oczekiwanie na listę odpowiedzi",
+			"no_time_limit": "Bez limitu czasu"
+		},
+		"actions": {
+			"join_as_player": "Dołącz jako gracz",
+			"surrender": "Poddaj się",
+			"surrendering": "Poddawanie się...",
+			"return": "Powrót",
+			"select": "Wybór",
+			"confirm": "Potwierdź"
+		},
+		"labels": {
+			"question": "Pytanie",
+			"points": "punkty",
+			"points_short": "pkt",
+			"winner": "Zwycięzca:",
+			"winner_avatar": "Avatar zwycięzcy",
+			"search_answer_placeholder": "Wyszukaj odpowiedź..."
+		}
+	},
+	"chip_selector": {
+		"chips": "Chipy",
+		"options": "Opcje",
+		"quiz_rules": "Zasady Quizu",
+		"mode_label": {
+			"guess": "Co odgadujesz?",
+			"by": "Po czym chcesz to odgadnąć?"
+		}
+	},
+	"game_options": {
+		"title": "Opcje Gry",
+		"difficulty": "Poziom trudności",
+		"questions_per_rule": "Ilość pytań per reguła",
+		"time_to_answer": "Czas na odpowiedź"
+	},
+	"rule": {
+		"recognize": "Rozpoznaj",
+		"by": "Po",
+		"filters": "Filtry"
+	},
+	"chips": {
+		"guess_game": "Grę",
+		"guess_game_character": "Postać z gry",
+		"guess_movie": "Film",
+		"guess_league_champion": "Postać z LoLa",
+		"by_achievement": "Osiągnięciu",
+		"by_game_over": "Ekranie porażki",
+		"by_inventory": "Ekwipunku",
+		"by_mod": "Modzie",
+		"by_screenshot": "Zrzucie ekranu",
+		"by_title_screen": "Ekranie tytułowym",
+		"by_cosplay": "Cosplayu",
+		"by_image": "Obrazie",
+		"by_death": "Śmierci",
+		"by_pick": "Picku",
+		"by_frame": "Klatce",
+		"by_trailer": "Zwiastunie"
+	},
+	"filters": {
+		"only_horror": "Tylko horror",
+		"only_male": "Tylko mężczyźni",
+		"only_female": "Tylko kobiety",
+		"only_death": "Tylko śmierci",
+		"only_pick": "Tylko picki"
+	},
+	"settings": {
+		"language": "Język"
+	}
+}

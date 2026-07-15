@@ -3,9 +3,11 @@ import clockIcon from "../../assets/icons/clock.png";
 import scoreIcon from "../../assets/icons/score.png";
 import type { SessionData } from "../../types";
 import { getStoredAuthUser } from "../utils/authStorage";
+import { useTranslation } from "react-i18next";
 
 const SessionStats = ({ session }: { session: SessionData }) => {
 	const currentUserId = getStoredAuthUser()?.id ?? null;
+	const { t } = useTranslation();
 
 	const [displayedScores, setDisplayedScores] = useState<
 		Record<string, number>
@@ -53,7 +55,7 @@ const SessionStats = ({ session }: { session: SessionData }) => {
 		<div className="flex items-center gap-12">
 			<div className="flex flex-1 flex-col items-center">
 				<p className="text-sm uppercase text-(--text-secondary) leading-tight">
-					Pytanie
+					{t("quiz_session.labels.question")}
 				</p>
 				<p className="text-lg font-semibold leading-tight">
 					{session.live.qIndex} /{" "}
@@ -73,7 +75,9 @@ const SessionStats = ({ session }: { session: SessionData }) => {
 						{playerScore} /{" "}
 						<span className="text-(--accent)">{totalQuestions}</span>
 					</p>
-					<p className="uppercase text-(--accent) leading-tight">punkty</p>
+					<p className="uppercase text-(--accent) leading-tight">
+						{t("quiz_session.labels.points")}
+					</p>
 				</div>
 			</div>
 		</div>

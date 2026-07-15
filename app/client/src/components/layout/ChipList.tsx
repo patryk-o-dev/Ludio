@@ -1,10 +1,12 @@
 import ChipCard from "../utils/ChipCard";
 import useChipsStore from "../../store/chipsStore";
 import { chipNameToData } from "../utils/chipNameToData";
+import { useTranslation } from "react-i18next";
 
 const ChipList = () => {
 	const chipSelectionStep = useChipsStore((state) => state.chipSelectionStep);
 	const { allChips } = useChipsStore();
+	const { t } = useTranslation();
 
 	const mode = chipSelectionStep.type;
 	const guessId = chipSelectionStep.guessId;
@@ -19,8 +21,8 @@ const ChipList = () => {
 				);
 
 	const modeLabel = {
-		guess: "Co odgadujesz?",
-		by: "Po czym chcesz to odgadnąć?",
+		guess: "chip_selector.mode_label.guess",
+		by: "chip_selector.mode_label.by",
 	};
 
 	const chipsData = chips.map((chip) => chipNameToData(chip.id, chip.name));
@@ -31,9 +33,11 @@ const ChipList = () => {
 	};
 	return (
 		<div className="flex flex-col p-4 overflow-auto scrollbar-thin">
-			<p className="text-(--text) font-bold text-md uppercase">Zasady Quizu</p>
+			<p className="text-(--text) font-bold text-md uppercase">
+				{t("chip_selector.quiz_rules")}
+			</p>
 			<p className="text-(--accent) text-sm font-semibold mt-4">
-				{modeLabel[mode]}
+				{t(modeLabel[mode])}
 			</p>
 			<div className="flex flex-col gap-4 mt-4">
 				{[...chipsData]
@@ -43,11 +47,11 @@ const ChipList = () => {
 
 						if (colorDiff !== 0) return colorDiff;
 
-						return a.label.localeCompare(b.label);
+						return t(a.label).localeCompare(t(b.label));
 					})
 					.map((chip) => (
 						<ChipCard
-							key={chip.label}
+							key={chip.id}
 							ruleIndex={ruleIndex!}
 							chipId={chip.id}
 							chipData={chip}

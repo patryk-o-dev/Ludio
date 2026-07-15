@@ -1,6 +1,7 @@
 import type { SessionData } from "../../types";
 import AnswerPanel from "../features/AnswerPanel";
 import MediaDisplay from "../features/MediaDisplay";
+import { useTranslation } from "react-i18next";
 
 interface QuizStageProps {
 	session: SessionData;
@@ -23,6 +24,7 @@ const QuizStage = ({
 	correctAnswerValue,
 	onSelectAnswer,
 }: QuizStageProps) => {
+	const { t } = useTranslation();
 	const API = import.meta.env.VITE_API_URL;
 	const currentQuestion = session.live.question;
 	const currentPlayer = session.players.find(
@@ -52,7 +54,7 @@ const QuizStage = ({
 						onClick={acceptInvitation}
 						className="ml-4 px-2 py-1 bg-(--accent) text-(--text) text-xs rounded hover:bg-(--accent-light) transition-colors"
 					>
-						Dołącz jako gracz
+						{t("quiz_session.actions.join_as_player")}
 					</button>
 				</div>
 			)}

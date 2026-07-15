@@ -5,12 +5,13 @@ import ding from "../../assets/sounds/ding.mp3";
 import Icons from "./Icons/Icons";
 import { useGSAP } from "@gsap/react";
 import gsap from "gsap";
+import { useTranslation } from "react-i18next";
 
 type FriendStatus = "online" | "offline";
 
-const STATUS_LABEL: Record<FriendStatus, string> = {
-	online: "Online",
-	offline: "Offline",
+const STATUS_LABEL_KEY: Record<FriendStatus, string> = {
+	online: "status.online",
+	offline: "status.offline",
 };
 
 const STATUS_COLOR: Record<FriendStatus, string> = {
@@ -42,6 +43,7 @@ const FriendCard = ({
 	onSessionInviteResponse,
 }: FriendCardProps) => {
 	const API = import.meta.env.VITE_API_URL;
+	const { t } = useTranslation();
 	const addPlayer = useGameConfigStore((state) => state.addPlayer);
 	const removePlayer = useGameConfigStore((state) => state.removePlayer);
 	const [playerAdded, setPlayerAdded] = useState(false);
@@ -51,7 +53,7 @@ const FriendCard = ({
 	const [actionPending, setActionPending] = useState(false);
 	const [actionError, setActionError] = useState<string | null>(null);
 	const hasSessionInvite = !request && Boolean(sessionInvite);
-	const secondaryLabel = metaLabel ?? STATUS_LABEL[status];
+	const secondaryLabel = metaLabel ?? t(STATUS_LABEL_KEY[status]);
 	const secondaryLabelClass = metaLabel
 		? "text-(--text-secondary)"
 		: STATUS_COLOR[status];
@@ -116,7 +118,7 @@ const FriendCard = ({
 				await onSessionInviteResponse(accept);
 			}
 		} catch {
-			setActionError("Akcja nie powiodła się. Spróbuj ponownie.");
+			setActionError(t("common.action_failed_retry"));
 		} finally {
 			setActionPending(false);
 		}
@@ -160,17 +162,17 @@ const FriendCard = ({
 						<p className="text-(--text) font-medium truncate">{name}</p>
 						{hasSessionInvite && (
 							<span className="px-2 py-1 rounded-full bg-(--accent)/15 text-(--accent) text-[10px] font-bold uppercase tracking-[0.18em] shrink-0">
-								Quiz invite
+								{t("session_invite")}
 							</span>
 						)}
 					</div>
 					<div className="flex items-center gap-2 flex-wrap">
 						<span className={`text-sm ${secondaryLabelClass}`}>
-							ID: {secondaryLabel}
+							{t("profile.id_label")}: {secondaryLabel}
 						</span>
 						{hasSessionInvite && (
 							<span className="text-xs text-(--text-secondary)">
-								Czeka zaproszenie do wspólnej sesji.
+								{t("pending_session_invite")}
 							</span>
 						)}
 					</div>
@@ -209,7 +211,7 @@ const FriendCard = ({
 						disabled={actionPending}
 						onClick={() => void handleAction(true)}
 					>
-						Dołącz
+						{t("join")}
 					</button>
 					<button
 						className="h-8 p-1 bg-(--negative) rounded-lg disabled:opacity-50"

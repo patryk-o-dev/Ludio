@@ -1,4 +1,5 @@
 import type { GameOptionsState } from "../../types";
+import { useTranslation } from "react-i18next";
 
 const difficulty = [1] as const;
 const questionsPerRule = [3, 5] as const;
@@ -15,13 +16,17 @@ interface GameOptionsProps {
 }
 
 const GameOptions = ({ options, onChange }: GameOptionsProps) => {
+	const { t } = useTranslation();
+
 	return (
 		<div className="flex flex-col p-4 gap-6 overflow-auto scrollbar-thin">
-			<p className="text-(--text) font-bold text-md uppercase">Opcje Gry</p>
+			<p className="text-(--text) font-bold text-md uppercase">
+				{t("game_options.title")}
+			</p>
 
 			<div className="flex flex-col gap-2">
 				<p className="text-(--accent) text-sm font-semibold">
-					Poziom trudności:
+					{t("game_options.difficulty")}:
 				</p>
 				<div className="flex gap-2 flex-wrap">
 					{difficulty.map((d) => (
@@ -38,7 +43,7 @@ const GameOptions = ({ options, onChange }: GameOptionsProps) => {
 
 			<div className="flex flex-col gap-2">
 				<p className="text-(--accent) text-sm font-semibold">
-					Ilość pytań per reguła:
+					{t("game_options.questions_per_rule")}:
 				</p>
 				<div className="flex gap-2 flex-wrap">
 					{questionsPerRule.map((q) => (
@@ -55,7 +60,7 @@ const GameOptions = ({ options, onChange }: GameOptionsProps) => {
 
 			<div className="flex flex-col gap-2">
 				<p className="text-(--accent) text-sm font-semibold">
-					Czas na odpowiedź:
+					{t("game_options.time_to_answer")}:
 				</p>
 				<div className="flex gap-2 flex-wrap">
 					{timeLimitSeconds.map((t) => (

@@ -2,12 +2,14 @@ import { useState } from "react";
 import profileImg from "../../assets/images/userProfilePlaceholder.png";
 import { getStoredAuthUser } from "../utils/authStorage";
 import Icons from "../utils/Icons/Icons";
+import { useTranslation } from "react-i18next";
 
 const API = import.meta.env.VITE_API_URL;
 
 const Profile = () => {
 	const authUser = getStoredAuthUser();
 	const [isConnecting, setIsConnecting] = useState(false);
+	const { t } = useTranslation();
 
 	const handleConnectWithTwitch = async () => {
 		if (isConnecting) {
@@ -40,7 +42,9 @@ const Profile = () => {
 					disabled={isConnecting}
 					className="text-(--text) disabled:text-(--text-secondary) flex gap-2"
 				>
-					{isConnecting ? "Connecting..." : "Connect with Twitch"}
+					{isConnecting
+						? t("profile.connecting")
+						: t("profile.connect_with_twitch")}
 					<Icons name="twitch" color="text" size={24} isAddon={false} />
 				</button>
 			)}
@@ -48,7 +52,7 @@ const Profile = () => {
 				<div className="flex items-center gap-3 rounded-xl px-4 py-3 transition-colors hover:border-(--accent)/80">
 					<div className="relative">
 						<img
-							className="h-12 w-12 rounded-full object-cover ring-2 ring-(--primary)/40"
+							className="h-12 w-12 rounded-full object-cover ring-2 ring-(--primary)/40 min-w-12"
 							src={authUser.avatarUrl || profileImg}
 							alt="Avatar"
 						/>
@@ -64,7 +68,7 @@ const Profile = () => {
 						</div>
 
 						<p className="text-xs text-(--text-secondary)">
-							ID: {authUser.twitchId}
+							{t("profile.id_label")}: {authUser.twitchId}
 						</p>
 					</div>
 				</div>

@@ -1,9 +1,11 @@
 import addIcon from "../../assets/icons/add.png";
 import useGameConfigStore from "../../store/gameConfigStore";
+import { useTranslation } from "react-i18next";
 
 const AddNewRule = () => {
 	const rules = useGameConfigStore((state) => state.rules);
 	const addRule = useGameConfigStore((state) => state.addRule);
+	const { t } = useTranslation();
 
 	const lastRule = rules[rules.length - 1];
 
@@ -31,7 +33,7 @@ const AddNewRule = () => {
 		>
 			<img className="w-10 h-10" src={addIcon} alt="Add" />
 			<p className="text-(--text-secondary) uppercase text-sm">
-				Dodaj nową regułę
+				{t("quiz_creator.add_new_rule")}
 			</p>
 		</div>
 	);
