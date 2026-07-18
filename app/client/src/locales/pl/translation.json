@@ -58,11 +58,16 @@
 		},
 		"actions": {
 			"join_as_player": "Dołącz jako gracz",
+			"start": "Start",
+			"starting": "Uruchamianie...",
 			"surrender": "Poddaj się",
 			"surrendering": "Poddawanie się...",
 			"return": "Powrót",
 			"select": "Wybór",
 			"confirm": "Potwierdź"
+		},
+		"errors": {
+			"start": "Nie udało się uruchomić sesji."
 		},
 		"labels": {
 			"question": "Pytanie",

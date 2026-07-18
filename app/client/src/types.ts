@@ -111,6 +111,7 @@ export type RulePool = {
 
 export type SessionData = {
 	id: string;
+	hostId: string;
 	status: "WAITING" | "ACTIVE" | "FINISHED";
 	currentRuleIndex: number;
 	rulePools: RulePool[];

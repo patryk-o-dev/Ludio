@@ -62,6 +62,9 @@ const QuizStage = ({
 			{/* Main stage */}
 			<div className="flex flex-1 gap-8 min-h-0">
 				<MediaDisplay
+					sessionId={session.id}
+					hostId={session.hostId}
+					currentUserId={currentUserId}
 					mediaUrl={currentQuestion?.url ?? null}
 					players={session.players}
 					phase={session.live.phase}

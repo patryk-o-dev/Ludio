@@ -1,11 +1,14 @@
 import useQuizSessionStore from "../../store/quizSessionStore";
 import type { SessionPlayer } from "../../types";
-import { useEffect, useRef } from "react";
+import { useEffect, useRef, useState } from "react";
 import AnswerResults from "./AnswerResults";
 import Icons from "../utils/Icons/Icons";
 import { useTranslation } from "react-i18next";
 
 interface MediaDisplayProps {
+	sessionId: string;
+	hostId: string;
+	currentUserId: string | null;
 	mediaUrl: string | null;
 	players?: SessionPlayer[];
 	phase: "waiting" | "question" | "summary" | "completed";
@@ -18,6 +21,9 @@ interface MediaDisplayProps {
 const API_ORIGIN = "http://localhost:3000";
 
 const MediaDisplay = ({
+	sessionId,
+	hostId,
+	currentUserId,
 	mediaUrl,
 	players = [],
 	phase,
@@ -25,6 +31,9 @@ const MediaDisplay = ({
 	showAnswerOverlay = false,
 }: MediaDisplayProps) => {
 	const { t } = useTranslation();
+	const API = import.meta.env.VITE_API_URL;
+	const [isStarting, setIsStarting] = useState(false);
+	const [startError, setStartError] = useState<string | null>(null);
 	const mediaType =
 		(mediaUrl && mediaUrl.endsWith(".MP4")) ||
 		(mediaUrl && mediaUrl.endsWith(".mp4"))
@@ -62,9 +71,39 @@ const MediaDisplay = ({
 		window.location.href = "/";
 	};
 
+	const canStartSession =
+		phase === "waiting" && Boolean(currentUserId) && currentUserId === hostId;
+
 	const answerValue = useQuizSessionStore(
 		(state) => state.quizSessionData.answerValue,
 	);
+
+	const handleSessionStart = async () => {
+		if (!canStartSession || !currentUserId || isStarting) {
+			return;
+		}
+
+		setIsStarting(true);
+		setStartError(null);
+
+		try {
+			const response = await fetch(`${API}/game-session/${sessionId}/start`, {
+				method: "PATCH",
+				headers: {
+					"Content-Type": "application/json",
+				},
+				body: JSON.stringify({ userId: currentUserId }),
+			});
+
+			if (!response.ok) {
+				throw new Error(`${response.status}`);
+			}
+		} catch {
+			setStartError(t("quiz_session.errors.start"));
+		} finally {
+			setIsStarting(false);
+		}
+	};
 
 	if (!mediaUrl) {
 		return (
@@ -105,6 +144,23 @@ const MediaDisplay = ({
 							<p className="text-(--text-secondary) text-xl uppercase tracking-wide">
 								{t("quiz_session.status.all_players_ready")}
 							</p>
+						)}
+						{canStartSession && (
+							<div className="flex flex-col items-center gap-3 pt-3">
+								<button
+									type="button"
+									onClick={handleSessionStart}
+									disabled={isStarting}
+									className="min-w-44 rounded-full border border-(--accent-light) bg-linear-to-r from-(--accent) to-(--accent-dark) px-6 py-3 text-sm font-black uppercase tracking-[0.22em] text-(--text) shadow-[0_0_24px_0_color-mix(in_srgb,var(--accent)_35%,transparent)] transition-all hover:border-(--accent-lighter) hover:from-(--accent-light) hover:to-(--accent) hover:cursor-pointer disabled:cursor-not-allowed disabled:opacity-60"
+								>
+									{isStarting
+										? t("quiz_session.actions.starting")
+										: t("quiz_session.actions.start")}
+								</button>
+								{startError && (
+									<p className="text-sm text-(--negative)">{startError}</p>
+								)}
+							</div>
 						)}
 					</div>
 				)}

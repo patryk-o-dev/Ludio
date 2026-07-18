@@ -285,19 +285,6 @@ export class GameSessionService implements OnModuleInit {
       throw new BadRequestException('One or more players are invalid');
     }
 
-    const active = await this.prisma.gameSessionPlayer.findFirst({
-      where: {
-        userId: { in: allPlayerIds },
-        gameSession: {
-          status: { in: ['NotStarted', 'InProgress'] },
-        },
-      },
-    });
-
-    if (active) {
-      throw new BadRequestException('One of players is already in a session');
-    }
-
     const session = await this.prisma.gameSession.create({
       data: {
         hostId,
@@ -387,6 +374,7 @@ export class GameSessionService implements OnModuleInit {
 
     return {
       id: session.id,
+      hostId: session.hostId,
       status: this.toUiStatus(session.status),
       currentRuleIndex,
       rulePools: session.gameConfig.rules.map((rule, ruleIndex) => {
@@ -476,32 +464,6 @@ export class GameSessionService implements OnModuleInit {
       return this.findOne(sessionId);
     }
 
-    const updatedSession = await this.prisma.gameSession.findUnique({
-      where: { id: sessionId },
-      include: { players: true },
-    });
-
-    if (updatedSession.players.every((p) => p.status === 'Accepted')) {
-      const sessionTransition = await this.prisma.gameSession.updateMany({
-        where: {
-          id: sessionId,
-          status: 'NotStarted',
-        },
-        data: { status: 'InProgress' },
-      });
-
-      if (sessionTransition.count === 0) {
-        return this.findOne(sessionId);
-      }
-
-      await this.prisma.gameSessionPlayer.updateMany({
-        where: { gameSessionId: sessionId },
-        data: { status: 'Answering' },
-      });
-
-      this.gateway.server.to(sessionId).emit('session:ready', { sessionId });
-      await this.startQuizLoop(sessionId);
-    }
     return this.findOne(sessionId);
   }
 
@@ -602,12 +564,20 @@ export class GameSessionService implements OnModuleInit {
 
     const player = await this.prisma.gameSessionPlayer.findFirst({
       where: {
+        gameSessionId: sessionId,
         userId: userId,
       },
     });
 
-    const correct = question.answerId === answerId && player.status != 'Left';
-    const points = correct && player.status != 'Left' ? 1 : 0;
+    if (!player || player.status !== 'Answering') {
+      this.logger.warn(
+        `Ignoring answer for inactive player ${userId} in session ${sessionId}`,
+      );
+      return;
+    }
+
+    const correct = question.answerId === answerId;
+    const points = correct ? 1 : 0;
 
     await this.prisma.gameSessionPlayer.update({
       where: {
@@ -647,6 +617,76 @@ export class GameSessionService implements OnModuleInit {
       },
     });
     return players;
+  }
+
+  async startGame(sessionId: string, userId: string) {
+    const session = await this.prisma.gameSession.findUnique({
+      where: { id: sessionId },
+      select: {
+        id: true,
+        hostId: true,
+        status: true,
+        players: {
+          select: {
+            userId: true,
+            status: true,
+          },
+        },
+      },
+    });
+
+    if (!session) {
+      throw new NotFoundException('Game session not found');
+    }
+
+    if (session.hostId !== userId) {
+      throw new BadRequestException('Only the host can start the game');
+    }
+
+    if (session.status === 'Completed') {
+      throw new BadRequestException('Game session is already completed');
+    }
+
+    if (session.status === 'InProgress') {
+      return this.findState(sessionId);
+    }
+
+    const activePlayerIds = session.players
+      .filter(
+        (player) => player.userId === userId || player.status === 'Accepted',
+      )
+      .map((player) => player.userId);
+
+    if (activePlayerIds.length === 0) {
+      throw new BadRequestException(
+        'No active players available to start the game',
+      );
+    }
+
+    await this.prisma.$transaction([
+      this.prisma.gameSessionPlayer.updateMany({
+        where: {
+          gameSessionId: sessionId,
+          userId: { in: activePlayerIds },
+        },
+        data: { status: 'Answering' },
+      }),
+      this.prisma.gameSessionPlayer.deleteMany({
+        where: {
+          gameSessionId: sessionId,
+          userId: { notIn: activePlayerIds },
+        },
+      }),
+      this.prisma.gameSession.update({
+        where: { id: sessionId },
+        data: { status: 'InProgress' },
+      }),
+    ]);
+
+    await this.joinSession(sessionId);
+    await this.startQuizLoop(sessionId);
+
+    return this.findState(sessionId);
   }
 
   private async startQuizLoop(sessionId: string) {
@@ -842,14 +882,11 @@ export class GameSessionService implements OnModuleInit {
           ? null
           : startedAt + timeLimitSeconds * 1000;
 
-      const playerLeftIds = await this.prisma.gameSessionPlayer.findMany({
-        where: {
-          gameSessionId: sessionId,
-          status: 'Left',
-        },
-      });
+      const totalPlayers = session.players.filter(
+        (player) => player.status === 'Answering',
+      ).length;
 
-      const answeredUserIds = playerLeftIds.map((p) => p.userId);
+      const answeredUserIds: string[] = [];
 
       const nextLiveState: SessionLiveState = {
         phase: 'question',
@@ -865,8 +902,8 @@ export class GameSessionService implements OnModuleInit {
         expiresAt,
         summaryEndsAt: null,
         timeLimitSeconds: timeLimitSeconds ?? null,
-        totalPlayers: session.players.length,
-        answeredUserIds: answeredUserIds,
+        totalPlayers,
+        answeredUserIds,
       };
 
       await this.setStoredState(sessionId, nextLiveState);

@@ -55,4 +55,9 @@ export class GameSessionController {
   ) {
     return this.gameSessionService.respondInvitation(sessionId, userId, accept);
   }
+
+  @Patch(':id/start')
+  startGame(@Param('id') sessionId: string, @Body('userId') userId: string) {
+    return this.gameSessionService.startGame(sessionId, userId);
+  }
 }

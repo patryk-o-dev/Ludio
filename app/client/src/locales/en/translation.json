@@ -58,11 +58,16 @@
 		},
 		"actions": {
 			"join_as_player": "Join as player",
+			"start": "Start",
+			"starting": "Starting...",
 			"surrender": "Surrender",
 			"surrendering": "Surrendering...",
 			"return": "Return",
 			"select": "Select",
 			"confirm": "Confirm"
+		},
+		"errors": {
+			"start": "Failed to start the session."
 		},
 		"labels": {
 			"question": "Question",
