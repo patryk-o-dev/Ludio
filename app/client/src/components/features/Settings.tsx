@@ -4,10 +4,16 @@ import { useTranslation } from "react-i18next";
 import i18n from "../../i18n";
 import { useGSAP } from "@gsap/react";
 import gsap from "gsap";
+import { getStoredAuthUser } from "../utils/authStorage";
+
+const API = import.meta.env.VITE_API_URL;
 
 const Settings = () => {
 	const { t } = useTranslation();
 	const [showSettings, setShowSettings] = useState(false);
+	const [showStreamerLink, setShowStreamerLink] = useState(false);
+	const [copiedStreamerLink, setCopiedStreamerLink] = useState(false);
+	const [communityLink, setCommunityLink] = useState<string>("");
 	const settingsContainerRef = useRef<HTMLDivElement>(null);
 	const settingsIconRef = useRef<HTMLDivElement>(null);
 	const spinTweenRef = useRef<gsap.core.Tween | null>(null);
@@ -37,7 +43,7 @@ const Settings = () => {
 
 			spinTweenRef.current = gsap.to(settingsIconRef.current, {
 				rotation: "+=360",
-				duration: 7,
+				duration: 9,
 				ease: "none",
 				repeat: -1,
 			});
@@ -57,6 +63,26 @@ const Settings = () => {
 			spinTweenRef.current?.kill();
 		};
 	}, [showSettings]);
+
+	const handleStreamerLinkClick = async () => {
+		const authUser = getStoredAuthUser();
+		const response = await fetch(`${API}/community`, {
+			method: "POST",
+			headers: {
+				"Content-Type": "application/json",
+			},
+			body: JSON.stringify({ ownerId: authUser?.id }),
+		});
+		const link = await response.text();
+		setShowStreamerLink(!showStreamerLink);
+		setCommunityLink(link);
+	};
+
+	const handleCopyLink = () => {
+		navigator.clipboard.writeText(communityLink);
+		setCopiedStreamerLink(true);
+		setTimeout(() => setCopiedStreamerLink(false), 2000);
+	};
 
 	return (
 		<div
@@ -116,6 +142,52 @@ const Settings = () => {
 								/>
 								PL
 							</button>
+						</li>
+						<li className="flex flex-row flex-wrap gap-2 w-full items-center justify-center">
+							<h5 className="flex gap-2 justify-center w-full text-center uppercase font-medium drop-shadow-xs drop-shadow-zinc-800 tracking-wider">
+								{t("settings.streamerMode")}
+								<Icons
+									name="twitch"
+									size={24}
+									color={showStreamerLink ? "twitch" : "text"}
+									isAddon={false}
+								/>
+							</h5>
+							<div className="flex flex-row items-center justify-around gap-2 w-full">
+								<label className="inline-flex items-center justify-center cursor-pointer relative">
+									<input
+										type="checkbox"
+										checked={showStreamerLink}
+										onChange={handleStreamerLinkClick}
+										className="sr-only peer"
+										value=""
+									/>
+									<div className="group peer bg-(--bgc-quaternary) rounded-full duration-300 w-12 h-5 ring-2 ring-(--text) after:duration-300 after:bg-(--text) peer-checked:after:bg-(--accent) peer-checked:ring-(--accent) after:rounded-full after:absolute after:h-3 after:w-4 after:top-1 after:left-1 after:flex after:justify-center after:items-center peer-checked:after:translate-x-6 peer-hover:after:scale-95"></div>
+								</label>
+							</div>
+
+							{showStreamerLink && (
+								<button
+									onClick={handleCopyLink}
+									className="flex w-full mt-2 text-center border border-(--accent) bg-(--bgc-primary) p-2 rounded-lg hover:bg-(--accent-darker)/25 hover:cursor-pointer transform transition-all duration-200"
+								>
+									<span className="min-w-0 truncate text-(--text-secondary) text-sm font-light">
+										{copiedStreamerLink ? (
+											<div className="flex items-center justify-center gap-1 text-(--positive)">
+												{t("copied")}
+												<Icons
+													name="circleCheck"
+													size={16}
+													color="positive"
+													isAddon={false}
+												/>
+											</div>
+										) : (
+											communityLink
+										)}
+									</span>
+								</button>
+							)}
 						</li>
 					</ul>
 				</div>

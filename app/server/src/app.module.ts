@@ -8,6 +8,7 @@ import { GameSessionModule } from './game-session/game-session.module';
 import { PrismaModule } from './prisma/prisma.module';
 import { RedisModule } from './redis/redis.module';
 import { UserModule } from './user/user.module';
+import { CommunityModule } from './community/community.module';
 
 @Module({
   imports: [
@@ -18,6 +19,7 @@ import { UserModule } from './user/user.module';
     GameSessionModule,
     RedisModule,
     UserModule,
+    CommunityModule,
   ],
   controllers: [AppController],
   providers: [AppService],

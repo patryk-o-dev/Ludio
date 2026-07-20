@@ -29,6 +29,11 @@ enum InviteStatus {
   BLOCKED
 }
 
+enum GameSessionType {
+  PRIVATE
+  COMMUNITY
+}
+
 model User {
   id                  String        @id @default(uuid())
   username            String        @db.VarChar(64)
@@ -40,8 +45,11 @@ model User {
   sentFriendships     Friendship[]  @relation("InviteFrom")
   receivedFriendships Friendship[]  @relation("InviteTo")
 
-  sessions    GameSessionPlayer[]
-  questions   Question[]
+  ownedCommunity      Community?
+  communities         CommunityMember[]
+
+  sessions            GameSessionPlayer[]
+  questions           Question[]
 }
 
 model Friendship {
@@ -73,6 +81,7 @@ model GameSession {
   status       GameSessionStatus  @default(NotStarted)
   qIndex       Int                @default(0)
   hostId       String
+  type         GameSessionType    @default(PRIVATE)
   startedAt    DateTime           @default(now())
   endedAt      DateTime?
 
@@ -183,3 +192,28 @@ model Answer {
   questions Question[]
 }
 
+model Community {
+  id           String        @id @default(uuid())
+
+  ownerId      String        @unique
+  owner        User          @relation(fields: [ownerId], references: [id])
+  members      CommunityMember[]
+
+  createdAt    DateTime      @default(now())
+}
+
+model CommunityMember {
+  communityId String
+  userId      String
+
+  joinedAt    DateTime @default(now())
+
+  points      Int @default(0)
+
+  gamesPlayed Int @default(0)
+
+  community   Community @relation(fields: [communityId], references: [id])
+  user        User      @relation(fields: [userId], references: [id])
+
+  @@id([communityId, userId])
+}

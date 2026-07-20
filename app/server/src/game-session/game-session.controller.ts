@@ -34,11 +34,6 @@ export class GameSessionController {
     return this.gameSessionService.playerSurrender(userId, sessionId);
   }
 
-  @Get(':id/players')
-  getPlayers(@Param('id') sessionId: string) {
-    return this.gameSessionService.getPlayers(sessionId);
-  }
-
   @Patch(':id/accept')
   acceptInvitation(
     @Param('id') sessionId: string,

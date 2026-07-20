@@ -30,3 +30,8 @@
 .negative {
 	color: var(--negative);
 }
+
+.twitch {
+	color: var(--twitch);
+	transition: color 0.3s ease-in-out;
+}

@@ -626,7 +626,6 @@ type IconsProps = {
 
 const Icons = ({ name, color, size = 24, isAddon }: IconsProps) => {
 	const Icon = iconsMap[name];
-	console.log("Icons got name:", name);
 
 	if (!Icon) return null;
 

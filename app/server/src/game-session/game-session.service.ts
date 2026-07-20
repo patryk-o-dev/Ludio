@@ -260,13 +260,38 @@ export class GameSessionService implements OnModuleInit {
   }
 
   async create(dto: CreateGameSessionDto) {
-    const hostId = dto.hostId;
+    const type = dto.type;
+
+    const host = await this.prisma.user.findUnique({
+      where: {
+        id: dto.hostId,
+      },
+      include: {
+        ownedCommunity: {
+          include: {
+            members: true,
+          },
+        },
+      },
+    });
+    if (!host) {
+      throw new NotFoundException('Host not found');
+    }
+    const hostId = host.id;
+    const hostCommunityMembersIds =
+      host.ownedCommunity.members.map((m) => m.userId) || [];
 
     if (!hostId) {
       throw new BadRequestException('Host ID is required');
     }
 
-    const allPlayerIds = [...new Set([hostId, ...dto.playerIds])];
+    let allPlayerIds;
+
+    if (type === 'COMMUNITY') {
+      allPlayerIds = [...new Set([hostId, ...hostCommunityMembersIds])];
+    } else if (type === 'PRIVATE') {
+      allPlayerIds = [...new Set([hostId, ...dto.playerIds])];
+    }
 
     const gameConfig = await this.prisma.gameConfig.findUnique({
       where: { id: dto.gameConfigId },
@@ -294,6 +319,7 @@ export class GameSessionService implements OnModuleInit {
         players: {
           create: allPlayerIds.map((userId) => ({ userId })),
         },
+        type: type,
       },
       include: {
         gameConfig: {
@@ -607,16 +633,6 @@ export class GameSessionService implements OnModuleInit {
     if (answeredUserIds.length >= liveState.totalPlayers) {
       await this.finishQuestion(sessionId, this.summaryTimeSeconds);
     }
-  }
-
-  async getPlayers(sessionId: string) {
-    const players = await this.prisma.gameSessionPlayer.findMany({
-      where: { gameSessionId: sessionId },
-      include: {
-        user: true,
-      },
-    });
-    return players;
   }
 
   async startGame(sessionId: string, userId: string) {

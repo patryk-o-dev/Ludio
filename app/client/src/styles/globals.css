@@ -12,14 +12,15 @@
 	--text-secondary: #818181;
 	--positive: #37ff8b;
 	--negative: #f25757;
-	--info: #59A5D8;
-	--info-dark: #386FA4;
-	--info-light: #92DCE5;
+	--info: #59a5d8;
+	--info-dark: #386fa4;
+	--info-light: #92dce5;
 	--font-nunito: "Nunito", sans-serif;
 
 	--gaming: #f5a65b;
 	--watching: #7ea2aa;
 	--league: #c4a15b;
+	--twitch: #9146ff;
 }
 
 @font-face {

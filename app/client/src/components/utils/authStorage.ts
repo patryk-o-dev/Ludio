@@ -7,6 +7,7 @@ export type AuthUser = {
 };
 
 const AUTH_USER_STORAGE_KEY = "quizapp.auth.user";
+const POST_LOGIN_REDIRECT_STORAGE_KEY = "quizapp.auth.post_login_redirect";
 
 export const getStoredAuthUser = (): AuthUser | null => {
 	const storedValue = window.localStorage.getItem(AUTH_USER_STORAGE_KEY);
@@ -29,4 +30,16 @@ export const setStoredAuthUser = (user: AuthUser) => {
 
 export const clearStoredAuthUser = () => {
 	window.localStorage.removeItem(AUTH_USER_STORAGE_KEY);
+};
+
+export const getPostLoginRedirectPath = (): string | null => {
+	return window.localStorage.getItem(POST_LOGIN_REDIRECT_STORAGE_KEY);
+};
+
+export const setPostLoginRedirectPath = (path: string) => {
+	window.localStorage.setItem(POST_LOGIN_REDIRECT_STORAGE_KEY, path);
+};
+
+export const clearPostLoginRedirectPath = () => {
+	window.localStorage.removeItem(POST_LOGIN_REDIRECT_STORAGE_KEY);
 };

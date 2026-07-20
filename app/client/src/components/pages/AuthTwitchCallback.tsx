@@ -1,6 +1,11 @@
 import { useEffect } from "react";
 import { useNavigate, useSearchParams } from "react-router-dom";
-import { setStoredAuthUser, type AuthUser } from "../utils/authStorage";
+import {
+	clearPostLoginRedirectPath,
+	getPostLoginRedirectPath,
+	setStoredAuthUser,
+	type AuthUser,
+} from "../utils/authStorage";
 
 const AuthTwitchCallback = () => {
 	const navigate = useNavigate();
@@ -31,7 +36,10 @@ const AuthTwitchCallback = () => {
 		};
 
 		setStoredAuthUser(user);
-		navigate("/", { replace: true });
+
+		const redirectPath = getPostLoginRedirectPath();
+		clearPostLoginRedirectPath();
+		navigate(redirectPath || "/", { replace: true });
 	}, [navigate, searchParams, status]);
 
 	return (

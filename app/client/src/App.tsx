@@ -8,6 +8,7 @@ function App() {
 		<>
 			<Routes>
 				<Route path="/" element={<Index />} />
+				<Route path="/community/join" element={<Index />} />
 				<Route path="/auth/twitch/callback" element={<AuthTwitchCallback />} />
 				<Route path="/session/:id" element={<QuizSession />} />
 			</Routes>

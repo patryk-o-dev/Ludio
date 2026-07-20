@@ -1,5 +1,10 @@
 import { IsString, IsUUID } from 'class-validator';
 
+export enum CreateGameSessionType {
+  PRIVATE = 'PRIVATE',
+  COMMUNITY = 'COMMUNITY',
+}
+
 export class CreateGameSessionDto {
   @IsUUID()
   gameConfigId: string;
@@ -9,4 +14,7 @@ export class CreateGameSessionDto {
 
   @IsString()
   hostId: string;
+
+  @IsString()
+  type: CreateGameSessionType;
 }

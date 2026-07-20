@@ -124,6 +124,7 @@
 		"only_pick": "Tylko picki"
 	},
 	"settings": {
-		"language": "Język"
+		"language": "Język",
+		"streamerMode": "Społeczność"
 	}
 }
