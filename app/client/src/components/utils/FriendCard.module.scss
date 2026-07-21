@@ -1,0 +1,26 @@
+.friendRequest {
+  padding: 16px;
+	padding-top: 32px;
+	border: 1px solid var(--accent);
+}
+
+.sessionInvite {
+	padding: 16px;
+	padding-top: 32px;
+	border: 1px solid var(--accent);
+}
+
+.friend {
+	padding: 16px;
+	border: 1px solid var(--bgc-quaternary);
+}
+
+.communityMember {
+	padding: 16px;
+	border: 1px solid var(--bgc-quaternary);
+}
+
+.banned {
+	padding: 16px;
+	border: 1px solid transparent;
+}

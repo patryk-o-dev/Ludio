@@ -2,6 +2,7 @@ import FriendCard from "../utils/FriendCard";
 import addFriendIcon from "../../assets/icons/add-friend.png";
 import { useEffect, useRef, useState } from "react";
 import { useNavigate } from "react-router-dom";
+import ding from "../../assets/sounds/ding.mp3";
 import type { SessionInvite, User } from "../../types";
 import { getStoredAuthUser } from "../utils/authStorage";
 import { io } from "socket.io-client";
@@ -9,6 +10,7 @@ import Popup from "../utils/Popup";
 import { useGSAP } from "@gsap/react";
 import gsap from "gsap";
 import { useTranslation } from "react-i18next";
+import FriendGroup from "../layout/FriendGroup";
 
 const FriendsList = () => {
 	const navigate = useNavigate();
@@ -19,7 +21,7 @@ const FriendsList = () => {
 	const [friends, setFriends] = useState<User[]>([]);
 	const [friendRequests, setFriendRequests] = useState<User[]>([]);
 	const [sessionInvites, setSessionInvites] = useState<SessionInvite[]>([]);
-	const [mySessions, setMySessions] = useState<SessionInvite[]>([]);
+	// const [mySessions, setMySessions] = useState<SessionInvite[]>([]);
 	const userId = getStoredAuthUser()?.id ?? null;
 	const { t } = useTranslation();
 
@@ -49,6 +51,13 @@ const FriendsList = () => {
 		}, 3000);
 	};
 
+	const unlockAudio = async () => {
+		const audio = new Audio(ding);
+		audio.play();
+		audio.muted = false;
+		localStorage.setItem("audioUnlocked", "true");
+	};
+
 	const handleSessionInviteResponse = async (
 		sessionId: string,
 		accept: boolean,
@@ -56,6 +65,7 @@ const FriendsList = () => {
 		if (!userId) {
 			return;
 		}
+		unlockAudio();
 
 		const response = await fetch(`${API}/game-session/${sessionId}/respond`, {
 			method: "PATCH",
@@ -93,15 +103,14 @@ const FriendsList = () => {
 				setFriendRequests(data);
 			}
 		};
-		const fetchMySessions = async () => {
-			const response = await fetch(`${API}/user/${userId}/sessions`);
-			const data = await response.json();
-			console.log("data: " + data);
-			setMySessions(data);
-		};
+		// const fetchMySessions = async () => {
+		// 	const response = await fetch(`${API}/user/${userId}/sessions`);
+		// 	const data = await response.json();
+		// 	setMySessions(data);
+		// };
 		fetchFriendRequests();
 		fetchFriends();
-		fetchMySessions();
+		// fetchMySessions();
 	}, [userId, API]);
 
 	useEffect(() => {
@@ -146,15 +155,34 @@ const FriendsList = () => {
 			Boolean(entry.sessionInvite),
 		);
 
-	const regularFriends = friends.filter(
-		(friend) => !sessionInvites.some((invite) => invite.hostId === friend.id),
+	const sessionInviteCards = invitedFriends.map(
+		({ friend, sessionInvite }) => ({
+			key: `invite-${friend.id}`,
+			name: friend.displayName,
+			avatarUrl: friend.avatarUrl ?? undefined,
+			metaLabel: friend.twitchId ?? t("no_twitch_id"),
+			friendId: friend.id,
+			sessionInvite,
+		}),
 	);
 
-	const getFriendAvatar = (sessionId: string) => {
-		const session = mySessions.find((s) => s.sessionId === sessionId);
-		const sessionFriend = friends.find((f) => f.id === session?.hostId);
-		return sessionFriend;
-	};
+	const friendRequestCards = friendRequests.map((request) => ({
+		key: request.id,
+		name: request.displayName,
+		avatarUrl: request.avatarUrl,
+		metaLabel: request.twitchId ?? t("no_twitch_id"),
+		friendId: request.id,
+	}));
+
+	const communityCards: User[] = [];
+	const friendCards = friends.map((friend) => ({
+		key: friend.id,
+		name: friend.displayName,
+		avatarUrl: friend.avatarUrl ?? undefined,
+		metaLabel: friend.twitchId ?? t("no_twitch_id"),
+		friendId: friend.id,
+	}));
+	const bannedCards: User[] = [];
 
 	const searchFormRef = useRef<HTMLFormElement>(null);
 
@@ -183,7 +211,7 @@ const FriendsList = () => {
 					duration: 0.5,
 				})
 				.to(searchFormRef.current, {
-					borderBottomColor: "var(--text-secondary)",
+					borderBottomColor: "var(--accent-dark)",
 					duration: 1,
 				});
 		} else {
@@ -200,10 +228,12 @@ const FriendsList = () => {
 		}
 	}, [searchFriendInput]);
 
+	// friends - friendRequest, sessionInvites, friendInfo
+
 	return (
-		<div className="p-2 scrollbar-thin overflow-auto h-full">
+		<div className="scrollbar-thin overflow-auto h-full">
 			{inviteSent && <Popup value={t("invite_sent")} />}
-			<div className="flex flex-wrap items-center justify-between mb-4">
+			<div className="flex flex-wrap items-center justify-between mb-4 p-2">
 				<p className="text-(--text) font-bold text-md uppercase">
 					{t("friends")}
 				</p>
@@ -229,79 +259,97 @@ const FriendsList = () => {
 					<button type="submit" className="hidden" />
 				</form>
 			</div>
-			<div className="space-y-2">
-				{friendRequests.map((request) => (
-					<FriendCard
-						key={request.id}
-						userId={userId ?? undefined}
-						friendId={request.id}
-						name={request.displayName}
-						avatarUrl={request.avatarUrl}
-						metaLabel={request.twitchId ?? t("no_twitch_id")}
-						request={true}
-						status={request.status ?? "offline"}
-					/>
-				))}
-			</div>
-			{invitedFriends.length > 0 && (
-				<div className="mb-4">
-					<div className="flex items-center justify-between mb-2">
-						<p className="text-(--accent) font-bold text-xs uppercase tracking-[0.18em]">
-							{t("session_invites")}
-						</p>
-						<span className="px-2 py-1 rounded-full bg-(--accent)/15 text-(--accent) text-[10px] font-bold">
-							{invitedFriends.length}
-						</span>
-					</div>
-					<div className="space-y-2">
-						{invitedFriends.map(({ friend, sessionInvite }) => (
-							<FriendCard
-								key={`invite-${friend.id}`}
-								name={friend.displayName}
-								avatarUrl={friend.avatarUrl ?? undefined}
-								metaLabel={friend.twitchId ?? t("no_twitch_id")}
-								status={friend.status ?? "offline"}
-								userId={userId ?? undefined}
-								friendId={friend.id}
-								sessionInvite={sessionInvite}
-								onSessionInviteResponse={(accept) =>
-									handleSessionInviteResponse(sessionInvite.sessionId, accept)
-								}
-							/>
-						))}
+			{userId && (
+				<div className="">
+					<div>
+						{sessionInviteCards.length > 0 && (
+							<FriendGroup name={t("session_invites")}>
+								{sessionInviteCards.map((invite) => (
+									<FriendCard
+										key={invite.key}
+										name={invite.name}
+										avatarUrl={invite.avatarUrl}
+										metaLabel={invite.metaLabel}
+										userId={userId ?? undefined}
+										friendId={invite.friendId}
+										sessionInvite={invite.sessionInvite}
+										variant="sessionInvite"
+										onSessionInviteResponse={(accept) =>
+											handleSessionInviteResponse(
+												invite.sessionInvite.sessionId,
+												accept,
+											)
+										}
+									/>
+								))}
+							</FriendGroup>
+						)}
+						{friendRequestCards.length > 0 && (
+							<FriendGroup name={t("friend_requests")}>
+								{friendRequestCards.map((request) => (
+									<FriendCard
+										key={request.key}
+										userId={userId ?? undefined}
+										friendId={request.friendId}
+										name={request.name}
+										avatarUrl={request.avatarUrl}
+										metaLabel={request.metaLabel}
+										request={true}
+										variant="friendRequest"
+									/>
+								))}
+							</FriendGroup>
+						)}
+						{communityCards.length > 0 && (
+							<FriendGroup name={t("communities")}>
+								{communityCards.map((member) => (
+									<FriendCard
+										key={member.id}
+										name={member.displayName}
+										avatarUrl={member.avatarUrl}
+										metaLabel={member.twitchId ?? t("no_twitch_id")}
+										userId={userId}
+										friendId={member.id}
+										variant="communityMember"
+									/>
+								))}
+							</FriendGroup>
+						)}
+						{friendCards.length > 0 && (
+							<FriendGroup name={t("friends")}>
+								{friendCards.map((friend) => (
+									<FriendCard
+										key={friend.key}
+										name={friend.name}
+										avatarUrl={friend.avatarUrl}
+										metaLabel={friend.metaLabel}
+										userId={userId ?? undefined}
+										friendId={friend.friendId}
+										variant="friend"
+									/>
+								))}
+							</FriendGroup>
+						)}
+						{bannedCards.length > 0 && (
+							<FriendGroup name={t("banned")}>
+								{bannedCards.map((member) => (
+									<FriendCard
+										key={member.id}
+										name={member.displayName}
+										avatarUrl={member.avatarUrl}
+										metaLabel={member.twitchId ?? t("no_twitch_id")}
+										userId={userId}
+										friendId={member.id}
+										variant="banned"
+									/>
+								))}
+							</FriendGroup>
+						)}
 					</div>
 				</div>
 			)}
-			<div className="space-y-2">
-				{regularFriends.map((friend) => (
-					<FriendCard
-						key={friend.id}
-						name={friend.displayName}
-						avatarUrl={friend.avatarUrl ?? undefined}
-						metaLabel={friend.twitchId ?? t("no_twitch_id")}
-						status={friend.status ?? "offline"}
-						userId={userId ?? undefined}
-						friendId={friend.id}
-					/>
-				))}
-			</div>
-			<div className="space-y-2">
-				{mySessions.map((session) => (
-					<FriendCard
-						key={session.sessionId}
-						status={undefined}
-						metaLabel={
-							getFriendAvatar(session.sessionId)?.twitchId ?? t("no_twitch_id")
-						}
-						friendId={session.hostId}
-						sessionInvite={session}
-						onSessionInviteResponse={(accept) =>
-							handleSessionInviteResponse(session.sessionId, accept)
-						}
-						avatarUrl={getFriendAvatar(session.sessionId)?.avatarUrl}
-					/>
-				))}
-			</div>
+			<div className="space-y-2"></div>
+			<div className="space-y-2"></div>
 		</div>
 	);
 };

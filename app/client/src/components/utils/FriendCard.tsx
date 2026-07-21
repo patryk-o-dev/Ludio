@@ -1,46 +1,38 @@
 import { useRef, useState } from "react";
 import useGameConfigStore from "../../store/gameConfigStore";
 import type { SessionInvite } from "../../types";
-import ding from "../../assets/sounds/ding.mp3";
 import Icons from "./Icons/Icons";
+import style from "./FriendCard.module.scss";
 import { useGSAP } from "@gsap/react";
 import gsap from "gsap";
 import { useTranslation } from "react-i18next";
 
-type FriendStatus = "online" | "offline";
-
-const STATUS_LABEL_KEY: Record<FriendStatus, string> = {
-	online: "status.online",
-	offline: "status.offline",
-};
-
-const STATUS_COLOR: Record<FriendStatus, string> = {
-	online: "text-(--positive)",
-	offline: "text-(--text-secondary)",
-};
-
 interface FriendCardProps {
 	name?: string;
-	status?: FriendStatus;
 	metaLabel?: string;
+	variant?:
+		| "friendRequest"
+		| "sessionInvite"
+		| "friend"
+		| "communityMember"
+		| "banned";
 	request?: boolean;
 	userId?: string;
 	friendId?: string;
 	avatarUrl?: string;
 	sessionInvite?: SessionInvite;
 	onSessionInviteResponse?: (accept: boolean) => Promise<void>;
+	onActiveSessionOpen?: () => void;
 }
 
 const FriendCard = ({
 	name = "FriendName",
-	status = "offline",
 	metaLabel,
-	request = false,
 	userId,
 	friendId,
 	avatarUrl,
-	sessionInvite,
 	onSessionInviteResponse,
+	variant,
 }: FriendCardProps) => {
 	const API = import.meta.env.VITE_API_URL;
 	const { t } = useTranslation();
@@ -50,13 +42,16 @@ const FriendCard = ({
 	const [iconName, setIconName] = useState<"pluscircle" | "cancel">(
 		"pluscircle",
 	);
-	const [actionPending, setActionPending] = useState(false);
-	const [actionError, setActionError] = useState<string | null>(null);
-	const hasSessionInvite = !request && Boolean(sessionInvite);
-	const secondaryLabel = metaLabel ?? t(STATUS_LABEL_KEY[status]);
-	const secondaryLabelClass = metaLabel
-		? "text-(--text-secondary)"
-		: STATUS_COLOR[status];
+	const secondaryLabel = metaLabel;
+	const secondaryLabelClass = metaLabel ? "text-(--text-secondary)" : "";
+	const variantClassName = variant ? style[variant] : "";
+	const infoPlateLabel =
+		variant === "sessionInvite"
+			? t("session_invite")
+			: variant === "friendRequest"
+				? t("friend_request")
+				: null;
+
 	const buttonRef = useRef<HTMLButtonElement>(null);
 	const [animateButton, setAnimateButton] = useState(false);
 
@@ -89,51 +84,15 @@ const FriendCard = ({
 			});
 	}, [playerAdded]);
 
-	const handleFriendRequestResponse = async (accept: boolean) => {
-		await fetch(`${API}/user/${userId}/friendship/${friendId}/respond`, {
-			method: "POST",
-			headers: {
-				"Content-Type": "application/json",
-			},
-			body: JSON.stringify({ accept }),
-		});
-	};
-
-	const handleAction = async (accept: boolean) => {
-		setActionPending(true);
-		setActionError(null);
-
-		const audio = new Audio(ding);
-		audio.play();
-		audio.muted = false;
-		localStorage.setItem("audioUnlocked", "true");
-		try {
-			if (request) {
-				await handleFriendRequestResponse(accept);
-				window.location.reload();
-				return;
-			}
-
-			if (hasSessionInvite && onSessionInviteResponse) {
-				await onSessionInviteResponse(accept);
-			}
-		} catch {
-			setActionError(t("common.action_failed_retry"));
-		} finally {
-			setActionPending(false);
-		}
-	};
-
 	const handleAddPlayer = () => {
 		const nextState = !playerAdded;
 
 		if (!playerAdded) {
-			addPlayer({ id: friendId || "", displayName: name, status, avatarUrl });
+			addPlayer({ id: friendId || "", displayName: name, avatarUrl });
 		} else {
 			removePlayer({
 				id: friendId || "",
 				displayName: name,
-				status,
 				avatarUrl,
 			});
 		}
@@ -146,11 +105,25 @@ const FriendCard = ({
 		}, 600);
 	};
 
+	const handleFriendRequestResponse = async (accept: boolean) => {
+		await fetch(`${API}/user/${userId}/friendship/${friendId}/respond`, {
+			method: "POST",
+			headers: {
+				"Content-Type": "application/json",
+			},
+			body: JSON.stringify({ accept }),
+		});
+	};
+
 	return (
 		<div
-			className="flex items-center relative overflow-hidden justify-between gap-3 p-4 bg-(--bgc-tertiary) rounded-lg border border-transparent transition-colors data-[invite=true]:border-(--accent)/60 data-[invite=true]:bg-(--bgc-secondary)"
-			data-invite={hasSessionInvite}
+			className={`${variantClassName} flex items-center relative overflow-hidden justify-between gap-3 bg-(--bgc-tertiary) rounded-lg transition-colors`}
 		>
+			{infoPlateLabel && (
+				<div className="absolute top-1 left-4 z-10 rounded-full border border-(--accent) bg-(--bgc-secondary) px-3 py-1 text-[10px] font-semibold uppercase tracking-[0.14em] text-(--accent) shadow-[0_8px_24px_rgba(0,0,0,0.18)] backdrop-blur-sm">
+					{infoPlateLabel}
+				</div>
+			)}
 			<div className="flex items-center min-w-0 flex-1">
 				<img
 					className="w-12 h-12 rounded-full shrink-0"
@@ -160,77 +133,55 @@ const FriendCard = ({
 				<div className="flex-1 mx-4 min-w-0">
 					<div className="flex items-center gap-2 min-w-0">
 						<p className="text-(--text) font-medium truncate">{name}</p>
-						{hasSessionInvite && (
-							<span className="px-2 py-1 rounded-full bg-(--accent)/15 text-(--accent) text-[10px] font-bold uppercase tracking-[0.18em] shrink-0">
-								{t("session_invite")}
-							</span>
-						)}
 					</div>
 					<div className="flex items-center gap-2 flex-wrap">
 						<span className={`text-sm ${secondaryLabelClass}`}>
 							{t("profile.id_label")}: {secondaryLabel}
 						</span>
-						{hasSessionInvite && (
-							<span className="text-xs text-(--text-secondary)">
-								{t("pending_session_invite")}
-							</span>
-						)}
 					</div>
-					{actionError && (
-						<p className="text-(--negative) text-xs mt-1">{actionError}</p>
-					)}
 				</div>
+				{variant === "friend" && (
+					<button
+						ref={buttonRef}
+						className="absolute -right-px top-0 h-full flex items-center align-middle p-1 rounded-lg bg-(--info) hover:cursor-pointer transition-colors disabled:opacity-50"
+						onClick={handleAddPlayer}
+					>
+						<Icons name={iconName} color="text" size={32} isAddon={false} />
+					</button>
+				)}
+				{variant === "sessionInvite" && (
+					<div className={`absolute flex -right-px top-0 h-full w-full`}>
+						<button
+							className="absolute right-0 top-0 h-[50%] flex items-center align-middle p-1 rounded-lg rounded-b-none bg-(--positive-dark) hover:cursor-pointer transition-colors disabled:opacity-50"
+							onClick={() => onSessionInviteResponse?.(true)}
+						>
+							<Icons name="pluscircle" color="text" size={32} isAddon={false} />
+						</button>
+						<button
+							className="absolute right-0 top-[50%] h-[50%] flex items-center align-middle p-1 rounded-lg rounded-t-none bg-(--negative-dark) hover:cursor-pointer transition-colors disabled:opacity-50"
+							onClick={() => onSessionInviteResponse?.(false)}
+						>
+							<Icons name="cancel" color="text" size={32} isAddon={false} />
+						</button>
+					</div>
+				)}
+				{variant === "friendRequest" && (
+					<div className={`absolute flex -right-px top-0 h-full w-full`}>
+						<button
+							className="absolute right-0 top-0 h-[50%] flex items-center align-middle p-1 rounded-lg rounded-b-none bg-(--positive-dark) hover:cursor-pointer transition-colors disabled:opacity-50"
+							onClick={() => handleFriendRequestResponse(true)}
+						>
+							<Icons name="pluscircle" color="text" size={32} isAddon={false} />
+						</button>
+						<button
+							className="absolute right-0 top-[50%] h-[50%] flex items-center align-middle p-1 rounded-lg rounded-t-none bg-(--negative-dark) hover:cursor-pointer transition-colors disabled:opacity-50"
+							onClick={() => handleFriendRequestResponse(false)}
+						>
+							<Icons name="cancel" color="text" size={32} isAddon={false} />
+						</button>
+					</div>
+				)}
 			</div>
-			{request && (
-				<div className="flex space-x-2 shrink-0">
-					<button
-						className="p-2 border-2 border-(--positive) rounded-lg hover:cursor-pointer hover:bg-(--positive)/15 disabled:opacity-50"
-						disabled={actionPending}
-						onClick={() => void handleAction(true)}
-					>
-						<Icons
-							name="circleCheck"
-							color="positive"
-							size={24}
-							isAddon={false}
-						/>
-					</button>
-					<button
-						className="p-2 border-2 border-(--negative) rounded-lg hover:cursor-pointer hover:bg-(--negative)/15 disabled:opacity-50"
-						disabled={actionPending}
-						onClick={() => void handleAction(false)}
-					>
-						<Icons name="circleX" color="negative" size={24} isAddon={false} />
-					</button>
-				</div>
-			)}
-			{hasSessionInvite && (
-				<div className="flex items-center gap-2 shrink-0">
-					<button
-						className="h-8 px-2 py-1 bg-(--accent) text-(--text) text-xs font-semibold uppercase tracking-[0.16em] rounded-lg hover:bg-(--accent-light) disabled:opacity-50"
-						disabled={actionPending}
-						onClick={() => void handleAction(true)}
-					>
-						{t("join")}
-					</button>
-					<button
-						className="h-8 p-1 bg-(--negative) rounded-lg disabled:opacity-50"
-						disabled={actionPending}
-						onClick={() => void handleAction(false)}
-					>
-						<Icons name="cancel" color="text" size={24} isAddon={false} />
-					</button>
-				</div>
-			)}
-			{!request && !hasSessionInvite && (
-				<button
-					ref={buttonRef}
-					className="absolute right-0 top-0 h-full flex items-center align-middle p-1 rounded-lg bg-(--info) hover:cursor-pointer transition-colors disabled:opacity-50"
-					onClick={handleAddPlayer}
-				>
-					<Icons name={iconName} color="text" size={32} isAddon={false} />
-				</button>
-			)}
 		</div>
 	);
 };
