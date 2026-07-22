@@ -7,6 +7,6 @@ export class UserSocketGateway {
   server: Server;
 
   notifyUser(userId: string) {
-    this.server.to(userId).emit('friend-request-created');
+    this.server.to(userId).emit('friendship-updated');
   }
 }

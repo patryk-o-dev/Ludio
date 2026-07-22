@@ -77,13 +77,14 @@ const QuizSession = () => {
 			);
 		});
 
-		newSocket.on("session:summary", (live: LiveSessionState) => {
+		newSocket.on("session:summary", (data) => {
 			setSession((current) =>
 				current
 					? {
 							...current,
-							currentRuleIndex: live.currentRuleIndex,
-							live,
+							players: data.players,
+							currentRuleIndex: data.currentRuleIndex,
+							live: data,
 						}
 					: current,
 			);
@@ -124,6 +125,13 @@ const QuizSession = () => {
 							: current,
 					);
 				}
+				setCorrectAnswer(data.correct.value);
+			},
+		);
+
+		newSocket.on(
+			"session:question-result",
+			(data: { correct: CorrectAnswerData }) => {
 				setCorrectAnswer(data.correct.value);
 			},
 		);

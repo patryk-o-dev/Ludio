@@ -278,8 +278,11 @@ export class GameSessionService implements OnModuleInit {
       throw new NotFoundException('Host not found');
     }
     const hostId = host.id;
-    const hostCommunityMembersIds =
-      host.ownedCommunity.members.map((m) => m.userId) || [];
+    let hostCommunityMembersIds = [];
+    if (host.ownedCommunity) {
+      hostCommunityMembersIds =
+        host.ownedCommunity.members.map((m) => m.userId) || [];
+    }
 
     if (!hostId) {
       throw new BadRequestException('Host ID is required');
@@ -945,7 +948,7 @@ export class GameSessionService implements OnModuleInit {
       select: { id: true, value: true },
     });
 
-    this.gateway.server.to(sessionId).emit('session:player-answered', {
+    this.gateway.server.to(sessionId).emit('session:question-result', {
       correct: correctAnswer,
     });
 
@@ -964,7 +967,22 @@ export class GameSessionService implements OnModuleInit {
 
     await this.setStoredState(sessionId, summaryState);
 
-    this.gateway.server.to(sessionId).emit('session:summary', summaryState);
+    const players = await this.prisma.gameSessionPlayer.findMany({
+      where: { gameSessionId: sessionId },
+      include: {
+        user: {
+          select: {
+            displayName: true,
+            avatarUrl: true,
+          },
+        },
+      },
+    });
+
+    this.gateway.server.to(sessionId).emit('session:summary', {
+      ...summaryState,
+      players,
+    });
 
     this.scheduleSessionProgress(sessionId, summaryState);
   }

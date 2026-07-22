@@ -1,25 +1,9 @@
-import { useEffect, useMemo, useState } from "react";
-import type { SessionData } from "../../types";
+import { useMemo } from "react";
+import type { SessionPlayer } from "../../types";
 import { useTranslation } from "react-i18next";
 
-type RankingPlayer = {
-	userId: string;
-	score: number;
-	timeMs: number;
-	user: {
-		displayName: string;
-	};
-};
-
-const Ranking = ({ session }: { session: SessionData }) => {
-	const [players, setPlayers] = useState<RankingPlayer[]>([]);
+const Ranking = ({ players }: { players: SessionPlayer[] }) => {
 	const { t } = useTranslation();
-
-	useEffect(() => {
-		fetch(`${import.meta.env.VITE_API_URL}/game-session/${session.id}/players`)
-			.then((res) => res.json())
-			.then((data: RankingPlayer[]) => setPlayers(data));
-	}, [session.id, session.live.qIndex]);
 
 	const sortedPlayers = useMemo(() => {
 		return [...players].sort((a, b) => {

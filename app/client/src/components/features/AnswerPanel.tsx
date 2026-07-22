@@ -183,7 +183,7 @@ const AnswerPanel = ({
 				</>
 			)}
 			{(phase === "summary" || phase === "completed") && (
-				<Ranking session={session} />
+				<Ranking players={session.players} />
 			)}
 		</div>
 	);

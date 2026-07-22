@@ -21,6 +21,30 @@ export class UserService {
     if (!targetUser) {
       throw new NotFoundException('User not found');
     }
+
+    if (userId === targetUser.id) {
+      throw new BadRequestException('Cannot add yourself');
+    }
+
+    const existingFriendship = await this.prisma.friendship.findFirst({
+      where: {
+        OR: [
+          {
+            fromUserId: userId,
+            toUserId: targetUser.id,
+          },
+          {
+            fromUserId: targetUser.id,
+            toUserId: userId,
+          },
+        ],
+      },
+    });
+
+    if (existingFriendship) {
+      throw new BadRequestException('Friendship already exist');
+    }
+
     try {
       await this.prisma.friendship.create({
         data: {
@@ -46,6 +70,8 @@ export class UserService {
           status: 'ACCEPTED',
         },
       });
+      this.userSocketGateway.notifyUser(userId);
+      this.userSocketGateway.notifyUser(friendId);
     } else {
       await this.prisma.friendship.deleteMany({
         where: {
@@ -53,6 +79,8 @@ export class UserService {
           toUserId: userId,
         },
       });
+      this.userSocketGateway.notifyUser(friendId);
+      this.userSocketGateway.notifyUser(userId);
     }
   }
 

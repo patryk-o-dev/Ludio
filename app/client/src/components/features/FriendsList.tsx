@@ -132,11 +132,20 @@ const FriendsList = () => {
 			});
 		});
 
-		socket.on("friend-request-created", () => {
-			fetch(`${API}/user/${userId}/friend-requests`)
-				.then((res) => res.json())
-				.then((data) => setFriendRequests(data))
-				.catch((error) => console.error("Friend request error:", error));
+		socket.on("friendship-updated", async () => {
+			try {
+				const [friendRequests, friends] = await Promise.all([
+					fetch(`${API}/user/${userId}/friend-requests`).then((res) =>
+						res.json(),
+					),
+					fetch(`${API}/user/${userId}`).then((res) => res.json()),
+				]);
+
+				setFriendRequests(friendRequests);
+				setFriends(friends);
+			} catch (error) {
+				console.error(error);
+			}
 		});
 
 		return () => {
