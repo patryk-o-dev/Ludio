@@ -10,6 +10,8 @@ import { useTranslation } from "react-i18next";
 interface FriendCardProps {
 	name?: string;
 	metaLabel?: string;
+	points?: number;
+	rank?: number;
 	variant?:
 		| "friendRequest"
 		| "sessionInvite"
@@ -28,6 +30,8 @@ interface FriendCardProps {
 const FriendCard = ({
 	name = "FriendName",
 	metaLabel,
+	points = 0,
+	rank,
 	userId,
 	friendId,
 	avatarUrl,
@@ -115,9 +119,29 @@ const FriendCard = ({
 		});
 	};
 
+	const rankClass =
+		variant === "communityMember"
+			? rank === 1
+				? style.gold
+				: rank === 2
+					? style.silver
+					: rank === 3
+						? style.bronze
+						: style.normal
+			: "";
+
+	const rankColor =
+		rank === 1
+			? "gold"
+			: rank === 2
+				? "silver"
+				: rank === 3
+					? "bronze"
+					: "text";
+
 	return (
 		<div
-			className={`${variantClassName} flex items-center relative overflow-hidden justify-between gap-3 bg-(--bgc-tertiary) rounded-lg transition-colors`}
+			className={`${variantClassName} ${rankClass} flex items-center relative overflow-hidden justify-between gap-3 bg-(--bgc-tertiary) rounded-lg transition-colors`}
 		>
 			{infoPlateLabel && (
 				<div className="absolute top-1 left-4 z-10 rounded-full border border-(--accent) bg-(--bgc-secondary) px-3 py-1 text-[10px] font-semibold uppercase tracking-[0.14em] text-(--accent) shadow-[0_8px_24px_rgba(0,0,0,0.18)] backdrop-blur-sm">
@@ -179,6 +203,12 @@ const FriendCard = ({
 						>
 							<Icons name="cancel" color="text" size={32} isAddon={false} />
 						</button>
+					</div>
+				)}
+				{variant === "communityMember" && (
+					<div className="flex items-center gap-2 px-4">
+						<Icons name="trophy" color={rankColor} size={24} isAddon={false} />
+						<span className="font-semibold text-(--text)">{points}</span>
 					</div>
 				)}
 			</div>

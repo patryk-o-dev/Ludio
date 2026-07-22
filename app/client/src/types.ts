@@ -128,3 +128,23 @@ export type chipData = {
 	label: string;
 	color: string;
 };
+
+export type Community = {
+	id: string;
+	owner: {
+		displayName: string | null;
+		avatarUrl: string | null;
+	};
+	members: {
+		id: string;
+		displayName: string | null;
+		avatarUrl: string | null;
+		twitchId: string | null;
+		points: number;
+	}[];
+};
+
+export type CommunityMember = {
+	user: User;
+	points: number;
+};

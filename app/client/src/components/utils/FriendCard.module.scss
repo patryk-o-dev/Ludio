@@ -1,5 +1,5 @@
 .friendRequest {
-  padding: 16px;
+	padding: 16px;
 	padding-top: 32px;
 	border: 1px solid var(--accent);
 }
@@ -17,6 +17,30 @@
 
 .communityMember {
 	padding: 16px;
+}
+
+.gold {
+	border: 3px solid transparent;
+	background:
+		linear-gradient(var(--bgc-tertiary), var(--bgc-tertiary)) padding-box,
+		linear-gradient(135deg, var(--gold), var(--gold-dark)) border-box;
+}
+
+.silver {
+	border: 2px solid transparent;
+	background:
+		linear-gradient(var(--bgc-tertiary), var(--bgc-tertiary)) padding-box,
+		linear-gradient(135deg, var(--silver), var(--silver-dark)) border-box;
+}
+
+.bronze {
+	border: 1px solid transparent;
+	background:
+		linear-gradient(var(--bgc-tertiary), var(--bgc-tertiary)) padding-box,
+		linear-gradient(135deg, var(--bronze), var(--bronze-dark)) border-box;
+}
+
+.normal {
 	border: 1px solid var(--bgc-quaternary);
 }
 

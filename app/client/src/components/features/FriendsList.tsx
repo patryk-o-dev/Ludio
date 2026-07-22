@@ -3,7 +3,7 @@ import addFriendIcon from "../../assets/icons/add-friend.png";
 import { useEffect, useRef, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import ding from "../../assets/sounds/ding.mp3";
-import type { SessionInvite, User } from "../../types";
+import type { Community, SessionInvite, User } from "../../types";
 import { getStoredAuthUser } from "../utils/authStorage";
 import { io } from "socket.io-client";
 import Popup from "../utils/Popup";
@@ -11,6 +11,7 @@ import { useGSAP } from "@gsap/react";
 import gsap from "gsap";
 import { useTranslation } from "react-i18next";
 import FriendGroup from "../layout/FriendGroup";
+import fpp from "../../assets/images/friendProfilePlaceholder.png";
 
 const FriendsList = () => {
 	const navigate = useNavigate();
@@ -21,9 +22,21 @@ const FriendsList = () => {
 	const [friends, setFriends] = useState<User[]>([]);
 	const [friendRequests, setFriendRequests] = useState<User[]>([]);
 	const [sessionInvites, setSessionInvites] = useState<SessionInvite[]>([]);
-	// const [mySessions, setMySessions] = useState<SessionInvite[]>([]);
 	const userId = getStoredAuthUser()?.id ?? null;
 	const { t } = useTranslation();
+
+	const [communities, setCommunities] = useState<Community[]>([]);
+
+	useEffect(() => {
+		const fetchCommunities = async () => {
+			const response = await fetch(`${API}/community?userId=${userId}`);
+			const data = await response.json();
+
+			setCommunities(data);
+		};
+
+		fetchCommunities();
+	}, []);
 
 	const handleSendFriendRequest = async (
 		friendId: string,
@@ -103,14 +116,9 @@ const FriendsList = () => {
 				setFriendRequests(data);
 			}
 		};
-		// const fetchMySessions = async () => {
-		// 	const response = await fetch(`${API}/user/${userId}/sessions`);
-		// 	const data = await response.json();
-		// 	setMySessions(data);
-		// };
+
 		fetchFriendRequests();
 		fetchFriends();
-		// fetchMySessions();
 	}, [userId, API]);
 
 	useEffect(() => {
@@ -183,7 +191,7 @@ const FriendsList = () => {
 		friendId: request.id,
 	}));
 
-	const communityCards: User[] = [];
+	// const communityCards: User[] = [];
 	const friendCards = friends.map((friend) => ({
 		key: friend.id,
 		name: friend.displayName,
@@ -236,8 +244,6 @@ const FriendsList = () => {
 			});
 		}
 	}, [searchFriendInput]);
-
-	// friends - friendRequest, sessionInvites, friendInfo
 
 	return (
 		<div className="scrollbar-thin overflow-auto h-full">
@@ -309,21 +315,32 @@ const FriendsList = () => {
 								))}
 							</FriendGroup>
 						)}
-						{communityCards.length > 0 && (
-							<FriendGroup name={t("communities")}>
-								{communityCards.map((member) => (
-									<FriendCard
-										key={member.id}
-										name={member.displayName}
-										avatarUrl={member.avatarUrl}
-										metaLabel={member.twitchId ?? t("no_twitch_id")}
-										userId={userId}
-										friendId={member.id}
-										variant="communityMember"
-									/>
-								))}
-							</FriendGroup>
-						)}
+						{communities.map((community) => {
+							const sortedMembers = [...community.members].sort(
+								(a, b) => b.points - a.points,
+							);
+
+							return (
+								<FriendGroup
+									key={community.id}
+									name={community.owner.displayName ?? "Community"}
+								>
+									{sortedMembers.map((member, index) => (
+										<FriendCard
+											key={member.id}
+											name={member.displayName ?? "?"}
+											avatarUrl={member.avatarUrl ?? fpp}
+											metaLabel={member.twitchId ?? t("no_twitch_id")}
+											userId={userId}
+											friendId={member.id}
+											points={member.points}
+											rank={index + 1}
+											variant="communityMember"
+										/>
+									))}
+								</FriendGroup>
+							);
+						})}
 						{friendCards.length > 0 && (
 							<FriendGroup name={t("friends")}>
 								{friendCards.map((friend) => (

@@ -2,6 +2,7 @@ import { Injectable, NotFoundException } from '@nestjs/common';
 import { PrismaService } from '../prisma/prisma.service';
 import { CreateCommunityDto } from './dto/create-community.dto';
 import { JoinCommunityDto } from './dto/join-community.dto';
+import { CommunityResponseDto } from './dto/community-response.dto';
 
 @Injectable()
 export class CommunityService {
@@ -104,5 +105,46 @@ export class CommunityService {
         },
       },
     });
+  }
+
+  async getMyCommunities(userId: string): Promise<CommunityResponseDto[]> {
+    const communities = await this.prisma.community.findMany({
+      where: {
+        members: {
+          some: {
+            userId,
+          },
+        },
+      },
+      include: {
+        owner: true,
+        members: {
+          include: {
+            user: true,
+          },
+        },
+      },
+    });
+
+    return communities
+      .sort((a, b) => {
+        if (a.ownerId === userId) return -1;
+        if (b.ownerId === userId) return 1;
+        return 0;
+      })
+      .map((community) => ({
+        id: community.id,
+        owner: {
+          displayName: community.owner.displayName,
+          avatarUrl: community.owner.avatarUrl,
+        },
+        members: community.members.map((member) => ({
+          id: member.user.id,
+          displayName: member.user.displayName,
+          avatarUrl: member.user.avatarUrl,
+          twitchId: member.user.twitchId,
+          points: member.points,
+        })),
+      }));
   }
 }
