@@ -1031,6 +1031,14 @@ export class GameSessionService implements OnModuleInit {
     const players = await this.prisma.gameSessionPlayer.findMany({
       where: { gameSessionId: sessionId },
       orderBy: [{ score: 'desc' }, { timeMs: 'asc' }],
+      include: {
+        user: {
+          select: {
+            displayName: true,
+            avatarUrl: true,
+          },
+        },
+      },
     });
 
     const session = await this.prisma.gameSession.findUnique({
@@ -1070,6 +1078,8 @@ export class GameSessionService implements OnModuleInit {
       rank: index + 1,
       score: p.score,
       timeMs: p.timeMs,
+      displayName: p.user.displayName,
+      avatarUrl: p.user.avatarUrl,
     }));
 
     const communityRankings = rankings.filter(
@@ -1122,8 +1132,20 @@ export class GameSessionService implements OnModuleInit {
 
     await this.setStoredState(sessionId, completedState);
 
+    const completedPayload = {
+      sessionId,
+      rankings,
+      live: completedState,
+    };
+
     this.gateway.server
       .to(sessionId)
-      .emit('session:completed', { sessionId, rankings, live: completedState });
+      .emit('session:completed', completedPayload);
+
+    if (session.type === 'COMMUNITY') {
+      this.gateway.server
+        .to(`overlay:${session.hostId}`)
+        .emit('session:completed', completedPayload);
+    }
   }
 }

@@ -99,6 +99,14 @@ export type SessionRanking = {
 	rank: number;
 	score: number;
 	timeMs: number;
+	displayName?: string | null;
+	avatarUrl?: string | null;
+};
+
+export type SessionCompletedPayload = {
+	sessionId: string;
+	live: LiveSessionState;
+	rankings: SessionRanking[];
 };
 
 export type RulePool = {

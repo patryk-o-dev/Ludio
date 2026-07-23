@@ -1,10 +1,10 @@
 import { useEffect, useRef, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
-import { io, type Socket } from "socket.io-client";
+import type { Socket } from "socket.io-client";
 import type {
 	LiveSessionState,
 	SessionData,
-	SessionRanking,
+	SessionCompletedPayload,
 } from "../../types";
 import Controls from "../layout/Controls";
 import QuizStage from "../layout/QuizStage";
@@ -12,6 +12,10 @@ import TopBar from "../layout/TopBar";
 import { getStoredAuthUser } from "../utils/authStorage";
 import useQuizSessionStore from "../../store/quizSessionStore";
 import { useTranslation } from "react-i18next";
+import {
+	acquireSharedSocket,
+	releaseSharedSocket,
+} from "../utils/socketClient";
 
 const API = import.meta.env.VITE_API_URL;
 
@@ -49,14 +53,18 @@ const QuizSession = () => {
 	useEffect(() => {
 		if (!id || !currentUserId) return;
 
-		const newSocket: Socket = io(API.replace(/\/api$/, ""), {
-			auth: { userId: currentUserId },
-		});
+		const newSocket: Socket = acquireSharedSocket({ userId: currentUserId });
 		socketRef.current = newSocket;
 
-		newSocket.on("connect", () => {
+		const joinSession = () => {
 			newSocket.emit("join", { sessionId: id });
-		});
+		};
+
+		newSocket.on("connect", joinSession);
+
+		if (newSocket.connected) {
+			joinSession();
+		}
 
 		newSocket.on("session:state", (data: SessionData) => {
 			setSession(data);
@@ -151,30 +159,28 @@ const QuizSession = () => {
 			}
 		});
 
-		newSocket.on(
-			"session:completed",
-			(data: { live: LiveSessionState; rankings: SessionRanking[] }) => {
-				setSession((current) =>
-					current
-						? {
-								...current,
-								status: "FINISHED",
-								players: current.players.map((player) => {
-									const ranking = data.rankings.find(
-										(entry) => entry.userId === player.userId,
-									);
+		newSocket.on("session:completed", (data: SessionCompletedPayload) => {
+			setSession((current) =>
+				current
+					? {
+							...current,
+							status: "FINISHED",
+							players: current.players.map((player) => {
+								const ranking = data.rankings.find(
+									(entry) => entry.userId === player.userId,
+								);
 
-									return ranking ? { ...player, ...ranking } : player;
-								}),
-								live: data.live,
-							}
-						: current,
-				);
-			},
-		);
+								return ranking ? { ...player, ...ranking } : player;
+							}),
+							live: data.live,
+						}
+					: current,
+			);
+		});
 
 		return () => {
-			newSocket.disconnect();
+			newSocket.off("connect", joinSession);
+			releaseSharedSocket({ userId: currentUserId });
 		};
 	}, [id, currentUserId]);
 
@@ -182,10 +188,7 @@ const QuizSession = () => {
 		(state) => state.setQuizSessionData,
 	);
 
-	const handleSelectAnswer = (
-		answerId: string,
-		_answerValue: string,
-	) => {
+	const handleSelectAnswer = (answerId: string, _answerValue: string) => {
 		if (!id || !socketRef.current || !currentUserId) {
 			return;
 		}

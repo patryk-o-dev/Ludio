@@ -5,13 +5,16 @@ import { useNavigate } from "react-router-dom";
 import ding from "../../assets/sounds/ding.mp3";
 import type { Community, SessionInvite, User } from "../../types";
 import { getStoredAuthUser } from "../utils/authStorage";
-import { io } from "socket.io-client";
 import Popup from "../utils/Popup";
 import { useGSAP } from "@gsap/react";
 import gsap from "gsap";
 import { useTranslation } from "react-i18next";
 import FriendGroup from "../layout/FriendGroup";
 import fpp from "../../assets/images/friendProfilePlaceholder.png";
+import {
+	acquireSharedSocket,
+	releaseSharedSocket,
+} from "../utils/socketClient";
 
 const FriendsList = () => {
 	const navigate = useNavigate();
@@ -126,9 +129,7 @@ const FriendsList = () => {
 			return;
 		}
 
-		const socket = io("http://localhost:3000", {
-			auth: { userId },
-		});
+		const socket = acquireSharedSocket({ userId });
 
 		socket.on("session:invited", (invite: SessionInvite) => {
 			setSessionInvites((current) => {
@@ -157,7 +158,7 @@ const FriendsList = () => {
 		});
 
 		return () => {
-			socket.disconnect();
+			releaseSharedSocket({ userId });
 		};
 	}, [userId, API]);
 

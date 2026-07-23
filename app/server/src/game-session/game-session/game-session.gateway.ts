@@ -8,6 +8,7 @@ import {
 } from '@nestjs/websockets';
 import { Server, Socket } from 'socket.io';
 import { GameSessionService } from '../game-session.service';
+import { PrismaService } from '@/prisma/prisma.service';
 
 @WebSocketGateway({ cors: { origin: 'http://localhost:5173' } })
 export class GameSessionGateway {
@@ -17,7 +18,12 @@ export class GameSessionGateway {
   constructor(
     @Inject(forwardRef(() => GameSessionService))
     private readonly gameSessionService: GameSessionService,
+    private readonly prisma: PrismaService,
   ) {}
+
+  private getOverlayRoom(userId: string) {
+    return `overlay:${userId}`;
+  }
 
   @SubscribeMessage('join')
   async handleJoin(
@@ -58,6 +64,40 @@ export class GameSessionGateway {
     @ConnectedSocket() _client: Socket,
   ) {
     await this.gameSessionService.playerSurrender(data.userId, data.sessionId);
+  }
+
+  @SubscribeMessage('overlay:subscribe')
+  async handleOverlaySubscribe(
+    @MessageBody() data: { twitchId: string },
+    @ConnectedSocket() client: Socket,
+  ) {
+    const user = await this.prisma.user.findUnique({
+      where: { twitchId: data.twitchId },
+      select: { id: true },
+    });
+
+    if (!user) {
+      return;
+    }
+
+    client.join(this.getOverlayRoom(user.id));
+  }
+
+  @SubscribeMessage('overlay:unsubscribe')
+  async handleOverlayUnsubscribe(
+    @MessageBody() data: { twitchId: string },
+    @ConnectedSocket() client: Socket,
+  ) {
+    const user = await this.prisma.user.findUnique({
+      where: { twitchId: data.twitchId },
+      select: { id: true },
+    });
+
+    if (!user) {
+      return;
+    }
+
+    client.leave(this.getOverlayRoom(user.id));
   }
 
   handleConnection(client: Socket) {
