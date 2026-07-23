@@ -79,7 +79,8 @@
 			"points_short": "pts",
 			"winner": "Winner:",
 			"winner_avatar": "Winner avatar",
-			"search_answer_placeholder": "Search for an answer..."
+			"search_answer_placeholder": "Search for an answer...",
+			"average_time": "Average time"
 		}
 	},
 	"chip_selector": {

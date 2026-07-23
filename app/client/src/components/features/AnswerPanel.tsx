@@ -173,7 +173,11 @@ const AnswerPanel = ({
 				</>
 			)}
 			{(phase === "summary" || phase === "completed") && (
-				<Ranking players={session.players} />
+				<Ranking
+					players={session.players}
+					totalQuestions={session.live.qIndex}
+					timeLimitSeconds={session.live.timeLimitSeconds}
+				/>
 			)}
 		</div>
 	);

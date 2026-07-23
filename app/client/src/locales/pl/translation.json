@@ -79,7 +79,8 @@
 			"points_short": "pkt",
 			"winner": "Zwycięzca:",
 			"winner_avatar": "Avatar zwycięzcy",
-			"search_answer_placeholder": "Wyszukaj odpowiedź..."
+			"search_answer_placeholder": "Wyszukaj odpowiedź...",
+			"average_time": "Średni czas"
 		}
 	},
 	"chip_selector": {

@@ -949,6 +949,34 @@ export class GameSessionService implements OnModuleInit {
       return;
     }
 
+    const unansweredPlayers = await this.prisma.gameSessionPlayer.findMany({
+      where: {
+        gameSessionId: sessionId,
+        userId: {
+          notIn: liveState.answeredUserIds,
+        },
+      },
+      select: {
+        userId: true,
+      },
+    });
+
+    if (unansweredPlayers.length > 0) {
+      await this.prisma.gameSessionPlayer.updateMany({
+        where: {
+          gameSessionId: sessionId,
+          userId: {
+            in: unansweredPlayers.map((player) => player.userId),
+          },
+        },
+        data: {
+          timeMs: {
+            increment: (liveState.timeLimitSeconds ?? 0) * 1000,
+          },
+        },
+      });
+    }
+
     const question = await this.prisma.question.findUnique({
       where: { id: liveState.questionId },
     });
