@@ -38,7 +38,6 @@ export class GameSessionGateway {
       sessionId: string;
       userId: string;
       answerId: string;
-      timeMs: number;
     },
     @ConnectedSocket() _client: Socket,
   ) {
@@ -46,7 +45,6 @@ export class GameSessionGateway {
       data.sessionId,
       data.userId,
       data.answerId,
-      data.timeMs,
     );
   }
 

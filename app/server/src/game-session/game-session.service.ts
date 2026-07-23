@@ -567,12 +567,7 @@ export class GameSessionService implements OnModuleInit {
     return this.findOne(sessionId);
   }
 
-  async submitAnswer(
-    sessionId: string,
-    userId: string,
-    answerId: string,
-    timeMs: number,
-  ) {
+  async submitAnswer(sessionId: string, userId: string, answerId: string) {
     const liveState = await this.reconcileStoredState(sessionId);
     if (
       !liveState ||
@@ -616,6 +611,9 @@ export class GameSessionService implements OnModuleInit {
       );
       return;
     }
+
+    const timeMs =
+      liveState.startedAt !== null ? Date.now() - liveState.startedAt : 0;
 
     const correct = question.answerId === answerId;
     const points = correct ? 1 : 0;

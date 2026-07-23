@@ -185,7 +185,6 @@ const QuizSession = () => {
 	const handleSelectAnswer = (
 		answerId: string,
 		_answerValue: string,
-		timeMs: number,
 	) => {
 		if (!id || !socketRef.current || !currentUserId) {
 			return;
@@ -203,7 +202,6 @@ const QuizSession = () => {
 			sessionId: id,
 			userId: currentUserId,
 			answerId,
-			timeMs,
 		});
 	};
 

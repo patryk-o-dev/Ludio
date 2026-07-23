@@ -15,11 +15,7 @@ interface AnswerPanelProps {
 	expiresAt: number | null;
 	timeLimitSeconds: number | null;
 	session: SessionData;
-	onSelectAnswer: (
-		answerId: string,
-		answerValue: string,
-		timeMs: number,
-	) => void;
+	onSelectAnswer: (answerId: string, answerValue: string) => void;
 	hasAnsweredCurrentQuestion: boolean;
 }
 
@@ -60,7 +56,6 @@ const AnswerPanel = ({
 				? `${timeLimitSeconds}s`
 				: `${Math.ceil(remainingMs / 1000)}s`;
 
-	// Arrow answer selection
 	const itemRefs = useRef<HTMLButtonElement[]>([]);
 	const [activeIndex, setActiveIndex] = useState(0);
 
@@ -77,15 +72,10 @@ const AnswerPanel = ({
 			const index = filteredAnswers.findIndex((a) => a.id === answerId);
 			if (index !== -1) setActiveIndex(index);
 
-			const timeMs =
-				timeLimitSeconds === null || remainingMs === null
-					? 0
-					: Math.max(0, timeLimitSeconds * 1000 - remainingMs);
-
 			setSelectedAnswerId(answerId);
-			onSelectAnswer(answerId, answerValue, timeMs);
+			onSelectAnswer(answerId, answerValue);
 		},
-		[phase, filteredAnswers, timeLimitSeconds, remainingMs, onSelectAnswer],
+		[phase, filteredAnswers, onSelectAnswer],
 	);
 
 	useEffect(() => {

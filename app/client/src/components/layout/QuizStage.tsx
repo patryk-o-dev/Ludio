@@ -12,7 +12,6 @@ interface QuizStageProps {
 	onSelectAnswer: (
 		answerId: string,
 		answerValue: string,
-		timeMs: number,
 	) => void;
 }
 
