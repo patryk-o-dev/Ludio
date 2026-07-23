@@ -30,6 +30,7 @@ const useGameConfigStore = create<GameConfigStore>((set) => ({
 		difficulty: 1,
 		questionsPerRule: 3,
 		timeLimitSeconds: null,
+		isCommunityQuiz: false,
 	},
 	addPlayer: (player) =>
 		set((state) => ({ players: [...state.players, player] })),

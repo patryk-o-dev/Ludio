@@ -16,6 +16,7 @@ const ChipSelector = () => {
 	const [activeTab, setActiveTab] = useState<Tab>("chips");
 	const { t } = useTranslation();
 	const options = useGameConfigStore((state) => state.options);
+	const players = useGameConfigStore((state) => state.players);
 	const updateOption = useGameConfigStore((state) => state.updateOption);
 	const setAllChips = useChipsStore((state) => state.setAllChips);
 
@@ -71,7 +72,11 @@ const ChipSelector = () => {
 			{activeTab === "chips" ? (
 				<ChipList />
 			) : (
-				<GameOptions options={options} onChange={updateOption} />
+				<GameOptions
+					options={options}
+					onChange={updateOption}
+					hasPlayers={players.length > 0}
+				/>
 			)}
 		</aside>
 	);

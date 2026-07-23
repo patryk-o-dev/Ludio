@@ -288,7 +288,7 @@ export class GameSessionService implements OnModuleInit {
       throw new BadRequestException('Host ID is required');
     }
 
-    let allPlayerIds;
+    let allPlayerIds: string[];
 
     if (type === 'COMMUNITY') {
       allPlayerIds = [...new Set([hostId, ...hostCommunityMembersIds])];
@@ -305,12 +305,24 @@ export class GameSessionService implements OnModuleInit {
       throw new NotFoundException('Game configuration not found or invalid');
     }
 
+    if (type === 'COMMUNITY' && gameConfig.options?.timeLimitSeconds === null) {
+      throw new BadRequestException(
+        'Community quizzes cannot have unlimited answer time',
+      );
+    }
+
     const players = await this.prisma.user.findMany({
       where: { id: { in: allPlayerIds } },
     });
 
     if (players.length !== allPlayerIds.length) {
       throw new BadRequestException('One or more players are invalid');
+    }
+
+    if (type === 'COMMUNITY' && dto.playerIds.length > 0) {
+      throw new BadRequestException(
+        'Community sessions cannot specify playerIds',
+      );
     }
 
     const session = await this.prisma.gameSession.create({
@@ -995,6 +1007,19 @@ export class GameSessionService implements OnModuleInit {
       orderBy: [{ score: 'desc' }, { timeMs: 'asc' }],
     });
 
+    const session = await this.prisma.gameSession.findUnique({
+      where: { id: sessionId },
+      select: {
+        type: true,
+        hostId: true,
+        communityId: true,
+      },
+    });
+
+    if (!session) {
+      throw new NotFoundException('Session not found');
+    }
+
     await Promise.all(
       players.map((player, index) =>
         this.prisma.gameSessionPlayer.update({
@@ -1020,6 +1045,40 @@ export class GameSessionService implements OnModuleInit {
       score: p.score,
       timeMs: p.timeMs,
     }));
+
+    const communityRankings = rankings.filter(
+      (player) => player.userId !== session.hostId,
+    );
+
+    if (session.type === 'COMMUNITY' && session.communityId) {
+      for (const [index, player] of communityRankings.entries()) {
+        const rank = index + 1;
+
+        let points = 10;
+
+        if (rank === 1) points = 100;
+        else if (rank === 2) points = 70;
+        else if (rank === 3) points = 40;
+        else if (rank <= 10) points = 20;
+
+        await this.prisma.communityMember.update({
+          where: {
+            communityId_userId: {
+              communityId: session.communityId,
+              userId: player.userId,
+            },
+          },
+          data: {
+            points: {
+              increment: points,
+            },
+            gamesPlayed: {
+              increment: 1,
+            },
+          },
+        });
+      }
+    }
 
     const completedState: SessionLiveState = {
       phase: 'completed',

@@ -25,6 +25,7 @@ export type GameOptionsState = {
 	difficulty: 1;
 	questionsPerRule: 3 | 5;
 	timeLimitSeconds: null | 10 | 20 | 30 | 50;
+	isCommunityQuiz: boolean;
 };
 
 export type AllChips = {

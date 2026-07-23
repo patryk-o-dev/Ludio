@@ -95,7 +95,8 @@
 		"title": "Game Options",
 		"difficulty": "Difficulty level",
 		"questions_per_rule": "Questions per rule",
-		"time_to_answer": "Time to answer"
+		"time_to_answer": "Time to answer",
+		"community_quiz": "Quiz with viewers"
 	},
 	"rule": {
 		"recognize": "Recognize",

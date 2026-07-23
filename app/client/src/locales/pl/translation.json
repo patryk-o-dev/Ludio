@@ -95,7 +95,8 @@
 		"title": "Opcje Gry",
 		"difficulty": "Poziom trudności",
 		"questions_per_rule": "Ilość pytań per reguła",
-		"time_to_answer": "Czas na odpowiedź"
+		"time_to_answer": "Czas na odpowiedź",
+		"community_quiz": "Quiz z widzami"
 	},
 	"rule": {
 		"recognize": "Rozpoznaj",

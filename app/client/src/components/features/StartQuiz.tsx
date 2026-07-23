@@ -83,7 +83,7 @@ const StartQuiz = () => {
 					gameConfigId: gameConfig.id,
 					playerIds: [...players.map((p) => p.id)],
 					hostId: userId,
-					type: "PRIVATE",
+					type: options.isCommunityQuiz ? "COMMUNITY" : "PRIVATE",
 				}),
 			});
 

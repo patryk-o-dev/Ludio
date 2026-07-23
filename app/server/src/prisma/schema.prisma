@@ -35,41 +35,41 @@ enum GameSessionType {
 }
 
 model User {
-  id                  String        @id @default(uuid())
-  username            String        @db.VarChar(64)
-  twitchId            String?       @unique @db.VarChar(64)
-  displayName         String?       @db.VarChar(64)
-  avatarUrl           String?       @db.VarChar(512)
-  createdAt           DateTime      @default(now())
+  id          String   @id @default(uuid())
+  username    String   @db.VarChar(64)
+  twitchId    String?  @unique @db.VarChar(64)
+  displayName String?  @db.VarChar(64)
+  avatarUrl   String?  @db.VarChar(512)
+  createdAt   DateTime @default(now())
 
-  sentFriendships     Friendship[]  @relation("InviteFrom")
-  receivedFriendships Friendship[]  @relation("InviteTo")
+  sentFriendships     Friendship[] @relation("InviteFrom")
+  receivedFriendships Friendship[] @relation("InviteTo")
 
-  ownedCommunity      Community?
-  communities         CommunityMember[]
+  ownedCommunity Community?
+  communities    CommunityMember[]
 
-  sessions            GameSessionPlayer[]
-  questions           Question[]
+  sessions  GameSessionPlayer[]
+  questions Question[]
 }
 
 model Friendship {
-  id         String        @id @default(uuid())
+  id         String @id @default(uuid())
   fromUserId String
   toUserId   String
 
-  status     InviteStatus  @default(PENDING)
-  createdAt  DateTime      @default(now())
-  updatedAt  DateTime      @updatedAt
+  status    InviteStatus @default(PENDING)
+  createdAt DateTime     @default(now())
+  updatedAt DateTime     @updatedAt
 
-  fromUser   User          @relation("InviteFrom", fields: [fromUserId], references: [id])
-  toUser     User          @relation("InviteTo", fields: [toUserId], references: [id])
+  fromUser User @relation("InviteFrom", fields: [fromUserId], references: [id])
+  toUser   User @relation("InviteTo", fields: [toUserId], references: [id])
 
   @@unique([fromUserId, toUserId])
 }
 
 model GameConfig {
-  id          String        @id @default(uuid())
-  createdAt   DateTime      @default(now())
+  id        String   @id @default(uuid())
+  createdAt DateTime @default(now())
 
   gameSession GameSession?
   rules       Rule[]
@@ -77,103 +77,106 @@ model GameConfig {
 }
 
 model GameSession {
-  id           String             @id @default(uuid())
-  status       GameSessionStatus  @default(NotStarted)
-  qIndex       Int                @default(0)
-  hostId       String
-  type         GameSessionType    @default(PRIVATE)
-  startedAt    DateTime           @default(now())
-  endedAt      DateTime?
+  id        String            @id @default(uuid())
+  status    GameSessionStatus @default(NotStarted)
+  qIndex    Int               @default(0)
+  hostId    String
+  type      GameSessionType   @default(PRIVATE)
+  startedAt DateTime          @default(now())
+  endedAt   DateTime?
 
   usedQuestions Question[]
 
-  gameConfigId  String             @unique
-  gameConfig    GameConfig         @relation(fields: [gameConfigId], references: [id])
+  gameConfigId String     @unique
+  gameConfig   GameConfig @relation(fields: [gameConfigId], references: [id])
 
-  players       GameSessionPlayer[]
+  communityId String?
+  community   Community? @relation(fields: [communityId], references: [id])
+
+  players GameSessionPlayer[]
 }
 
 model GameSessionPlayer {
   gameSessionId String
   userId        String
 
-  score         Int                      @default(0)
-  timeMs        Int                      @default(0)
-  rank          Int                      @default(0)
-  status        GameSessionPlayerStatus  @default(Invited)
+  score  Int                     @default(0)
+  timeMs Int                     @default(0)
+  rank   Int                     @default(0)
+  status GameSessionPlayerStatus @default(Invited)
 
-  gameSession  GameSession              @relation(fields: [gameSessionId], references: [id])
-  user         User                     @relation(fields: [userId], references: [id])
+  gameSession GameSession @relation(fields: [gameSessionId], references: [id])
+  user        User        @relation(fields: [userId], references: [id])
 
   @@id([gameSessionId, userId])
 }
 
 model Options {
-  id               String      @id @default(uuid())
-  gameConfigId     String      @unique
-  difficulty       Int         @default(1)
-  questionLimit    Int         @default(10)
+  id               String @id @default(uuid())
+  gameConfigId     String @unique
+  difficulty       Int    @default(1)
+  questionLimit    Int    @default(10)
   timeLimitSeconds Int?
 
-  gameConfig       GameConfig  @relation(fields: [gameConfigId], references: [id])
+  gameConfig GameConfig @relation(fields: [gameConfigId], references: [id])
 }
 
 model Rule {
-  id           String       @id @default(uuid())
+  id           String  @id @default(uuid())
   description  String?
   gameConfigId String
   chipGuessId  String
   chipById     String
 
-  gameConfig   GameConfig   @relation(fields: [gameConfigId], references: [id])
-  chipGuess    ChipGuess    @relation(fields: [chipGuessId], references: [id])
-  chipBy       ChipBy       @relation(fields: [chipById], references: [id])
+  gameConfig GameConfig @relation(fields: [gameConfigId], references: [id])
+  chipGuess  ChipGuess  @relation(fields: [chipGuessId], references: [id])
+  chipBy     ChipBy     @relation(fields: [chipById], references: [id])
 
   chipFilters ChipFilter[]
 }
 
 model ChipGuess {
-  id               String       @id @default(uuid())
-  name             String
+  id   String @id @default(uuid())
+  name String
 
-  rules            Rule[]
-  questions        Question[]
-  answers          Answer[]
+  rules     Rule[]
+  questions Question[]
+  answers   Answer[]
 
   compatibleChipBy ChipBy[]
 }
 
 model ChipBy {
-  id                   String        @id @default(uuid())
-  name                 String
+  id   String @id @default(uuid())
+  name String
 
-  rules                Rule[]
-  questions            Question[]
+  rules     Rule[]
+  questions Question[]
 
   compatibleChipGuess  ChipGuess[]
   compatibleChipFilter ChipFilter[]
 }
 
 model ChipFilter {
-  id               String      @id @default(uuid())
-  name             String
+  id   String @id @default(uuid())
+  name String
 
-  rules            Rule[]
-  questions        Question[]
-  answers          Answer[]
+  rules     Rule[]
+  questions Question[]
+  answers   Answer[]
 
   compatibleChipBy ChipBy[]
 }
 
 model Question {
-  id             String         @id @default(uuid())
-  url            String
-  difficulty     Int            @default(1)
-  answerId       String
-  chipById       String
+  id         String @id @default(uuid())
+  url        String
+  difficulty Int    @default(1)
+  answerId   String
+  chipById   String
 
-  answer         Answer         @relation(fields: [answerId], references: [id])
-  chipBy         ChipBy         @relation(fields: [chipById], references: [id])
+  answer Answer @relation(fields: [answerId], references: [id])
+  chipBy ChipBy @relation(fields: [chipById], references: [id])
 
   chipGuesses    ChipGuess[]
   chipFilters    ChipFilter[]
@@ -183,8 +186,8 @@ model Question {
 }
 
 model Answer {
-  id          String       @id @default(uuid())
-  value       String
+  id    String @id @default(uuid())
+  value String
 
   chipGuesses ChipGuess[]
   chipFilters ChipFilter[]
@@ -193,27 +196,28 @@ model Answer {
 }
 
 model Community {
-  id           String        @id @default(uuid())
+  id String @id @default(uuid())
 
-  ownerId      String        @unique
-  owner        User          @relation(fields: [ownerId], references: [id])
-  members      CommunityMember[]
+  ownerId String            @unique
+  owner   User              @relation(fields: [ownerId], references: [id])
+  members CommunityMember[]
 
   createdAt    DateTime      @default(now())
+  gameSessions GameSession[]
 }
 
 model CommunityMember {
   communityId String
   userId      String
 
-  joinedAt    DateTime @default(now())
+  joinedAt DateTime @default(now())
 
-  points      Int @default(0)
+  points Int @default(0)
 
   gamesPlayed Int @default(0)
 
-  community   Community @relation(fields: [communityId], references: [id])
-  user        User      @relation(fields: [userId], references: [id])
+  community Community @relation(fields: [communityId], references: [id])
+  user      User      @relation(fields: [userId], references: [id])
 
   @@id([communityId, userId])
 }

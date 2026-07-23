@@ -603,6 +603,25 @@ const Trophy = ({ size, color, isAddon }: IconElementProps) => (
 	</svg>
 );
 
+const NoLimit = ({ size, color, isAddon }: IconElementProps) => (
+	<svg
+		width={size}
+		height={size}
+		viewBox="0 0 24 24"
+		fill="none"
+		className={`${styles[color]} ${isAddon ? "rounded-[27.5%] border-2 border-(--bgc-quaternary)" : ""}`}
+	>
+		<path
+			fill="none"
+			stroke="currentColor"
+			stroke-linecap="round"
+			stroke-linejoin="round"
+			stroke-width="2"
+			d="M6 16c5 0 7-8 12-8a4 4 0 0 1 0 8c-5 0-7-8-12-8a4 4 0 1 0 0 8"
+		/>
+	</svg>
+);
+
 type IconComponent = React.ComponentType<IconElementProps>;
 
 const iconsMap: Record<string, IconComponent> = {
@@ -637,6 +656,7 @@ const iconsMap: Record<string, IconComponent> = {
 	polandFlag: PolandFlag,
 	ukFlag: UKFlag,
 	trophy: Trophy,
+	noLimit: NoLimit,
 };
 
 type IconsProps = {

@@ -58,6 +58,9 @@ const FriendCard = ({
 
 	const buttonRef = useRef<HTMLButtonElement>(null);
 	const [animateButton, setAnimateButton] = useState(false);
+	const isCommunityQuiz = useGameConfigStore(
+		(state) => state.options.isCommunityQuiz,
+	);
 
 	useGSAP(() => {
 		if (!animateButton || !buttonRef.current) return;
@@ -167,7 +170,8 @@ const FriendCard = ({
 				{variant === "friend" && (
 					<button
 						ref={buttonRef}
-						className="absolute -right-px top-0 h-full flex items-center align-middle p-1 rounded-lg bg-(--info) hover:cursor-pointer transition-colors disabled:opacity-50"
+						disabled={isCommunityQuiz}
+						className="absolute -right-px top-0 h-full flex items-center align-middle p-1 rounded-lg bg-(--info) hover:cursor-pointer transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
 						onClick={handleAddPlayer}
 					>
 						<Icons name={iconName} color="text" size={32} isAddon={false} />

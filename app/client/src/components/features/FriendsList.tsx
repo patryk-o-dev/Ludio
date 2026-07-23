@@ -245,6 +245,26 @@ const FriendsList = () => {
 		}
 	}, [searchFriendInput]);
 
+	const getRankedMembers = (members: Community["members"]) => {
+		const sorted = [...members].sort((a, b) => b.points - a.points);
+
+		let previousPoints: number | null = null;
+		let currentRank = 0;
+
+		return sorted.map((member, index) => {
+			if (member.points !== previousPoints) {
+				currentRank = index + 1;
+			}
+
+			previousPoints = member.points;
+
+			return {
+				...member,
+				rank: currentRank,
+			};
+		});
+	};
+
 	return (
 		<div className="scrollbar-thin overflow-auto h-full">
 			{inviteSent && <Popup value={t("invite_sent")} />}
@@ -316,16 +336,14 @@ const FriendsList = () => {
 							</FriendGroup>
 						)}
 						{communities.map((community) => {
-							const sortedMembers = [...community.members].sort(
-								(a, b) => b.points - a.points,
-							);
+							const rankedMembers = getRankedMembers(community.members);
 
 							return (
 								<FriendGroup
 									key={community.id}
 									name={community.owner.displayName ?? "Community"}
 								>
-									{sortedMembers.map((member, index) => (
+									{rankedMembers.map((member) => (
 										<FriendCard
 											key={member.id}
 											name={member.displayName ?? "?"}
@@ -334,7 +352,7 @@ const FriendsList = () => {
 											userId={userId}
 											friendId={member.id}
 											points={member.points}
-											rank={index + 1}
+											rank={member.rank}
 											variant="communityMember"
 										/>
 									))}
