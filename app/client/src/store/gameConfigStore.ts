@@ -1,10 +1,11 @@
 import { create } from "zustand";
-import type { Player, Rule, GameOptionsState } from "../types";
+import type { Player, Rule, GameOptionsState, GameMode } from "../types";
 
 type GameConfigStore = {
 	players: Player[];
 	rules: Rule[];
 	options: GameOptionsState;
+	mode: GameMode;
 	addPlayer: (player: Player) => void;
 	removePlayer: (player: Player) => void;
 	clearPlayers: () => void;
@@ -14,6 +15,7 @@ type GameConfigStore = {
 	updateRuleGuessChip: (ruleIndex: number, chipGuessId: string | null) => void;
 	updateRuleByChip: (ruleIndex: number, chipById: string | null) => void;
 	updateRuleFilterChips: (ruleIndex: number, filterChipId: string) => void;
+	updateMode: (mode: GameMode) => void;
 };
 
 const useGameConfigStore = create<GameConfigStore>((set) => ({
@@ -32,6 +34,7 @@ const useGameConfigStore = create<GameConfigStore>((set) => ({
 		timeLimitSeconds: null,
 		isCommunityQuiz: false,
 	},
+	mode: "classic",
 	addPlayer: (player) =>
 		set((state) => ({ players: [...state.players, player] })),
 	removePlayer: (player) =>
@@ -73,6 +76,7 @@ const useGameConfigStore = create<GameConfigStore>((set) => ({
 				return rule;
 			}),
 		})),
+	updateMode: (mode) => set({ mode }),
 }));
 
 export default useGameConfigStore;

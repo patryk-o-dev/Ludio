@@ -21,8 +21,9 @@
 		"action_failed_retry": "Action failed. Please try again."
 	},
 	"modes": {
+		"classic": "Classic",
 		"solo": "Solo",
-		"multi": "Multi"
+		"games": "Games"
 	},
 	"brand": {
 		"streamers": "Streamer's",

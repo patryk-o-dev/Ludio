@@ -21,8 +21,9 @@
 		"action_failed_retry": "Akcja nie powiodła się. Spróbuj ponownie."
 	},
 	"modes": {
+		"classic": "Klasyczny",
 		"solo": "Solo",
-		"multi": "Multi"
+		"games": "Gry"
 	},
 	"brand": {
 		"streamers": "Quiz",

@@ -157,3 +157,9 @@ export type CommunityMember = {
 	user: User;
 	points: number;
 };
+
+export type GameMode =
+	| "classic"
+	| "solo"
+	| "leagueOfLegends"
+	| "DeadByDaylight";
