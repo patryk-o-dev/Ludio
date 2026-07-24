@@ -88,7 +88,7 @@ model GameSession {
   usedQuestions Question[]
 
   gameConfigId String     @unique
-  gameConfig   GameConfig @relation(fields: [gameConfigId], references: [id])
+  gameConfig   GameConfig @relation(fields: [gameConfigId], references: [id], onDelete: Cascade)
 
   communityId String?
   community   Community? @relation(fields: [communityId], references: [id])
@@ -105,7 +105,7 @@ model GameSessionPlayer {
   rank   Int                     @default(0)
   status GameSessionPlayerStatus @default(Invited)
 
-  gameSession GameSession @relation(fields: [gameSessionId], references: [id])
+  gameSession GameSession @relation(fields: [gameSessionId], references: [id], onDelete: Cascade)
   user        User        @relation(fields: [userId], references: [id])
 
   @@id([gameSessionId, userId])
@@ -118,7 +118,7 @@ model Options {
   questionLimit    Int    @default(10)
   timeLimitSeconds Int?
 
-  gameConfig GameConfig @relation(fields: [gameConfigId], references: [id])
+  gameConfig GameConfig @relation(fields: [gameConfigId], references: [id], onDelete: Cascade)
 }
 
 model Rule {
@@ -128,7 +128,7 @@ model Rule {
   chipGuessId  String
   chipById     String
 
-  gameConfig GameConfig @relation(fields: [gameConfigId], references: [id])
+  gameConfig GameConfig @relation(fields: [gameConfigId], references: [id], onDelete: Cascade)
   chipGuess  ChipGuess  @relation(fields: [chipGuessId], references: [id])
   chipBy     ChipBy     @relation(fields: [chipById], references: [id])
 
