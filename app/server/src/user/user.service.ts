@@ -1,5 +1,6 @@
 import {
   BadRequestException,
+  ForbiddenException,
   Injectable,
   NotFoundException,
 } from '@nestjs/common';
@@ -16,10 +17,18 @@ export class UserService {
   async addFriend(userId: string, friendId: string) {
     const targetUser = await this.prisma.user.findUnique({
       where: { twitchId: friendId },
+      select: {
+        id: true,
+        allowFriendRequests: true,
+      },
     });
 
     if (!targetUser) {
       throw new NotFoundException('User not found');
+    }
+
+    if (!targetUser.allowFriendRequests) {
+      throw new ForbiddenException('User does not accept friend requests');
     }
 
     if (userId === targetUser.id) {
