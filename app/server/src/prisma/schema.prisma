@@ -34,6 +34,13 @@ enum GameSessionType {
   COMMUNITY
 }
 
+enum GameMode {
+  CLASSIC
+  SOLO
+  LEAGUE_OF_LEGENDS
+  DEAD_BY_DAYLIGHT
+}
+
 model User {
   id                  String       @id @default(uuid())
   username            String       @db.VarChar(64)
@@ -139,6 +146,7 @@ model Rule {
 model ChipGuess {
   id   String @id @default(uuid())
   name String
+  mode GameMode
 
   rules     Rule[]
   questions Question[]

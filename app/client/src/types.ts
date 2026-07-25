@@ -37,6 +37,7 @@ export type AllChips = {
 export type ChipGuess = {
 	id: string;
 	name: string;
+	mode: GameMode;
 	compatibleByIds: string[];
 };
 
@@ -159,7 +160,7 @@ export type CommunityMember = {
 };
 
 export type GameMode =
-	| "classic"
-	| "solo"
-	| "leagueOfLegends"
-	| "DeadByDaylight";
+	| "CLASSIC"
+	| "SOLO"
+	| "LEAGUE_OF_LEGENDS"
+	| "DEAD_BY_DAYLIGHT";

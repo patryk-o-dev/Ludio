@@ -7,13 +7,14 @@ const ChipList = () => {
 	const chipSelectionStep = useChipsStore((state) => state.chipSelectionStep);
 	const { allChips } = useChipsStore();
 	const { t } = useTranslation();
+	const selectedMode = useChipsStore((state) => state.mode);
 
 	const mode = chipSelectionStep.type;
 	const guessId = chipSelectionStep.guessId;
 	const ruleIndex = chipSelectionStep.ruleIndex;
 	const chips =
 		mode === "guess"
-			? allChips.chipsGuess
+			? allChips.chipsGuess.filter((chip) => chip.mode === selectedMode)
 			: allChips.chipsBy.filter((by) =>
 					allChips.chipsGuess
 						.find((g) => g.id === guessId)

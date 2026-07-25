@@ -1,4 +1,4 @@
-import { Controller, Get, Post, Body, Param } from '@nestjs/common';
+import { Controller, Get, Post, Body, Param, Patch } from '@nestjs/common';
 import { UserService } from './user.service';
 
 @Controller('user')
@@ -35,5 +35,15 @@ export class UserController {
   @Get(`:userId/sessions`)
   getMySessions(userId: string) {
     return this.userService.getMySessions(userId);
+  }
+
+  @Patch('settings/friend-requests')
+  updateFriendRequestSetting(
+    @Body() body: { userId: string; allowFriendRequests: boolean },
+  ) {
+    return this.userService.updateFriendRequestSetting(
+      body.userId,
+      body.allowFriendRequests,
+    );
   }
 }

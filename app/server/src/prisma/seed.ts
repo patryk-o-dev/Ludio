@@ -126,6 +126,7 @@ async function main() {
   const guessGame = await prisma.chipGuess.create({
     data: {
       name: 'guessGame',
+      mode: 'CLASSIC',
       compatibleChipBy: {
         connect: [
           { id: byAchievement.id },
@@ -141,6 +142,7 @@ async function main() {
   const guessGameCharacter = await prisma.chipGuess.create({
     data: {
       name: 'guessGameCharacter',
+      mode: 'CLASSIC',
       compatibleChipBy: {
         connect: [{ id: byImage.id }, { id: byCosplay.id }],
       },
@@ -149,6 +151,7 @@ async function main() {
   const guessLeagueChampion = await prisma.chipGuess.create({
     data: {
       name: 'guessLeagueChampion',
+      mode: 'LEAGUE_OF_LEGENDS',
       compatibleChipBy: {
         connect: [{ id: byDeath.id }, { id: byPick.id }],
       },
@@ -157,6 +160,7 @@ async function main() {
   const guessMovie = await prisma.chipGuess.create({
     data: {
       name: 'guessMovie',
+      mode: 'CLASSIC',
       compatibleChipBy: {
         connect: [{ id: byFrame.id }, { id: byTrailer.id }],
       },

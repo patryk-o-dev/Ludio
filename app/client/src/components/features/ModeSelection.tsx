@@ -1,18 +1,18 @@
 import { useTranslation } from "react-i18next";
-import useGameConfigStore from "../../store/gameConfigStore";
 import type { GameMode } from "../../types";
 import { useState } from "react";
 import Icons from "../utils/Icons/Icons";
+import useChipsStore from "../../store/chipsStore";
 
 const ModeSelection = () => {
 	const { t } = useTranslation();
-	const mode = useGameConfigStore((state) => state.mode);
-	const updateMode = useGameConfigStore((state) => state.updateMode);
+	const mode = useChipsStore((state) => state.mode);
+	const updateMode = useChipsStore((state) => state.updateMode);
 	const [showGames, setShowGames] = useState(false);
 
 	const modeLabels: Partial<Record<GameMode, string>> = {
-		leagueOfLegends: "League Of Legends",
-		DeadByDaylight: "Dead By Daylight",
+		LEAGUE_OF_LEGENDS: "League Of Legends",
+		DEAD_BY_DAYLIGHT: "Dead By Daylight",
 	};
 
 	const handleModeSelect = (mode: GameMode) => {
@@ -25,14 +25,14 @@ const ModeSelection = () => {
 			<ul className="flex flex-row gap-6 text-lg font-bold">
 				<li
 					className={`transition-all duration-200 hover:text-(--accent) ${
-						mode === "classic" ? "text-(--accent)" : "text-(--text)"
+						mode === "CLASSIC" ? "text-(--accent)" : "text-(--text)"
 					}`}
 				>
 					<button
 						className={`w-full h-full ${
-							mode === "classic" && "underline underline-offset-6 decoration-2"
+							mode === "CLASSIC" && "underline underline-offset-6 decoration-2"
 						}`}
-						onClick={() => handleModeSelect("classic")}
+						onClick={() => handleModeSelect("CLASSIC")}
 					>
 						{t("modes.classic")}
 					</button>
@@ -40,14 +40,14 @@ const ModeSelection = () => {
 
 				<li
 					className={`transition-all duration-200 hover:text-(--accent) ${
-						mode === "solo" ? "text-(--accent)" : "text-(--text)"
+						mode === "SOLO" ? "text-(--accent)" : "text-(--text)"
 					}`}
 				>
 					<button
 						className={`w-full h-full ${
-							mode === "solo" && "underline underline-offset-6 decoration-2"
+							mode === "SOLO" && "underline underline-offset-6 decoration-2"
 						}`}
-						onClick={() => handleModeSelect("solo")}
+						onClick={() => handleModeSelect("SOLO")}
 					>
 						{t("modes.solo")}
 					</button>
@@ -66,7 +66,7 @@ const ModeSelection = () => {
 							<li>
 								<button
 									className="flex gap-2 items-center rounded-lg px-2 py-1 transition-all duration-200 hover:text-(--accent) hover:bg-(--accent)/10 hover:translate-x-1"
-									onClick={() => handleModeSelect("leagueOfLegends")}
+									onClick={() => handleModeSelect("LEAGUE_OF_LEGENDS")}
 								>
 									<Icons
 										name="leagueoflegends"
@@ -81,7 +81,7 @@ const ModeSelection = () => {
 							<li>
 								<button
 									className="flex gap-2 items-center rounded-lg px-2 py-1 transition-all duration-200 hover:text-(--accent) hover:bg-(--accent)/10 hover:translate-x-1"
-									onClick={() => handleModeSelect("DeadByDaylight")}
+									onClick={() => handleModeSelect("DEAD_BY_DAYLIGHT")}
 								>
 									<Icons
 										name="dbd"

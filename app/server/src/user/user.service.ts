@@ -142,4 +142,18 @@ export class UserService {
       },
     });
   }
+
+  async updateFriendRequestSetting(
+    userId: string,
+    allowFriendRequests: boolean,
+  ) {
+    return this.prisma.user.update({
+      where: {
+        id: userId,
+      },
+      data: {
+        allowFriendRequests,
+      },
+    });
+  }
 }

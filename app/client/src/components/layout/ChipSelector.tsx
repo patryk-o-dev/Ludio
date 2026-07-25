@@ -4,6 +4,7 @@ import GameOptions from "./GameOptions";
 import useGameConfigStore from "../../store/gameConfigStore";
 import useChipsStore from "../../store/chipsStore";
 import { useTranslation } from "react-i18next";
+import type { GameMode } from "../../types";
 type Tab = "chips" | "options";
 
 const tabBase =
@@ -29,10 +30,12 @@ const ChipSelector = () => {
 						(c: {
 							id: string;
 							name: string;
+							mode: GameMode;
 							compatibleChipBy: { id: string }[];
 						}) => ({
 							id: c.id,
 							name: c.name,
+							mode: c.mode,
 							compatibleByIds: c.compatibleChipBy.map((b) => b.id),
 						}),
 					),
