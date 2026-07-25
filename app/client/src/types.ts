@@ -9,7 +9,8 @@ export type User = {
 export type SessionInvite = {
 	sessionId: string;
 	hostId: string;
-	status?: string;
+	hostName: string;
+	hostAvatar?: string;
 };
 
 export type Player = User;
@@ -141,6 +142,7 @@ export type chipData = {
 
 export type Community = {
 	id: string;
+	ownerId: string;
 	owner: {
 		displayName: string | null;
 		avatarUrl: string | null;

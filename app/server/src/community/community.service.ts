@@ -138,13 +138,15 @@ export class CommunityService {
           displayName: community.owner.displayName,
           avatarUrl: community.owner.avatarUrl,
         },
-        members: community.members.map((member) => ({
-          id: member.user.id,
-          displayName: member.user.displayName,
-          avatarUrl: member.user.avatarUrl,
-          twitchId: member.user.twitchId,
-          points: member.points,
-        })),
+        members: community.members
+          .filter((member) => member.user.id !== community.ownerId)
+          .map((member) => ({
+            id: member.user.id,
+            displayName: member.user.displayName,
+            avatarUrl: member.user.avatarUrl,
+            twitchId: member.user.twitchId,
+            points: member.points,
+          })),
       }));
   }
 }

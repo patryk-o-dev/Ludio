@@ -34,6 +34,7 @@ const FriendsList = () => {
 		const fetchCommunities = async () => {
 			const response = await fetch(`${API}/community?userId=${userId}`);
 			const data = await response.json();
+			console.log(data);
 
 			setCommunities(data);
 		};
@@ -162,27 +163,14 @@ const FriendsList = () => {
 		};
 	}, [userId, API]);
 
-	const invitedFriends = friends
-		.map((friend) => ({
-			friend,
-			sessionInvite: sessionInvites.find(
-				(invite) => invite.hostId === friend.id,
-			),
-		}))
-		.filter((entry): entry is { friend: User; sessionInvite: SessionInvite } =>
-			Boolean(entry.sessionInvite),
-		);
-
-	const sessionInviteCards = invitedFriends.map(
-		({ friend, sessionInvite }) => ({
-			key: `invite-${friend.id}`,
-			name: friend.displayName,
-			avatarUrl: friend.avatarUrl ?? undefined,
-			metaLabel: friend.twitchId ?? t("no_twitch_id"),
-			friendId: friend.id,
-			sessionInvite,
-		}),
-	);
+	const sessionInviteCards = sessionInvites.map((invite) => ({
+		key: `invite-${invite.sessionId}`,
+		name: invite.hostName,
+		avatarUrl: invite.hostAvatar,
+		metaLabel: t("session_invite"),
+		friendId: invite.hostId,
+		sessionInvite: invite,
+	}));
 
 	const friendRequestCards = friendRequests.map((request) => ({
 		key: request.id,

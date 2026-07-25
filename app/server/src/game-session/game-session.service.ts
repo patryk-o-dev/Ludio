@@ -325,6 +325,13 @@ export class GameSessionService implements OnModuleInit {
       );
     }
 
+    if (type === 'COMMUNITY' && !host.ownedCommunity) {
+      throw new BadRequestException('Host does not have a community');
+    }
+
+    const communityId =
+      type === 'COMMUNITY' ? host.ownedCommunity?.id : undefined;
+
     const session = await this.prisma.gameSession.create({
       data: {
         hostId,
@@ -335,6 +342,13 @@ export class GameSessionService implements OnModuleInit {
           create: allPlayerIds.map((userId) => ({ userId })),
         },
         type: type,
+        community: communityId
+          ? {
+              connect: {
+                id: communityId,
+              },
+            }
+          : undefined,
       },
       include: {
         gameConfig: {
@@ -352,7 +366,8 @@ export class GameSessionService implements OnModuleInit {
       this.gateway.server.to(player.userId).emit('session:invited', {
         sessionId: session.id,
         hostId,
-        status: player.status,
+        hostName: host.displayName,
+        hostAvatar: host.avatarUrl,
       });
     }
 
