@@ -6,6 +6,7 @@ import style from "./FriendCard.module.scss";
 import { useGSAP } from "@gsap/react";
 import gsap from "gsap";
 import { useTranslation } from "react-i18next";
+import { withAuth } from "./api";
 
 interface FriendCardProps {
 	name?: string;
@@ -113,13 +114,16 @@ const FriendCard = ({
 	};
 
 	const handleFriendRequestResponse = async (accept: boolean) => {
-		await fetch(`${API}/user/${userId}/friendship/${friendId}/respond`, {
-			method: "POST",
-			headers: {
-				"Content-Type": "application/json",
-			},
-			body: JSON.stringify({ accept }),
-		});
+		await fetch(
+			`${API}/user/friendship/${friendId}/respond`,
+			withAuth({
+				method: "POST",
+				headers: {
+					"Content-Type": "application/json",
+				},
+				body: JSON.stringify({ accept }),
+			}),
+		);
 	};
 
 	const rankClass =

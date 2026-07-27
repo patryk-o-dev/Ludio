@@ -4,6 +4,7 @@ import { useEffect, useRef, useState } from "react";
 import AnswerResults from "./AnswerResults";
 import Icons from "../utils/Icons/Icons";
 import { useTranslation } from "react-i18next";
+import { withAuth } from "../utils/api";
 
 interface MediaDisplayProps {
 	sessionId: string;
@@ -87,13 +88,15 @@ const MediaDisplay = ({
 		setStartError(null);
 
 		try {
-			const response = await fetch(`${API}/game-session/${sessionId}/start`, {
-				method: "PATCH",
-				headers: {
-					"Content-Type": "application/json",
-				},
-				body: JSON.stringify({ userId: currentUserId }),
-			});
+			const response = await fetch(
+				`${API}/game-session/${sessionId}/start`,
+				withAuth({
+					method: "PATCH",
+					headers: {
+						"Content-Type": "application/json",
+					},
+				}),
+			);
 
 			if (!response.ok) {
 				throw new Error(`${response.status}`);

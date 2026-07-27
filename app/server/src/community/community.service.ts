@@ -1,17 +1,15 @@
 import { Injectable, NotFoundException } from '@nestjs/common';
 import { PrismaService } from '../prisma/prisma.service';
-import { CreateCommunityDto } from './dto/create-community.dto';
-import { JoinCommunityDto } from './dto/join-community.dto';
 import { CommunityResponseDto } from './dto/community-response.dto';
 
 @Injectable()
 export class CommunityService {
   constructor(private readonly prisma: PrismaService) {}
 
-  async create(createCommunityDto: CreateCommunityDto) {
+  async create(ownerId: string) {
     const inviteLinkBase = 'http://localhost:5173/community/join?join=';
     const owner = await this.prisma.user.findUnique({
-      where: { id: createCommunityDto.ownerId },
+      where: { id: ownerId },
     });
 
     if (!owner) {
@@ -19,7 +17,7 @@ export class CommunityService {
     }
 
     const existingCommunity = await this.prisma.community.findUnique({
-      where: { ownerId: createCommunityDto.ownerId },
+      where: { ownerId: ownerId },
     });
 
     if (existingCommunity) {
@@ -29,12 +27,12 @@ export class CommunityService {
     await this.prisma.community.create({
       data: {
         owner: {
-          connect: { id: createCommunityDto.ownerId },
+          connect: { id: ownerId },
         },
         members: {
           create: {
             user: {
-              connect: { id: createCommunityDto.ownerId },
+              connect: { id: ownerId },
             },
           },
         },
@@ -50,13 +48,13 @@ export class CommunityService {
     });
 
     const createdCommunity = await this.prisma.community.findUnique({
-      where: { ownerId: createCommunityDto.ownerId },
+      where: { ownerId: ownerId },
     });
 
     return `${inviteLinkBase}${createdCommunity.id}`;
   }
 
-  async join(communityId: string, joinCommunityDto: JoinCommunityDto) {
+  async join(communityId: string, userId: string) {
     const community = await this.prisma.community.findUnique({
       where: { id: communityId },
       include: {
@@ -69,7 +67,7 @@ export class CommunityService {
     }
 
     const user = await this.prisma.user.findUnique({
-      where: { id: joinCommunityDto.userId },
+      where: { id: userId },
     });
 
     if (!user) {
@@ -80,7 +78,7 @@ export class CommunityService {
       where: {
         communityId_userId: {
           communityId,
-          userId: joinCommunityDto.userId,
+          userId: userId,
         },
       },
       update: {},
@@ -89,7 +87,7 @@ export class CommunityService {
           connect: { id: communityId },
         },
         user: {
-          connect: { id: joinCommunityDto.userId },
+          connect: { id: userId },
         },
       },
     });

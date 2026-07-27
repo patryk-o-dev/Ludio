@@ -15,6 +15,7 @@ import {
 	acquireSharedSocket,
 	releaseSharedSocket,
 } from "../utils/socketClient";
+import { withAuth } from "../utils/api";
 
 const FriendsList = () => {
 	const navigate = useNavigate();
@@ -32,15 +33,14 @@ const FriendsList = () => {
 
 	useEffect(() => {
 		const fetchCommunities = async () => {
-			const response = await fetch(`${API}/community?userId=${userId}`);
+			const response = await fetch(`${API}/community`, withAuth());
 			const data = await response.json();
-			console.log(data);
 
 			setCommunities(data);
 		};
 
 		fetchCommunities();
-	}, []);
+	}, [API]);
 
 	const handleSendFriendRequest = async (
 		friendId: string,
@@ -48,15 +48,15 @@ const FriendsList = () => {
 	) => {
 		e.preventDefault();
 		try {
-			await fetch(`${API}/user/${userId}/friendship/${friendId}`, {
-				method: "POST",
-				headers: {
-					"Content-Type": "application/json",
-				},
-				body: JSON.stringify({
-					key: "value",
+			await fetch(
+				`${API}/user/friendship/${friendId}`,
+				withAuth({
+					method: "POST",
+					headers: {
+						"Content-Type": "application/json",
+					},
 				}),
-			});
+			);
 		} catch (err) {
 			console.error("Error sending friend request:", err);
 			return;
@@ -84,13 +84,16 @@ const FriendsList = () => {
 		}
 		unlockAudio();
 
-		const response = await fetch(`${API}/game-session/${sessionId}/respond`, {
-			method: "PATCH",
-			headers: {
-				"Content-Type": "application/json",
-			},
-			body: JSON.stringify({ userId, accept }),
-		});
+		const response = await fetch(
+			`${API}/game-session/${sessionId}/respond`,
+			withAuth({
+				method: "PATCH",
+				headers: {
+					"Content-Type": "application/json",
+				},
+				body: JSON.stringify({ accept }),
+			}),
+		);
 
 		if (!response.ok) {
 			throw new Error("Nie udało się odpowiedzieć na zaproszenie.");
@@ -108,14 +111,14 @@ const FriendsList = () => {
 	useEffect(() => {
 		const fetchFriends = async () => {
 			if (userId) {
-				const response = await fetch(`${API}/user/${userId}`);
+				const response = await fetch(`${API}/user/friends`, withAuth());
 				const data = await response.json();
 				setFriends(data);
 			}
 		};
 		const fetchFriendRequests = async () => {
 			if (userId) {
-				const response = await fetch(`${API}/user/${userId}/friend-requests`);
+				const response = await fetch(`${API}/user/friend-requests`, withAuth());
 				const data = await response.json();
 				setFriendRequests(data);
 			}
@@ -145,10 +148,10 @@ const FriendsList = () => {
 		socket.on("friendship-updated", async () => {
 			try {
 				const [friendRequests, friends] = await Promise.all([
-					fetch(`${API}/user/${userId}/friend-requests`).then((res) =>
+					fetch(`${API}/user/friend-requests`, withAuth()).then((res) =>
 						res.json(),
 					),
-					fetch(`${API}/user/${userId}`).then((res) => res.json()),
+					fetch(`${API}/user/friends`, withAuth()).then((res) => res.json()),
 				]);
 
 				setFriendRequests(friendRequests);
@@ -180,7 +183,6 @@ const FriendsList = () => {
 		friendId: request.id,
 	}));
 
-	// const communityCards: User[] = [];
 	const friendCards = friends.map((friend) => ({
 		key: friend.id,
 		name: friend.displayName,
@@ -254,8 +256,19 @@ const FriendsList = () => {
 		});
 	};
 
+	const inviteCards = [
+		...sessionInviteCards.map((invite) => ({
+			...invite,
+			type: "sessionInvite" as const,
+		})),
+		...friendRequestCards.map((request) => ({
+			...request,
+			type: "friendRequest" as const,
+		})),
+	];
+
 	return (
-		<div className="scrollbar-thin overflow-auto h-full">
+		<div className="scrollbar-thin custom-scrollbar overflow-auto h-full">
 			{inviteSent && <Popup value={t("invite_sent")} />}
 			<div className="flex flex-wrap items-center justify-between mb-4 p-2">
 				<p className="text-(--text) font-bold text-md uppercase">
@@ -286,40 +299,29 @@ const FriendsList = () => {
 			{userId && (
 				<div className="">
 					<div>
-						{sessionInviteCards.length > 0 && (
-							<FriendGroup name={t("session_invites")}>
-								{sessionInviteCards.map((invite) => (
+						{inviteCards.length > 0 && (
+							<FriendGroup name={t("invites")}>
+								{inviteCards.map((invite) => (
 									<FriendCard
 										key={invite.key}
+										userId={userId ?? undefined}
+										friendId={invite.friendId}
 										name={invite.name}
 										avatarUrl={invite.avatarUrl}
 										metaLabel={invite.metaLabel}
-										userId={userId ?? undefined}
-										friendId={invite.friendId}
-										sessionInvite={invite.sessionInvite}
-										variant="sessionInvite"
-										onSessionInviteResponse={(accept) =>
-											handleSessionInviteResponse(
-												invite.sessionInvite.sessionId,
-												accept,
-											)
-										}
-									/>
-								))}
-							</FriendGroup>
-						)}
-						{friendRequestCards.length > 0 && (
-							<FriendGroup name={t("friend_requests")}>
-								{friendRequestCards.map((request) => (
-									<FriendCard
-										key={request.key}
-										userId={userId ?? undefined}
-										friendId={request.friendId}
-										name={request.name}
-										avatarUrl={request.avatarUrl}
-										metaLabel={request.metaLabel}
-										request={true}
-										variant="friendRequest"
+										variant={invite.type}
+										{...(invite.type === "sessionInvite"
+											? {
+													sessionInvite: invite.sessionInvite,
+													onSessionInviteResponse: (accept: boolean) =>
+														handleSessionInviteResponse(
+															invite.sessionInvite.sessionId,
+															accept,
+														),
+												}
+											: {
+													request: true,
+												})}
 									/>
 								))}
 							</FriendGroup>

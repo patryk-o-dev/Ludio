@@ -21,7 +21,7 @@ const GameOptions = ({ options, onChange, hasPlayers }: GameOptionsProps) => {
 	const { t } = useTranslation();
 
 	return (
-		<div className="flex flex-col p-4 gap-6 overflow-auto scrollbar-thin">
+		<div className="flex flex-col p-4 gap-6 overflow-auto custom-scrollbar">
 			<p className="text-(--text) font-bold text-md uppercase">
 				{t("game_options.title")}
 			</p>

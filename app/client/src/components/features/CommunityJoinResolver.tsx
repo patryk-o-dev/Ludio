@@ -1,6 +1,7 @@
 import { useSearchParams, useNavigate } from "react-router-dom";
 import { getStoredAuthUser } from "../utils/authStorage";
 import { useEffect } from "react";
+import { withAuth } from "../utils/api";
 
 const API = import.meta.env.VITE_API_URL;
 
@@ -28,13 +29,15 @@ const CommunityJoinResolver = () => {
 				}
 			} else {
 				const communityId = communityIdLink || communityIdLocalStorage;
-				fetch(`${API}/community/${communityId}/join`, {
-					method: "POST",
-					headers: {
-						"Content-Type": "application/json",
-					},
-					body: JSON.stringify({ userId: authUser.id }),
-				})
+				fetch(
+					`${API}/community/${communityId}/join`,
+					withAuth({
+						method: "POST",
+						headers: {
+							"Content-Type": "application/json",
+						},
+					}),
+				)
 					.then((response) => {
 						if (!response.ok) {
 							throw new Error("Failed to join community");

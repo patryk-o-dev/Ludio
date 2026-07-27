@@ -1,14 +1,15 @@
 import { Body, Controller, Get, Param, Post, Patch } from '@nestjs/common';
 import { CreateGameSessionDto } from './dto/create-game-session.dto';
 import { GameSessionService } from './game-session.service';
+import { CurrentUser } from '@/current-user.decorator';
 
 @Controller('game-session')
 export class GameSessionController {
   constructor(private readonly gameSessionService: GameSessionService) {}
 
   @Post()
-  create(@Body() dto: CreateGameSessionDto) {
-    return this.gameSessionService.create(dto);
+  create(@CurrentUser('id') hostId: string, @Body() dto: CreateGameSessionDto) {
+    return this.gameSessionService.create(hostId, dto);
   }
 
   @Get(':id/state')
@@ -29,30 +30,22 @@ export class GameSessionController {
   @Patch(':id/surrender')
   playerSurrender(
     @Param('id') sessionId: string,
-    @Body('userId') userId: string,
+    @CurrentUser('id') userId: string,
   ) {
     return this.gameSessionService.playerSurrender(userId, sessionId);
-  }
-
-  @Patch(':id/accept')
-  acceptInvitation(
-    @Param('id') sessionId: string,
-    @Body('userId') userId: string,
-  ) {
-    return this.gameSessionService.respondInvitation(sessionId, userId, true);
   }
 
   @Patch(':id/respond')
   respondInvitation(
     @Param('id') sessionId: string,
-    @Body('userId') userId: string,
+    @CurrentUser('id') userId: string,
     @Body('accept') accept: boolean,
   ) {
     return this.gameSessionService.respondInvitation(sessionId, userId, accept);
   }
 
   @Patch(':id/start')
-  startGame(@Param('id') sessionId: string, @Body('userId') userId: string) {
+  startGame(@Param('id') sessionId: string, @CurrentUser('id') userId: string) {
     return this.gameSessionService.startGame(sessionId, userId);
   }
 }

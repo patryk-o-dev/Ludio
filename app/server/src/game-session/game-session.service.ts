@@ -259,12 +259,12 @@ export class GameSessionService implements OnModuleInit {
     return next;
   }
 
-  async create(dto: CreateGameSessionDto) {
+  async create(hostId: string, dto: CreateGameSessionDto) {
     const type = dto.type;
 
     const host = await this.prisma.user.findUnique({
       where: {
-        id: dto.hostId,
+        id: hostId,
       },
       include: {
         ownedCommunity: {
@@ -274,10 +274,7 @@ export class GameSessionService implements OnModuleInit {
         },
       },
     });
-    if (!host) {
-      throw new NotFoundException('Host not found');
-    }
-    const hostId = host.id;
+
     let hostCommunityMembersIds = [];
     if (host.ownedCommunity) {
       hostCommunityMembersIds =

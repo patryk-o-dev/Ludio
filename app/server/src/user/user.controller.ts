@@ -1,48 +1,50 @@
 import { Controller, Get, Post, Body, Param, Patch } from '@nestjs/common';
 import { UserService } from './user.service';
+import { CurrentUser } from '@/current-user.decorator';
 
 @Controller('user')
 export class UserController {
   constructor(private readonly userService: UserService) {}
 
-  @Get(':id')
-  getMyFriends(@Param('id') id: string) {
-    return this.userService.getMyFriends(id);
+  @Get('friends')
+  getFriends(@CurrentUser('id') userId: string) {
+    return this.userService.getMyFriends(userId);
   }
 
-  @Post(':userId/friendship/:friendId')
+  @Post('friendship/:friendId')
   addFriend(
-    @Param('userId') userId: string,
+    @CurrentUser('id') userId: string,
     @Param('friendId') friendId: string,
   ) {
     return this.userService.addFriend(userId, friendId);
   }
 
-  @Post(':userId/friendship/:friendId/respond')
+  @Post('friendship/:friendId/respond')
   handleFriendRequest(
-    @Param('userId') userId: string,
+    @CurrentUser('id') userId: string,
     @Param('friendId') friendId: string,
     @Body('accept') accept: boolean,
   ) {
     return this.userService.handleFriendRequest(userId, friendId, accept);
   }
 
-  @Get(':id/friend-requests')
-  getFriendRequests(@Param('id') id: string) {
-    return this.userService.getFriendRequests(id);
+  @Get('friend-requests')
+  getFriendRequests(@CurrentUser('id') userId: string) {
+    return this.userService.getFriendRequests(userId);
   }
 
-  @Get(`:userId/sessions`)
-  getMySessions(userId: string) {
+  @Get(`sessions`)
+  getMySessions(@CurrentUser('id') userId: string) {
     return this.userService.getMySessions(userId);
   }
 
   @Patch('settings/friend-requests')
   updateFriendRequestSetting(
-    @Body() body: { userId: string; allowFriendRequests: boolean },
+    @CurrentUser('id') userId: string,
+    @Body() body: { allowFriendRequests: boolean },
   ) {
     return this.userService.updateFriendRequestSetting(
-      body.userId,
+      userId,
       body.allowFriendRequests,
     );
   }

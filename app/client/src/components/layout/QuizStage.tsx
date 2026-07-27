@@ -2,6 +2,7 @@ import type { SessionData } from "../../types";
 import AnswerPanel from "../features/AnswerPanel";
 import MediaDisplay from "../features/MediaDisplay";
 import { useTranslation } from "react-i18next";
+import { withAuth } from "../utils/api";
 
 interface QuizStageProps {
 	session: SessionData;
@@ -9,10 +10,7 @@ interface QuizStageProps {
 	summaryPoints: number | null;
 	hasAnsweredCurrentQuestion: boolean;
 	correctAnswerValue: string;
-	onSelectAnswer: (
-		answerId: string,
-		answerValue: string,
-	) => void;
+	onSelectAnswer: (answerId: string, answerValue: string) => void;
 }
 
 const QuizStage = ({
@@ -32,17 +30,16 @@ const QuizStage = ({
 	const canAcceptInvitation = currentPlayer?.status === "Invited";
 
 	const acceptInvitation = () => {
-		if (!currentUserId) {
-			return;
-		}
-
-		fetch(`${API}/game-session/${session.id}/respond`, {
-			method: "PATCH",
-			body: JSON.stringify({ userId: currentUserId, accept: true }),
-			headers: {
-				"Content-Type": "application/json",
-			},
-		});
+		fetch(
+			`${API}/game-session/${session.id}/respond`,
+			withAuth({
+				method: "PATCH",
+				body: JSON.stringify({ accept: true }),
+				headers: {
+					"Content-Type": "application/json",
+				},
+			}),
+		);
 	};
 
 	return (

@@ -26,7 +26,17 @@ export class AuthController {
     }
 
     try {
-      const user = await this.authService.handleTwitchCallback(code, state);
+      const { user, sessionId } = await this.authService.handleTwitchCallback(
+        code,
+        state,
+      );
+
+      res.cookie('sessionId', sessionId, {
+        httpOnly: true,
+        secure: process.env.NODE_ENV === 'production',
+        sameSite: 'lax',
+      });
+
       return res.redirect(this.authService.buildFrontendSuccessRedirect(user));
     } catch (callbackError) {
       const message =

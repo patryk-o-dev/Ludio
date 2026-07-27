@@ -33,7 +33,7 @@ const ChipList = () => {
 		league: 3,
 	};
 	return (
-		<div className="flex flex-col p-4 overflow-auto scrollbar-thin">
+		<div className="flex flex-col p-4 overflow-auto custom-scrollbar">
 			<p className="text-(--text) font-bold text-md uppercase">
 				{t("chip_selector.quiz_rules")}
 			</p>

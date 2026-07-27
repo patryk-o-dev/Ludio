@@ -5,6 +5,7 @@ import i18n from "../../i18n";
 import { useGSAP } from "@gsap/react";
 import gsap from "gsap";
 import { getStoredAuthUser } from "../utils/authStorage";
+import { withAuth } from "../utils/api";
 
 const API = import.meta.env.VITE_API_URL;
 
@@ -66,14 +67,15 @@ const Settings = () => {
 	}, [showSettings]);
 
 	const handleStreamerLinkClick = async () => {
-		const authUser = getStoredAuthUser();
-		const response = await fetch(`${API}/community`, {
-			method: "POST",
-			headers: {
-				"Content-Type": "application/json",
-			},
-			body: JSON.stringify({ ownerId: authUser?.id }),
-		});
+		const response = await fetch(
+			`${API}/community`,
+			withAuth({
+				method: "POST",
+				headers: {
+					"Content-Type": "application/json",
+				},
+			}),
+		);
 		const link = await response.text();
 		setShowStreamerLink(!showStreamerLink);
 		setCommunityLink(link);
@@ -86,21 +88,21 @@ const Settings = () => {
 	};
 
 	const handleFriendRequestsChange = async () => {
-		const authUser = getStoredAuthUser();
-
 		const newValue = !allowFriendRequests;
 		setAllowFriendRequests(newValue);
 
-		await fetch(`${API}/user/settings/friend-requests`, {
-			method: "PATCH",
-			headers: {
-				"Content-Type": "application/json",
-			},
-			body: JSON.stringify({
-				userId: authUser?.id,
-				allowFriendRequests: newValue,
+		await fetch(
+			`${API}/user/settings/friend-requests`,
+			withAuth({
+				method: "PATCH",
+				headers: {
+					"Content-Type": "application/json",
+				},
+				body: JSON.stringify({
+					allowFriendRequests: newValue,
+				}),
 			}),
-		});
+		);
 	};
 
 	return (

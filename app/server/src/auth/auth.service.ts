@@ -193,7 +193,7 @@ export class AuthService {
     const accessToken = await this.exchangeCodeForToken(code);
     const twitchUser = await this.fetchTwitchUser(accessToken);
 
-    return this.prisma.user.upsert({
+    const user = await this.prisma.user.upsert({
       where: { twitchId: twitchUser.id },
       update: {
         username: twitchUser.login,
@@ -207,6 +207,21 @@ export class AuthService {
         avatarUrl: twitchUser.profile_image_url,
       },
     });
+
+    const sessionId = randomUUID();
+
+    await this.redisService.setJson(
+      `auth:session:${sessionId}`,
+      {
+        userId: user.id,
+      },
+      60 * 60 * 24 * 7,
+    );
+
+    return {
+      user,
+      sessionId,
+    };
   }
 
   buildFrontendSuccessRedirect(user: {

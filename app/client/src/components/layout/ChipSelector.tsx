@@ -5,6 +5,9 @@ import useGameConfigStore from "../../store/gameConfigStore";
 import useChipsStore from "../../store/chipsStore";
 import { useTranslation } from "react-i18next";
 import type { GameMode } from "../../types";
+
+const API = import.meta.env.VITE_API_URL;
+
 type Tab = "chips" | "options";
 
 const tabBase =
@@ -22,7 +25,7 @@ const ChipSelector = () => {
 	const setAllChips = useChipsStore((state) => state.setAllChips);
 
 	useEffect(() => {
-		fetch("http://localhost:3000/api/chips")
+		fetch(`${API}/chips`)
 			.then((res) => res.json())
 			.then((data) => {
 				setAllChips({
@@ -53,7 +56,7 @@ const ChipSelector = () => {
 					chipsFilter: data.filter,
 				});
 			});
-	}, []);
+	}, [setAllChips]);
 
 	return (
 		<aside className="flex-1 flex flex-col bg-(--bgc-secondary) p-4 rounded-lg gap-3 min-w-70">

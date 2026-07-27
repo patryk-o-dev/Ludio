@@ -1,9 +1,9 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import useGameConfigStore from "../../store/gameConfigStore";
-import { getStoredAuthUser } from "../utils/authStorage";
 import ding from "../../assets/sounds/ding.mp3";
 import { useTranslation } from "react-i18next";
+import { withAuth } from "../utils/api";
 
 const API = import.meta.env.VITE_API_URL;
 
@@ -23,7 +23,6 @@ const StartQuiz = () => {
 	const rules = useGameConfigStore((state) => state.rules);
 	const options = useGameConfigStore((state) => state.options);
 	const players = useGameConfigStore((state) => state.players);
-	const userId = getStoredAuthUser()?.id ?? null;
 
 	const handleStartQuiz = async () => {
 		setError(null);
@@ -74,18 +73,20 @@ const StartQuiz = () => {
 			const gameConfig =
 				(await configResponse.json()) as CreateGameConfigResponse;
 
-			const sessionResponse = await fetch(`${API}/game-session`, {
-				method: "POST",
-				headers: {
-					"Content-Type": "application/json",
-				},
-				body: JSON.stringify({
-					gameConfigId: gameConfig.id,
-					playerIds: [...players.map((p) => p.id)],
-					hostId: userId,
-					type: options.isCommunityQuiz ? "COMMUNITY" : "PRIVATE",
+			const sessionResponse = await fetch(
+				`${API}/game-session`,
+				withAuth({
+					method: "POST",
+					headers: {
+						"Content-Type": "application/json",
+					},
+					body: JSON.stringify({
+						gameConfigId: gameConfig.id,
+						playerIds: [...players.map((p) => p.id)],
+						type: options.isCommunityQuiz ? "COMMUNITY" : "PRIVATE",
+					}),
 				}),
-			});
+			);
 
 			if (!sessionResponse.ok) {
 				throw new Error(t("quiz_creator.errors.create_session"));
@@ -94,13 +95,16 @@ const StartQuiz = () => {
 			const session =
 				(await sessionResponse.json()) as CreateGameSessionResponse;
 
-			await fetch(`${API}/game-session/${session.id}/respond`, {
-				method: "PATCH",
-				headers: {
-					"Content-Type": "application/json",
-				},
-				body: JSON.stringify({ userId, accept: true }),
-			});
+			await fetch(
+				`${API}/game-session/${session.id}/respond`,
+				withAuth({
+					method: "PATCH",
+					headers: {
+						"Content-Type": "application/json",
+					},
+					body: JSON.stringify({ accept: true }),
+				}),
+			);
 
 			useGameConfigStore.getState().clearPlayers();
 
