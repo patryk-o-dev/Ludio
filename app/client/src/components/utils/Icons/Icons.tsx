@@ -668,6 +668,27 @@ const NoLimit = ({ size, color, isAddon }: IconElementProps) => (
 		/>
 	</svg>
 );
+const AddFriend = ({ size, color, isAddon }: IconElementProps) => (
+	<svg
+		width={size}
+		height={size}
+		viewBox="0 0 24 24"
+		fill="none"
+		className={`${styles[color]} ${isAddon ? "rounded-[27.5%] border-2 border-(--bgc-quaternary)" : ""}`}
+	>
+		<g
+			fill="none"
+			stroke="currentColor"
+			stroke-linecap="round"
+			stroke-linejoin="round"
+			stroke-width="2"
+		>
+			<path d="M2 21a8 8 0 0 1 13.292-6" />
+			<circle cx="10" cy="8" r="5" />
+			<path d="M19 16v6m3-3h-6" />
+		</g>
+	</svg>
+);
 
 type IconComponent = React.ComponentType<IconElementProps>;
 
@@ -705,6 +726,7 @@ const iconsMap: Record<string, IconComponent> = {
 	ukFlag: UKFlag,
 	trophy: Trophy,
 	noLimit: NoLimit,
+	addFriend: AddFriend,
 };
 
 type IconsProps = {

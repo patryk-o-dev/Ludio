@@ -22,10 +22,10 @@ const CommunityJoinResolver = () => {
 				if (communityIdLink && !communityIdLocalStorage) {
 					localStorage.setItem("failedJoinCommunity", "true");
 					localStorage.setItem("communityId", communityIdLink);
-					navigate("/");
+					window.location.href = "/";
 				} else if (communityIdLocalStorage) {
 					localStorage.setItem("failedJoinCommunity", "true");
-					navigate("/");
+					window.location.href = "/";
 				}
 			} else {
 				const communityId = communityIdLink || communityIdLocalStorage;
@@ -46,12 +46,12 @@ const CommunityJoinResolver = () => {
 					})
 					.then(() => {
 						localStorage.removeItem("communityId");
-						navigate("/");
+						window.location.href = "/";
 					})
 					.catch((error) => {
 						console.error(error);
 						localStorage.removeItem("communityId");
-						navigate("/");
+						window.location.href = "/";
 					});
 			}
 		}

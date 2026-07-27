@@ -56,8 +56,6 @@ const Profile = () => {
 							src={authUser.avatarUrl || profileImg}
 							alt="Avatar"
 						/>
-
-						<div className="absolute -bottom-0.5 -right-0.5 h-3.5 w-3.5 rounded-full border-2 border-[#171717] bg-green-500" />
 					</div>
 
 					<div className="flex flex-col">

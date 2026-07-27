@@ -33,7 +33,6 @@ const FriendCard = ({
 	metaLabel,
 	points = 0,
 	rank,
-	userId,
 	friendId,
 	avatarUrl,
 	onSessionInviteResponse,
@@ -146,6 +145,18 @@ const FriendCard = ({
 					? "bronze"
 					: "text";
 
+	const formatPoints = (points: number) => {
+		if (points >= 1_000_000) {
+			return `${(points / 1_000_000).toFixed(1)}M`;
+		}
+
+		if (points >= 1_000) {
+			return `${(points / 1_000).toFixed(1)}k`;
+		}
+
+		return points.toString();
+	};
+
 	return (
 		<div
 			className={`${variantClassName} ${rankClass} flex items-center relative overflow-hidden justify-between gap-3 bg-(--bgc-tertiary) rounded-lg transition-colors`}
@@ -214,9 +225,11 @@ const FriendCard = ({
 					</div>
 				)}
 				{variant === "communityMember" && (
-					<div className="flex items-center gap-2 px-4">
+					<div className="flex flex-col items-center gap-1 pr-1">
 						<Icons name="trophy" color={rankColor} size={24} isAddon={false} />
-						<span className="font-semibold text-(--text)">{points}</span>
+						<span className="font-light text-(--text) text-xs">
+							{formatPoints(points)} pkt
+						</span>
 					</div>
 				)}
 			</div>

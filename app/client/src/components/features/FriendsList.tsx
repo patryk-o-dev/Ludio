@@ -1,5 +1,4 @@
 import FriendCard from "../utils/FriendCard";
-import addFriendIcon from "../../assets/icons/add-friend.png";
 import { useEffect, useRef, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import ding from "../../assets/sounds/ding.mp3";
@@ -16,6 +15,7 @@ import {
 	releaseSharedSocket,
 } from "../utils/socketClient";
 import { withAuth } from "../utils/api";
+import Icons from "../utils/Icons/Icons";
 
 const FriendsList = () => {
 	const navigate = useNavigate();
@@ -274,11 +274,15 @@ const FriendsList = () => {
 				<p className="text-(--text) font-bold text-md uppercase">
 					{t("friends")}
 				</p>
-				<button onClick={() => setSearchFriend((prev) => !prev)}>
-					<img
-						src={addFriendIcon}
-						alt="Add friend"
-						className="w-6 h-6 cursor-pointer"
+				<button
+					className="hover:cursor-pointer"
+					onClick={() => setSearchFriend((prev) => !prev)}
+				>
+					<Icons
+						name={searchFriendInput ? "cancel" : "addFriend"}
+						size={24}
+						color="text"
+						isAddon={false}
 					/>
 				</button>
 				<form

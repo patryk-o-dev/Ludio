@@ -38,7 +38,8 @@ const ModeSelection = () => {
 					</button>
 				</li>
 
-				<li
+				{/* FOR FUTURE UPDATE */}
+				{/* <li
 					className={`transition-all duration-200 hover:text-(--accent) ${
 						mode === "SOLO" ? "text-(--accent)" : "text-(--text)"
 					}`}
@@ -51,7 +52,7 @@ const ModeSelection = () => {
 					>
 						{t("modes.solo")}
 					</button>
-				</li>
+				</li> */}
 
 				<li className="relative">
 					<button
