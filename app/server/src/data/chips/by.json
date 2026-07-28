@@ -1,0 +1,62 @@
+[
+  {
+    "key": "by_achievement",
+    "name": "byAchievement",
+    "compatibleChipFilters": []
+  },
+  {
+    "key": "by_game_over",
+    "name": "byGameOver",
+    "compatibleChipFilters": []
+  },
+  {
+    "key": "by_inventory",
+    "name": "byInventory",
+    "compatibleChipFilters": []
+  },
+  {
+    "key": "by_mod",
+    "name": "byMod",
+    "compatibleChipFilters": []
+  },
+  {
+    "key": "by_screenshot",
+    "name": "byScreenshot",
+    "compatibleChipFilters": ["filter_only_horror"]
+  },
+  {
+    "key": "by_title_screen",
+    "name": "byTitleScreen",
+    "compatibleChipFilters": []
+  },
+  {
+    "key": "by_cosplay",
+    "name": "byCosplay",
+    "compatibleChipFilters": ["filter_only_female"]
+  },
+  {
+    "key": "by_image",
+    "name": "byImage",
+    "compatibleChipFilters": ["filter_only_male", "filter_only_female"]
+  },
+  {
+    "key": "by_death",
+    "name": "byDeath",
+    "compatibleChipFilters": ["filter_only_death"]
+  },
+  {
+    "key": "by_pick",
+    "name": "byPick",
+    "compatibleChipFilters": ["filter_only_pick"]
+  },
+  {
+    "key": "by_frame",
+    "name": "byFrame",
+    "compatibleChipFilters": []
+  },
+  {
+    "key": "by_trailer",
+    "name": "byTrailer",
+    "compatibleChipFilters": []
+  }
+]

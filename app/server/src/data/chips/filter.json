@@ -1,0 +1,22 @@
+[
+  {
+    "key": "filter_only_horror",
+    "name": "onlyHorror"
+  },
+  {
+    "key": "filter_only_male",
+    "name": "onlyMale"
+  },
+  {
+    "key": "filter_only_female",
+    "name": "onlyFemale"
+  },
+  {
+    "key": "filter_only_death",
+    "name": "onlyDeath"
+  },
+  {
+    "key": "filter_only_pick",
+    "name": "onlyPick"
+  }
+]

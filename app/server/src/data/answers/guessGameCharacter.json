@@ -1,0 +1,157 @@
+[
+  {
+    "key": "hornet",
+    "value": "Hornet",
+    "chipGuess": ["guess_game_character"]
+  },
+  {
+    "key": "carmina_mora_the_artist",
+    "value": "Carmina Mora — The Artist",
+    "chipGuess": ["guess_game_character"]
+  },
+  {
+    "key": "jude_alvarez",
+    "value": "Jude Alvarez",
+    "chipGuess": ["guess_game_character"]
+  },
+  {
+    "key": "bella_dimitrescu",
+    "value": "Bella Dimitrescu",
+    "chipGuess": ["guess_game_character"]
+  },
+  {
+    "key": "cappie",
+    "value": "Cappie",
+    "chipGuess": ["guess_game_character"]
+  },
+  {
+    "key": "anna_the_huntress",
+    "value": "Anna — The Huntress",
+    "chipGuess": ["guess_game_character"]
+  },
+  {
+    "key": "ahri",
+    "value": "Ahri",
+    "chipGuess": ["guess_game_character", "guess_league_champion"]
+  },
+  {
+    "key": "ashe",
+    "value": "Ashe",
+    "chipGuess": ["guess_game_character", "guess_league_champion"]
+  },
+  {
+    "key": "lisa_minci",
+    "value": "Lisa Minci",
+    "chipGuess": ["guess_game_character"]
+  },
+  {
+    "key": "mad_moxxi",
+    "value": "Mad Moxxi",
+    "chipGuess": ["guess_game_character"]
+  },
+  {
+    "key": "triss_merigold",
+    "value": "Triss Merigold",
+    "chipGuess": ["guess_game_character"]
+  },
+  {
+    "key": "kim_possible",
+    "value": "Kim Possible",
+    "chipGuess": ["guess_game_character"]
+  },
+  {
+    "key": "cole_cassidy",
+    "value": "Cole Cassidy",
+    "chipGuess": ["guess_game_character"]
+  },
+  {
+    "key": "springtrap",
+    "value": "Springtrap",
+    "chipGuess": ["guess_game_character"]
+  },
+  {
+    "key": "mario",
+    "value": "Mario",
+    "chipGuess": ["guess_game_character"]
+  },
+  {
+    "key": "ciri",
+    "value": "Ciri",
+    "chipGuess": ["guess_game_character"]
+  },
+  {
+    "key": "eve",
+    "value": "Eve",
+    "chipGuess": ["guess_game_character"]
+  },
+  {
+    "key": "grace_ashcroft",
+    "value": "Grace Ashcroft",
+    "chipGuess": ["guess_game_character"]
+  },
+  {
+    "key": "kena",
+    "value": "Kena",
+    "chipGuess": ["guess_game_character"]
+  },
+  {
+    "key": "2b",
+    "value": "2B",
+    "chipGuess": ["guess_game_character"]
+  },
+  {
+    "key": "robert_robertson_iii",
+    "value": "Robert Robertson III",
+    "chipGuess": ["guess_game_character"]
+  },
+  {
+    "key": "ken_kaneki",
+    "value": "Ken Kaneki",
+    "chipGuess": ["guess_game_character"]
+  },
+  {
+    "key": "kratos",
+    "value": "Kratos",
+    "chipGuess": ["guess_game_character"]
+  },
+  {
+    "key": "max_payne",
+    "value": "Max Payne",
+    "chipGuess": ["guess_game_character"]
+  },
+  {
+    "key": "sebastian",
+    "value": "Sebastian",
+    "chipGuess": ["guess_game_character"]
+  },
+  {
+    "key": "teemo",
+    "value": "Teemo",
+    "chipGuess": ["guess_game_character", "guess_league_champion"]
+  },
+  {
+    "key": "the_hunter",
+    "value": "The Hunter",
+    "chipGuess": ["guess_game_character"]
+  },
+  {
+    "key": "trevor_philips",
+    "value": "Trevor Philips",
+    "chipGuess": ["guess_game_character"]
+  },
+  {
+    "key": "hanzo",
+    "value": "Hanzo",
+    "chipGuess": ["guess_game_character"]
+  },
+  {
+    "key": "commander_shepard",
+    "value": "Commander Shepard",
+    "chipGuess": ["guess_game_character"]
+  },
+  {
+    "key": "geralt_of_rivia",
+    "value": "Geralt of Rivia",
+    "chipGuess": ["guess_game_character"]
+  }
+]

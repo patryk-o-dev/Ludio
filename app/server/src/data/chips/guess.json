@@ -1,0 +1,33 @@
+[
+  {
+    "key": "guess_game",
+    "name": "guessGame",
+    "mode": "CLASSIC",
+    "compatibleChipBy": [
+      "by_achievement",
+      "by_game_over",
+      "by_inventory",
+      "by_mod",
+      "by_screenshot",
+      "by_title_screen"
+    ]
+  },
+  {
+    "key": "guess_game_character",
+    "name": "guessGameCharacter",
+    "mode": "CLASSIC",
+    "compatibleChipBy": ["by_image", "by_cosplay"]
+  },
+  {
+    "key": "guess_league_champion",
+    "name": "guessLeagueChampion",
+    "mode": "LEAGUE_OF_LEGENDS",
+    "compatibleChipBy": ["by_death", "by_pick"]
+  },
+  {
+    "key": "guess_movie",
+    "name": "guessMovie",
+    "mode": "CLASSIC",
+    "compatibleChipBy": ["by_frame", "by_trailer"]
+  }
+]

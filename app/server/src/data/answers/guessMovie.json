@@ -1,0 +1,97 @@
+[
+  {
+    "key": "1408",
+    "value": "1408",
+    "chipGuess": ["guess_movie"]
+  },
+  {
+    "key": "fight_club",
+    "value": "Fight Club",
+    "chipGuess": ["guess_movie"]
+  },
+  {
+    "key": "spotlight",
+    "value": "Spotlight",
+    "chipGuess": ["guess_movie"]
+  },
+  {
+    "key": "django_unchained",
+    "value": "Django Unchained",
+    "chipGuess": ["guess_movie"]
+  },
+  {
+    "key": "the_handmaiden",
+    "value": "The Handmaiden",
+    "chipGuess": ["guess_movie"]
+  },
+  {
+    "key": "shawshank_redemption",
+    "value": "Shawshank Redemption",
+    "chipGuess": ["guess_movie"]
+  },
+  {
+    "key": "forrest_gump",
+    "value": "Forrest Gump",
+    "chipGuess": ["guess_movie"]
+  },
+  {
+    "key": "el_camino",
+    "value": "El Camino",
+    "chipGuess": ["guess_movie"]
+  },
+  {
+    "key": "whiplash",
+    "value": "Whiplash",
+    "chipGuess": ["guess_movie"]
+  },
+  {
+    "key": "no_country_for_old_men",
+    "value": "No Country for Old Men",
+    "chipGuess": ["guess_movie"]
+  },
+  {
+    "key": "smile",
+    "value": "Smile",
+    "chipGuess": ["guess_movie"]
+  },
+  {
+    "key": "american_psycho",
+    "value": "American Psycho",
+    "chipGuess": ["guess_movie"]
+  },
+  {
+    "key": "hacksaw_ridge",
+    "value": "Hacksaw Ridge",
+    "chipGuess": ["guess_movie"]
+  },
+  {
+    "key": "platform",
+    "value": "Platform",
+    "chipGuess": ["guess_movie"]
+  },
+  {
+    "key": "black_swan",
+    "value": "Black Swan",
+    "chipGuess": ["guess_movie"]
+  },
+  {
+    "key": "hachi_a_dogs_tale",
+    "value": "Hachi: A Dog's Tale",
+    "chipGuess": ["guess_movie"]
+  },
+  {
+    "key": "12",
+    "value": "12",
+    "chipGuess": ["guess_movie"]
+  },
+  {
+    "key": "substance",
+    "value": "Substance",
+    "chipGuess": ["guess_movie"]
+  },
+  {
+    "key": "zodiac",
+    "value": "Zodiac",
+    "chipGuess": ["guess_movie"]
+  }
+]

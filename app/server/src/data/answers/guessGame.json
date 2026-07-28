@@ -1,0 +1,387 @@
+[
+  {
+    "key": "stardew_valley",
+    "value": "Stardew Valley",
+    "chipGuess": ["guess_game"]
+  },
+  {
+    "key": "the_elder_scrolls_v_skyrim",
+    "value": "The Elder Scrolls V: Skyrim",
+    "chipGuess": ["guess_game"]
+  },
+  {
+    "key": "darksiders_2",
+    "value": "Darksiders II",
+    "chipGuess": ["guess_game"]
+  },
+  {
+    "key": "the_vanishing_of_ethan_carter",
+    "value": "The Vanishing of Ethan Carter",
+    "chipGuess": ["guess_game"]
+  },
+  {
+    "key": "resident_evil_biohazard",
+    "value": "Resident Evil: Biohazard",
+    "chipGuess": ["guess_game"]
+  },
+  {
+    "key": "surviving_mars",
+    "value": "Surviving Mars",
+    "chipGuess": ["guess_game"]
+  },
+  {
+    "key": "detroit_become_human",
+    "value": "Detroit: Become Human",
+    "chipGuess": ["guess_game"]
+  },
+  {
+    "key": "south_park_the_stick_of_truth",
+    "value": "South Park: The Stick of Truth",
+    "chipGuess": ["guess_game"]
+  },
+  {
+    "key": "dead_by_daylight",
+    "value": "Dead by Daylight",
+    "chipGuess": ["guess_game"]
+  },
+  {
+    "key": "dishonored_2",
+    "value": "Dishonored 2",
+    "chipGuess": ["guess_game"]
+  },
+  {
+    "key": "witcher_3_wild_hunt",
+    "value": "Witcher 3: Wild Hunt",
+    "chipGuess": ["guess_game"]
+  },
+  {
+    "key": "fall_guys",
+    "value": "Fall Guys",
+    "chipGuess": ["guess_game"]
+  },
+  {
+    "key": "metro_last_light",
+    "value": "Metro Last Light",
+    "chipGuess": ["guess_game"]
+  },
+  {
+    "key": "overwatch",
+    "value": "Overwatch",
+    "chipGuess": ["guess_game"]
+  },
+  {
+    "key": "the_binding_of_isaac",
+    "value": "The Binding of Isaac",
+    "chipGuess": ["guess_game"]
+  },
+  {
+    "key": "hogwarts_legacy",
+    "value": "Hogwarts Legacy",
+    "chipGuess": ["guess_game"]
+  },
+  {
+    "key": "gwent_the_witcher_card_game",
+    "value": "Gwent: The Witcher Card Game",
+    "chipGuess": ["guess_game"]
+  },
+  {
+    "key": "slay_the_spire",
+    "value": "Slay the Spire",
+    "chipGuess": ["guess_game"]
+  },
+  {
+    "key": "mini_metro",
+    "value": "Mini Metro",
+    "chipGuess": ["guess_game"]
+  },
+  {
+    "key": "potion_craft",
+    "value": "Potion Craft",
+    "chipGuess": ["guess_game"]
+  },
+  {
+    "key": "amnesia_the_dark_descent",
+    "value": "Amnesia: The Dark Descent",
+    "chipGuess": ["guess_game"]
+  },
+  {
+    "key": "animal_crossing_new_horizons",
+    "value": "Animal Crossing: New Horizons",
+    "chipGuess": ["guess_game"]
+  },
+  {
+    "key": "cyberpunk_2077",
+    "value": "Cyberpunk 2077",
+    "chipGuess": ["guess_game"]
+  },
+  {
+    "key": "diablo_2",
+    "value": "Diablo II",
+    "chipGuess": ["guess_game"]
+  },
+  {
+    "key": "diablo_4",
+    "value": "Diablo IV",
+    "chipGuess": ["guess_game"]
+  },
+  {
+    "key": "dont_starve",
+    "value": "Dont Starve",
+    "chipGuess": ["guess_game"]
+  },
+  {
+    "key": "nier_automata",
+    "value": "Nier: Automata",
+    "chipGuess": ["guess_game"]
+  },
+  {
+    "key": "hollow_knight",
+    "value": "Hollow Knight",
+    "chipGuess": ["guess_game"]
+  },
+  {
+    "key": "stalker_2_heart_of_chernobyl",
+    "value": "S.T.A.L.K.E.R. 2: Heart of Chernobyl",
+    "chipGuess": ["guess_game"]
+  },
+  {
+    "key": "this_war_of_mine",
+    "value": "This War of Mine",
+    "chipGuess": ["guess_game"]
+  },
+  {
+    "key": "subnautica",
+    "value": "Subnautica",
+    "chipGuess": ["guess_game"]
+  },
+  {
+    "key": "dragon_age_inquisition",
+    "value": "Dragon Age: Inquisition",
+    "chipGuess": ["guess_game"]
+  },
+  {
+    "key": "the_sims_4",
+    "value": "The Sims 4",
+    "chipGuess": ["guess_game"]
+  },
+  {
+    "key": "red_dead_redemption_2",
+    "value": "Red Dead Redemption 2",
+    "chipGuess": ["guess_game"]
+  },
+  {
+    "key": "fallout_4",
+    "value": "Fallout 4",
+    "chipGuess": ["guess_game"]
+  },
+  {
+    "key": "elden_ring",
+    "value": "Elden Ring",
+    "chipGuess": ["guess_game"]
+  },
+  {
+    "key": "terraria",
+    "value": "Terraria",
+    "chipGuess": ["guess_game"]
+  },
+  {
+    "key": "ark_survival_evolved",
+    "value": "ARK: Survival Evolved",
+    "chipGuess": ["guess_game"]
+  },
+  {
+    "key": "my_summer_car",
+    "value": "My Summer Car",
+    "chipGuess": ["guess_game"]
+  },
+  {
+    "key": "civilization_vi",
+    "value": "Civilization VI",
+    "chipGuess": ["guess_game"]
+  },
+  {
+    "key": "resident_evil_2",
+    "value": "Resident Evil 2",
+    "chipGuess": ["guess_game"]
+  },
+  {
+    "key": "among_the_sleep",
+    "value": "Among The Sleep",
+    "chipGuess": ["guess_game"]
+  },
+  {
+    "key": "dead_space",
+    "value": "Dead Space",
+    "chipGuess": ["guess_game"]
+  },
+  {
+    "key": "inscryption",
+    "value": "Inscryption",
+    "chipGuess": ["guess_game"]
+  },
+  {
+    "key": "layers_of_fear",
+    "value": "Layers of Fear",
+    "chipGuess": ["guess_game"]
+  },
+  {
+    "key": "outlast",
+    "value": "Outlast",
+    "chipGuess": ["guess_game"]
+  },
+  {
+    "key": "phasmophobia",
+    "value": "Phasmophobia",
+    "chipGuess": ["guess_game"]
+  },
+  {
+    "key": "silent_hill_2",
+    "value": "Silent Hill 2",
+    "chipGuess": ["guess_game"]
+  },
+  {
+    "key": "the_evil_within",
+    "value": "The Evil Within",
+    "chipGuess": ["guess_game"]
+  },
+  {
+    "key": "until_dawn",
+    "value": "Until Dawn",
+    "chipGuess": ["guess_game"]
+  },
+  {
+    "key": "blair_witch",
+    "value": "Blair Witch",
+    "chipGuess": ["guess_game"]
+  },
+  {
+    "key": "crusader_kings_3",
+    "value": "Crusader Kings III",
+    "chipGuess": ["guess_game"]
+  },
+  {
+    "key": "raft",
+    "value": "Raft",
+    "chipGuess": ["guess_game"]
+  },
+  {
+    "key": "ori_and_the_blind_forest",
+    "value": "Ori and the Blind Forest",
+    "chipGuess": ["guess_game"]
+  },
+  {
+    "key": "v_rising",
+    "value": "V Rising",
+    "chipGuess": ["guess_game"]
+  },
+  {
+    "key": "total_war_warhammer",
+    "value": "Total War: Warhammer",
+    "chipGuess": ["guess_game"]
+  },
+  {
+    "key": "the_escapists_2",
+    "value": "The Escapists 2",
+    "chipGuess": ["guess_game"]
+  },
+  {
+    "key": "wolfenstein_the_new_order",
+    "value": "Wolfenstein: The New Order",
+    "chipGuess": ["guess_game"]
+  },
+  {
+    "key": "life_is_strange_before_the_storm",
+    "value": "Life Is Strange: Before the Storm",
+    "chipGuess": ["guess_game"]
+  },
+  {
+    "key": "spiderman_miles_morales",
+    "value": "SpiderMan Miles Morales",
+    "chipGuess": ["guess_game"]
+  },
+  {
+    "key": "dispatch",
+    "value": "Dispatch",
+    "chipGuess": ["guess_game"]
+  },
+  {
+    "key": "hades",
+    "value": "Hades",
+    "chipGuess": ["guess_game"]
+  },
+  {
+    "key": "hitman_2",
+    "value": "Hitman 2",
+    "chipGuess": ["guess_game"]
+  },
+  {
+    "key": "minecraft",
+    "value": "Minecraft",
+    "chipGuess": ["guess_game"]
+  },
+  {
+    "key": "portal_2",
+    "value": "Portal 2",
+    "chipGuess": ["guess_game"]
+  },
+  {
+    "key": "psychonauts_2",
+    "value": "Psychonauts 2",
+    "chipGuess": ["guess_game"]
+  },
+  {
+    "key": "starcraft_2",
+    "value": "StarCraft II",
+    "chipGuess": ["guess_game"]
+  },
+  {
+    "key": "soma",
+    "value": "Soma",
+    "chipGuess": ["guess_game"]
+  },
+  {
+    "key": "super_mario_party",
+    "value": "Super Mario Party",
+    "chipGuess": ["guess_game"]
+  },
+  {
+    "key": "bioshock",
+    "value": "BioShock",
+    "chipGuess": ["guess_game"]
+  },
+  {
+    "key": "alien_isolation",
+    "value": "Alien: Isolation",
+    "chipGuess": ["guess_game"]
+  },
+  {
+    "key": "bloodborne",
+    "value": "Bloodborne",
+    "chipGuess": ["guess_game"]
+  },
+  {
+    "key": "baldurs_gate_enhanced_edition",
+    "value": "Baldur's Gate: Enhanced Edition",
+    "chipGuess": ["guess_game"]
+  },
+  {
+    "key": "assassins_creed_4_black_flag",
+    "value": "Assassin's Creed IV: Black Flag",
+    "chipGuess": ["guess_game"]
+  },
+  {
+    "key": "amnesia_rebirth",
+    "value": "Amnesia: Rebirth",
+    "chipGuess": ["guess_game"]
+  },
+  {
+    "key": "alone_in_the_dark",
+    "value": "Alone in the Dark",
+    "chipGuess": ["guess_game"]
+  },
+  {
+    "key": "afk_arena",
+    "value": "AFK Arena",
+    "chipGuess": ["guess_game"]
+  }
+]

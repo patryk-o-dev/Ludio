@@ -1,0 +1,283 @@
+[
+  {
+    "key": "guess_game_character_001",
+    "image": "/static/guessGameCharacter/byCosplay/ggcc004bmquweo.jpg",
+    "answer": "carmina_mora_the_artist",
+    "category": "byCosplay",
+    "gameTypes": ["guessGameCharacter"]
+  },
+  {
+    "key": "guess_game_character_002",
+    "image": "/static/guessGameCharacter/byCosplay/ggcc006moluvmb.jpg",
+    "answer": "lisa_minci",
+    "category": "byCosplay",
+    "gameTypes": ["guessGameCharacter"]
+  },
+  {
+    "key": "guess_game_character_003",
+    "image": "/static/guessGameCharacter/byCosplay/ggcc009nbkeobi.jpg",
+    "answer": "anna_the_huntress",
+    "category": "byCosplay",
+    "gameTypes": ["guessGameCharacter"]
+  },
+  {
+    "key": "guess_game_character_004",
+    "image": "/static/guessGameCharacter/byCosplay/ggcc010oukgdjm.jpg",
+    "answer": "cole_cassidy",
+    "category": "byCosplay",
+    "gameTypes": ["guessGameCharacter"]
+  },
+  {
+    "key": "guess_game_character_005",
+    "image": "/static/guessGameCharacter/byCosplay/ggcc011hsjauut.JPG",
+    "answer": "triss_merigold",
+    "category": "byCosplay",
+    "gameTypes": ["guessGameCharacter"]
+  },
+  {
+    "key": "guess_game_character_006",
+    "image": "/static/guessGameCharacter/byCosplay/ggcc017mpgvfkw.jpg",
+    "answer": "ashe",
+    "category": "byCosplay",
+    "gameTypes": ["guessGameCharacter"]
+  },
+  {
+    "key": "guess_game_character_007",
+    "image": "/static/guessGameCharacter/byCosplay/ggcc034oduldcl.jpg",
+    "answer": "mario",
+    "category": "byCosplay",
+    "gameTypes": ["guessGameCharacter"]
+  },
+  {
+    "key": "guess_game_character_008",
+    "image": "/static/guessGameCharacter/byCosplay/ggcc043oofrouj.jpg",
+    "answer": "hornet",
+    "category": "byCosplay",
+    "gameTypes": ["guessGameCharacter"]
+  },
+  {
+    "key": "guess_game_character_009",
+    "image": "/static/guessGameCharacter/byCosplay/ggcc044wlojgyq.jpg",
+    "answer": "ahri",
+    "category": "byCosplay",
+    "gameTypes": ["guessGameCharacter"]
+  },
+  {
+    "key": "guess_game_character_010",
+    "image": "/static/guessGameCharacter/byCosplay/ggcc059fkbwudf.jpg",
+    "answer": "bella_dimitrescu",
+    "category": "byCosplay",
+    "gameTypes": ["guessGameCharacter"]
+  },
+  {
+    "key": "guess_game_character_011",
+    "image": "/static/guessGameCharacter/byCosplay/ggcc074iltuicy.JPG",
+    "answer": "mad_moxxi",
+    "category": "byCosplay",
+    "gameTypes": ["guessGameCharacter"]
+  },
+  {
+    "key": "guess_game_character_012",
+    "image": "/static/guessGameCharacter/byCosplay/ggcc078yvvcsbf.jpg",
+    "answer": "springtrap",
+    "category": "byCosplay",
+    "gameTypes": ["guessGameCharacter"]
+  },
+  {
+    "key": "guess_game_character_013",
+    "image": "/static/guessGameCharacter/byCosplay/ggcc081ffcdqyt.jpg",
+    "answer": "jude_alvarez",
+    "category": "byCosplay",
+    "gameTypes": ["guessGameCharacter"]
+  },
+  {
+    "key": "guess_game_character_014",
+    "image": "/static/guessGameCharacter/byCosplay/ggcc093ruuyidj.jpg",
+    "answer": "cappie",
+    "category": "byCosplay",
+    "gameTypes": ["guessGameCharacter"]
+  },
+  {
+    "key": "guess_game_character_015",
+    "image": "/static/guessGameCharacter/byCosplay/ggcc096makiuql.JPG",
+    "answer": "kim_possible",
+    "category": "byCosplay",
+    "gameTypes": ["guessGameCharacter"]
+  },
+  {
+    "key": "guess_game_character_016",
+    "image": "/static/guessGameCharacter/byImage/ggci011wcwbemi.jpg",
+    "answer": "geralt_of_rivia",
+    "category": "byImage",
+    "gameTypes": ["guessGameCharacter"],
+    "filters": ["onlyMale"]
+  },
+  {
+    "key": "guess_game_character_017",
+    "image": "/static/guessGameCharacter/byImage/ggci015xtucfgm.PNG",
+    "answer": "grace_ashcroft",
+    "category": "byImage",
+    "gameTypes": ["guessGameCharacter"],
+    "filters": ["onlyFemale"]
+  },
+  {
+    "key": "guess_game_character_018",
+    "image": "/static/guessGameCharacter/byImage/ggci022bmprnds.png",
+    "answer": "hanzo",
+    "category": "byImage",
+    "gameTypes": ["guessGameCharacter"],
+    "filters": ["onlyMale"]
+  },
+  {
+    "key": "guess_game_character_019",
+    "image": "/static/guessGameCharacter/byImage/ggci030sbeighr.png",
+    "answer": "mad_moxxi",
+    "category": "byImage",
+    "gameTypes": ["guessGameCharacter"],
+    "filters": ["onlyFemale"]
+  },
+  {
+    "key": "guess_game_character_020",
+    "image": "/static/guessGameCharacter/byImage/ggci039ulbowlv.jpg",
+    "answer": "max_payne",
+    "category": "byImage",
+    "gameTypes": ["guessGameCharacter"],
+    "filters": ["onlyMale"]
+  },
+  {
+    "key": "guess_game_character_021",
+    "image": "/static/guessGameCharacter/byImage/ggci042ncyglcu.png",
+    "answer": "jude_alvarez",
+    "category": "byImage",
+    "gameTypes": ["guessGameCharacter"],
+    "filters": ["onlyFemale"]
+  },
+  {
+    "key": "guess_game_character_022",
+    "image": "/static/guessGameCharacter/byImage/ggci043doejykc.png",
+    "answer": "the_hunter",
+    "category": "byImage",
+    "gameTypes": ["guessGameCharacter"],
+    "filters": ["onlyMale"]
+  },
+  {
+    "key": "guess_game_character_023",
+    "image": "/static/guessGameCharacter/byImage/ggci044qejcnds.png",
+    "answer": "robert_robertson_iii",
+    "category": "byImage",
+    "gameTypes": ["guessGameCharacter"],
+    "filters": ["onlyMale"]
+  },
+  {
+    "key": "guess_game_character_024",
+    "image": "/static/guessGameCharacter/byImage/ggci045xpgexao.png",
+    "answer": "kena",
+    "category": "byImage",
+    "gameTypes": ["guessGameCharacter"],
+    "filters": ["onlyFemale"]
+  },
+  {
+    "key": "guess_game_character_025",
+    "image": "/static/guessGameCharacter/byImage/ggci048rmagtdq.png",
+    "answer": "hornet",
+    "category": "byImage",
+    "gameTypes": ["guessGameCharacter"],
+    "filters": ["onlyFemale"]
+  },
+  {
+    "key": "guess_game_character_026",
+    "image": "/static/guessGameCharacter/byImage/ggci049sexddxn.jpg",
+    "answer": "2b",
+    "category": "byImage",
+    "gameTypes": ["guessGameCharacter"],
+    "filters": ["onlyFemale"]
+  },
+  {
+    "key": "guess_game_character_027",
+    "image": "/static/guessGameCharacter/byImage/ggci050adlvssi.jpg",
+    "answer": "kratos",
+    "category": "byImage",
+    "gameTypes": ["guessGameCharacter"],
+    "filters": ["onlyMale"]
+  },
+  {
+    "key": "guess_game_character_028",
+    "image": "/static/guessGameCharacter/byImage/ggci051xfmkmhb.jpg",
+    "answer": "commander_shepard",
+    "category": "byImage",
+    "gameTypes": ["guessGameCharacter"],
+    "filters": ["onlyMale"]
+  },
+  {
+    "key": "guess_game_character_029",
+    "image": "/static/guessGameCharacter/byImage/ggci063gogcwvf.png",
+    "answer": "trevor_philips",
+    "category": "byImage",
+    "gameTypes": ["guessGameCharacter"],
+    "filters": ["onlyMale"]
+  },
+  {
+    "key": "guess_game_character_030",
+    "image": "/static/guessGameCharacter/byImage/ggci065eluloib.png",
+    "answer": "sebastian",
+    "category": "byImage",
+    "gameTypes": ["guessGameCharacter"],
+    "filters": ["onlyMale"]
+  },
+  {
+    "key": "guess_game_character_031",
+    "image": "/static/guessGameCharacter/byImage/ggci067jpfxlio.png",
+    "answer": "ahri",
+    "category": "byImage",
+    "gameTypes": ["guessGameCharacter"],
+    "filters": ["onlyFemale"]
+  },
+  {
+    "key": "guess_game_character_032",
+    "image": "/static/guessGameCharacter/byImage/ggci073ieylbhi.png",
+    "answer": "eve",
+    "category": "byImage",
+    "gameTypes": ["guessGameCharacter"],
+    "filters": ["onlyFemale"]
+  },
+  {
+    "key": "guess_game_character_033",
+    "image": "/static/guessGameCharacter/byImage/ggci076afashpf.jpg",
+    "answer": "ciri",
+    "category": "byImage",
+    "gameTypes": ["guessGameCharacter"],
+    "filters": ["onlyFemale"]
+  },
+  {
+    "key": "guess_game_character_034",
+    "image": "/static/guessGameCharacter/byImage/ggci084dabfdwf.png",
+    "answer": "ken_kaneki",
+    "category": "byImage",
+    "gameTypes": ["guessGameCharacter"],
+    "filters": ["onlyMale"]
+  },
+  {
+    "key": "guess_game_character_035",
+    "image": "/static/guessGameCharacter/byImage/ggci086xvlotbs.png",
+    "answer": "kratos",
+    "category": "byImage",
+    "gameTypes": ["guessGameCharacter"],
+    "filters": ["onlyMale"]
+  },
+  {
+    "key": "guess_game_character_036",
+    "image": "/static/guessGameCharacter/byImage/ggci093gyrfayy.jpg",
+    "answer": "teemo",
+    "category": "byImage",
+    "gameTypes": ["guessGameCharacter"],
+    "filters": ["onlyMale"]
+  },
+  {
+    "key": "guess_game_character_037",
+    "image": "/static/guessGameCharacter/byImage/ggci097xjdqcyg.jpg",
+    "answer": "ciri",
+    "category": "byImage",
+    "gameTypes": ["guessGameCharacter"],
+    "filters": ["onlyFemale"]
+  }
+]

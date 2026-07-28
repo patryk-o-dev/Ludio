@@ -145,6 +145,7 @@ model Rule {
 
 model ChipGuess {
   id   String @id @default(uuid())
+  key  String @unique
   name String
   mode GameMode
 
@@ -157,6 +158,7 @@ model ChipGuess {
 
 model ChipBy {
   id   String @id @default(uuid())
+  key  String @unique
   name String
 
   rules     Rule[]
@@ -168,6 +170,7 @@ model ChipBy {
 
 model ChipFilter {
   id   String @id @default(uuid())
+  key  String @unique
   name String
 
   rules     Rule[]
@@ -179,6 +182,7 @@ model ChipFilter {
 
 model Question {
   id         String @id @default(uuid())
+  key        String @unique
   url        String
   difficulty Int    @default(1)
   answerId   String
@@ -196,6 +200,7 @@ model Question {
 
 model Answer {
   id    String @id @default(uuid())
+  key   String @unique
   value String
 
   chipGuesses ChipGuess[]

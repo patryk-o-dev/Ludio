@@ -1,0 +1,87 @@
+[
+  {
+    "key": "aatrox",
+    "value": "Aatrox",
+    "chipGuess": ["guess_league_champion"]
+  },
+  {
+    "key": "amumu",
+    "value": "Amumu",
+    "chipGuess": ["guess_league_champion"]
+  },
+  {
+    "key": "aurelion_sol",
+    "value": "Aurelion Sol",
+    "chipGuess": ["guess_league_champion"]
+  },
+  {
+    "key": "bel_veth",
+    "value": "Bel'Veth",
+    "chipGuess": ["guess_league_champion"]
+  },
+  {
+    "key": "blitzcrank",
+    "value": "Blitzcrank",
+    "chipGuess": ["guess_league_champion"]
+  },
+  {
+    "key": "cho_gath",
+    "value": "Cho'Gath",
+    "chipGuess": ["guess_league_champion"]
+  },
+  {
+    "key": "dr_mundo",
+    "value": "Dr. Mundo",
+    "chipGuess": ["guess_league_champion"]
+  },
+  {
+    "key": "fizz",
+    "value": "Fizz",
+    "chipGuess": ["guess_league_champion"]
+  },
+  {
+    "key": "gragas",
+    "value": "Gragas",
+    "chipGuess": ["guess_league_champion"]
+  },
+  {
+    "key": "irelia",
+    "value": "Irelia",
+    "chipGuess": ["guess_league_champion"]
+  },
+  {
+    "key": "kennen",
+    "value": "Kennen",
+    "chipGuess": ["guess_league_champion"]
+  },
+  {
+    "key": "malphite",
+    "value": "Malphite",
+    "chipGuess": ["guess_league_champion"]
+  },
+  {
+    "key": "nasus",
+    "value": "Nasus",
+    "chipGuess": ["guess_league_champion"]
+  },
+  {
+    "key": "soraka",
+    "value": "Soraka",
+    "chipGuess": ["guess_league_champion"]
+  },
+  {
+    "key": "tahm_kench",
+    "value": "Tahm Kench",
+    "chipGuess": ["guess_league_champion"]
+  },
+  {
+    "key": "vex",
+    "value": "Vex",
+    "chipGuess": ["guess_league_champion"]
+  },
+  {
+    "key": "yunara",
+    "value": "Yunara",
+    "chipGuess": ["guess_league_champion"]
+  }
+]
