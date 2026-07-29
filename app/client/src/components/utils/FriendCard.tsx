@@ -183,14 +183,29 @@ const FriendCard = ({
 					</div>
 				</div>
 				{variant === "friend" && (
-					<button
-						ref={buttonRef}
-						disabled={isCommunityQuiz}
-						className="absolute -right-px top-0 h-full flex items-center align-middle p-1 rounded-lg bg-(--info) hover:cursor-pointer transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
-						onClick={handleAddPlayer}
-					>
-						<Icons name={iconName} color="text" size={32} isAddon={false} />
-					</button>
+					<>
+						<button
+							ref={buttonRef}
+							disabled={isCommunityQuiz}
+							className="absolute -right-px top-0 h-full flex items-center align-middle p-1 rounded-lg bg-(--info) hover:cursor-pointer transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
+							onClick={handleAddPlayer}
+						>
+							<Icons name={iconName} color="text" size={32} isAddon={false} />
+						</button>
+						<button
+							className="absolute top-0 left-0 h-6 flex items-center p-1 transition-all duration-300 hover:filter-[drop-shadow(0_0_3px_var(--negative))_drop-shadow(0_0_6px_var(--negative))]"
+							onClick={async () => {
+								await fetch(
+									`${API}/user/friendship/${friendId}/remove`,
+									withAuth({
+										method: "DELETE",
+									}),
+								);
+							}}
+						>
+							<Icons name="cancel" color="negative" size={12} isAddon={false} />
+						</button>
+					</>
 				)}
 				{variant === "sessionInvite" && (
 					<div className={`absolute flex -right-px top-0 h-full w-full`}>

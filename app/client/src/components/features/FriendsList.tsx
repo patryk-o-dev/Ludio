@@ -123,9 +123,16 @@ const FriendsList = () => {
 				setFriendRequests(data);
 			}
 		};
+		const fetchSessionInvites = async () => {
+			const response = await fetch(`${API}/game-session/invites`, withAuth());
+			const data = await response.json();
+
+			setSessionInvites(data);
+		};
 
 		fetchFriendRequests();
 		fetchFriends();
+		fetchSessionInvites();
 	}, [userId, API]);
 
 	useEffect(() => {
@@ -337,6 +344,7 @@ const FriendsList = () => {
 								<FriendGroup
 									key={community.id}
 									name={community.owner.displayName ?? "Community"}
+									communityId={community.id}
 								>
 									{rankedMembers.map((member) => (
 										<FriendCard

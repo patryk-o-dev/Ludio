@@ -1,15 +1,29 @@
 import { Children, useState } from "react";
 import Icons from "../utils/Icons/Icons";
+import { withAuth } from "../utils/api";
 
 const FriendGroup = ({
 	children,
 	name,
+	communityId,
 }: {
 	children: React.ReactNode;
 	name: string;
+	communityId?: string;
 }) => {
+	const API = import.meta.env.VITE_API_URL;
 	const [isExpanded, setIsExpanded] = useState(true);
 	const itemCount = Children.count(children);
+	const handleLeaveCommunity = async () => {
+		if (!communityId) return;
+
+		await fetch(
+			`${API}/community/${communityId}/leave`,
+			withAuth({
+				method: "DELETE",
+			}),
+		);
+	};
 	return (
 		<div className="relative overflow-hidden rounded-3xl border border-(--bgc-secondary) bg-(--bgc-tertiary)/60 shadow-[0_18px_48px_rgba(0,0,0,0.2)] backdrop-blur-sm">
 			<div className="pointer-events-none absolute left-6 right-6 top-0 h-px bg-(--accent)/45" />
@@ -29,6 +43,23 @@ const FriendGroup = ({
 							<span className="rounded-full border border-white/10 px-2 py-1 text-[10px] font-semibold tracking-[0.18em] text-(--text-secondary)">
 								{itemCount}
 							</span>
+
+							{communityId && (
+								<span
+									onClick={(e) => {
+										e.stopPropagation();
+										handleLeaveCommunity();
+									}}
+									className="flex rounded-full -ml-2 transition-all duration-300 hover:filter-[drop-shadow(0_0_3px_var(--negative))_drop-shadow(0_0_6px_var(--negative))]"
+								>
+									<Icons
+										name={"cancel"}
+										color="negative"
+										size={16}
+										isAddon={false}
+									/>
+								</span>
+							)}
 						</div>
 					</div>
 					<span

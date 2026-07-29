@@ -1,198 +1,198 @@
 [
   {
     "key": "guess_movie_001",
-    "image": "/static/guessMovie/byFrame/MV5BMjAwNjgwNzc4M15BMl5BanBnXkFtZTgwMDA0MTc3MTE@._V1_.jpg",
+    "media": "MV5BMjAwNjgwNzc4M15BMl5BanBnXkFtZTgwMDA0MTc3MTE@._V1_.jpg",
     "answer": "1408",
-    "category": "byFrame",
-    "gameTypes": ["guessMovie"]
+    "category": "by_frame",
+    "gameTypes": ["guess_movie"]
   },
   {
     "key": "guess_movie_002",
-    "image": "/static/guessMovie/byFrame/MV5BMjk3NTYyMzc4Nl5BMl5BanBnXkFtZTcwODU3ODMzMw@@._V1_FMjpg_UX2048_.jpg",
+    "media": "MV5BMjk3NTYyMzc4Nl5BMl5BanBnXkFtZTcwODU3ODMzMw@@._V1_FMjpg_UX2048_.jpg",
     "answer": "fight_club",
-    "category": "byFrame",
-    "gameTypes": ["guessMovie"]
+    "category": "by_frame",
+    "gameTypes": ["guess_movie"]
   },
   {
     "key": "guess_movie_003",
-    "image": "/static/guessMovie/byFrame/MV5BMTc1NjkwMTY0OF5BMl5BanBnXkFtZTcwMjk5NDIyMw@@._V1_FMjpg_UX2048_.jpg",
+    "media": "MV5BMTc1NjkwMTY0OF5BMl5BanBnXkFtZTcwMjk5NDIyMw@@._V1_FMjpg_UX2048_.jpg",
     "answer": "spotlight",
-    "category": "byFrame",
-    "gameTypes": ["guessMovie"]
+    "category": "by_frame",
+    "gameTypes": ["guess_movie"]
   },
   {
     "key": "guess_movie_004",
-    "image": "/static/guessMovie/byFrame/MV5BMTk4NzQwODM5MF5BMl5BanBnXkFtZTcwNjgzNTI3Nw@@._V1_FMjpg_UX2048_.jpg",
+    "media": "MV5BMTk4NzQwODM5MF5BMl5BanBnXkFtZTcwNjgzNTI3Nw@@._V1_FMjpg_UX2048_.jpg",
     "answer": "django_unchained",
-    "category": "byFrame",
-    "gameTypes": ["guessMovie"]
+    "category": "by_frame",
+    "gameTypes": ["guess_movie"]
   },
   {
     "key": "guess_movie_005",
-    "image": "/static/guessMovie/byFrame/MV5BMTkyNDQyNTc4NF5BMl5BanBnXkFtZTgwMDU4MzkzMDI@._V1_FMjpg_UX2048_.jpg",
+    "media": "MV5BMTkyNDQyNTc4NF5BMl5BanBnXkFtZTgwMDU4MzkzMDI@._V1_FMjpg_UX2048_.jpg",
     "answer": "the_handmaiden",
-    "category": "byFrame",
-    "gameTypes": ["guessMovie"]
+    "category": "by_frame",
+    "gameTypes": ["guess_movie"]
   },
   {
     "key": "guess_movie_006",
-    "image": "/static/guessMovie/byFrame/MV5BMTM0NjUxMDk5MF5BMl5BanBnXkFtZTcwNDMxNDY3Mw@@._V1_FMjpg_UX1800_.jpg",
+    "media": "MV5BMTM0NjUxMDk5MF5BMl5BanBnXkFtZTcwNDMxNDY3Mw@@._V1_FMjpg_UX1800_.jpg",
     "answer": "shawshank_redemption",
-    "category": "byFrame",
-    "gameTypes": ["guessMovie"]
+    "category": "by_frame",
+    "gameTypes": ["guess_movie"]
   },
   {
     "key": "guess_movie_007",
-    "image": "/static/guessMovie/byFrame/MV5BMTM0NzMzNDYyOV5BMl5BanBnXkFtZTcwODM2NDY3Mw@@._V1_FMjpg_UX2048_.jpg",
+    "media": "MV5BMTM0NzMzNDYyOV5BMl5BanBnXkFtZTcwODM2NDY3Mw@@._V1_FMjpg_UX2048_.jpg",
     "answer": "forrest_gump",
-    "category": "byFrame",
-    "gameTypes": ["guessMovie"]
+    "category": "by_frame",
+    "gameTypes": ["guess_movie"]
   },
   {
     "key": "guess_movie_008",
-    "image": "/static/guessMovie/byFrame/MV5BMW~1.JPG",
+    "media": "MV5BMW~1.JPG",
     "answer": "el_camino",
-    "category": "byFrame",
-    "gameTypes": ["guessMovie"]
+    "category": "by_frame",
+    "gameTypes": ["guess_movie"]
   },
   {
     "key": "guess_movie_009",
-    "image": "/static/guessMovie/byFrame/MV5BNDA4MjgxODI2NV5BMl5BanBnXkFtZTgwMzQ1NTE4MjE@._V1_FMjpg_UX2048_.jpg",
+    "media": "MV5BNDA4MjgxODI2NV5BMl5BanBnXkFtZTgwMzQ1NTE4MjE@._V1_FMjpg_UX2048_.jpg",
     "answer": "whiplash",
-    "category": "byFrame",
-    "gameTypes": ["guessMovie"]
+    "category": "by_frame",
+    "gameTypes": ["guess_movie"]
   },
   {
     "key": "guess_movie_010",
-    "image": "/static/guessMovie/byFrame/MV5BNG~1.JPG",
+    "media": "MV5BNG~1.JPG",
     "answer": "no_country_for_old_men",
-    "category": "byFrame",
-    "gameTypes": ["guessMovie"]
+    "category": "by_frame",
+    "gameTypes": ["guess_movie"]
   },
   {
     "key": "guess_movie_011",
-    "image": "/static/guessMovie/byFrame/MV5BNJ~1.JPG",
+    "media": "MV5BNJ~1.JPG",
     "answer": "smile",
-    "category": "byFrame",
-    "gameTypes": ["guessMovie"]
+    "category": "by_frame",
+    "gameTypes": ["guess_movie"]
   },
   {
     "key": "guess_movie_012",
-    "image": "/static/guessMovie/byFrame/MV5BNW~1.JPG",
+    "media": "MV5BNW~1.JPG",
     "answer": "american_psycho",
-    "category": "byFrame",
-    "gameTypes": ["guessMovie"]
+    "category": "by_frame",
+    "gameTypes": ["guess_movie"]
   },
   {
     "key": "guess_movie_013",
-    "image": "/static/guessMovie/byFrame/MV5BNzg4MTkxODg2NV5BMl5BanBnXkFtZTgwNzEwNjc0MDI@._V1_FMjpg_UX2048_.jpg",
+    "media": "MV5BNzg4MTkxODg2NV5BMl5BanBnXkFtZTgwNzEwNjc0MDI@._V1_FMjpg_UX2048_.jpg",
     "answer": "hacksaw_ridge",
-    "category": "byFrame",
-    "gameTypes": ["guessMovie"]
+    "category": "by_frame",
+    "gameTypes": ["guess_movie"]
   },
   {
     "key": "guess_movie_014",
-    "image": "/static/guessMovie/byFrame/MV5BOD~1.JPG",
+    "media": "MV5BOD~1.JPG",
     "answer": "platform",
-    "category": "byFrame",
-    "gameTypes": ["guessMovie"]
+    "category": "by_frame",
+    "gameTypes": ["guess_movie"]
   },
   {
     "key": "guess_movie_015",
-    "image": "/static/guessMovie/byFrame/MV5BOG~1.JPG",
+    "media": "MV5BOG~1.JPG",
     "answer": "black_swan",
-    "category": "byFrame",
-    "gameTypes": ["guessMovie"]
+    "category": "by_frame",
+    "gameTypes": ["guess_movie"]
   },
   {
     "key": "guess_movie_016",
-    "image": "/static/guessMovie/byFrame/MV5BYZ~1.JPG",
+    "media": "MV5BYZ~1.JPG",
     "answer": "spotlight",
-    "category": "byFrame",
-    "gameTypes": ["guessMovie"]
+    "category": "by_frame",
+    "gameTypes": ["guess_movie"]
   },
   {
     "key": "guess_movie_017",
-    "image": "/static/guessMovie/byFrame/MV5BZD~1.JPG",
+    "media": "MV5BZD~1.JPG",
     "answer": "hachi_a_dogs_tale",
-    "category": "byFrame",
-    "gameTypes": ["guessMovie"]
+    "category": "by_frame",
+    "gameTypes": ["guess_movie"]
   },
   {
     "key": "guess_movie_018",
-    "image": "/static/guessMovie/byFrame/MV5BZJ~1.JPG",
+    "media": "MV5BZJ~1.JPG",
     "answer": "12",
-    "category": "byFrame",
-    "gameTypes": ["guessMovie"]
+    "category": "by_frame",
+    "gameTypes": ["guess_movie"]
   },
   {
     "key": "guess_movie_019",
-    "image": "/static/guessMovie/byTrailer/1408 (2007) - HD Trailer - Trim.mp4",
+    "media": "1408 (2007) - HD Trailer - Trim.mp4",
     "answer": "1408",
-    "category": "byTrailer",
-    "gameTypes": ["guessMovie"]
+    "category": "by_trailer",
+    "gameTypes": ["guess_movie"]
   },
   {
     "key": "guess_movie_020",
-    "image": "/static/guessMovie/byTrailer/AMERIC~2.MP4",
+    "media": "AMERIC~2.MP4",
     "answer": "american_psycho",
-    "category": "byTrailer",
-    "gameTypes": ["guessMovie"]
+    "category": "by_trailer",
+    "gameTypes": ["guess_movie"]
   },
   {
     "key": "guess_movie_021",
-    "image": "/static/guessMovie/byTrailer/BLACK SWAN  Official Trailer  FOX Searchlight - Trim.mp4",
+    "media": "BLACK SWAN  Official Trailer  FOX Searchlight - Trim.mp4",
     "answer": "black_swan",
-    "category": "byTrailer",
-    "gameTypes": ["guessMovie"]
+    "category": "by_trailer",
+    "gameTypes": ["guess_movie"]
   },
   {
     "key": "guess_movie_022",
-    "image": "/static/guessMovie/byTrailer/El Camino A Breaking Bad Movie  Official Trailer  Netflix.mp4",
+    "media": "El Camino A Breaking Bad Movie  Official Trailer  Netflix.mp4",
     "answer": "el_camino",
-    "category": "byTrailer",
-    "gameTypes": ["guessMovie"]
+    "category": "by_trailer",
+    "gameTypes": ["guess_movie"]
   },
   {
     "key": "guess_movie_023",
-    "image": "/static/guessMovie/byTrailer/HACKSA~2.MP4",
+    "media": "HACKSA~2.MP4",
     "answer": "hacksaw_ridge",
-    "category": "byTrailer",
-    "gameTypes": ["guessMovie"]
+    "category": "by_trailer",
+    "gameTypes": ["guess_movie"]
   },
   {
     "key": "guess_movie_024",
-    "image": "/static/guessMovie/byTrailer/Smile  Official Trailer (2022 Movie) - Trim.mp4",
+    "media": "Smile  Official Trailer (2022 Movie) - Trim.mp4",
     "answer": "smile",
-    "category": "byTrailer",
-    "gameTypes": ["guessMovie"]
+    "category": "by_trailer",
+    "gameTypes": ["guess_movie"]
   },
   {
     "key": "guess_movie_025",
-    "image": "/static/guessMovie/byTrailer/spotlight.mp4",
+    "media": "spotlight.mp4",
     "answer": "spotlight",
-    "category": "byTrailer",
-    "gameTypes": ["guessMovie"]
+    "category": "by_trailer",
+    "gameTypes": ["guess_movie"]
   },
   {
     "key": "guess_movie_026",
-    "image": "/static/guessMovie/byTrailer/The Platform  Main Trailer  Netflix - Trim.mp4",
+    "media": "The Platform  Main Trailer  Netflix - Trim.mp4",
     "answer": "platform",
-    "category": "byTrailer",
-    "gameTypes": ["guessMovie"]
+    "category": "by_trailer",
+    "gameTypes": ["guess_movie"]
   },
   {
     "key": "guess_movie_027",
-    "image": "/static/guessMovie/byTrailer/THE SUBSTANCE - Trim.mp4",
+    "media": "THE SUBSTANCE - Trim.mp4",
     "answer": "substance",
-    "category": "byTrailer",
-    "gameTypes": ["guessMovie"]
+    "category": "by_trailer",
+    "gameTypes": ["guess_movie"]
   },
   {
     "key": "guess_movie_028",
-    "image": "/static/guessMovie/byTrailer/Zodiac (2007) Trailer #1  Movieclips Classic Trailers - Trim.mp4",
+    "media": "Zodiac (2007) Trailer #1  Movieclips Classic Trailers - Trim.mp4",
     "answer": "zodiac",
-    "category": "byTrailer",
-    "gameTypes": ["guessMovie"]
+    "category": "by_trailer",
+    "gameTypes": ["guess_movie"]
   }
 ]

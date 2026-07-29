@@ -14,11 +14,11 @@ const ArrowIcon = ({ size, color, isAddon }: IconElementProps) => (
 		fill="#aeaeae"
 		className={`${styles[color]} ${isAddon ? "rounded-[27.5%] border-2 border-(--bgc-quaternary)" : ""}`}
 	>
-		<g id="SVGRepo_bgCarrier" stroke-width="0"></g>
+		<g id="SVGRepo_bgCarrier" strokeWidth="0"></g>
 		<g
 			id="SVGRepo_tracerCarrier"
-			stroke-linecap="round"
-			stroke-linejoin="round"
+			strokeLinecap="round"
+			strokeLinejoin="round"
 		></g>
 		<g id="SVGRepo_iconCarrier">
 			<path
@@ -40,9 +40,9 @@ const AmpersandIcon = ({ size, color, isAddon }: IconElementProps) => (
 		<path
 			fill="none"
 			stroke="currentColor"
-			stroke-linecap="round"
-			stroke-linejoin="round"
-			stroke-width="2"
+			strokeLinecap="round"
+			strokeLinejoin="round"
+			strokeWidth="2"
 			d="M19 20L8.597 9.028a2.95 2.95 0 0 1 0-4.165a2.94 2.94 0 0 1 4.161 0a2.95 2.95 0 0 1 0 4.165l-4.68 4.687a3.685 3.685 0 0 0 0 5.207a3.675 3.675 0 0 0 5.2 0L19 13"
 		/>
 	</svg>
@@ -59,9 +59,9 @@ const CircleQuestionMark = ({ size, color, isAddon }: IconElementProps) => (
 		<g
 			fill="none"
 			stroke="currentColor"
-			stroke-linecap="round"
-			stroke-linejoin="round"
-			stroke-width="2"
+			strokeLinecap="round"
+			strokeLinejoin="round"
+			strokeWidth="2"
 		>
 			<circle cx="12" cy="12" r="10" />
 			<path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3m.08 4h.01" />
@@ -80,9 +80,9 @@ const CircleCheck = ({ size, color, isAddon }: IconElementProps) => (
 		<g
 			fill="none"
 			stroke="currentColor"
-			stroke-linecap="round"
-			stroke-linejoin="round"
-			stroke-width="2"
+			strokeLinecap="round"
+			strokeLinejoin="round"
+			strokeWidth="2"
 		>
 			<circle cx="12" cy="12" r="10" />
 			<path d="m9 12l2 2l4-4" />
@@ -101,9 +101,9 @@ const CircleX = ({ size, color, isAddon }: IconElementProps) => (
 		<g
 			fill="none"
 			stroke="currentColor"
-			stroke-linecap="round"
-			stroke-linejoin="round"
-			stroke-width="2"
+			strokeLinecap="round"
+			strokeLinejoin="round"
+			strokeWidth="2"
 		>
 			<circle cx="12" cy="12" r="10" />
 			<path d="m15 9l-6 6m0-6l6 6" />
@@ -122,9 +122,9 @@ const ArrowKeyUp = ({ size, color, isAddon }: IconElementProps) => (
 		<path
 			fill="none"
 			stroke="currentColor"
-			stroke-linecap="round"
-			stroke-linejoin="round"
-			stroke-width="2"
+			strokeLinecap="round"
+			strokeLinejoin="round"
+			strokeWidth="2"
 			d="M9 19a1 1 0 0 0 1 1h4a1 1 0 0 0 1-1v-6a1 1 0 0 1 1-1h3.293a.707.707 0 0 0 .5-1.207l-7.086-7.086a1 1 0 0 0-1.414 0l-7.086 7.086a.707.707 0 0 0 .5 1.207H8a1 1 0 0 1 1 1z"
 		/>
 	</svg>
@@ -141,9 +141,9 @@ const ArrowKeyDown = ({ size, color, isAddon }: IconElementProps) => (
 		<path
 			fill="none"
 			stroke="currentColor"
-			stroke-linecap="round"
-			stroke-linejoin="round"
-			stroke-width="2"
+			strokeLinecap="round"
+			strokeLinejoin="round"
+			strokeWidth="2"
 			d="M9 5a1 1 0 0 1 1-1h4a1 1 0 0 1 1 1v6a1 1 0 0 0 1 1h3.293a.707.707 0 0 1 .5 1.207l-7.086 7.086a1 1 0 0 1-1.414 0l-7.086-7.086a.707.707 0 0 1 .5-1.207H8a1 1 0 0 0 1-1z"
 		/>
 	</svg>
@@ -159,9 +159,9 @@ const Delete = ({ size, color, isAddon }: IconElementProps) => (
 	>
 		<path
 			stroke="currentColor"
-			stroke-linecap="round"
-			stroke-linejoin="round"
-			stroke-width="1.5"
+			strokeLinecap="round"
+			strokeLinejoin="round"
+			strokeWidth="1.5"
 			d="M10 5a2 2 0 0 0-1.344.519l-6.328 5.74a1 1 0 0 0 0 1.481l6.328 5.741A2 2 0 0 0 10 19h10a2 2 0 0 0 2-2V7a2 2 0 0 0-2-2zm2 4l6 6m0-6l-6 6"
 		/>
 	</svg>
@@ -178,9 +178,9 @@ const Cancel = ({ size, color, isAddon }: IconElementProps) => (
 		<path
 			fill="none"
 			stroke="currentColor"
-			stroke-linecap="round"
-			stroke-linejoin="round"
-			stroke-width="2"
+			strokeLinecap="round"
+			strokeLinejoin="round"
+			strokeWidth="2"
 			d="M18 6L6 18M6 6l12 12"
 		/>
 	</svg>
@@ -196,9 +196,9 @@ const Enter = ({ size, color, isAddon }: IconElementProps) => (
 	>
 		<path
 			fill="currentColor"
-			fill-rule="evenodd"
+			fillRule="evenodd"
 			d="M20.239 3.749a.75.75 0 0 0-.75.75V15H5.549l2.47-2.47a.75.75 0 0 0-1.06-1.06l-3.75 3.75a.75.75 0 0 0 0 1.06l3.75 3.75a.75.75 0 1 0 1.06-1.06L5.55 16.5h14.69a.75.75 0 0 0 .75-.75V4.5a.75.75 0 0 0-.75-.751"
-			clip-rule="evenodd"
+			clipRule="evenodd"
 		/>
 	</svg>
 );
@@ -217,9 +217,9 @@ const PlusCircle = ({ size, color, isAddon }: IconElementProps) => (
 		/>
 		<path
 			fill="currentColor"
-			fill-rule="evenodd"
+			fillRule="evenodd"
 			d="M7.317 3.769a42.5 42.5 0 0 1 9.366 0c1.827.204 3.302 1.643 3.516 3.48c.37 3.157.37 6.346 0 9.503c-.215 1.837-1.69 3.275-3.516 3.48a42.5 42.5 0 0 1-9.366 0c-1.827-.205-3.302-1.643-3.516-3.48a41 41 0 0 1 0-9.503c.214-1.837 1.69-3.276 3.516-3.48m9.2 1.49a41 41 0 0 0-9.034 0A2.486 2.486 0 0 0 5.29 7.424a39.4 39.4 0 0 0 0 9.154a2.486 2.486 0 0 0 2.193 2.164c2.977.332 6.057.332 9.034 0a2.486 2.486 0 0 0 2.192-2.164a39.4 39.4 0 0 0 0-9.154a2.486 2.486 0 0 0-2.192-2.163"
-			clip-rule="evenodd"
+			clipRule="evenodd"
 		/>
 	</svg>
 );
@@ -235,8 +235,8 @@ const Gamepad = ({ size, color, isAddon }: IconElementProps) => (
 		<g>
 			<path
 				stroke="currentColor"
-				stroke-linecap="round"
-				stroke-width="1.5"
+				strokeLinecap="round"
+				strokeWidth="1.5"
 				d="M21.22 8c-.689-2.184-1.792-3.365-3.13-3.84c-.38-.135-.788-.16-1.193-.16h-.612a4.24 4.24 0 0 0-2.45.78l-.502.354a2.31 2.31 0 0 1-2.666 0l-.502-.355A4.24 4.24 0 0 0 7.715 4h-.612c-.405 0-.813.025-1.194.16c-2.383.846-4.022 3.935-3.903 10.943c.024 1.412.354 2.972 1.628 3.581A3.2 3.2 0 0 0 5.027 19a2.74 2.74 0 0 0 1.53-.437c.915-.599 1.584-1.6 2.554-2.102a4.1 4.1 0 0 1 1.89-.461H13c.658 0 1.306.158 1.89.46c.97.504 1.64 1.504 2.553 2.103c.39.256.895.437 1.531.437a3.2 3.2 0 0 0 1.393-.316c1.274-.609 1.604-2.17 1.628-3.581A35 35 0 0 0 21.918 12M7.5 9v3M6 10.5h3"
 			/>
 			<path
@@ -264,9 +264,9 @@ const Person = ({ size, color, isAddon }: IconElementProps) => (
 		<g
 			fill="none"
 			stroke="currentColor"
-			stroke-linecap="round"
-			stroke-linejoin="round"
-			stroke-width="2"
+			strokeLinecap="round"
+			strokeLinejoin="round"
+			strokeWidth="2"
 		>
 			<circle cx="12" cy="8" r="5" />
 			<path d="M20 21a8 8 0 0 0-16 0" />
@@ -347,9 +347,9 @@ const Movies = ({ size, color, isAddon }: IconElementProps) => (
 		<g
 			fill="none"
 			stroke="currentColor"
-			stroke-linecap="round"
-			stroke-linejoin="round"
-			stroke-width="1.5"
+			strokeLinecap="round"
+			strokeLinejoin="round"
+			strokeWidth="1.5"
 		>
 			<rect width="18" height="18" x="3" y="3" rx="2" />
 			<path d="M7 3v18M3 7.5h4M3 12h18M3 16.5h4M17 3v18m0-13.5h4m-4 9h4" />
@@ -416,9 +416,9 @@ const Achievement = ({ size, color, isAddon }: IconElementProps) => (
 		<g
 			fill="none"
 			stroke="currentColor"
-			stroke-linecap="round"
-			stroke-linejoin="round"
-			stroke-width="1.5"
+			strokeLinecap="round"
+			strokeLinejoin="round"
+			strokeWidth="1.5"
 		>
 			<path d="M10 14.66v1.626a2 2 0 0 1-.976 1.696A5 5 0 0 0 7 21.978m7-7.318v1.626a2 2 0 0 0 .976 1.696A5 5 0 0 1 17 21.978M18 9h1.5a1 1 0 0 0 0-5H18M4 22h16" />
 			<path d="M6 9a6 6 0 0 0 12 0V3a1 1 0 0 0-1-1H7a1 1 0 0 0-1 1zm0 0H4.5a1 1 0 0 1 0-5H6" />
@@ -437,9 +437,9 @@ const Skull = ({ size, color, isAddon }: IconElementProps) => (
 		<g
 			fill="none"
 			stroke="currentColor"
-			stroke-linecap="round"
-			stroke-linejoin="round"
-			stroke-width="1.5"
+			strokeLinecap="round"
+			strokeLinejoin="round"
+			strokeWidth="1.5"
 		>
 			<path d="m12.5 17l-.5-1l-.5 1z" />
 			<path d="M15 22a1 1 0 0 0 1-1v-1a2 2 0 0 0 1.56-3.25a8 8 0 1 0-11.12 0A2 2 0 0 0 8 20v1a1 1 0 0 0 1 1z" />
@@ -460,9 +460,9 @@ const Backpack = ({ size, color, isAddon }: IconElementProps) => (
 		<g
 			fill="none"
 			stroke="currentColor"
-			stroke-linecap="round"
-			stroke-linejoin="round"
-			stroke-width="1.5"
+			strokeLinecap="round"
+			strokeLinejoin="round"
+			strokeWidth="1.5"
 		>
 			<path d="M4 10a4 4 0 0 1 4-4h8a4 4 0 0 1 4 4v10a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2zm4 0h8m-8 8h8" />
 			<path d="M8 22v-6a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v6M9 6V4a2 2 0 0 1 2-2h2a2 2 0 0 1 2 2v2" />
@@ -478,11 +478,11 @@ const Modify = ({ size, color, isAddon }: IconElementProps) => (
 		fill="none"
 		className={`${styles[color]} ${isAddon ? "rounded-[27.5%] border-2 border-(--bgc-quaternary)" : ""}`}
 	>
-		<g fill="none" stroke-width="3">
+		<g fill="none" strokeWidth="3">
 			<path
 				stroke="currentColor"
-				stroke-linecap="round"
-				stroke-linejoin="round"
+				strokeLinecap="round"
+				strokeLinejoin="round"
 				d="m20.07 9.586l-4.242-4.243a2 2 0 0 0-2.828 0L7.343 11a2 2 0 0 0 0 2.829l4.243 4.242m17.343 19.343l4.242 4.243a2 2 0 0 0 2.829 0L41.657 36a2 2 0 0 0 0-2.828l-4.243-4.243"
 			/>
 			<rect
@@ -491,8 +491,8 @@ const Modify = ({ size, color, isAddon }: IconElementProps) => (
 				x="34.606"
 				y="4.908"
 				stroke="currentColor"
-				stroke-linecap="round"
-				stroke-linejoin="round"
+				strokeLinecap="round"
+				strokeLinejoin="round"
 				rx="2"
 				transform="rotate(45 34.606 4.908)"
 			/>
@@ -514,8 +514,8 @@ const Screenshot = ({ size, color, isAddon }: IconElementProps) => (
 		<g
 			fill="none"
 			stroke="currentColor"
-			stroke-linecap="round"
-			stroke-linejoin="round"
+			strokeLinecap="round"
+			strokeLinejoin="round"
 		>
 			<path d="M10.007.943q.555.06 1.102.125a2.09 2.09 0 0 1 1.833 1.836l.12 1.095m-3.055 9.058q.555-.06 1.102-.125a2.09 2.09 0 0 0 1.833-1.836l.12-1.095M3.993.943q-.555.06-1.102.125a2.09 2.09 0 0 0-1.833 1.836l-.12 1.095m3.055 9.058q-.555-.06-1.102-.125a2.09 2.09 0 0 1-1.833-1.836l-.12-1.095m7.41-6.279H5.651l-.669 1.212l-.348.03l-.047.004c-.56.049-1.02.48-1.102 1.035c-.074.503-.14 1.022-.14 1.55s.066 1.048.14 1.552c.082.555.543.986 1.102 1.035l.047.004c.764.066 1.555.134 2.366.134c.81 0 1.602-.068 2.366-.134l.046-.004c.56-.049 1.02-.48 1.102-1.035c.074-.504.141-1.022.141-1.551s-.067-1.048-.14-1.55a1.224 1.224 0 0 0-1.103-1.036l-.046-.004l-.348-.03z" />
 			<path d="M7 8.44c.64 0 1-.36 1-1s-.36-1-1-1s-1 .36-1 1s.36 1 1 1" />
@@ -533,9 +533,9 @@ const Title = ({ size, color, isAddon }: IconElementProps) => (
 	>
 		<path
 			fill="currentColor"
-			fill-rule="evenodd"
+			fillRule="evenodd"
 			d="M.75 2a.75.75 0 0 0-.75.75v1.5a.75.75 0 0 0 1.5 0V3.5h2.75v9h-.5a.75.75 0 0 0 0 1.5h2.5a.75.75 0 0 0 0-1.5h-.5v-9H8.5v.75a.75.75 0 0 0 1.5 0v-1.5A.75.75 0 0 0 9.25 2zM8 7.75A.75.75 0 0 1 8.75 7h6.5a.75.75 0 0 1 0 1.5h-6.5A.75.75 0 0 1 8 7.75m0 3.5a.75.75 0 0 1 .75-.75h6.5a.75.75 0 0 1 0 1.5h-6.5a.75.75 0 0 1-.75-.75"
-			clip-rule="evenodd"
+			clipRule="evenodd"
 			stroke="none"
 		/>
 	</svg>
@@ -552,9 +552,9 @@ const Twitch = ({ size, color, isAddon }: IconElementProps) => (
 		<path
 			fill="none"
 			stroke="currentColor"
-			stroke-linecap="round"
-			stroke-linejoin="round"
-			stroke-width="2"
+			strokeLinecap="round"
+			strokeLinejoin="round"
+			strokeWidth="2"
 			d="M21 2H3v16h5v4l4-4h5l4-4zm-10 9V7m5 4V7"
 		/>
 	</svg>
@@ -594,9 +594,9 @@ const Settings = ({ size, color, isAddon }: IconElementProps) => (
 		<g
 			fill="none"
 			stroke="currentColor"
-			stroke-linecap="round"
-			stroke-linejoin="round"
-			stroke-width="2"
+			strokeLinecap="round"
+			strokeLinejoin="round"
+			strokeWidth="2"
 		>
 			<path d="M9.671 4.136a2.34 2.34 0 0 1 4.659 0a2.34 2.34 0 0 0 3.319 1.915a2.34 2.34 0 0 1 2.33 4.033a2.34 2.34 0 0 0 0 3.831a2.34 2.34 0 0 1-2.33 4.033a2.34 2.34 0 0 0-3.319 1.915a2.34 2.34 0 0 1-4.659 0a2.34 2.34 0 0 0-3.32-1.915a2.34 2.34 0 0 1-2.33-4.033a2.34 2.34 0 0 0 0-3.831A2.34 2.34 0 0 1 6.35 6.051a2.34 2.34 0 0 0 3.319-1.915" />
 			<circle cx="12" cy="12" r="3" />
@@ -606,7 +606,7 @@ const Settings = ({ size, color, isAddon }: IconElementProps) => (
 
 const PolandFlag = ({ size }: IconElementProps) => (
 	<svg width={size} height={size} viewBox="0 0 640 480">
-		<g fill-rule="evenodd">
+		<g fillRule="evenodd">
 			<path fill="#fff" d="M0 0h640v240H0z" />
 			<path fill="#dc143c" d="M0 240h640v240H0z" />
 		</g>
@@ -640,9 +640,9 @@ const Trophy = ({ size, color, isAddon }: IconElementProps) => (
 		<g
 			fill="none"
 			stroke="currentColor"
-			stroke-linecap="round"
-			stroke-linejoin="round"
-			stroke-width="2"
+			strokeLinecap="round"
+			strokeLinejoin="round"
+			strokeWidth="2"
 		>
 			<path d="M10 14.66v1.626a2 2 0 0 1-.976 1.696A5 5 0 0 0 7 21.978m7-7.318v1.626a2 2 0 0 0 .976 1.696A5 5 0 0 1 17 21.978M18 9h1.5a1 1 0 0 0 0-5H18M4 22h16" />
 			<path d="M6 9a6 6 0 0 0 12 0V3a1 1 0 0 0-1-1H7a1 1 0 0 0-1 1zm0 0H4.5a1 1 0 0 1 0-5H6" />
@@ -661,9 +661,9 @@ const NoLimit = ({ size, color, isAddon }: IconElementProps) => (
 		<path
 			fill="none"
 			stroke="currentColor"
-			stroke-linecap="round"
-			stroke-linejoin="round"
-			stroke-width="2"
+			strokeLinecap="round"
+			strokeLinejoin="round"
+			strokeWidth="2"
 			d="M6 16c5 0 7-8 12-8a4 4 0 0 1 0 8c-5 0-7-8-12-8a4 4 0 1 0 0 8"
 		/>
 	</svg>
@@ -679,9 +679,9 @@ const AddFriend = ({ size, color, isAddon }: IconElementProps) => (
 		<g
 			fill="none"
 			stroke="currentColor"
-			stroke-linecap="round"
-			stroke-linejoin="round"
-			stroke-width="2"
+			strokeLinecap="round"
+			strokeLinejoin="round"
+			strokeWidth="2"
 		>
 			<path d="M2 21a8 8 0 0 1 13.292-6" />
 			<circle cx="10" cy="8" r="5" />

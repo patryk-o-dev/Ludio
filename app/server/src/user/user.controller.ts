@@ -1,4 +1,12 @@
-import { Controller, Get, Post, Body, Param, Patch } from '@nestjs/common';
+import {
+  Controller,
+  Get,
+  Post,
+  Body,
+  Param,
+  Patch,
+  Delete,
+} from '@nestjs/common';
 import { UserService } from './user.service';
 import { CurrentUser } from '@/current-user.decorator';
 
@@ -47,5 +55,13 @@ export class UserController {
       userId,
       body.allowFriendRequests,
     );
+  }
+
+  @Delete('friendship/:friendId/remove')
+  removeFriend(
+    @CurrentUser('id') userId: string,
+    @Param('friendId') friendId: string,
+  ) {
+    return this.userService.removeFriend(userId, friendId);
   }
 }

@@ -1,4 +1,4 @@
-import { Controller, Post, Param, Get } from '@nestjs/common';
+import { Controller, Post, Param, Get, Delete } from '@nestjs/common';
 import { CommunityService } from './community.service';
 import { CurrentUser } from '@/current-user.decorator';
 
@@ -22,5 +22,13 @@ export class CommunityController {
     @CurrentUser('id') userId: string,
   ) {
     return this.communityService.join(communityId, userId);
+  }
+
+  @Delete(':communityId/leave')
+  leave(
+    @Param('communityId') communityId: string,
+    @CurrentUser('id') userId: string,
+  ) {
+    return this.communityService.leave(communityId, userId);
   }
 }

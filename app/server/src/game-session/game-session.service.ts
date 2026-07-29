@@ -259,6 +259,44 @@ export class GameSessionService implements OnModuleInit {
     return next;
   }
 
+  async findPendingInvites(userId: string) {
+    const invites = await this.prisma.gameSessionPlayer.findMany({
+      where: {
+        userId,
+        status: 'Invited',
+      },
+      include: {
+        gameSession: true,
+      },
+    });
+
+    const hostIds = invites.map((invite) => invite.gameSession.hostId);
+
+    const hosts = await this.prisma.user.findMany({
+      where: {
+        id: {
+          in: hostIds,
+        },
+      },
+      select: {
+        id: true,
+        displayName: true,
+        avatarUrl: true,
+      },
+    });
+
+    return invites.map((invite) => {
+      const host = hosts.find((user) => user.id === invite.gameSession.hostId);
+
+      return {
+        sessionId: invite.gameSession.id,
+        hostId: host?.id,
+        hostName: host?.displayName,
+        hostAvatar: host?.avatarUrl,
+      };
+    });
+  }
+
   async create(hostId: string, dto: CreateGameSessionDto) {
     const type = dto.type;
 
@@ -996,10 +1034,6 @@ export class GameSessionService implements OnModuleInit {
     const correctAnswer = await this.prisma.answer.findUnique({
       where: { id: question.answerId },
       select: { id: true, value: true },
-    });
-
-    this.gateway.server.to(sessionId).emit('session:question-result', {
-      correct: correctAnswer,
     });
 
     const summaryState: SessionLiveState = {

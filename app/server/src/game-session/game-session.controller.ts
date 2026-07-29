@@ -7,6 +7,11 @@ import { CurrentUser } from '@/current-user.decorator';
 export class GameSessionController {
   constructor(private readonly gameSessionService: GameSessionService) {}
 
+  @Get('invites')
+  findInvites(@CurrentUser('id') userId: string) {
+    return this.gameSessionService.findPendingInvites(userId);
+  }
+
   @Post()
   create(@CurrentUser('id') hostId: string, @Body() dto: CreateGameSessionDto) {
     return this.gameSessionService.create(hostId, dto);

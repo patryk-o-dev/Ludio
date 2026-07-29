@@ -64,6 +64,7 @@ const RuleElement = ({ rule, ruleNumber }: RuleElementProps) => {
 					>
 						{chipGuessData.icon.map((chipIcon, index) => (
 							<Icons
+								key={index}
 								name={chipIcon}
 								color={chipGuessData.color}
 								size={24}
@@ -98,6 +99,7 @@ const RuleElement = ({ rule, ruleNumber }: RuleElementProps) => {
 					>
 						{chipByData.icon.map((chipIcon, index) => (
 							<Icons
+								key={index}
 								name={chipIcon}
 								color={chipByData.color}
 								size={24}

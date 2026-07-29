@@ -124,22 +124,20 @@ const MediaDisplay = ({
 										"text-(--text)";
 
 									return (
-										<>
-											<div
-												key={player.user.displayName}
-												className={`flex gap-2 items-center rounded-full border border-(--accent)/30 bg-(--bgc-primary) px-4 py-2 text-lg font-medium ${colorClass}`}
-											>
-												{player.user.displayName}
-												{player.status === "Invited" && (
-													<Icons
-														name="spinner"
-														size={24}
-														color="text"
-														isAddon={false}
-													/>
-												)}
-											</div>
-										</>
+										<div
+											key={player.user.displayName}
+											className={`flex gap-2 items-center rounded-full border border-(--accent)/30 bg-(--bgc-primary) px-4 py-2 text-lg font-medium ${colorClass}`}
+										>
+											{player.user.displayName}
+											{player.status === "Invited" && (
+												<Icons
+													name="spinner"
+													size={24}
+													color="text"
+													isAddon={false}
+												/>
+											)}
+										</div>
 									);
 								})}
 							</div>

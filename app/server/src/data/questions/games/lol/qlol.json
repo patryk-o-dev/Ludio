@@ -1,331 +1,331 @@
 [
   {
     "key": "guess_league_champion_001",
-    "image": "/static/GuessLeagueChampion/byDeath/Aatrox_Original_SFX_Death.ogg",
+    "media": "Aatrox_Original_SFX_Death.ogg",
     "answer": "aatrox",
-    "category": "byDeath",
-    "gameTypes": ["guessLeagueChampion"]
+    "category": "by_death",
+    "gameTypes": ["guess_league_champion"]
   },
   {
     "key": "guess_league_champion_002",
-    "image": "/static/GuessLeagueChampion/byDeath/Ahri_Original_Death_0.ogg",
+    "media": "Ahri_Original_Death_0.ogg",
     "answer": "ahri",
-    "category": "byDeath",
-    "gameTypes": ["guessLeagueChampion"]
+    "category": "by_death",
+    "gameTypes": ["guess_league_champion"]
   },
   {
     "key": "guess_league_champion_003",
-    "image": "/static/GuessLeagueChampion/byDeath/Ahri_Original_Death_1.ogg",
+    "media": "Ahri_Original_Death_1.ogg",
     "answer": "ahri",
-    "category": "byDeath",
-    "gameTypes": ["guessLeagueChampion"]
+    "category": "by_death",
+    "gameTypes": ["guess_league_champion"]
   },
   {
     "key": "guess_league_champion_004",
-    "image": "/static/GuessLeagueChampion/byDeath/Amumu_Original_Death_1.ogg",
+    "media": "Amumu_Original_Death_1.ogg",
     "answer": "amumu",
-    "category": "byDeath",
-    "gameTypes": ["guessLeagueChampion"]
+    "category": "by_death",
+    "gameTypes": ["guess_league_champion"]
   },
   {
     "key": "guess_league_champion_005",
-    "image": "/static/GuessLeagueChampion/byDeath/Amumu_Original_Death_2.ogg",
+    "media": "Amumu_Original_Death_2.ogg",
     "answer": "amumu",
-    "category": "byDeath",
-    "gameTypes": ["guessLeagueChampion"]
+    "category": "by_death",
+    "gameTypes": ["guess_league_champion"]
   },
   {
     "key": "guess_league_champion_006",
-    "image": "/static/GuessLeagueChampion/byDeath/Aurelion_Sol_Original_Death_0.ogg",
+    "media": "Aurelion_Sol_Original_Death_0.ogg",
     "answer": "aurelion_sol",
-    "category": "byDeath",
-    "gameTypes": ["guessLeagueChampion"]
+    "category": "by_death",
+    "gameTypes": ["guess_league_champion"]
   },
   {
     "key": "guess_league_champion_007",
-    "image": "/static/GuessLeagueChampion/byDeath/Aurelion_Sol_Original_Death_7.ogg",
+    "media": "Aurelion_Sol_Original_Death_7.ogg",
     "answer": "aurelion_sol",
-    "category": "byDeath",
-    "gameTypes": ["guessLeagueChampion"]
+    "category": "by_death",
+    "gameTypes": ["guess_league_champion"]
   },
   {
     "key": "guess_league_champion_008",
-    "image": "/static/GuessLeagueChampion/byDeath/Bel'Veth_Original_Death_1.ogg",
+    "media": "Bel'Veth_Original_Death_1.ogg",
     "answer": "bel_veth",
-    "category": "byDeath",
-    "gameTypes": ["guessLeagueChampion"]
+    "category": "by_death",
+    "gameTypes": ["guess_league_champion"]
   },
   {
     "key": "guess_league_champion_009",
-    "image": "/static/GuessLeagueChampion/byDeath/Blitzcrank_Original_Death_0.ogg",
+    "media": "Blitzcrank_Original_Death_0.ogg",
     "answer": "blitzcrank",
-    "category": "byDeath",
-    "gameTypes": ["guessLeagueChampion"]
+    "category": "by_death",
+    "gameTypes": ["guess_league_champion"]
   },
   {
     "key": "guess_league_champion_010",
-    "image": "/static/GuessLeagueChampion/byDeath/Blitzcrank_Original_Death_1.ogg",
+    "media": "Blitzcrank_Original_Death_1.ogg",
     "answer": "blitzcrank",
-    "category": "byDeath",
-    "gameTypes": ["guessLeagueChampion"]
+    "category": "by_death",
+    "gameTypes": ["guess_league_champion"]
   },
   {
     "key": "guess_league_champion_011",
-    "image": "/static/GuessLeagueChampion/byDeath/Cho'Gath_Original_Death_0.ogg",
+    "media": "Cho'Gath_Original_Death_0.ogg",
     "answer": "cho_gath",
-    "category": "byDeath",
-    "gameTypes": ["guessLeagueChampion"]
+    "category": "by_death",
+    "gameTypes": ["guess_league_champion"]
   },
   {
     "key": "guess_league_champion_012",
-    "image": "/static/GuessLeagueChampion/byDeath/Dr._Mundo_Original_Death_0.ogg",
+    "media": "Dr._Mundo_Original_Death_0.ogg",
     "answer": "dr_mundo",
-    "category": "byDeath",
-    "gameTypes": ["guessLeagueChampion"]
+    "category": "by_death",
+    "gameTypes": ["guess_league_champion"]
   },
   {
     "key": "guess_league_champion_013",
-    "image": "/static/GuessLeagueChampion/byDeath/Fizz_Original_Death_0.ogg",
+    "media": "Fizz_Original_Death_0.ogg",
     "answer": "fizz",
-    "category": "byDeath",
-    "gameTypes": ["guessLeagueChampion"]
+    "category": "by_death",
+    "gameTypes": ["guess_league_champion"]
   },
   {
     "key": "guess_league_champion_014",
-    "image": "/static/GuessLeagueChampion/byDeath/Gragas_Original_Death_3.ogg",
+    "media": "Gragas_Original_Death_3.ogg",
     "answer": "gragas",
-    "category": "byDeath",
-    "gameTypes": ["guessLeagueChampion"]
+    "category": "by_death",
+    "gameTypes": ["guess_league_champion"]
   },
   {
     "key": "guess_league_champion_015",
-    "image": "/static/GuessLeagueChampion/byDeath/Irelia_Original_Death_0.ogg",
+    "media": "Irelia_Original_Death_0.ogg",
     "answer": "irelia",
-    "category": "byDeath",
-    "gameTypes": ["guessLeagueChampion"]
+    "category": "by_death",
+    "gameTypes": ["guess_league_champion"]
   },
   {
     "key": "guess_league_champion_016",
-    "image": "/static/GuessLeagueChampion/byDeath/Irelia_Original_Death_1.ogg",
+    "media": "Irelia_Original_Death_1.ogg",
     "answer": "irelia",
-    "category": "byDeath",
-    "gameTypes": ["guessLeagueChampion"]
+    "category": "by_death",
+    "gameTypes": ["guess_league_champion"]
   },
   {
     "key": "guess_league_champion_017",
-    "image": "/static/GuessLeagueChampion/byDeath/Kennen_Original_Death_0.ogg",
+    "media": "Kennen_Original_Death_0.ogg",
     "answer": "kennen",
-    "category": "byDeath",
-    "gameTypes": ["guessLeagueChampion"]
+    "category": "by_death",
+    "gameTypes": ["guess_league_champion"]
   },
   {
     "key": "guess_league_champion_018",
-    "image": "/static/GuessLeagueChampion/byDeath/Kennen_Original_Death_3.ogg",
+    "media": "Kennen_Original_Death_3.ogg",
     "answer": "kennen",
-    "category": "byDeath",
-    "gameTypes": ["guessLeagueChampion"]
+    "category": "by_death",
+    "gameTypes": ["guess_league_champion"]
   },
   {
     "key": "guess_league_champion_019",
-    "image": "/static/GuessLeagueChampion/byDeath/Malphite_Original_Death_0.ogg",
+    "media": "Malphite_Original_Death_0.ogg",
     "answer": "malphite",
-    "category": "byDeath",
-    "gameTypes": ["guessLeagueChampion"]
+    "category": "by_death",
+    "gameTypes": ["guess_league_champion"]
   },
   {
     "key": "guess_league_champion_020",
-    "image": "/static/GuessLeagueChampion/byDeath/Nasus_Original_Death_0.ogg",
+    "media": "Nasus_Original_Death_0.ogg",
     "answer": "nasus",
-    "category": "byDeath",
-    "gameTypes": ["guessLeagueChampion"]
+    "category": "by_death",
+    "gameTypes": ["guess_league_champion"]
   },
   {
     "key": "guess_league_champion_021",
-    "image": "/static/GuessLeagueChampion/byDeath/Soraka_Original_Death_1.ogg",
+    "media": "Soraka_Original_Death_1.ogg",
     "answer": "soraka",
-    "category": "byDeath",
-    "gameTypes": ["guessLeagueChampion"]
+    "category": "by_death",
+    "gameTypes": ["guess_league_champion"]
   },
   {
     "key": "guess_league_champion_022",
-    "image": "/static/GuessLeagueChampion/byDeath/Tahm_Kench_Original_Death_0.ogg",
+    "media": "Tahm_Kench_Original_Death_0.ogg",
     "answer": "tahm_kench",
-    "category": "byDeath",
-    "gameTypes": ["guessLeagueChampion"]
+    "category": "by_death",
+    "gameTypes": ["guess_league_champion"]
   },
   {
     "key": "guess_league_champion_023",
-    "image": "/static/GuessLeagueChampion/byDeath/Teemo_Original_Death_0.ogg",
+    "media": "Teemo_Original_Death_0.ogg",
     "answer": "teemo",
-    "category": "byDeath",
-    "gameTypes": ["guessLeagueChampion"]
+    "category": "by_death",
+    "gameTypes": ["guess_league_champion"]
   },
   {
     "key": "guess_league_champion_024",
-    "image": "/static/GuessLeagueChampion/byDeath/Teemo_Original_Death_1.ogg",
+    "media": "Teemo_Original_Death_1.ogg",
     "answer": "teemo",
-    "category": "byDeath",
-    "gameTypes": ["guessLeagueChampion"]
+    "category": "by_death",
+    "gameTypes": ["guess_league_champion"]
   },
   {
     "key": "guess_league_champion_025",
-    "image": "/static/GuessLeagueChampion/byDeath/Vex_Original_Death_0.ogg",
+    "media": "Vex_Original_Death_0.ogg",
     "answer": "vex",
-    "category": "byDeath",
-    "gameTypes": ["guessLeagueChampion"]
+    "category": "by_death",
+    "gameTypes": ["guess_league_champion"]
   },
   {
     "key": "guess_league_champion_026",
-    "image": "/static/GuessLeagueChampion/byDeath/Vex_Original_Death_1.ogg",
+    "media": "Vex_Original_Death_1.ogg",
     "answer": "vex",
-    "category": "byDeath",
-    "gameTypes": ["guessLeagueChampion"]
+    "category": "by_death",
+    "gameTypes": ["guess_league_champion"]
   },
   {
     "key": "guess_league_champion_027",
-    "image": "/static/GuessLeagueChampion/byDeath/Vex_Original_Death_3.ogg",
+    "media": "Vex_Original_Death_3.ogg",
     "answer": "vex",
-    "category": "byDeath",
-    "gameTypes": ["guessLeagueChampion"]
+    "category": "by_death",
+    "gameTypes": ["guess_league_champion"]
   },
   {
     "key": "guess_league_champion_028",
-    "image": "/static/GuessLeagueChampion/byDeath/Yunara_Original_Death_0.ogg",
+    "media": "Yunara_Original_Death_0.ogg",
     "answer": "yunara",
-    "category": "byDeath",
-    "gameTypes": ["guessLeagueChampion"]
+    "category": "by_death",
+    "gameTypes": ["guess_league_champion"]
   },
   {
     "key": "guess_league_champion_029",
-    "image": "/static/GuessLeagueChampion/byPick/Aatrox_Select.ogg",
+    "media": "Aatrox_Select.ogg",
     "answer": "aatrox",
-    "category": "byPick",
-    "gameTypes": ["guessLeagueChampion"]
+    "category": "by_pick",
+    "gameTypes": ["guess_league_champion"]
   },
   {
     "key": "guess_league_champion_030",
-    "image": "/static/GuessLeagueChampion/byPick/Ahri_Select.ogg",
+    "media": "Ahri_Select.ogg",
     "answer": "ahri",
-    "category": "byPick",
-    "gameTypes": ["guessLeagueChampion"]
+    "category": "by_pick",
+    "gameTypes": ["guess_league_champion"]
   },
   {
     "key": "guess_league_champion_031",
-    "image": "/static/GuessLeagueChampion/byPick/Amumu_Select.ogg",
+    "media": "Amumu_Select.ogg",
     "answer": "amumu",
-    "category": "byPick",
-    "gameTypes": ["guessLeagueChampion"]
+    "category": "by_pick",
+    "gameTypes": ["guess_league_champion"]
   },
   {
     "key": "guess_league_champion_032",
-    "image": "/static/GuessLeagueChampion/byPick/Aurelion_Sol_Select.ogg",
+    "media": "Aurelion_Sol_Select.ogg",
     "answer": "aurelion_sol",
-    "category": "byPick",
-    "gameTypes": ["guessLeagueChampion"]
+    "category": "by_pick",
+    "gameTypes": ["guess_league_champion"]
   },
   {
     "key": "guess_league_champion_033",
-    "image": "/static/GuessLeagueChampion/byPick/Bel'Veth_Select.ogg",
+    "media": "Bel'Veth_Select.ogg",
     "answer": "bel_veth",
-    "category": "byPick",
-    "gameTypes": ["guessLeagueChampion"]
+    "category": "by_pick",
+    "gameTypes": ["guess_league_champion"]
   },
   {
     "key": "guess_league_champion_034",
-    "image": "/static/GuessLeagueChampion/byPick/Blitzcrank_Select.ogg",
+    "media": "Blitzcrank_Select.ogg",
     "answer": "blitzcrank",
-    "category": "byPick",
-    "gameTypes": ["guessLeagueChampion"]
+    "category": "by_pick",
+    "gameTypes": ["guess_league_champion"]
   },
   {
     "key": "guess_league_champion_035",
-    "image": "/static/GuessLeagueChampion/byPick/Cho'Gath_Select.ogg",
+    "media": "Cho'Gath_Select.ogg",
     "answer": "cho_gath",
-    "category": "byPick",
-    "gameTypes": ["guessLeagueChampion"]
+    "category": "by_pick",
+    "gameTypes": ["guess_league_champion"]
   },
   {
     "key": "guess_league_champion_036",
-    "image": "/static/GuessLeagueChampion/byPick/Dr._Mundo_Select.ogg",
+    "media": "Dr._Mundo_Select.ogg",
     "answer": "dr_mundo",
-    "category": "byPick",
-    "gameTypes": ["guessLeagueChampion"]
+    "category": "by_pick",
+    "gameTypes": ["guess_league_champion"]
   },
   {
     "key": "guess_league_champion_037",
-    "image": "/static/GuessLeagueChampion/byPick/Fizz_Select.ogg",
+    "media": "Fizz_Select.ogg",
     "answer": "fizz",
-    "category": "byPick",
-    "gameTypes": ["guessLeagueChampion"]
+    "category": "by_pick",
+    "gameTypes": ["guess_league_champion"]
   },
   {
     "key": "guess_league_champion_038",
-    "image": "/static/GuessLeagueChampion/byPick/Gragas_Select.ogg",
+    "media": "Gragas_Select.ogg",
     "answer": "gragas",
-    "category": "byPick",
-    "gameTypes": ["guessLeagueChampion"]
+    "category": "by_pick",
+    "gameTypes": ["guess_league_champion"]
   },
   {
     "key": "guess_league_champion_039",
-    "image": "/static/GuessLeagueChampion/byPick/Irelia_Select.ogg",
+    "media": "Irelia_Select.ogg",
     "answer": "irelia",
-    "category": "byPick",
-    "gameTypes": ["guessLeagueChampion"]
+    "category": "by_pick",
+    "gameTypes": ["guess_league_champion"]
   },
   {
     "key": "guess_league_champion_040",
-    "image": "/static/GuessLeagueChampion/byPick/Kennen_Select.ogg",
+    "media": "Kennen_Select.ogg",
     "answer": "kennen",
-    "category": "byPick",
-    "gameTypes": ["guessLeagueChampion"]
+    "category": "by_pick",
+    "gameTypes": ["guess_league_champion"]
   },
   {
     "key": "guess_league_champion_041",
-    "image": "/static/GuessLeagueChampion/byPick/Malphite_Select.ogg",
+    "media": "Malphite_Select.ogg",
     "answer": "malphite",
-    "category": "byPick",
-    "gameTypes": ["guessLeagueChampion"]
+    "category": "by_pick",
+    "gameTypes": ["guess_league_champion"]
   },
   {
     "key": "guess_league_champion_042",
-    "image": "/static/GuessLeagueChampion/byPick/Nasus_Select.ogg",
+    "media": "Nasus_Select.ogg",
     "answer": "nasus",
-    "category": "byPick",
-    "gameTypes": ["guessLeagueChampion"]
+    "category": "by_pick",
+    "gameTypes": ["guess_league_champion"]
   },
   {
     "key": "guess_league_champion_043",
-    "image": "/static/GuessLeagueChampion/byPick/Soraka_Select.ogg",
+    "media": "Soraka_Select.ogg",
     "answer": "soraka",
-    "category": "byPick",
-    "gameTypes": ["guessLeagueChampion"]
+    "category": "by_pick",
+    "gameTypes": ["guess_league_champion"]
   },
   {
     "key": "guess_league_champion_044",
-    "image": "/static/GuessLeagueChampion/byPick/Tahm_Kench_Select.ogg",
+    "media": "Tahm_Kench_Select.ogg",
     "answer": "tahm_kench",
-    "category": "byPick",
-    "gameTypes": ["guessLeagueChampion"]
+    "category": "by_pick",
+    "gameTypes": ["guess_league_champion"]
   },
   {
     "key": "guess_league_champion_045",
-    "image": "/static/GuessLeagueChampion/byPick/Teemo_Select.ogg",
+    "media": "Teemo_Select.ogg",
     "answer": "teemo",
-    "category": "byPick",
-    "gameTypes": ["guessLeagueChampion"]
+    "category": "by_pick",
+    "gameTypes": ["guess_league_champion"]
   },
   {
     "key": "guess_league_champion_046",
-    "image": "/static/GuessLeagueChampion/byPick/Vex_Select.ogg",
+    "media": "Vex_Select.ogg",
     "answer": "vex",
-    "category": "byPick",
-    "gameTypes": ["guessLeagueChampion"]
+    "category": "by_pick",
+    "gameTypes": ["guess_league_champion"]
   },
   {
     "key": "guess_league_champion_047",
-    "image": "/static/GuessLeagueChampion/byPick/Yunara_Select.ogg",
+    "media": "Yunara_Select.ogg",
     "answer": "yunara",
-    "category": "byPick",
-    "gameTypes": ["guessLeagueChampion"]
+    "category": "by_pick",
+    "gameTypes": ["guess_league_champion"]
   }
 ]

@@ -1,12 +1,11 @@
 import fs from 'fs';
 import { prisma } from './prisma';
 
-async function syncQuestionsData(filePath: string) {
+async function syncQuestionsData(filePath: string, allKeys: string[]) {
   const questions = JSON.parse(fs.readFileSync(filePath, 'utf-8'));
-  const keys: string[] = [];
 
   for (const question of questions) {
-    keys.push(question.key);
+    allKeys.push(question.key);
 
     const answer = await prisma.answer.findUnique({
       where: {
@@ -14,9 +13,9 @@ async function syncQuestionsData(filePath: string) {
       },
     });
 
-    const chipBy = await prisma.chipBy.findFirst({
+    const chipBy = await prisma.chipBy.findUnique({
       where: {
-        name: question.category,
+        key: question.category,
       },
     });
 
@@ -34,12 +33,20 @@ async function syncQuestionsData(filePath: string) {
       );
     }
 
+    const mediaPath = filePath.includes('/standard/')
+      ? 'standard'
+      : filePath.includes('/games/lol/')
+        ? 'games/lol'
+        : filePath.includes('/games/dbd/')
+          ? 'games/dbd'
+          : '';
+
     await prisma.question.upsert({
       where: {
         key: question.key,
       },
       update: {
-        url: question.image,
+        url: `/static/${mediaPath}/media/${question.media}`,
         answerId: answer.id,
         chipById: chipBy.id,
         chipGuesses: {
@@ -50,7 +57,7 @@ async function syncQuestionsData(filePath: string) {
       },
       create: {
         key: question.key,
-        url: question.image,
+        url: `/static/${mediaPath}/media/${question.media}`,
         answerId: answer.id,
         chipById: chipBy.id,
         chipGuesses: {
@@ -61,14 +68,6 @@ async function syncQuestionsData(filePath: string) {
       },
     });
   }
-
-  await prisma.question.deleteMany({
-    where: {
-      key: {
-        notIn: keys,
-      },
-    },
-  });
 }
 
 async function syncQuestions(
@@ -78,11 +77,21 @@ async function syncQuestions(
   filePathLol: string,
   filePathDbd: string,
 ) {
-  await syncQuestionsData(filePathGame);
-  await syncQuestionsData(filePathGameCharacter);
-  await syncQuestionsData(filePathMovie);
-  await syncQuestionsData(filePathLol);
-  await syncQuestionsData(filePathDbd);
+  const allKeys: string[] = [];
+
+  await syncQuestionsData(filePathGame, allKeys);
+  await syncQuestionsData(filePathGameCharacter, allKeys);
+  await syncQuestionsData(filePathMovie, allKeys);
+  await syncQuestionsData(filePathLol, allKeys);
+  await syncQuestionsData(filePathDbd, allKeys);
+
+  await prisma.question.deleteMany({
+    where: {
+      key: {
+        notIn: allKeys,
+      },
+    },
+  });
 }
 
 export default syncQuestions;

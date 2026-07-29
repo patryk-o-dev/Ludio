@@ -1,6 +1,6 @@
 import { useState } from "react";
 import SessionStats from "../features/SessionStats";
-import StreamerLogo from "../layout/StreamerLogo";
+import Logo from "./Logo";
 import surrenderIcon from "../../assets/icons/ff.png";
 import type { SessionData } from "../../types";
 import { useTranslation } from "react-i18next";
@@ -28,7 +28,7 @@ const TopBar = ({
 
 	return (
 		<header className="flex items-center justify-between px-6 py-4">
-			<StreamerLogo />
+			<Logo />
 			<SessionStats session={session} />
 			<button
 				onClick={handleSurrender}

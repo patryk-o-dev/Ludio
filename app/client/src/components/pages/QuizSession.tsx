@@ -19,11 +19,6 @@ import {
 
 const API = import.meta.env.VITE_API_URL;
 
-type CorrectAnswerData = {
-	id: string;
-	value: string;
-};
-
 const QuizSession = () => {
 	const { id } = useParams<{ id: string }>();
 	const currentUserId = getStoredAuthUser()?.id ?? null;
@@ -86,6 +81,8 @@ const QuizSession = () => {
 		});
 
 		newSocket.on("session:summary", (data) => {
+			setCorrectAnswer(data.question.correctAnswer.value);
+
 			setSession((current) =>
 				current
 					? {
@@ -100,11 +97,7 @@ const QuizSession = () => {
 
 		newSocket.on(
 			"session:player-answered",
-			(data: {
-				userId: string;
-				correct: CorrectAnswerData;
-				points: number;
-			}) => {
+			(data: { userId: string; points: number }) => {
 				if (data.userId === currentUserId) {
 					setSummaryPoints(data.points);
 					setHasAnsweredCurrentQuestion(true);
@@ -133,14 +126,6 @@ const QuizSession = () => {
 							: current,
 					);
 				}
-				setCorrectAnswer(data.correct.value);
-			},
-		);
-
-		newSocket.on(
-			"session:question-result",
-			(data: { correct: CorrectAnswerData }) => {
-				setCorrectAnswer(data.correct.value);
 			},
 		);
 

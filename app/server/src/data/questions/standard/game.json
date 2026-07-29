@@ -1,695 +1,695 @@
 [
   {
     "key": "guess_game_001",
-    "image": "/static/guessGame/byAchivement/gga006saswkop.png",
+    "media": "gga006saswkop.png",
     "answer": "surviving_mars",
-    "category": "byAchievement",
-    "gameTypes": ["guessGame"]
+    "category": "by_achievement",
+    "gameTypes": ["guess_game"]
   },
   {
     "key": "guess_game_002",
-    "image": "/static/guessGame/byAchivement/gga018ylmvgbp.png",
+    "media": "gga018ylmvgbp.png",
     "answer": "resident_evil_biohazard",
-    "category": "byAchievement",
-    "gameTypes": ["guessGame"]
+    "category": "by_achievement",
+    "gameTypes": ["guess_game"]
   },
   {
     "key": "guess_game_003",
-    "image": "/static/guessGame/byAchivement/gga019jrkcraf.png",
+    "media": "gga019jrkcraf.png",
     "answer": "the_vanishing_of_ethan_carter",
-    "category": "byAchievement",
-    "gameTypes": ["guessGame"]
+    "category": "by_achievement",
+    "gameTypes": ["guess_game"]
   },
   {
     "key": "guess_game_004",
-    "image": "/static/guessGame/byAchivement/gga030qbapdac.png",
+    "media": "gga030qbapdac.png",
     "answer": "raft",
-    "category": "byAchievement",
-    "gameTypes": ["guessGame"]
+    "category": "by_achievement",
+    "gameTypes": ["guess_game"]
   },
   {
     "key": "guess_game_005",
-    "image": "/static/guessGame/byAchivement/gga036frpllei.png",
+    "media": "gga036frpllei.png",
     "answer": "darksiders_2",
-    "category": "byAchievement",
-    "gameTypes": ["guessGame"]
+    "category": "by_achievement",
+    "gameTypes": ["guess_game"]
   },
   {
     "key": "guess_game_006",
-    "image": "/static/guessGame/byAchivement/gga051fkkodph.png",
+    "media": "gga051fkkodph.png",
     "answer": "the_elder_scrolls_v_skyrim",
-    "category": "byAchievement",
-    "gameTypes": ["guessGame"]
+    "category": "by_achievement",
+    "gameTypes": ["guess_game"]
   },
   {
     "key": "guess_game_007",
-    "image": "/static/guessGame/byAchivement/gga056gmhcnvq.png",
+    "media": "gga056gmhcnvq.png",
     "answer": "dead_by_daylight",
-    "category": "byAchievement",
-    "gameTypes": ["guessGame"]
+    "category": "by_achievement",
+    "gameTypes": ["guess_game"]
   },
   {
     "key": "guess_game_008",
-    "image": "/static/guessGame/byAchivement/gga063ljomlwn.png",
+    "media": "gga063ljomlwn.png",
     "answer": "detroit_become_human",
-    "category": "byAchievement",
-    "gameTypes": ["guessGame"]
+    "category": "by_achievement",
+    "gameTypes": ["guess_game"]
   },
   {
     "key": "guess_game_009",
-    "image": "/static/guessGame/byAchivement/gga079gpjethf.png",
+    "media": "gga079gpjethf.png",
     "answer": "south_park_the_stick_of_truth",
-    "category": "byAchievement",
-    "gameTypes": ["guessGame"]
+    "category": "by_achievement",
+    "gameTypes": ["guess_game"]
   },
   {
     "key": "guess_game_010",
-    "image": "/static/guessGame/byAchivement/gga090kdyhgia.png",
+    "media": "gga090kdyhgia.png",
     "answer": "stardew_valley",
-    "category": "byAchievement",
-    "gameTypes": ["guessGame"]
+    "category": "by_achievement",
+    "gameTypes": ["guess_game"]
   },
   {
     "key": "guess_game_011",
-    "image": "/static/guessGame/byGameOver/gggo002soygtug.png",
+    "media": "gggo002soygtug.png",
     "answer": "fall_guys",
-    "category": "byGameOver",
-    "gameTypes": ["guessGame"]
+    "category": "by_game_over",
+    "gameTypes": ["guess_game"]
   },
   {
     "key": "guess_game_012",
-    "image": "/static/guessGame/byGameOver/gggo005vrqbgtx.jpg",
+    "media": "gggo005vrqbgtx.jpg",
     "answer": "witcher_3_wild_hunt",
-    "category": "byGameOver",
-    "gameTypes": ["guessGame"]
+    "category": "by_game_over",
+    "gameTypes": ["guess_game"]
   },
   {
     "key": "guess_game_013",
-    "image": "/static/guessGame/byGameOver/gggo009apuygxx.jpg",
+    "media": "gggo009apuygxx.jpg",
     "answer": "mini_metro",
-    "category": "byGameOver",
-    "gameTypes": ["guessGame"]
+    "category": "by_game_over",
+    "gameTypes": ["guess_game"]
   },
   {
     "key": "guess_game_014",
-    "image": "/static/guessGame/byGameOver/gggo012wqarjvu.jpg",
+    "media": "gggo012wqarjvu.jpg",
     "answer": "metro_last_light",
-    "category": "byGameOver",
-    "gameTypes": ["guessGame"]
+    "category": "by_game_over",
+    "gameTypes": ["guess_game"]
   },
   {
     "key": "guess_game_015",
-    "image": "/static/guessGame/byGameOver/gggo036jjccqyp.png",
+    "media": "gggo036jjccqyp.png",
     "answer": "hogwarts_legacy",
-    "category": "byGameOver",
-    "gameTypes": ["guessGame"]
+    "category": "by_game_over",
+    "gameTypes": ["guess_game"]
   },
   {
     "key": "guess_game_016",
-    "image": "/static/guessGame/byGameOver/gggo043ejxivbs.jpg",
+    "media": "gggo043ejxivbs.jpg",
     "answer": "overwatch",
-    "category": "byGameOver",
-    "gameTypes": ["guessGame"]
+    "category": "by_game_over",
+    "gameTypes": ["guess_game"]
   },
   {
     "key": "guess_game_017",
-    "image": "/static/guessGame/byGameOver/gggo063brbsxgq.jpg",
+    "media": "gggo063brbsxgq.jpg",
     "answer": "slay_the_spire",
-    "category": "byGameOver",
-    "gameTypes": ["guessGame"]
+    "category": "by_game_over",
+    "gameTypes": ["guess_game"]
   },
   {
     "key": "guess_game_018",
-    "image": "/static/guessGame/byGameOver/gggo078chvprqd.jpg",
+    "media": "gggo078chvprqd.jpg",
     "answer": "the_binding_of_isaac",
-    "category": "byGameOver",
-    "gameTypes": ["guessGame"]
+    "category": "by_game_over",
+    "gameTypes": ["guess_game"]
   },
   {
     "key": "guess_game_019",
-    "image": "/static/guessGame/byGameOver/gggo083djbwkjv.jpg",
+    "media": "gggo083djbwkjv.jpg",
     "answer": "dishonored_2",
-    "category": "byGameOver",
-    "gameTypes": ["guessGame"]
+    "category": "by_game_over",
+    "gameTypes": ["guess_game"]
   },
   {
     "key": "guess_game_020",
-    "image": "/static/guessGame/byGameOver/gggo087chsiinr.jpg",
+    "media": "gggo087chsiinr.jpg",
     "answer": "gwent_the_witcher_card_game",
-    "category": "byGameOver",
-    "gameTypes": ["guessGame"]
+    "category": "by_game_over",
+    "gameTypes": ["guess_game"]
   },
   {
     "key": "guess_game_021",
-    "image": "/static/guessGame/byInventory/ggi030jcjyfxk.png",
+    "media": "ggi030jcjyfxk.png",
     "answer": "stalker_2_heart_of_chernobyl",
-    "category": "byInventory",
-    "gameTypes": ["guessGame"]
+    "category": "by_inventory",
+    "gameTypes": ["guess_game"]
   },
   {
     "key": "guess_game_022",
-    "image": "/static/guessGame/byInventory/ggi031mtfkqpk.png",
+    "media": "ggi031mtfkqpk.png",
     "answer": "potion_craft",
-    "category": "byInventory",
-    "gameTypes": ["guessGame"]
+    "category": "by_inventory",
+    "gameTypes": ["guess_game"]
   },
   {
     "key": "guess_game_023",
-    "image": "/static/guessGame/byInventory/ggi035ucrdupo.png",
+    "media": "ggi035ucrdupo.png",
     "answer": "cyberpunk_2077",
-    "category": "byInventory",
-    "gameTypes": ["guessGame"]
+    "category": "by_inventory",
+    "gameTypes": ["guess_game"]
   },
   {
     "key": "guess_game_024",
-    "image": "/static/guessGame/byInventory/ggi036ybikikb.jpg",
+    "media": "ggi036ybikikb.jpg",
     "answer": "dont_starve",
-    "category": "byInventory",
-    "gameTypes": ["guessGame"]
+    "category": "by_inventory",
+    "gameTypes": ["guess_game"]
   },
   {
     "key": "guess_game_025",
-    "image": "/static/guessGame/byInventory/ggi040pueqora.png",
+    "media": "ggi040pueqora.png",
     "answer": "this_war_of_mine",
-    "category": "byInventory",
-    "gameTypes": ["guessGame"]
+    "category": "by_inventory",
+    "gameTypes": ["guess_game"]
   },
   {
     "key": "guess_game_026",
-    "image": "/static/guessGame/byInventory/ggi043fpokuvh.jpg",
+    "media": "ggi043fpokuvh.jpg",
     "answer": "animal_crossing_new_horizons",
-    "category": "byInventory",
-    "gameTypes": ["guessGame"]
+    "category": "by_inventory",
+    "gameTypes": ["guess_game"]
   },
   {
     "key": "guess_game_027",
-    "image": "/static/guessGame/byInventory/ggi049ngyuvdh.png",
+    "media": "ggi049ngyuvdh.png",
     "answer": "stardew_valley",
-    "category": "byInventory",
-    "gameTypes": ["guessGame"]
+    "category": "by_inventory",
+    "gameTypes": ["guess_game"]
   },
   {
     "key": "guess_game_028",
-    "image": "/static/guessGame/byInventory/ggi062mqdoqax.jpg",
+    "media": "ggi062mqdoqax.jpg",
     "answer": "witcher_3_wild_hunt",
-    "category": "byInventory",
-    "gameTypes": ["guessGame"]
+    "category": "by_inventory",
+    "gameTypes": ["guess_game"]
   },
   {
     "key": "guess_game_030",
-    "image": "/static/guessGame/byInventory/ggi069omaqsuq.png",
+    "media": "ggi069omaqsuq.png",
     "answer": "diablo_2",
-    "category": "byInventory",
-    "gameTypes": ["guessGame"]
+    "category": "by_inventory",
+    "gameTypes": ["guess_game"]
   },
   {
     "key": "guess_game_029",
-    "image": "/static/guessGame/byInventory/ggi063cbyjbaw.png",
+    "media": "ggi063cbyjbaw.png",
     "answer": "amnesia_the_dark_descent",
-    "category": "byInventory",
-    "gameTypes": ["guessGame"]
+    "category": "by_inventory",
+    "gameTypes": ["guess_game"]
   },
   {
     "key": "guess_game_031",
-    "image": "/static/guessGame/byInventory/ggi074bmixjqh.jpg",
+    "media": "ggi074bmixjqh.jpg",
     "answer": "hollow_knight",
-    "category": "byInventory",
-    "gameTypes": ["guessGame"]
+    "category": "by_inventory",
+    "gameTypes": ["guess_game"]
   },
   {
     "key": "guess_game_032",
-    "image": "/static/guessGame/byInventory/ggi078deqhqbw.png",
+    "media": "ggi078deqhqbw.png",
     "answer": "diablo_4",
-    "category": "byInventory",
-    "gameTypes": ["guessGame"]
+    "category": "by_inventory",
+    "gameTypes": ["guess_game"]
   },
   {
     "key": "guess_game_033",
-    "image": "/static/guessGame/byInventory/ggi093kvcdssn.jpg",
+    "media": "ggi093kvcdssn.jpg",
     "answer": "nier_automata",
-    "category": "byInventory",
-    "gameTypes": ["guessGame"]
+    "category": "by_inventory",
+    "gameTypes": ["guess_game"]
   },
   {
     "key": "guess_game_034",
-    "image": "/static/guessGame/byMod/ggm005racmtno.png",
+    "media": "ggm005racmtno.png",
     "answer": "fallout_4",
-    "category": "byMod",
-    "gameTypes": ["guessGame"]
+    "category": "by_mod",
+    "gameTypes": ["guess_game"]
   },
   {
     "key": "guess_game_035",
-    "image": "/static/guessGame/byMod/ggm012yvnogil.png",
+    "media": "ggm012yvnogil.png",
     "answer": "resident_evil_2",
-    "category": "byMod",
-    "gameTypes": ["guessGame"]
+    "category": "by_mod",
+    "gameTypes": ["guess_game"]
   },
   {
     "key": "guess_game_036",
-    "image": "/static/guessGame/byMod/ggm014mdciewk.png",
+    "media": "ggm014mdciewk.png",
     "answer": "resident_evil_2",
-    "category": "byMod",
-    "gameTypes": ["guessGame"]
+    "category": "by_mod",
+    "gameTypes": ["guess_game"]
   },
   {
     "key": "guess_game_037",
-    "image": "/static/guessGame/byMod/ggm015udurdaf.png",
+    "media": "ggm015udurdaf.png",
     "answer": "the_sims_4",
-    "category": "byMod",
-    "gameTypes": ["guessGame"]
+    "category": "by_mod",
+    "gameTypes": ["guess_game"]
   },
   {
     "key": "guess_game_038",
-    "image": "/static/guessGame/byMod/ggm020bdusqyy.png",
+    "media": "ggm020bdusqyy.png",
     "answer": "stardew_valley",
-    "category": "byMod",
-    "gameTypes": ["guessGame"]
+    "category": "by_mod",
+    "gameTypes": ["guess_game"]
   },
   {
     "key": "guess_game_039",
-    "image": "/static/guessGame/byMod/ggm021kuodscq.png",
+    "media": "ggm021kuodscq.png",
     "answer": "ark_survival_evolved",
-    "category": "byMod",
-    "gameTypes": ["guessGame"]
+    "category": "by_mod",
+    "gameTypes": ["guess_game"]
   },
   {
     "key": "guess_game_040",
-    "image": "/static/guessGame/byMod/ggm023uphvpao.png",
+    "media": "ggm023uphvpao.png",
     "answer": "red_dead_redemption_2",
-    "category": "byMod",
-    "gameTypes": ["guessGame"]
+    "category": "by_mod",
+    "gameTypes": ["guess_game"]
   },
   {
     "key": "guess_game_041",
-    "image": "/static/guessGame/byMod/ggm024vkllulk.png",
+    "media": "ggm024vkllulk.png",
     "answer": "red_dead_redemption_2",
-    "category": "byMod",
-    "gameTypes": ["guessGame"]
+    "category": "by_mod",
+    "gameTypes": ["guess_game"]
   },
   {
     "key": "guess_game_042",
-    "image": "/static/guessGame/byMod/ggm062tvebwfx.png",
+    "media": "ggm062tvebwfx.png",
     "answer": "fallout_4",
-    "category": "byMod",
-    "gameTypes": ["guessGame"]
+    "category": "by_mod",
+    "gameTypes": ["guess_game"]
   },
   {
     "key": "guess_game_043",
-    "image": "/static/guessGame/byMod/ggm063ipfkjxm.png",
+    "media": "ggm063ipfkjxm.png",
     "answer": "terraria",
-    "category": "byMod",
-    "gameTypes": ["guessGame"]
+    "category": "by_mod",
+    "gameTypes": ["guess_game"]
   },
   {
     "key": "guess_game_044",
-    "image": "/static/guessGame/byMod/ggm069emtvxub.png",
+    "media": "ggm069emtvxub.png",
     "answer": "subnautica",
-    "category": "byMod",
-    "gameTypes": ["guessGame"]
+    "category": "by_mod",
+    "gameTypes": ["guess_game"]
   },
   {
     "key": "guess_game_045",
-    "image": "/static/guessGame/byMod/ggm070rhehuyc.png",
+    "media": "ggm070rhehuyc.png",
     "answer": "subnautica",
-    "category": "byMod",
-    "gameTypes": ["guessGame"]
+    "category": "by_mod",
+    "gameTypes": ["guess_game"]
   },
   {
     "key": "guess_game_046",
-    "image": "/static/guessGame/byMod/ggm071hhpdome.png",
+    "media": "ggm071hhpdome.png",
     "answer": "the_sims_4",
-    "category": "byMod",
-    "gameTypes": ["guessGame"]
+    "category": "by_mod",
+    "gameTypes": ["guess_game"]
   },
   {
     "key": "guess_game_047",
-    "image": "/static/guessGame/byMod/ggm072ijidjbj.png",
+    "media": "ggm072ijidjbj.png",
     "answer": "resident_evil_2",
-    "category": "byMod",
-    "gameTypes": ["guessGame"]
+    "category": "by_mod",
+    "gameTypes": ["guess_game"]
   },
   {
     "key": "guess_game_048",
-    "image": "/static/guessGame/byMod/ggm073hfjlhdh.png",
+    "media": "ggm073hfjlhdh.png",
     "answer": "the_elder_scrolls_v_skyrim",
-    "category": "byMod",
-    "gameTypes": ["guessGame"]
+    "category": "by_mod",
+    "gameTypes": ["guess_game"]
   },
   {
     "key": "guess_game_049",
-    "image": "/static/guessGame/byMod/ggm079tminqbg.png",
+    "media": "ggm079tminqbg.png",
     "answer": "red_dead_redemption_2",
-    "category": "byMod",
-    "gameTypes": ["guessGame"]
+    "category": "by_mod",
+    "gameTypes": ["guess_game"]
   },
   {
     "key": "guess_game_050",
-    "image": "/static/guessGame/byMod/ggm081knhlnot.png",
+    "media": "ggm081knhlnot.png",
     "answer": "witcher_3_wild_hunt",
-    "category": "byMod",
-    "gameTypes": ["guessGame"]
+    "category": "by_mod",
+    "gameTypes": ["guess_game"]
   },
   {
     "key": "guess_game_051",
-    "image": "/static/guessGame/byMod/ggm089uxrfgpf.png",
+    "media": "ggm089uxrfgpf.png",
     "answer": "dragon_age_inquisition",
-    "category": "byMod",
-    "gameTypes": ["guessGame"]
+    "category": "by_mod",
+    "gameTypes": ["guess_game"]
   },
   {
     "key": "guess_game_052",
-    "image": "/static/guessGame/byMod/ggm090xjoxgsm.png",
+    "media": "ggm090xjoxgsm.png",
     "answer": "elden_ring",
-    "category": "byMod",
-    "gameTypes": ["guessGame"]
+    "category": "by_mod",
+    "gameTypes": ["guess_game"]
   },
   {
     "key": "guess_game_053",
-    "image": "/static/guessGame/byMod/ggm091wunhxfs.jpg",
+    "media": "ggm091wunhxfs.jpg",
     "answer": "civilization_vi",
-    "category": "byMod",
-    "gameTypes": ["guessGame"]
+    "category": "by_mod",
+    "gameTypes": ["guess_game"]
   },
   {
     "key": "guess_game_054",
-    "image": "/static/guessGame/byMod/ggm097famjwjt.png",
+    "media": "ggm097famjwjt.png",
     "answer": "my_summer_car",
-    "category": "byMod",
-    "gameTypes": ["guessGame"]
+    "category": "by_mod",
+    "gameTypes": ["guess_game"]
   },
   {
     "key": "guess_game_055",
-    "image": "/static/guessGame/byMod/ggm099gjicibw.png",
+    "media": "ggm099gjicibw.png",
     "answer": "subnautica",
-    "category": "byMod",
-    "gameTypes": ["guessGame"]
+    "category": "by_mod",
+    "gameTypes": ["guess_game"]
   },
   {
     "key": "guess_game_056",
-    "image": "/static/guessGame/byScreenshot/ggs002bbohbnw.jpg",
+    "media": "ggs002bbohbnw.jpg",
     "answer": "spiderman_miles_morales",
-    "category": "byScreenshot",
-    "gameTypes": ["guessGame"]
+    "category": "by_screenshot",
+    "gameTypes": ["guess_game"]
   },
   {
     "key": "guess_game_057",
-    "image": "/static/guessGame/byScreenshot/ggs006tkrhacb.png",
+    "media": "ggs006tkrhacb.png",
     "answer": "outlast",
-    "category": "byScreenshot",
-    "gameTypes": ["guessGame"]
+    "category": "by_screenshot",
+    "gameTypes": ["guess_game"]
   },
   {
     "key": "guess_game_058",
-    "image": "/static/guessGame/byScreenshot/ggs011npwuitn.jpg",
+    "media": "ggs011npwuitn.jpg",
     "answer": "life_is_strange_before_the_storm",
-    "category": "byScreenshot",
-    "gameTypes": ["guessGame"]
+    "category": "by_screenshot",
+    "gameTypes": ["guess_game"]
   },
   {
     "key": "guess_game_059",
-    "image": "/static/guessGame/byScreenshot/ggs013wrbbbsw.png",
+    "media": "ggs013wrbbbsw.png",
     "answer": "total_war_warhammer",
-    "category": "byScreenshot",
-    "gameTypes": ["guessGame"]
+    "category": "by_screenshot",
+    "gameTypes": ["guess_game"]
   },
   {
     "key": "guess_game_060",
-    "image": "/static/guessGame/byScreenshot/ggs023vchufhh.png",
+    "media": "ggs023vchufhh.png",
     "answer": "inscryption",
-    "category": "byScreenshot",
-    "gameTypes": ["guessGame"]
+    "category": "by_screenshot",
+    "gameTypes": ["guess_game"]
   },
   {
     "key": "guess_game_061",
-    "image": "/static/guessGame/byScreenshot/ggs024jfgqxdd.png",
+    "media": "ggs024jfgqxdd.png",
     "answer": "raft",
-    "category": "byScreenshot",
-    "gameTypes": ["guessGame"]
+    "category": "by_screenshot",
+    "gameTypes": ["guess_game"]
   },
   {
     "key": "guess_game_062",
-    "image": "/static/guessGame/byScreenshot/ggs028yevwyfw.png",
+    "media": "ggs028yevwyfw.png",
     "answer": "the_evil_within",
-    "category": "byScreenshot",
-    "gameTypes": ["guessGame"]
+    "category": "by_screenshot",
+    "gameTypes": ["guess_game"]
   },
   {
     "key": "guess_game_063",
-    "image": "/static/guessGame/byScreenshot/ggs030nddnrcm.png",
+    "media": "ggs030nddnrcm.png",
     "answer": "among_the_sleep",
-    "category": "byScreenshot",
-    "gameTypes": ["guessGame"]
+    "category": "by_screenshot",
+    "gameTypes": ["guess_game"]
   },
   {
     "key": "guess_game_064",
-    "image": "/static/guessGame/byScreenshot/ggs034fcjruhb.png",
+    "media": "ggs034fcjruhb.png",
     "answer": "the_elder_scrolls_v_skyrim",
-    "category": "byScreenshot",
-    "gameTypes": ["guessGame"]
+    "category": "by_screenshot",
+    "gameTypes": ["guess_game"]
   },
   {
     "key": "guess_game_065",
-    "image": "/static/guessGame/byScreenshot/ggs035welxfqd.png",
+    "media": "ggs035welxfqd.png",
     "answer": "wolfenstein_the_new_order",
-    "category": "byScreenshot",
-    "gameTypes": ["guessGame"]
+    "category": "by_screenshot",
+    "gameTypes": ["guess_game"]
   },
   {
     "key": "guess_game_066",
-    "image": "/static/guessGame/byScreenshot/ggs036spfycxh.png",
+    "media": "ggs036spfycxh.png",
     "answer": "potion_craft",
-    "category": "byScreenshot",
-    "gameTypes": ["guessGame"]
+    "category": "by_screenshot",
+    "gameTypes": ["guess_game"]
   },
   {
     "key": "guess_game_067",
-    "image": "/static/guessGame/byScreenshot/ggs040uqitygh.png",
+    "media": "ggs040uqitygh.png",
     "answer": "dead_space",
-    "category": "byScreenshot",
-    "gameTypes": ["guessGame"]
+    "category": "by_screenshot",
+    "gameTypes": ["guess_game"]
   },
   {
     "key": "guess_game_068",
-    "image": "/static/guessGame/byScreenshot/ggs041hfoupbg.png",
+    "media": "ggs041hfoupbg.png",
     "answer": "dont_starve",
-    "category": "byScreenshot",
-    "gameTypes": ["guessGame"]
+    "category": "by_screenshot",
+    "gameTypes": ["guess_game"]
   },
   {
     "key": "guess_game_069",
-    "image": "/static/guessGame/byScreenshot/ggs042kvcgfev.png",
+    "media": "ggs042kvcgfev.png",
     "answer": "blair_witch",
-    "category": "byScreenshot",
-    "gameTypes": ["guessGame"]
+    "category": "by_screenshot",
+    "gameTypes": ["guess_game"]
   },
   {
     "key": "guess_game_070",
-    "image": "/static/guessGame/byScreenshot/ggs045hxmvjuf.png",
+    "media": "ggs045hxmvjuf.png",
     "answer": "layers_of_fear",
-    "category": "byScreenshot",
-    "gameTypes": ["guessGame"]
+    "category": "by_screenshot",
+    "gameTypes": ["guess_game"]
   },
   {
     "key": "guess_game_071",
-    "image": "/static/guessGame/byScreenshot/ggs046djgcuhd.png",
+    "media": "ggs046djgcuhd.png",
     "answer": "ori_and_the_blind_forest",
-    "category": "byScreenshot",
-    "gameTypes": ["guessGame"]
+    "category": "by_screenshot",
+    "gameTypes": ["guess_game"]
   },
   {
     "key": "guess_game_072",
-    "image": "/static/guessGame/byScreenshot/ggs047cxqogmp.png",
+    "media": "ggs047cxqogmp.png",
     "answer": "the_escapists_2",
-    "category": "byScreenshot",
-    "gameTypes": ["guessGame"]
+    "category": "by_screenshot",
+    "gameTypes": ["guess_game"]
   },
   {
     "key": "guess_game_073",
-    "image": "/static/guessGame/byScreenshot/ggs055lcpoijd.png",
+    "media": "ggs055lcpoijd.png",
     "answer": "civilization_vi",
-    "category": "byScreenshot",
-    "gameTypes": ["guessGame"]
+    "category": "by_screenshot",
+    "gameTypes": ["guess_game"]
   },
   {
     "key": "guess_game_074",
-    "image": "/static/guessGame/byScreenshot/ggs057wtpxlrm.png",
+    "media": "ggs057wtpxlrm.png",
     "answer": "crusader_kings_3",
-    "category": "byScreenshot",
-    "gameTypes": ["guessGame"]
+    "category": "by_screenshot",
+    "gameTypes": ["guess_game"]
   },
   {
     "key": "guess_game_075",
-    "image": "/static/guessGame/byScreenshot/ggs062wnqahdp.png",
+    "media": "ggs062wnqahdp.png",
     "answer": "v_rising",
-    "category": "byScreenshot",
-    "gameTypes": ["guessGame"]
+    "category": "by_screenshot",
+    "gameTypes": ["guess_game"]
   },
   {
     "key": "guess_game_076",
-    "image": "/static/guessGame/byScreenshot/ggs063nrkxqdq.png",
+    "media": "ggs063nrkxqdq.png",
     "answer": "phasmophobia",
-    "category": "byScreenshot",
-    "gameTypes": ["guessGame"]
+    "category": "by_screenshot",
+    "gameTypes": ["guess_game"]
   },
   {
     "key": "guess_game_077",
-    "image": "/static/guessGame/byScreenshot/ggs064adnwwfa.png",
+    "media": "ggs064adnwwfa.png",
     "answer": "silent_hill_2",
-    "category": "byScreenshot",
-    "gameTypes": ["guessGame"]
+    "category": "by_screenshot",
+    "gameTypes": ["guess_game"]
   },
   {
     "key": "guess_game_078",
-    "image": "/static/guessGame/byScreenshot/ggs082fdajrpd.png",
+    "media": "ggs082fdajrpd.png",
     "answer": "until_dawn",
-    "category": "byScreenshot",
-    "gameTypes": ["guessGame"]
+    "category": "by_screenshot",
+    "gameTypes": ["guess_game"]
   },
   {
     "key": "guess_game_079",
-    "image": "/static/guessGame/byScreenshot/ggs083imgwsya.png",
+    "media": "ggs083imgwsya.png",
     "answer": "stardew_valley",
-    "category": "byScreenshot",
-    "gameTypes": ["guessGame"]
+    "category": "by_screenshot",
+    "gameTypes": ["guess_game"]
   },
   {
     "key": "guess_game_080",
-    "image": "/static/guessGame/byScreenshot/ggs097tfsqhsx.png",
+    "media": "ggs097tfsqhsx.png",
     "answer": "amnesia_the_dark_descent",
-    "category": "byScreenshot",
-    "gameTypes": ["guessGame"]
+    "category": "by_screenshot",
+    "gameTypes": ["guess_game"]
   },
   {
     "key": "guess_game_081",
-    "image": "/static/guessGame/byTitleScreen/ggts002fkkpjgm.jpg",
+    "media": "ggts002fkkpjgm.jpg",
     "answer": "hitman_2",
-    "category": "byTitleScreen",
-    "gameTypes": ["guessGame"]
+    "category": "by_title_screen",
+    "gameTypes": ["guess_game"]
   },
   {
     "key": "guess_game_082",
-    "image": "/static/guessGame/byTitleScreen/ggts003aevlkpx.jpg",
+    "media": "ggts003aevlkpx.jpg",
     "answer": "hades",
-    "category": "byTitleScreen",
-    "gameTypes": ["guessGame"]
+    "category": "by_title_screen",
+    "gameTypes": ["guess_game"]
   },
   {
     "key": "guess_game_083",
-    "image": "/static/guessGame/byTitleScreen/ggts003ubglfqi.jpg",
+    "media": "ggts003ubglfqi.jpg",
     "answer": "alone_in_the_dark",
-    "category": "byTitleScreen",
-    "gameTypes": ["guessGame"]
+    "category": "by_title_screen",
+    "gameTypes": ["guess_game"]
   },
   {
     "key": "guess_game_084",
-    "image": "/static/guessGame/byTitleScreen/ggts006vftfygh.jpg",
+    "media": "ggts006vftfygh.jpg",
     "answer": "afk_arena",
-    "category": "byTitleScreen",
-    "gameTypes": ["guessGame"]
+    "category": "by_title_screen",
+    "gameTypes": ["guess_game"]
   },
   {
     "key": "guess_game_085",
-    "image": "/static/guessGame/byTitleScreen/ggts010dfwpanc.png",
+    "media": "ggts010dfwpanc.png",
     "answer": "dispatch",
-    "category": "byTitleScreen",
-    "gameTypes": ["guessGame"]
+    "category": "by_title_screen",
+    "gameTypes": ["guess_game"]
   },
   {
     "key": "guess_game_086",
-    "image": "/static/guessGame/byTitleScreen/ggts011itbubmo.jpg",
+    "media": "ggts011itbubmo.jpg",
     "answer": "bioshock",
-    "category": "byTitleScreen",
-    "gameTypes": ["guessGame"]
+    "category": "by_title_screen",
+    "gameTypes": ["guess_game"]
   },
   {
     "key": "guess_game_087",
-    "image": "/static/guessGame/byTitleScreen/ggts016ctsvmaa.jpg",
+    "media": "ggts016ctsvmaa.jpg",
     "answer": "super_mario_party",
-    "category": "byTitleScreen",
-    "gameTypes": ["guessGame"]
+    "category": "by_title_screen",
+    "gameTypes": ["guess_game"]
   },
   {
     "key": "guess_game_088",
-    "image": "/static/guessGame/byTitleScreen/ggts017louhinf.jpg",
+    "media": "ggts017louhinf.jpg",
     "answer": "alien_isolation",
-    "category": "byTitleScreen",
-    "gameTypes": ["guessGame"]
+    "category": "by_title_screen",
+    "gameTypes": ["guess_game"]
   },
   {
     "key": "guess_game_089",
-    "image": "/static/guessGame/byTitleScreen/ggts023sllntqm.png",
+    "media": "ggts023sllntqm.png",
     "answer": "soma",
-    "category": "byTitleScreen",
-    "gameTypes": ["guessGame"]
+    "category": "by_title_screen",
+    "gameTypes": ["guess_game"]
   },
   {
     "key": "guess_game_090",
-    "image": "/static/guessGame/byTitleScreen/ggts040nkyapdr.png",
+    "media": "ggts040nkyapdr.png",
     "answer": "psychonauts_2",
-    "category": "byTitleScreen",
-    "gameTypes": ["guessGame"]
+    "category": "by_title_screen",
+    "gameTypes": ["guess_game"]
   },
   {
     "key": "guess_game_091",
-    "image": "/static/guessGame/byTitleScreen/ggts043dsuracv.jpg",
+    "media": "ggts043dsuracv.jpg",
     "answer": "bloodborne",
-    "category": "byTitleScreen",
-    "gameTypes": ["guessGame"]
+    "category": "by_title_screen",
+    "gameTypes": ["guess_game"]
   },
   {
     "key": "guess_game_092",
-    "image": "/static/guessGame/byTitleScreen/ggts043ggpduio.jpg",
+    "media": "ggts043ggpduio.jpg",
     "answer": "life_is_strange_before_the_storm",
-    "category": "byTitleScreen",
-    "gameTypes": ["guessGame"]
+    "category": "by_title_screen",
+    "gameTypes": ["guess_game"]
   },
   {
     "key": "guess_game_093",
-    "image": "/static/guessGame/byTitleScreen/ggts046xikmogh.png",
+    "media": "ggts046xikmogh.png",
     "answer": "dead_by_daylight",
-    "category": "byTitleScreen",
-    "gameTypes": ["guessGame"]
+    "category": "by_title_screen",
+    "gameTypes": ["guess_game"]
   },
   {
     "key": "guess_game_094",
-    "image": "/static/guessGame/byTitleScreen/ggts062qrkamcl.png",
+    "media": "ggts062qrkamcl.png",
     "answer": "minecraft",
-    "category": "byTitleScreen",
-    "gameTypes": ["guessGame"]
+    "category": "by_title_screen",
+    "gameTypes": ["guess_game"]
   },
   {
     "key": "guess_game_095",
-    "image": "/static/guessGame/byTitleScreen/ggts071sfbsigu.jpg",
+    "media": "ggts071sfbsigu.jpg",
     "answer": "baldurs_gate_enhanced_edition",
-    "category": "byTitleScreen",
-    "gameTypes": ["guessGame"]
+    "category": "by_title_screen",
+    "gameTypes": ["guess_game"]
   },
   {
     "key": "guess_game_096",
-    "image": "/static/guessGame/byTitleScreen/ggts073wjvqdby.png",
+    "media": "ggts073wjvqdby.png",
     "answer": "portal_2",
-    "category": "byTitleScreen",
-    "gameTypes": ["guessGame"]
+    "category": "by_title_screen",
+    "gameTypes": ["guess_game"]
   },
   {
     "key": "guess_game_097",
-    "image": "/static/guessGame/byTitleScreen/ggts076destcwm.png",
+    "media": "ggts076destcwm.png",
     "answer": "hollow_knight",
-    "category": "byTitleScreen",
-    "gameTypes": ["guessGame"]
+    "category": "by_title_screen",
+    "gameTypes": ["guess_game"]
   },
   {
     "key": "guess_game_098",
-    "image": "/static/guessGame/byTitleScreen/ggts079uqahlsq.jpg",
+    "media": "ggts079uqahlsq.jpg",
     "answer": "assassins_creed_4_black_flag",
-    "category": "byTitleScreen",
-    "gameTypes": ["guessGame"]
+    "category": "by_title_screen",
+    "gameTypes": ["guess_game"]
   },
   {
     "key": "guess_game_099",
-    "image": "/static/guessGame/byTitleScreen/ggts089bulhfkx.png",
+    "media": "ggts089bulhfkx.png",
     "answer": "starcraft_2",
-    "category": "byTitleScreen",
-    "gameTypes": ["guessGame"]
+    "category": "by_title_screen",
+    "gameTypes": ["guess_game"]
   }
 ]

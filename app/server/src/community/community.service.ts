@@ -1,4 +1,8 @@
-import { Injectable, NotFoundException } from '@nestjs/common';
+import {
+  BadRequestException,
+  Injectable,
+  NotFoundException,
+} from '@nestjs/common';
 import { PrismaService } from '../prisma/prisma.service';
 import { CommunityResponseDto } from './dto/community-response.dto';
 
@@ -146,5 +150,45 @@ export class CommunityService {
             points: member.points,
           })),
       }));
+  }
+
+  async leave(communityId: string, userId: string) {
+    const member = await this.prisma.communityMember.findUnique({
+      where: {
+        communityId_userId: {
+          communityId,
+          userId,
+        },
+      },
+    });
+
+    if (!member) {
+      throw new NotFoundException('User is not in this community');
+    }
+
+    const community = await this.prisma.community.findUnique({
+      where: {
+        id: communityId,
+      },
+    });
+
+    if (!community) {
+      throw new NotFoundException('Community not found');
+    }
+
+    if (community.ownerId === userId) {
+      throw new BadRequestException('Owner cannot leave community');
+    }
+
+    await this.prisma.communityMember.delete({
+      where: {
+        communityId_userId: {
+          communityId,
+          userId,
+        },
+      },
+    });
+
+    return { success: true };
   }
 }

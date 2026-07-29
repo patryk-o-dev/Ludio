@@ -1,6 +1,6 @@
 import logo from "../../assets/images/logoBig.png";
 
-const StreamerLogo = () => {
+const Logo = () => {
 	return (
 		<div className="flex items-center gap-4">
 			<img
@@ -12,4 +12,4 @@ const StreamerLogo = () => {
 	);
 };
 
-export default StreamerLogo;
+export default Logo;

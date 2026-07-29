@@ -156,4 +156,36 @@ export class UserService {
       },
     });
   }
+
+  async removeFriend(userId: string, friendId: string) {
+    const friendship = await this.prisma.friendship.findFirst({
+      where: {
+        OR: [
+          {
+            fromUserId: userId,
+            toUserId: friendId,
+          },
+          {
+            fromUserId: friendId,
+            toUserId: userId,
+          },
+        ],
+      },
+    });
+
+    if (!friendship) {
+      throw new NotFoundException('Friendship not found');
+    }
+
+    await this.prisma.friendship.delete({
+      where: {
+        id: friendship.id,
+      },
+    });
+
+    this.userSocketGateway.notifyUser(userId);
+    this.userSocketGateway.notifyUser(friendId);
+
+    return { success: true };
+  }
 }

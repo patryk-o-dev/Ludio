@@ -11,6 +11,7 @@ async function syncData() {
       'src/data/chips/by.json',
       'src/data/chips/guess.json',
     );
+    console.log('CHIPS DONE');
     await syncAnswers(
       'src/data/answers/guessGame.json',
       'src/data/answers/guessGameCharacter.json',
