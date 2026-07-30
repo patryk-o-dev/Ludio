@@ -166,3 +166,5 @@ export type GameMode =
 	| "SOLO"
 	| "LEAGUE_OF_LEGENDS"
 	| "DEAD_BY_DAYLIGHT";
+
+export type UserSessionStatus = "CHECKING" | "VALID" | "INVALID";

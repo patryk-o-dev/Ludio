@@ -6,6 +6,7 @@ import {
   Param,
   Patch,
   Delete,
+  UnauthorizedException,
 } from '@nestjs/common';
 import { UserService } from './user.service';
 import { CurrentUser } from '@/current-user.decorator';
@@ -13,6 +14,15 @@ import { CurrentUser } from '@/current-user.decorator';
 @Controller('user')
 export class UserController {
   constructor(private readonly userService: UserService) {}
+
+  @Get('me')
+  getMe(@CurrentUser() user) {
+    if (!user) {
+      throw new UnauthorizedException();
+    }
+
+    return user;
+  }
 
   @Get('friends')
   getFriends(@CurrentUser('id') userId: string) {

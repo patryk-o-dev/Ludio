@@ -3,10 +3,15 @@ import NavBar from "../layout/NavBar";
 import MainContent from "../layout/MainContent";
 import Popup from "../utils/Popup";
 import { useEffect, useState } from "react";
-
+import { withAuth } from "../utils/api";
+import useQuizSessionStore from "../../store/quizSessionStore";
 const Index = () => {
 	const failedJoinCommunity = localStorage.getItem("failedJoinCommunity");
 	const [showPopup, setShowPopup] = useState(!!failedJoinCommunity);
+	const setUserSessionStatus = useQuizSessionStore(
+		(state) => state.setUserSessionStatus,
+	);
+	const API = import.meta.env.VITE_API_URL;
 
 	useEffect(() => {
 		if (failedJoinCommunity) {
@@ -18,6 +23,30 @@ const Index = () => {
 			return () => clearTimeout(timer);
 		}
 	}, [failedJoinCommunity]);
+
+	useEffect(() => {
+		const checkSession = async () => {
+			try {
+				const response = await fetch(
+					`${API}/user/me`,
+					withAuth({
+						method: "GET",
+					}),
+				);
+
+				if (!response.ok) {
+					setUserSessionStatus("INVALID");
+					return;
+				}
+
+				setUserSessionStatus("VALID");
+			} catch {
+				setUserSessionStatus("INVALID");
+			}
+		};
+
+		checkSession();
+	}, [API, setUserSessionStatus]);
 	return (
 		<div className="relative bg-(--bgc-primary) text-(--text) max-h-screen flex flex-col items-center font-nunito">
 			<CommunityJoinResolver />

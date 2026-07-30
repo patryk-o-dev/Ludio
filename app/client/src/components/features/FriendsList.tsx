@@ -16,6 +16,7 @@ import {
 } from "../utils/socketClient";
 import { withAuth } from "../utils/api";
 import Icons from "../utils/Icons/Icons";
+import useQuizSessionStore from "../../store/quizSessionStore";
 
 const FriendsList = () => {
 	const navigate = useNavigate();
@@ -28,6 +29,9 @@ const FriendsList = () => {
 	const [sessionInvites, setSessionInvites] = useState<SessionInvite[]>([]);
 	const userId = getStoredAuthUser()?.id ?? null;
 	const { t } = useTranslation();
+	const userSessionStatus = useQuizSessionStore(
+		(state) => state.userSessionStatus,
+	);
 
 	const [communities, setCommunities] = useState<Community[]>([]);
 
@@ -307,7 +311,7 @@ const FriendsList = () => {
 					<button type="submit" className="hidden" />
 				</form>
 			</div>
-			{userId && (
+			{userId && userSessionStatus !== "INVALID" && (
 				<div className="">
 					<div>
 						{inviteCards.length > 0 && (

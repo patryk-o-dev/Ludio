@@ -3,11 +3,15 @@ import profileImg from "../../assets/images/userProfilePlaceholder.png";
 import { getStoredAuthUser } from "../utils/authStorage";
 import Icons from "../utils/Icons/Icons";
 import { useTranslation } from "react-i18next";
+import useQuizSessionStore from "../../store/quizSessionStore";
 
 const API = import.meta.env.VITE_API_URL;
 
 const Profile = () => {
 	const authUser = getStoredAuthUser();
+	const userSessionStatus = useQuizSessionStore(
+		(state) => state.userSessionStatus,
+	);
 	const [isConnecting, setIsConnecting] = useState(false);
 	const { t } = useTranslation();
 
@@ -35,20 +39,21 @@ const Profile = () => {
 
 	return (
 		<div className="border-l border-(--text-secondary) pl-12 flex items-center gap-4 flex-row">
-			{!authUser && (
-				<button
-					type="button"
-					onClick={handleConnectWithTwitch}
-					disabled={isConnecting}
-					className="text-(--text) disabled:text-(--text-secondary) flex gap-2"
-				>
-					{isConnecting
-						? t("profile.connecting")
-						: t("profile.connect_with_twitch")}
-					<Icons name="twitch" color="text" size={24} isAddon={false} />
-				</button>
-			)}
-			{authUser && (
+			{!authUser ||
+				(userSessionStatus === "INVALID" && (
+					<button
+						type="button"
+						onClick={handleConnectWithTwitch}
+						disabled={isConnecting}
+						className="text-(--text) disabled:text-(--text-secondary) flex gap-2"
+					>
+						{isConnecting
+							? t("profile.connecting")
+							: t("profile.connect_with_twitch")}
+						<Icons name="twitch" color="text" size={24} isAddon={false} />
+					</button>
+				))}
+			{authUser && userSessionStatus !== "INVALID" && (
 				<div className="flex items-center gap-3 rounded-xl px-4 py-3 transition-colors hover:border-(--accent)/80">
 					<div className="relative">
 						<img
