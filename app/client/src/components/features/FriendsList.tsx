@@ -342,6 +342,10 @@ const FriendsList = () => {
 							</FriendGroup>
 						)}
 						{communities.map((community) => {
+							if (community.members.length === 0) {
+								return null;
+							}
+
 							const rankedMembers = getRankedMembers(community.members);
 
 							return (

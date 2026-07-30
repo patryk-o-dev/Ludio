@@ -4,7 +4,6 @@ import { useTranslation } from "react-i18next";
 import i18n from "../../i18n";
 import { useGSAP } from "@gsap/react";
 import gsap from "gsap";
-import { getStoredAuthUser } from "../utils/authStorage";
 import { withAuth } from "../utils/api";
 
 const API = import.meta.env.VITE_API_URL;
