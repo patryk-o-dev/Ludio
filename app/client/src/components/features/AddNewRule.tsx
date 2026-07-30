@@ -1,6 +1,6 @@
-import addIcon from "../../assets/icons/add.png";
 import useGameConfigStore from "../../store/gameConfigStore";
 import { useTranslation } from "react-i18next";
+import Icons from "../utils/Icons/Icons";
 
 const AddNewRule = () => {
 	const rules = useGameConfigStore((state) => state.rules);
@@ -25,13 +25,13 @@ const AddNewRule = () => {
 	return (
 		<div
 			onClick={disabled ? undefined : onClick}
-			className={`flex flex-col items-center align-middle gap-4 p-12 border-dashed border-2 rounded-lg transition-opacity ${
+			className={`flex flex-col items-center align-middle gap-1 lg:gap-4 p-2 lg:p-12 border-dashed border-2 rounded-lg transition-opacity ${
 				disabled
 					? "border-(--bgc-quaternary) opacity-40 cursor-not-allowed"
 					: "border-(--text-secondary) hover:border-(--info) hover:cursor-pointer"
 			}`}
 		>
-			<img className="w-10 h-10" src={addIcon} alt="Add" />
+			<Icons name="pluscircle" color="text" isAddon={false} size={48} />
 			<p className="text-(--text-secondary) uppercase text-sm">
 				{t("quiz_creator.add_new_rule")}
 			</p>

@@ -38,7 +38,7 @@ const Profile = () => {
 	};
 
 	return (
-		<div className="border-l border-(--text-secondary) pl-12 flex items-center gap-4 flex-row">
+		<div className="border-l border-(--text-secondary) pl-0 lg:pl-12 flex items-center flex-row">
 			{!authUser ||
 				(userSessionStatus === "INVALID" && (
 					<button

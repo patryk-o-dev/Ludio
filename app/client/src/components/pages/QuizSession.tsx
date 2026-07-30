@@ -230,7 +230,7 @@ const QuizSession = () => {
 	}
 
 	return (
-		<main className="flex flex-col h-screen bg-(--bgc-primary) text-(--text) px-16 py-8 gap-8 min-w-240 min-h-120">
+		<main className="flex flex-col h-screen bg-(--bgc-primary) text-(--text) px-8 lg:px-16 py-4 lg:py-8 gap-2 lg:gap-8 lg:min-w-240 lg:min-h-120">
 			<TopBar session={session} sessionId={id} onSurrender={handleSurrender} />
 			<QuizStage
 				session={session}

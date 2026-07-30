@@ -85,7 +85,7 @@
 		}
 	},
 	"chip_selector": {
-		"chips": "Chips",
+		"chips": "Rules",
 		"options": "Options",
 		"quiz_rules": "Quiz Rules",
 		"mode_label": {

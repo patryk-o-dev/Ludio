@@ -117,7 +117,7 @@ const AnswerPanel = ({
 	}, [phase]);
 
 	return (
-		<div className="flex flex-1 flex-col gap-4 min-h-0">
+		<div className="flex flex-3 lg:flex-1 flex-col gap-4 min-h-0">
 			{phase === "question" && (
 				<>
 					<div className="flex items-center justify-between text-sm uppercase tracking-wide text-(--text-secondary)">

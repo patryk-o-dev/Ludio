@@ -48,9 +48,9 @@ const Index = () => {
 		checkSession();
 	}, [API, setUserSessionStatus]);
 	return (
-		<div className="relative bg-(--bgc-primary) text-(--text) max-h-screen flex flex-col items-center font-nunito">
+		<div className="relative bg-(--bgc-primary) text-(--text) lg:max-h-screen flex flex-col items-center font-nunito">
 			<CommunityJoinResolver />
-			<div className="bg-(--bgc-primary) w-screen max-w-450 h-screen flex flex-col">
+			<div className="bg-(--bgc-primary) w-full max-w-450 lg:h-screen flex flex-col">
 				<NavBar />
 				<MainContent />
 			</div>

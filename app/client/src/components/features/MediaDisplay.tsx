@@ -110,7 +110,7 @@ const MediaDisplay = ({
 
 	if (!mediaUrl) {
 		return (
-			<div className="relative flex-4 min-h-0 overflow-hidden rounded-3xl border border-(--accent)/40 bg-(--bgc-secondary) shadow-[0_0_24px_2px_color-mix(in_srgb,var(--accent)_20%,transparent)] flex items-center justify-center p-8">
+			<div className="relative flex-2 lg:flex-4 min-h-0 overflow-hidden rounded-3xl border border-(--accent)/40 bg-(--bgc-secondary) shadow-[0_0_24px_2px_color-mix(in_srgb,var(--accent)_20%,transparent)] flex items-center justify-center p-8">
 				{phase === "waiting" && (
 					<div className="flex w-full max-w-3xl flex-col items-center gap-4 text-center">
 						<p className="text-(--text-secondary) text-sm uppercase tracking-[0.35em]">
@@ -166,15 +166,19 @@ const MediaDisplay = ({
 					</div>
 				)}
 				{phase === "completed" && (
-					<div className="flex w-full max-w-3xl flex-col items-center gap-4 text-center">
+					<div className="flex w-full h-full lg:max-w-3xl flex-col items-center justify-center gap-1 lg:gap-4 text-center">
 						<p>{t("quiz_session.labels.winner")}</p>
-						<img
-							src={winningPlayer?.user.avatarUrl}
-							alt={t("quiz_session.labels.winner_avatar")}
-						/>
+						<div className="h-32 min-h-8 aspect-ratio lg:h-60 overflow-hidden rounded-full">
+							<img
+								className="h-full w-full object-cover object-center"
+								src={winningPlayer?.user.avatarUrl}
+								alt={t("quiz_session.labels.winner_avatar")}
+							/>
+						</div>
+
 						<p>{winningPlayer?.user.displayName}</p>
 						<button
-							className="mt-4 rounded-full bg-(--accent) px-4 py-2 text-(--text)"
+							className="lg:mt-4 rounded-full bg-(--accent) px-4 py-2 text-(--text)"
 							onClick={handleReturn}
 						>
 							{t("quiz_session.actions.return")}

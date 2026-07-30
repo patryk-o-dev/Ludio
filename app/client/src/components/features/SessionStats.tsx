@@ -47,7 +47,7 @@ const SessionStats = ({ session }: { session: SessionData }) => {
 			: (currentPlayer?.score ?? 0);
 
 	return (
-		<div className="flex items-center gap-12">
+		<div className="flex items-center gap-2 lg:gap-12">
 			<div className="flex flex-1 flex-col items-center">
 				<p className="text-sm uppercase text-(--text-secondary) leading-tight">
 					{t("quiz_session.labels.question")}

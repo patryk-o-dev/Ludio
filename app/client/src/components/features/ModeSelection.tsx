@@ -21,8 +21,8 @@ const ModeSelection = () => {
 	};
 
 	return (
-		<div className="border-l border-(--text-secondary) pl-12 h-12 flex items-center">
-			<ul className="flex flex-row gap-6 text-lg font-bold">
+		<div className="border-l border-(--text-secondary) pl-2 lg:pl-12 h-12 flex items-center">
+			<ul className="flex flex-row gap-2 lg:gap-6 text-lg font-bold">
 				<li
 					className={`transition-all duration-200 hover:text-(--accent) ${
 						mode === "CLASSIC" ? "text-(--accent)" : "text-(--text)"

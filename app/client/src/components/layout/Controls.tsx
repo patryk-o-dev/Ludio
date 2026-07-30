@@ -6,7 +6,7 @@ const Controls = () => {
 	const { t } = useTranslation();
 
 	return (
-		<div className="flex justify-center items-center gap-6">
+		<div className="justify-center items-center gap-6 hidden lg:flex">
 			<div className="flex items-center gap-2">
 				<div className="flex gap-1">
 					<img src={arrowKey} alt="arrow up" className="w-10 h-10 opacity-60" />

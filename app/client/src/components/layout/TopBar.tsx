@@ -27,7 +27,7 @@ const TopBar = ({
 	};
 
 	return (
-		<header className="flex items-center justify-between px-6 py-4">
+		<header className="flex items-center justify-between lg:px-6 py-1 lg:py-4">
 			<Logo />
 			<SessionStats session={session} />
 			<button

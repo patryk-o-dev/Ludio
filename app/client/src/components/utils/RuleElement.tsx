@@ -52,7 +52,7 @@ const RuleElement = ({ rule, ruleNumber }: RuleElementProps) => {
 
 					<p className="hidden min-[1050px]:block">{t("rule.recognize")}</p>
 					<div
-						className={`flex flex-row items-center align-middle p-2 bg-(--bgc-quaternary) rounded-md gap-2 hover:opacity-80 hover:cursor-pointer border-2 ${
+						className={`flex flex-row items-center align-middle p-2 min-h-10 min-w-10 bg-(--bgc-quaternary) rounded-md gap-2 hover:opacity-80 hover:cursor-pointer border-2 ${
 							chipSelectionStep.type === "guess" &&
 							chipSelectionStep.ruleIndex === rule.index
 								? "border-(--accent)"
@@ -83,7 +83,7 @@ const RuleElement = ({ rule, ruleNumber }: RuleElementProps) => {
 					</div>
 					<p>{t("rule.by")}</p>
 					<div
-						className={`flex flex-row items-center align-middle p-2 bg-(--bgc-quaternary) rounded-md gap-2 border-2 transition-opacity hover:opacity-80 hover:cursor-pointer ${
+						className={`flex flex-row items-center align-middle p-2 min-h-10 min-w-10 bg-(--bgc-quaternary) rounded-md gap-2 border-2 transition-opacity hover:opacity-80 hover:cursor-pointer ${
 							chipSelectionStep.type === "by" &&
 							chipSelectionStep.ruleIndex === rule.index
 								? "border-(--accent)"
