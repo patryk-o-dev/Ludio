@@ -2,6 +2,24 @@ import { useMemo } from "react";
 import type { SessionPlayer } from "../../types";
 import { useTranslation } from "react-i18next";
 
+const formatTime = (milliseconds: number) => {
+	const absoluteTime = Math.abs(milliseconds);
+	const seconds = absoluteTime / 1000;
+
+	const value =
+		seconds < 1 ? `${Math.round(absoluteTime)}ms` : `${seconds.toFixed(1)}s`;
+
+	if (milliseconds > 0) {
+		return `+${value}`;
+	}
+
+	if (milliseconds < 0) {
+		return `-${value}`;
+	}
+
+	return value;
+};
+
 const Ranking = ({
 	players,
 	totalQuestions,
@@ -29,20 +47,22 @@ const Ranking = ({
 			if (b.score === a.score) {
 				return a.timeMs - b.timeMs;
 			}
+
 			return b.score - a.score;
 		});
 	}, [players]);
 
-	const formattedAverageTime = Math.round(averagePerQuestion);
 	const showTimeDifference = players.length > 1 && timeLimitSeconds !== null;
 
 	return (
 		<div className="flex flex-col gap-2 w-full">
 			{showTimeDifference && (
 				<div className="text-sm text-(--text-secondary) px-2 pb-1 w-full text-right">
-					{t("quiz_session.labels.average_time")}: {formattedAverageTime} ms
+					{t("quiz_session.labels.average_time")}:{" "}
+					{formatTime(Math.round(averagePerQuestion))}
 				</div>
 			)}
+
 			{sortedPlayers.map((player, index) => {
 				const playerAveragePerQuestion =
 					totalQuestions > 0 ? (player.timeMs ?? 0) / totalQuestions : 0;
@@ -79,8 +99,7 @@ const Ranking = ({
 												: "text-(--text-secondary)"
 									}`}
 								>
-									{difference > 0 ? "+" : ""}
-									{difference} ms
+									{formatTime(difference)}
 								</span>
 							)}
 						</div>
