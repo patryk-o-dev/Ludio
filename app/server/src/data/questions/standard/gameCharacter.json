@@ -274,10 +274,227 @@
   },
   {
     "key": "guess_game_character_037",
+    "media": "ggci013iragpes.jpg",
+    "answer": "aloy",
+    "category": "by_image",
+    "gameTypes": ["guess_game_character"],
+    "filters": ["onlyFemale"]
+  },
+  {
+    "key": "guess_game_character_038",
+    "media": "ggci027cjmqqdg.jpg",
+    "answer": "corvo_attano",
+    "category": "by_image",
+    "gameTypes": ["guess_game_character"],
+    "filters": ["onlyMale"]
+  },
+  {
+    "key": "guess_game_character_039",
+    "media": "ggci041ndhrwtr.jpg",
+    "answer": "tiffa_lockhart",
+    "category": "by_image",
+    "gameTypes": ["guess_game_character"],
+    "filters": ["onlyFemale"]
+  },
+  {
+    "key": "guess_game_character_040",
+    "media": "ggci063nphymdq.jpg",
+    "answer": "senua",
+    "category": "by_image",
+    "gameTypes": ["guess_game_character"],
+    "filters": ["onlyFemale"]
+  },
+  {
+    "key": "guess_game_character_041",
+    "media": "ggci065obwapep.jpg",
+    "answer": "arthur_morgan",
+    "category": "by_image",
+    "gameTypes": ["guess_game_character"],
+    "filters": ["onlyMale"]
+  },
+  {
+    "key": "guess_game_character_042",
+    "media": "ggci087anksjdx.jpg",
+    "answer": "jin_sakai",
+    "category": "by_image",
+    "gameTypes": ["guess_game_character"],
+    "filters": ["onlyMale"]
+  },
+  {
+    "key": "guess_game_character_043",
+    "media": "ggci098wxjtcur.jpg",
+    "answer": "adam_jensen",
+    "category": "by_image",
+    "gameTypes": ["guess_game_character"],
+    "filters": ["onlyMale"]
+  },
+  {
+    "key": "guess_game_character_044",
+    "media": "ggci054srohbwq.png",
+    "answer": "jesse_faden",
+    "category": "by_image",
+    "gameTypes": ["guess_game_character"],
+    "filters": ["onlyFemale"]
+  },
+  {
+    "key": "guess_game_character_037",
     "media": "ggci097xjdqcyg.jpg",
     "answer": "ciri",
     "category": "by_image",
     "gameTypes": ["guess_game_character"],
     "filters": ["onlyFemale"]
+  },
+  {
+    "key": "guess_game_character_045",
+    "media": "ggcc045nnsntlq.jpg",
+    "answer": "mercy",
+    "credits": "https://www.instagram.com/calypsencosplay?utm_source=ig_web_button_share_sheet&igsh=ZDNlZDc0MzIxNw==",
+    "category": "by_cosplay",
+    "gameTypes": ["guess_game_character"],
+    "filters": ["onlyFemale"]
+  },
+  {
+    "key": "guess_game_character_046",
+    "media": "ggcc052oabcwri.jpg",
+    "answer": "evelynn",
+    "credits": "https://www.instagram.com/xandrastax?utm_source=ig_web_button_share_sheet&igsh=ZDNlZDc0MzIxNw==",
+    "category": "by_cosplay",
+    "gameTypes": ["guess_game_character"],
+    "filters": ["onlyFemale"]
+  },
+  {
+    "key": "guess_game_character_047",
+    "media": "ggcc077ekksjtd.jpg",
+    "answer": "kainé",
+    "credits": "https://www.instagram.com/ladyxzero?utm_source=ig_web_button_share_sheet&igsh=ZDNlZDc0MzIxNw==",
+    "category": "by_cosplay",
+    "gameTypes": ["guess_game_character"],
+    "filters": ["onlyFemale"]
+  },
+  {
+    "key": "guess_game_character_048",
+    "media": "ggcc048btppbkf.jpg",
+    "answer": "hu_tao",
+    "credits": "https://www.instagram.com/wri.cos.xaf?utm_source=ig_web_button_share_sheet&igsh=ZDNlZDc0MzIxNw==",
+    "category": "by_cosplay",
+    "gameTypes": ["guess_game_character"],
+    "filters": ["onlyFemale"]
+  },
+  {
+    "key": "guess_game_character_049",
+    "media": "ggcc094fxlmrun.jpg",
+    "answer": "nova",
+    "credits": "https://www.instagram.com/calypsencosplay?utm_source=ig_web_button_share_sheet&igsh=ZDNlZDc0MzIxNw==",
+    "category": "by_cosplay",
+    "gameTypes": ["guess_game_character"],
+    "filters": ["onlyFemale"]
+  },
+  {
+    "key": "guess_game_character_050",
+    "media": "ggcc084xnmayay.jpg",
+    "answer": "d.va",
+    "credits": "https://www.instagram.com/miko.cosplay?utm_source=ig_web_button_share_sheet&igsh=ZDNlZDc0MzIxNw==",
+    "category": "by_cosplay",
+    "gameTypes": ["guess_game_character"],
+    "filters": ["onlyFemale"]
+  },
+  {
+    "key": "guess_game_character_051",
+    "media": "ggcc063uitijwq.jpg",
+    "answer": "claire_redfield",
+    "credits": "https://www.instagram.com/ladyxzero?utm_source=ig_web_button_share_sheet&igsh=ZDNlZDc0MzIxNw==",
+    "category": "by_cosplay",
+    "gameTypes": ["guess_game_character"],
+    "filters": ["onlyFemale"]
+  },
+  {
+    "key": "guess_game_character_052",
+    "media": "ggcc029ohgcjuu.jpg",
+    "answer": "rebecca",
+    "credits": "https://www.instagram.com/morfina_cosplay?utm_source=ig_web_button_share_sheet&igsh=ZDNlZDc0MzIxNw==",
+    "category": "by_cosplay",
+    "gameTypes": ["guess_game_character"],
+    "filters": ["onlyFemale"]
+  },
+  {
+    "key": "guess_game_character_053",
+    "media": "ggcc050alrvvtl.jpg",
+    "answer": "senua",
+    "credits": "https://www.instagram.com/domikitty_?utm_source=ig_web_button_share_sheet&igsh=ZDNlZDc0MzIxNw==",
+    "category": "by_cosplay",
+    "gameTypes": ["guess_game_character"],
+    "filters": ["onlyFemale"]
+  },
+  {
+    "key": "guess_game_character_054",
+    "media": "ggcc088epfspvq.jpg",
+    "answer": "panam_palmer",
+    "credits": "https://www.instagram.com/morfina_cosplay?utm_source=ig_web_button_share_sheet&igsh=ZDNlZDc0MzIxNw==",
+    "category": "by_cosplay",
+    "gameTypes": ["guess_game_character"],
+    "filters": ["onlyFemale"]
+  },
+  {
+    "key": "guess_game_character_055",
+    "media": "ggcq091kgijlrj.mp3",
+    "answer": "albert_wesker",
+    "category": "by_quote_sound",
+    "gameTypes": ["guess_game_character"]
+  },
+  {
+    "key": "guess_game_character_056",
+    "media": "ggcq094rkvtpkn.mp3",
+    "answer": "big_smoke",
+    "category": "by_quote_sound",
+    "gameTypes": ["guess_game_character"]
+  },
+  {
+    "key": "guess_game_character_057",
+    "media": "ggcq063lmnctwc.mp3",
+    "answer": "vaas_montenegro",
+    "category": "by_quote_sound",
+    "gameTypes": ["guess_game_character"]
+  },
+  {
+    "key": "guess_game_character_058",
+    "media": "ggcq076tqydbhp.mp3",
+    "answer": "c_j",
+    "category": "by_quote_sound",
+    "gameTypes": ["guess_game_character"]
+  },
+  {
+    "key": "guess_game_character_059",
+    "media": "ggcq019wdeltao.mp3",
+    "answer": "kratos",
+    "category": "by_quote_sound",
+    "gameTypes": ["guess_game_character"]
+  },
+  {
+    "key": "guess_game_character_060",
+    "media": "ggcq018wrgjbfk.mp3",
+    "answer": "alcina_dimitrescu",
+    "category": "by_quote_sound",
+    "gameTypes": ["guess_game_character"]
+  },
+  {
+    "key": "guess_game_character_061",
+    "media": "ggcq069bkstdsl.mp3",
+    "answer": "johnny_silverhand",
+    "category": "by_quote_sound",
+    "gameTypes": ["guess_game_character"]
+  },
+  {
+    "key": "guess_game_character_062",
+    "media": "ggcq028fdyaaqu.mp3",
+    "answer": "ada_wong",
+    "category": "by_quote_sound",
+    "gameTypes": ["guess_game_character"]
+  },
+  {
+    "key": "guess_game_character_063",
+    "media": "ggcq058owtsjbv.mp3",
+    "answer": "ada_wong",
+    "category": "by_quote_sound",
+    "gameTypes": ["guess_game_character"]
   }
 ]

@@ -24,6 +24,7 @@ type SessionQuestionPayload = {
   id: string;
   url: string;
   answers: SessionAnswerOption[];
+  credits?: string;
   correctAnswer?: SessionAnswerOption;
 };
 
@@ -972,6 +973,7 @@ export class GameSessionService implements OnModuleInit {
         question: {
           id: randomQuestion.id,
           url: randomQuestion.url,
+          credits: randomQuestion.credits ? randomQuestion.credits : null,
           answers: answerOptions,
         },
         questionId: randomQuestion.id,

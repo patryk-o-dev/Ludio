@@ -34,12 +34,11 @@ const Index = () => {
 					}),
 				);
 
-				if (!response.ok) {
+				if (response.ok) {
+					setUserSessionStatus("VALID");
+				} else {
 					setUserSessionStatus("INVALID");
-					return;
 				}
-
-				setUserSessionStatus("VALID");
 			} catch {
 				setUserSessionStatus("INVALID");
 			}

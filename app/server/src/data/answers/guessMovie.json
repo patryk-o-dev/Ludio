@@ -93,5 +93,15 @@
     "key": "zodiac",
     "value": "Zodiac",
     "chipGuess": ["guess_movie"]
+  },
+  {
+    "key": "avengers",
+    "value": "Avengers",
+    "chipGuess": ["guess_movie"]
+  },
+  {
+    "key": "dont_look_up",
+    "value": "Don't Look Up",
+    "chipGuess": ["guess_movie"]
   }
 ]

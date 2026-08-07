@@ -1,0 +1,128 @@
+[
+  {
+    "key": "guess_anime_001",
+    "media": "ggcc014odayrls.jpg",
+    "answer": "neon_genesis_evangelion",
+    "category": "by_image",
+    "gameTypes": ["guess_anime"]
+  },
+  {
+    "key": "guess_anime_002",
+    "media": "ggcc024nknmlwy.jpg",
+    "answer": "tokyo_ghoul",
+    "category": "by_image",
+    "gameTypes": ["guess_anime"]
+  },
+  {
+    "key": "guess_anime_003",
+    "media": "ggcc034tnsufst.jpg",
+    "answer": "chainsaw_man",
+    "category": "by_image",
+    "gameTypes": ["guess_anime"]
+  },
+  {
+    "key": "guess_anime_004",
+    "media": "ggcc035nrtjycd.jpg",
+    "answer": "aot",
+    "category": "by_image",
+    "gameTypes": ["guess_anime"]
+  },
+  {
+    "key": "guess_anime_005",
+    "media": "ggcc044gmnjwqm.jpg",
+    "answer": "cowboy_bebop",
+    "category": "by_image",
+    "gameTypes": ["guess_anime"]
+  },
+  {
+    "key": "guess_anime_006",
+    "media": "ggcc080goyvfyj.jpg",
+    "answer": "re:zero",
+    "category": "by_image",
+    "gameTypes": ["guess_anime"]
+  },
+  {
+    "key": "guess_anime_007",
+    "media": "ggcc091vxvegbv.jpg",
+    "answer": "re:zero",
+    "category": "by_image",
+    "gameTypes": ["guess_anime"]
+  },
+  {
+    "key": "guess_anime_008",
+    "media": "ggcc098gchommg.jpg",
+    "answer": "nier_automata_ver1.1a",
+    "category": "by_image",
+    "gameTypes": ["guess_anime"]
+  },
+  {
+    "key": "guess_anime_009",
+    "media": "ggcc099janfnrr.jpg",
+    "answer": "demon_slayer",
+    "category": "by_image",
+    "gameTypes": ["guess_anime"]
+  },
+  {
+    "key": "guess_anime_010",
+    "media": "ggcc090thojccv.png",
+    "answer": "darling_in_the_franxx",
+    "category": "by_image",
+    "gameTypes": ["guess_anime"]
+  },
+  {
+    "key": "guess_anime_011",
+    "media": "ggcc010vioxije.jpg",
+    "answer": "sword_art_online",
+    "category": "by_image",
+    "gameTypes": ["guess_anime"]
+  },
+  {
+    "key": "guess_anime_012",
+    "media": "ggcc014djxopvq.jpg",
+    "answer": "fullmetal_alchemist",
+    "category": "by_image",
+    "gameTypes": ["guess_anime"]
+  },
+  {
+    "key": "guess_anime_013",
+    "media": "ggcc019omnnsdg.png",
+    "answer": "neon_genesis_evangelion",
+    "category": "by_image",
+    "gameTypes": ["guess_anime"]
+  },
+  {
+    "key": "guess_anime_014",
+    "media": "ggcc053swtvvrk.jpg",
+    "answer": "aot",
+    "category": "by_image",
+    "gameTypes": ["guess_anime"]
+  },
+  {
+    "key": "guess_anime_015",
+    "media": "ggcc062bwimddr.jpg",
+    "answer": "death_note",
+    "category": "by_image",
+    "gameTypes": ["guess_anime"]
+  },
+  {
+    "key": "guess_anime_016",
+    "media": "ggcc066jgohrck.jpg",
+    "answer": "pokemon",
+    "category": "by_image",
+    "gameTypes": ["guess_anime"]
+  },
+  {
+    "key": "guess_anime_017",
+    "media": "ggcc079kbxrboy.jpg",
+    "answer": "demon_slayer",
+    "category": "by_image",
+    "gameTypes": ["guess_anime"]
+  },
+  {
+    "key": "guess_anime_018",
+    "media": "ggcc088fakouab.jpg",
+    "answer": "death_note",
+    "category": "by_image",
+    "gameTypes": ["guess_anime"]
+  }
+]

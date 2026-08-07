@@ -691,5 +691,103 @@
     "answer": "starcraft_2",
     "category": "by_title_screen",
     "gameTypes": ["guess_game"]
+  },
+  {
+    "key": "guess_game_100",
+    "media": "ggts099gptecjb.png",
+    "answer": "amnesia_rebirth",
+    "category": "by_title_screen",
+    "gameTypes": ["guess_game"]
+  },
+  {
+    "key": "guess_game_101",
+    "media": "ggi004dpsxlxf.jpg",
+    "answer": "dark_souls",
+    "category": "by_inventory",
+    "gameTypes": ["guess_game"]
+  },
+  {
+    "key": "guess_game_102",
+    "media": "ggi014wmqnuns.jpg",
+    "answer": "darksiders_2",
+    "category": "by_inventory",
+    "gameTypes": ["guess_game"]
+  },
+  {
+    "key": "guess_game_103",
+    "media": "ggi019roaqfit.jpg",
+    "answer": "dark_souls_2",
+    "category": "by_inventory",
+    "gameTypes": ["guess_game"]
+  },
+  {
+    "key": "guess_game_104",
+    "media": "ggi040rahojgl.jpg",
+    "answer": "borderlands",
+    "category": "by_inventory",
+    "gameTypes": ["guess_game"]
+  },
+  {
+    "key": "guess_game_105",
+    "media": "ggi079epqlnci.jpg",
+    "answer": "dead_space",
+    "category": "by_inventory",
+    "gameTypes": ["guess_game"]
+  },
+  {
+    "key": "guess_game_106",
+    "media": "ggi084dlgjxsy.jpg",
+    "answer": "assassins_creed_shadows",
+    "category": "by_inventory",
+    "gameTypes": ["guess_game"]
+  },
+  {
+    "key": "guess_game_107",
+    "media": "ggi096hlmpmjp.jpg",
+    "answer": "fallout_4",
+    "category": "by_inventory",
+    "gameTypes": ["guess_game"]
+  },
+  {
+    "key": "guess_game_108",
+    "media": "gga083dubjqmj.png",
+    "answer": "witcher_3_wild_hunt",
+    "category": "by_achievement",
+    "gameTypes": ["guess_game"]
+  },
+  {
+    "key": "guess_game_109",
+    "media": "gggo005vqrgnqf.jpg",
+    "answer": "apex_legends",
+    "category": "by_game_over",
+    "gameTypes": ["guess_game"]
+  },
+  {
+    "key": "guess_game_110",
+    "media": "gggo081pqjknyw.jpg",
+    "answer": "sonic_mania",
+    "category": "by_game_over",
+    "gameTypes": ["guess_game"]
+  },
+  {
+    "key": "guess_game_111",
+    "media": "gggo058ldsgeue.jpg",
+    "answer": "south_park_the_stick_of_truth",
+    "category": "by_game_over",
+    "gameTypes": ["guess_game"]
+  },
+  {
+    "key": "guess_game_112",
+    "media": "gggo030dvnwqxw.jpg",
+    "answer": "stellar_blade",
+    "category": "by_game_over",
+    "gameTypes": ["guess_game"]
+  },
+  {
+    "key": "guess_game_113",
+    "media": "gggo068mnpkskn.jpg",
+    "answer": "silent_hill_2",
+    "category": "by_game_over",
+    "gameTypes": ["guess_game"]
   }
 ]

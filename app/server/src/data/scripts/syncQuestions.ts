@@ -47,6 +47,7 @@ async function syncQuestionsData(filePath: string, allKeys: string[]) {
       },
       update: {
         url: `/static/${mediaPath}/media/${question.media}`,
+        credits: question.credits ? question.credits : null,
         answerId: answer.id,
         chipById: chipBy.id,
         chipGuesses: {
@@ -58,6 +59,7 @@ async function syncQuestionsData(filePath: string, allKeys: string[]) {
       create: {
         key: question.key,
         url: `/static/${mediaPath}/media/${question.media}`,
+        credits: question.credits ? question.credits : null,
         answerId: answer.id,
         chipById: chipBy.id,
         chipGuesses: {

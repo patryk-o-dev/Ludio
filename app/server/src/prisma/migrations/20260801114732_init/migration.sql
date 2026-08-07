@@ -87,43 +87,54 @@ CREATE TABLE `Rule` (
 -- CreateTable
 CREATE TABLE `ChipGuess` (
     `id` VARCHAR(191) NOT NULL,
+    `key` VARCHAR(191) NOT NULL,
     `name` VARCHAR(191) NOT NULL,
+    `mode` ENUM('CLASSIC', 'SOLO', 'LEAGUE_OF_LEGENDS', 'DEAD_BY_DAYLIGHT') NOT NULL,
 
+    UNIQUE INDEX `ChipGuess_key_key`(`key`),
     PRIMARY KEY (`id`)
 ) DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
 
 -- CreateTable
 CREATE TABLE `ChipBy` (
     `id` VARCHAR(191) NOT NULL,
+    `key` VARCHAR(191) NOT NULL,
     `name` VARCHAR(191) NOT NULL,
 
+    UNIQUE INDEX `ChipBy_key_key`(`key`),
     PRIMARY KEY (`id`)
 ) DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
 
 -- CreateTable
 CREATE TABLE `ChipFilter` (
     `id` VARCHAR(191) NOT NULL,
+    `key` VARCHAR(191) NOT NULL,
     `name` VARCHAR(191) NOT NULL,
 
+    UNIQUE INDEX `ChipFilter_key_key`(`key`),
     PRIMARY KEY (`id`)
 ) DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
 
 -- CreateTable
 CREATE TABLE `Question` (
     `id` VARCHAR(191) NOT NULL,
+    `key` VARCHAR(191) NOT NULL,
     `url` VARCHAR(191) NOT NULL,
     `difficulty` INTEGER NOT NULL DEFAULT 1,
     `answerId` VARCHAR(191) NOT NULL,
     `chipById` VARCHAR(191) NOT NULL,
 
+    UNIQUE INDEX `Question_key_key`(`key`),
     PRIMARY KEY (`id`)
 ) DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
 
 -- CreateTable
 CREATE TABLE `Answer` (
     `id` VARCHAR(191) NOT NULL,
+    `key` VARCHAR(191) NOT NULL,
     `value` VARCHAR(191) NOT NULL,
 
+    UNIQUE INDEX `Answer_key_key`(`key`),
     PRIMARY KEY (`id`)
 ) DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
 

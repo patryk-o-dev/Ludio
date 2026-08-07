@@ -2,6 +2,7 @@
 	"friends": "Znajomi",
 	"add_friend": "Dodaj znajomego",
 	"invite_sent": "Zaproszenie wysłane",
+	"invite_error": "Błąd zaproszenia",
 	"friend_request": "Zaproszenie do znajomych",
 	"friend_requests": "Zaproszenia do znajomych",
 	"search_friends_by_id": "Szukaj znajomych po ID",

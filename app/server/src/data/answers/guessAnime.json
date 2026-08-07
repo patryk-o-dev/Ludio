@@ -1,0 +1,67 @@
+[
+  {
+    "key": "neon_genesis_evangelion",
+    "value": "Neon Genesis Evangelion",
+    "chipGuess": ["guess_anime"]
+  },
+  {
+    "key": "tokyo_ghoul",
+    "value": "Tokyo Ghoul",
+    "chipGuess": ["guess_anime"]
+  },
+  {
+    "key": "chainsaw_man",
+    "value": "Chainsaw Man",
+    "chipGuess": ["guess_anime"]
+  },
+  {
+    "key": "aot",
+    "value": "Attack on Titan",
+    "chipGuess": ["guess_anime"]
+  },
+  {
+    "key": "cowboy_bebop",
+    "value": "Cowboy Bebop",
+    "chipGuess": ["guess_anime"]
+  },
+  {
+    "key": "re:zero",
+    "value": "Re:Zero - Starting Life in Another World",
+    "chipGuess": ["guess_anime"]
+  },
+  {
+    "key": "nier_automata_ver1.1a",
+    "value": "NieR:Automata Ver1.1a",
+    "chipGuess": ["guess_anime"]
+  },
+  {
+    "key": "demon_slayer",
+    "value": "Demon Slayer",
+    "chipGuess": ["guess_anime"]
+  },
+  {
+    "key": "darling_in_the_franxx",
+    "value": "Darling in the Franxx",
+    "chipGuess": ["guess_anime"]
+  },
+  {
+    "key": "sword_art_online",
+    "value": "Sword Art Online",
+    "chipGuess": ["guess_anime"]
+  },
+  {
+    "key": "fullmetal_alchemist",
+    "value": "Fullmetal Alchemist",
+    "chipGuess": ["guess_anime"]
+  },
+  {
+    "key": "death_note",
+    "value": "Death Note",
+    "chipGuess": ["guess_anime"]
+  },
+  {
+    "key": "pokemon",
+    "value": "Pokémon",
+    "chipGuess": ["guess_anime"]
+  }
+]

@@ -39,20 +39,19 @@ const Profile = () => {
 
 	return (
 		<div className="border-l border-(--text-secondary) pl-0 lg:pl-12 flex items-center flex-row">
-			{!authUser ||
-				(userSessionStatus === "INVALID" && (
-					<button
-						type="button"
-						onClick={handleConnectWithTwitch}
-						disabled={isConnecting}
-						className="text-(--text) disabled:text-(--text-secondary) flex gap-2"
-					>
-						{isConnecting
-							? t("profile.connecting")
-							: t("profile.connect_with_twitch")}
-						<Icons name="twitch" color="text" size={24} isAddon={false} />
-					</button>
-				))}
+			{(!authUser || userSessionStatus !== "VALID") && (
+				<button
+					type="button"
+					onClick={handleConnectWithTwitch}
+					disabled={isConnecting}
+					className="text-(--text) disabled:text-(--text-secondary) flex gap-2"
+				>
+					{isConnecting
+						? t("profile.connecting")
+						: t("profile.connect_with_twitch")}
+					<Icons name="twitch" color="text" size={24} isAddon={false} />
+				</button>
+			)}
 			{authUser && userSessionStatus !== "INVALID" && (
 				<div className="flex items-center gap-3 rounded-xl px-4 py-3 transition-colors hover:border-(--accent)/80">
 					<div className="relative">

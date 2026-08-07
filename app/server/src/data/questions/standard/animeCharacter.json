@@ -1,0 +1,93 @@
+[
+  {
+    "key": "guess_anime_character_001",
+    "media": "ggcc014odayrls.jpg",
+    "answer": "asuka_langley",
+    "category": "by_image",
+    "gameTypes": ["guess_anime_character"]
+  },
+  {
+    "key": "guess_anime_character_002",
+    "media": "ggcc024nknmlwy.jpg",
+    "answer": "kaneki_ken",
+    "category": "by_image",
+    "gameTypes": ["guess_anime_character"]
+  },
+  {
+    "key": "guess_anime_character_003",
+    "media": "ggcc034tnsufst.jpg",
+    "answer": "power",
+    "category": "by_image",
+    "gameTypes": ["guess_anime_character"]
+  },
+  {
+    "key": "guess_anime_character_004",
+    "media": "ggcc035nrtjycd.jpg",
+    "answer": "mikasa",
+    "category": "by_image",
+    "gameTypes": ["guess_anime_character"]
+  },
+  {
+    "key": "guess_anime_character_005",
+    "media": "ggcc044gmnjwqm.jpg",
+    "answer": "spike_spiegel",
+    "category": "by_image",
+    "gameTypes": ["guess_anime_character"]
+  },
+  {
+    "key": "guess_anime_character_006",
+    "media": "ggcc073rrfooro.jpg",
+    "answer": "hinata_hyūga",
+    "category": "by_image",
+    "gameTypes": ["guess_anime_character"]
+  },
+  {
+    "key": "guess_anime_character_007",
+    "media": "ggcc077joivdqq.jpg",
+    "answer": "sakura_haruno",
+    "category": "by_image",
+    "gameTypes": ["guess_anime_character"]
+  },
+  {
+    "key": "guess_anime_character_008",
+    "media": "ggcc080goyvfyj.jpg",
+    "answer": "rem",
+    "category": "by_image",
+    "gameTypes": ["guess_anime_character"]
+  },
+  {
+    "key": "guess_anime_character_009",
+    "media": "ggcc091vxvegbv.jpg",
+    "answer": "ram",
+    "category": "by_image",
+    "gameTypes": ["guess_anime_character"]
+  },
+  {
+    "key": "guess_anime_character_010",
+    "media": "ggcc098gchommg.jpg",
+    "answer": "2b",
+    "category": "by_image",
+    "gameTypes": ["guess_anime_character"]
+  },
+  {
+    "key": "guess_anime_character_011",
+    "media": "ggcc099janfnrr.jpg",
+    "answer": "nezuko",
+    "category": "by_image",
+    "gameTypes": ["guess_anime_character"]
+  },
+  {
+    "key": "guess_anime_character_012",
+    "media": "ggcc090thojccv.png",
+    "answer": "zero_two",
+    "category": "by_image",
+    "gameTypes": ["guess_anime_character"]
+  },
+  {
+    "key": "guess_anime_character_013",
+    "media": "ggcc027oneloop.png",
+    "answer": "sakura_haruno",
+    "category": "by_image",
+    "gameTypes": ["guess_anime_character"]
+  }
+]

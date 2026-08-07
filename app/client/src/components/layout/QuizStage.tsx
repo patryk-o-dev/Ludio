@@ -29,6 +29,7 @@ const QuizStage = ({
 	);
 	const canAcceptInvitation = currentPlayer?.status === "Invited";
 
+
 	const acceptInvitation = () => {
 		fetch(
 			`${API}/game-session/${session.id}/respond`,
@@ -62,6 +63,7 @@ const QuizStage = ({
 					hostId={session.hostId}
 					currentUserId={currentUserId}
 					mediaUrl={currentQuestion?.url ?? null}
+					credits={currentQuestion?.credits ?? null}
 					players={session.players}
 					phase={session.live.phase}
 					summaryPoints={summaryPoints}

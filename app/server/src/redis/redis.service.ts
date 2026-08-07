@@ -50,4 +50,8 @@ export class RedisService {
   async setJson<T>(key: string, value: T, ttlSeconds?: number): Promise<void> {
     await this.set(key, JSON.stringify(value), ttlSeconds);
   }
+
+  async expire(key: string, ttlSeconds: number): Promise<void> {
+    await client.expire(key, ttlSeconds);
+  }
 }

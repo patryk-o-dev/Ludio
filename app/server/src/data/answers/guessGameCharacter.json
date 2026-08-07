@@ -153,5 +153,125 @@
     "key": "geralt_of_rivia",
     "value": "Geralt of Rivia",
     "chipGuess": ["guess_game_character"]
+  },
+  {
+    "key": "corvo_attano",
+    "value": "Convo Attano",
+    "chipGuess": ["guess_game_character"]
+  },
+  {
+    "key": "aloy",
+    "value": "Aloy",
+    "chipGuess": ["guess_game_character"]
+  },
+  {
+    "key": "tiffa_lockhart",
+    "value": "Tiffa Lockhart",
+    "chipGuess": ["guess_game_character"]
+  },
+  {
+    "key": "senua",
+    "value": "Senua",
+    "chipGuess": ["guess_game_character"]
+  },
+  {
+    "key": "arthur_morgan",
+    "value": "Arthur Morgan",
+    "chipGuess": ["guess_game_character"]
+  },
+  {
+    "key": "jin_sakai",
+    "value": "Jin Sakai",
+    "chipGuess": ["guess_game_character"]
+  },
+  {
+    "key": "adam_jensen",
+    "value": "Adam Jensen",
+    "chipGuess": ["guess_game_character"]
+  },
+  {
+    "key": "jesse_faden",
+    "value": "Jesse Faden",
+    "chipGuess": ["guess_game_character"]
+  },
+  {
+    "key": "mercy",
+    "value": "Mercy",
+    "chipGuess": ["guess_game_character"]
+  },
+  {
+    "key": "evelynn",
+    "value": "Evelynn",
+    "chipGuess": ["guess_game_character"]
+  },
+  {
+    "key": "kainé",
+    "value": "Kainé",
+    "chipGuess": ["guess_game_character"]
+  },
+  {
+    "key": "hu_tao",
+    "value": "Hu Tao",
+    "chipGuess": ["guess_game_character"]
+  },
+  {
+    "key": "nova",
+    "value": "Nova",
+    "chipGuess": ["guess_game_character"]
+  },
+  {
+    "key": "claire_redfield",
+    "value": "Claire Redfield",
+    "chipGuess": ["guess_game_character"]
+  },
+  {
+    "key": "d.va",
+    "value": "D.Va",
+    "chipGuess": ["guess_game_character"]
+  },
+  {
+    "key": "rebecca",
+    "value": "Rebecca",
+    "chipGuess": ["guess_game_character"]
+  },
+  {
+    "key": "panam_palmer",
+    "value": "Panam Palmer",
+    "chipGuess": ["guess_game_character"]
+  },
+  {
+    "key": "albert_wesker",
+    "value": "Albert Wesker",
+    "chipGuess": ["guess_game_character"]
+  },
+  {
+    "key": "big_smoke",
+    "value": "Big Smoke",
+    "chipGuess": ["guess_game_character"]
+  },
+  {
+    "key": "vaas_montenegro",
+    "value": "Vaas Montenegro",
+    "chipGuess": ["guess_game_character"]
+  },
+  {
+    "key": "c_j",
+    "value": "CJ",
+    "chipGuess": ["guess_game_character"]
+  },
+  {
+    "key": "alcina_dimitrescu",
+    "value": "Alicia Dimitrescy",
+    "chipGuess": ["guess_game_character"]
+  },
+  {
+    "key": "ada_wong",
+    "value": "Ada Wong",
+    "chipGuess": ["guess_game_character"]
+  },
+  {
+    "key": "johnny_silverhand",
+    "value": "Johnny Silverhand",
+    "chipGuess": ["guess_game_character"]
   }
 ]

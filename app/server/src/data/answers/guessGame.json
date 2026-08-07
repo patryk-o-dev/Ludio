@@ -383,5 +383,45 @@
     "key": "afk_arena",
     "value": "AFK Arena",
     "chipGuess": ["guess_game"]
+  },
+  {
+    "key": "dark_souls",
+    "value": "Dark Souls",
+    "chipGuess": ["guess_game"]
+  },
+  {
+    "key": "dark_souls",
+    "value": "Dark Souls",
+    "chipGuess": ["guess_game"]
+  },
+  {
+    "key": "dark_souls_2",
+    "value": "Dark Souls 2",
+    "chipGuess": ["guess_game"]
+  },
+  {
+    "key": "borderlands",
+    "value": "Borderlands",
+    "chipGuess": ["guess_game"]
+  },
+  {
+    "key": "assassins_creed_shadows",
+    "value": "Assassin's Creed Shadows",
+    "chipGuess": ["guess_game"]
+  },
+  {
+    "key": "apex_legends",
+    "value": "Apex Legends",
+    "chipGuess": ["guess_game"]
+  },
+  {
+    "key": "sonic_mania",
+    "value": "Sonic Mania",
+    "chipGuess": ["guess_game"]
+  },
+  {
+    "key": "stellar_blade",
+    "value": "Stellar Blade",
+    "chipGuess": ["guess_game"]
   }
 ]

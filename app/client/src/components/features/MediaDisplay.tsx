@@ -11,6 +11,7 @@ interface MediaDisplayProps {
 	hostId: string;
 	currentUserId: string | null;
 	mediaUrl: string | null;
+	credits?: string | null;
 	players?: SessionPlayer[];
 	phase: "waiting" | "question" | "summary" | "completed";
 	summaryLabel: string;
@@ -26,6 +27,7 @@ const MediaDisplay = ({
 	hostId,
 	currentUserId,
 	mediaUrl,
+	credits,
 	players = [],
 	phase,
 	summaryLabel,
@@ -44,6 +46,7 @@ const MediaDisplay = ({
 				: "image";
 
 	const resolveMediaUrl = (mediaUrl: string) => {
+		console.log(credits);
 		return `${API_ORIGIN}${mediaUrl.startsWith("/") ? "" : "/"}${mediaUrl}`;
 	};
 
@@ -220,6 +223,18 @@ const MediaDisplay = ({
 			{mediaType === "sound" && (
 				<div className="absolute inset-0 flex items-center justify-center">
 					<audio src={resolvedImageUrl} controls autoPlay className="w-full" />
+				</div>
+			)}
+			{credits && showAnswerOverlay && (
+				<div className="absolute bottom-4 right-6">
+					<a
+						className="group flex items-center gap-2 rounded-full border border-(--accent)/40 bg-(--bgc-primary)/80 px-4 py-2 text-sm text-(--text-secondary) backdrop-blur-md transition-all hover:border-(--accent-light) hover:bg-(--bgc-tertiary) hover:text-(--text)"
+						href={credits}
+						target="_blank"
+						rel="noopener noreferrer"
+					>
+						<span className="text-xs uppercase tracking-wider">Follow</span>
+					</a>
 				</div>
 			)}
 

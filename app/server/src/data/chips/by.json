@@ -58,5 +58,10 @@
     "key": "by_trailer",
     "name": "byTrailer",
     "compatibleChipFilters": []
+  },
+  {
+    "key": "by_quote_sound",
+    "name": "byQuoteSound",
+    "compatibleChipFilters": []
   }
 ]

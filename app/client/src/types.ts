@@ -67,6 +67,7 @@ export type QuestionAnswer = {
 export type CurrentQuestion = {
 	id: string;
 	url: string;
+	credits?: string;
 	answers: QuestionAnswer[];
 	correctAnswer?: QuestionAnswer;
 };

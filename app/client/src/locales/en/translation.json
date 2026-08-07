@@ -4,6 +4,7 @@
 	"friend_request": "Friend request",
 	"friend_requests": "Friend requests",
 	"invite_sent": "Invite sent",
+	"invite_error": "Invite error",
 	"search_friends_by_id": "Search friends by ID",
 	"no_twitch_id": "No Twitch ID",
 	"invites": "Invites",

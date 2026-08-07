@@ -1,0 +1,97 @@
+[
+  {
+    "key": "mr_robot",
+    "value": "Mr. Robot",
+    "chipGuess": ["guess_tv"]
+  },
+  {
+    "key": "peaky_blinders",
+    "value": "Peaky Blinders",
+    "chipGuess": ["guess_tv"]
+  },
+  {
+    "key": "the_walking_dead",
+    "value": "The Walking Dead",
+    "chipGuess": ["guess_tv"]
+  },
+  {
+    "key": "the_queens_gambit",
+    "value": "The Queen's Gambit",
+    "chipGuess": ["guess_tv"]
+  },
+  {
+    "key": "sherlock_holmes",
+    "value": "Sherlock Holmes",
+    "chipGuess": ["guess_tv"]
+  },
+  {
+    "key": "the_boys",
+    "value": "The Boys",
+    "chipGuess": ["guess_tv"]
+  },
+  {
+    "key": "the_office",
+    "value": "The Office",
+    "chipGuess": ["guess_tv"]
+  },
+  {
+    "key": "arcane",
+    "value": "Arcane",
+    "chipGuess": ["guess_tv"]
+  },
+  {
+    "key": "vikings",
+    "value": "Vikings",
+    "chipGuess": ["guess_tv"]
+  },
+  {
+    "key": "stranger_things",
+    "value": "Stranger Things",
+    "chipGuess": ["guess_tv"]
+  },
+  {
+    "key": "dark",
+    "value": "Dark",
+    "chipGuess": ["guess_tv"]
+  },
+  {
+    "key": "the_last_of_us",
+    "value": "The Last of Us",
+    "chipGuess": ["guess_tv"]
+  },
+  {
+    "key": "the_mandalorian",
+    "value": "The Mandalorian",
+    "chipGuess": ["guess_tv"]
+  },
+  {
+    "key": "black_mirror",
+    "value": "Black Mirror",
+    "chipGuess": ["guess_tv"]
+  },
+  {
+    "key": "sopranos",
+    "value": "The Sopranos",
+    "chipGuess": ["guess_tv"]
+  },
+  {
+    "key": "better_call_saul",
+    "value": "Better Call Saul",
+    "chipGuess": ["guess_tv"]
+  },
+  {
+    "key": "chernobyl",
+    "value": "Chernobyl",
+    "chipGuess": ["guess_tv"]
+  },
+  {
+    "key": "breaking_bad",
+    "value": "Breaking Bad",
+    "chipGuess": ["guess_tv"]
+  },
+  {
+    "key": "game_of_thrones",
+    "value": "Game of Thrones",
+    "chipGuess": ["guess_tv"]
+  }
+]

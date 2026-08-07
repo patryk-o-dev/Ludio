@@ -42,13 +42,13 @@ enum GameMode {
 }
 
 model User {
-  id                  String       @id @default(uuid())
-  username            String       @db.VarChar(64)
-  twitchId            String?      @unique @db.VarChar(64)
-  displayName         String?      @db.VarChar(64)
-  avatarUrl           String?      @db.VarChar(512)
-  createdAt           DateTime     @default(now())
-  allowFriendRequests Boolean      @default(true)
+  id                  String   @id @default(uuid())
+  username            String   @db.VarChar(64)
+  twitchId            String?  @unique @db.VarChar(64)
+  displayName         String?  @db.VarChar(64)
+  avatarUrl           String?  @db.VarChar(512)
+  createdAt           DateTime @default(now())
+  allowFriendRequests Boolean  @default(true)
 
   sentFriendships     Friendship[] @relation("InviteFrom")
   receivedFriendships Friendship[] @relation("InviteTo")
@@ -144,8 +144,8 @@ model Rule {
 }
 
 model ChipGuess {
-  id   String @id @default(uuid())
-  key  String @unique
+  id   String   @id @default(uuid())
+  key  String   @unique
   name String
   mode GameMode
 
@@ -196,12 +196,25 @@ model Question {
   usedInSessions GameSession[]
 
   users User[]
+
+  achievement QuestionAchievement?
+  credits     String?
+}
+
+model QuestionAchievement {
+  id               String @id @default(uuid())
+  questionId       String @unique
+  achievementTitle String
+  achievementDesc  String
+
+  question Question @relation(fields: [questionId], references: [id])
 }
 
 model Answer {
-  id    String @id @default(uuid())
-  key   String @unique
-  value String
+  id      String  @id @default(uuid())
+  key     String  @unique
+  value   String
+  valuePl String?
 
   chipGuesses ChipGuess[]
   chipFilters ChipFilter[]

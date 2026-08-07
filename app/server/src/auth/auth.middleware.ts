@@ -8,6 +8,7 @@ export class AuthMiddleware implements NestMiddleware {
 
   async use(req: Request, res: Response, next: NextFunction) {
     const sessionId = req.cookies.sessionId;
+
     if (!sessionId) {
       return next();
     }
@@ -16,11 +17,19 @@ export class AuthMiddleware implements NestMiddleware {
       `auth:session:${sessionId}`,
     );
 
-    if (session) {
-      req.user = {
-        id: session.userId,
-      };
+    if (!session) {
+      res.clearCookie('sessionId');
+      return next();
     }
+
+    req.user = {
+      id: session.userId,
+    };
+
+    await this.redisService.expire(
+      `auth:session:${sessionId}`,
+      60 * 60 * 24 * 7,
+    );
 
     next();
   }

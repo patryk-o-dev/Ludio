@@ -29,5 +29,11 @@
     "name": "guessMovie",
     "mode": "CLASSIC",
     "compatibleChipBy": ["by_frame", "by_trailer"]
+  },
+  {
+    "key": "guess_tv",
+    "name": "guessTV",
+    "mode": "CLASSIC",
+    "compatibleChipBy": ["by_frame", "by_trailer"]
   }
 ]

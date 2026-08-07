@@ -1,0 +1,62 @@
+[
+  {
+    "key": "asuka_langley",
+    "value": "Asuka Langley",
+    "chipGuess": ["guess_anime_character"]
+  },
+  {
+    "key": "kaneki_ken",
+    "value": "Kaneki Ken",
+    "chipGuess": ["guess_anime_character"]
+  },
+  {
+    "key": "power",
+    "value": "Power",
+    "chipGuess": ["guess_anime_character"]
+  },
+  {
+    "key": "mikasa",
+    "value": "Mikasa",
+    "chipGuess": ["guess_anime_character"]
+  },
+  {
+    "key": "spike_spiegel",
+    "value": "Spike Spiegel",
+    "chipGuess": ["guess_anime_character"]
+  },
+  {
+    "key": "hinata_hyūga",
+    "value": "Hinata Hyūga",
+    "chipGuess": ["guess_anime_character"]
+  },
+  {
+    "key": "sakura_haruno",
+    "value": "Sakura Haruno",
+    "chipGuess": ["guess_anime_character"]
+  },
+  {
+    "key": "rem",
+    "value": "Rem",
+    "chipGuess": ["guess_anime_character"]
+  },
+  {
+    "key": "ram",
+    "value": "Ram",
+    "chipGuess": ["guess_anime_character"]
+  },
+  {
+    "key": "2b",
+    "value": "2B",
+    "chipGuess": ["guess_anime_character"]
+  },
+  {
+    "key": "nezuko",
+    "value": "Nezuko",
+    "chipGuess": ["guess_anime_character"]
+  },
+  {
+    "key": "zero_two",
+    "value": "Zero Two",
+    "chipGuess": ["guess_anime_character"]
+  }
+]

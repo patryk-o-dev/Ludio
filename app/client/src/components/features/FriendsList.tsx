@@ -24,6 +24,7 @@ const FriendsList = () => {
 	const [searchFriendInput, setSearchFriend] = useState(false);
 	const [searchQuery, setSearchQuery] = useState("");
 	const [inviteSent, setInviteSent] = useState(false);
+	const [inviteError, setInviteError] = useState(false);
 	const [friends, setFriends] = useState<User[]>([]);
 	const [friendRequests, setFriendRequests] = useState<User[]>([]);
 	const [sessionInvites, setSessionInvites] = useState<SessionInvite[]>([]);
@@ -52,7 +53,7 @@ const FriendsList = () => {
 	) => {
 		e.preventDefault();
 		try {
-			await fetch(
+			const res = await fetch(
 				`${API}/user/friendship/${friendId}`,
 				withAuth({
 					method: "POST",
@@ -61,15 +62,22 @@ const FriendsList = () => {
 					},
 				}),
 			);
+			if (res.ok) {
+				setInviteSent(true);
+				setTimeout(() => {
+					setInviteSent(false);
+				}, 3000);
+			} else {
+				setInviteError(true);
+				setTimeout(() => {
+					setInviteError(false);
+				}, 3000);
+			}
 		} catch (err) {
 			console.error("Error sending friend request:", err);
 			return;
 		}
 		setSearchQuery("");
-		setInviteSent(true);
-		setTimeout(() => {
-			setInviteSent(false);
-		}, 3000);
 	};
 
 	const unlockAudio = async () => {
@@ -281,6 +289,7 @@ const FriendsList = () => {
 	return (
 		<div className="scrollbar-thin custom-scrollbar overflow-auto h-full">
 			{inviteSent && <Popup value={t("invite_sent")} />}
+			{inviteError && <Popup value={t("invite_error")} />}
 			<div className="flex flex-wrap items-center justify-between mb-4 p-2">
 				<p className="text-(--text) font-bold text-md uppercase">
 					{t("friends")}
