@@ -16,6 +16,9 @@ import {
 	acquireSharedSocket,
 	releaseSharedSocket,
 } from "../utils/socketClient";
+import chooseAnswerSound from "../../assets/sounds/choose_answer.mp3";
+import correctAnswerSound from "../../assets/sounds/correct_answer.mp3";
+import { playUiSound } from "../utils/audio";
 
 const API = import.meta.env.VITE_API_URL;
 
@@ -30,8 +33,12 @@ const QuizSession = () => {
 	const [error, setError] = useState<string | null>(null);
 	const socketRef = useRef<Socket | null>(null);
 	const [correctAnswer, setCorrectAnswer] = useState("");
+	const lastCorrectSoundQuestionIdRef = useRef<string | null>(null);
 	const navigate = useNavigate();
 	const { t } = useTranslation();
+	const setQuizSessionData = useQuizSessionStore(
+		(state) => state.setQuizSessionData,
+	);
 
 	useEffect(() => {
 		if (!id) return;
@@ -68,6 +75,8 @@ const QuizSession = () => {
 		newSocket.on("session:question", (live: LiveSessionState) => {
 			setSummaryPoints(null);
 			setHasAnsweredCurrentQuestion(false);
+			setQuizSessionData({ answerValue: "" });
+			lastCorrectSoundQuestionIdRef.current = null;
 			setSession((current) =>
 				current
 					? {
@@ -82,6 +91,17 @@ const QuizSession = () => {
 
 		newSocket.on("session:summary", (data) => {
 			setCorrectAnswer(data.question.correctAnswer.value);
+
+			const selectedAnswerValue =
+				useQuizSessionStore.getState().quizSessionData.answerValue;
+			if (
+				selectedAnswerValue &&
+				selectedAnswerValue === data.question.correctAnswer.value &&
+				lastCorrectSoundQuestionIdRef.current !== data.questionId
+			) {
+				playUiSound(correctAnswerSound);
+				lastCorrectSoundQuestionIdRef.current = data.questionId;
+			}
 
 			setSession((current) =>
 				current
@@ -169,10 +189,6 @@ const QuizSession = () => {
 		};
 	}, [id, currentUserId]);
 
-	const setQuizSessionData = useQuizSessionStore(
-		(state) => state.setQuizSessionData,
-	);
-
 	const handleSelectAnswer = (answerId: string, _answerValue: string) => {
 		if (!id || !socketRef.current || !currentUserId) {
 			return;
@@ -185,6 +201,7 @@ const QuizSession = () => {
 		setHasAnsweredCurrentQuestion(true);
 
 		setQuizSessionData({ answerValue: _answerValue });
+		playUiSound(chooseAnswerSound);
 
 		socketRef.current.emit("session:answer", {
 			sessionId: id,

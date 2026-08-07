@@ -1,6 +1,8 @@
 import useGameConfigStore from "../../store/gameConfigStore";
 import { useTranslation } from "react-i18next";
 import Icons from "../utils/Icons/Icons";
+import addRuleSound from "../../assets/sounds/add_rule.mp3";
+import { playUiSound } from "../utils/audio";
 
 const AddNewRule = () => {
 	const rules = useGameConfigStore((state) => state.rules);
@@ -19,6 +21,7 @@ const AddNewRule = () => {
 			filterIds: [],
 		};
 
+		playUiSound(addRuleSound);
 		addRule(newRule);
 	};
 

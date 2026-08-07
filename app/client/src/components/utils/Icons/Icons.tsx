@@ -254,12 +254,7 @@ const Person = ({ size, color, isAddon }: IconElementProps) => (
 		height={size}
 		viewBox="0 0 24 24"
 		fill="none"
-		style={{
-			position: "absolute",
-			transform: `translate(${size! / 2}px, ${(-size! * 2) / 3}px) scale(0.5)`,
-			backgroundColor: "rgba(0,0,0,0.8)",
-		}}
-		className={`${styles[color]} ${isAddon ? "rounded-[27.5%] border-2 border-(--bgc-quaternary)" : ""}`}
+		className={`${styles[color]} ${isAddon ? "" : ""}`}
 	>
 		<g
 			fill="none"
@@ -690,10 +685,65 @@ const AddFriend = ({ size, color, isAddon }: IconElementProps) => (
 	</svg>
 );
 
+const OnlyMale = ({ size, color, isAddon }: IconElementProps) => (
+	<svg
+		width={size}
+		height={size}
+		viewBox="0 0 24 24"
+		className={`${styles[color]} ${isAddon ? "rounded-[27.5%] border-2 border-(--bgc-quaternary)" : ""}`}
+	>
+		<path
+			fill="none"
+			stroke="currentColor"
+			stroke-linecap="round"
+			stroke-linejoin="round"
+			stroke-width="2"
+			d="M5 14a5 5 0 1 0 10 0a5 5 0 1 0-10 0m14-9l-5.4 5.4M19 5h-5m5 0v5"
+		/>
+	</svg>
+);
+
+const OnlyFemale = ({ size, color, isAddon }: IconElementProps) => (
+	<svg
+		width={size}
+		height={size}
+		viewBox="0 0 24 24"
+		className={`${styles[color]} ${isAddon ? "rounded-[27.5%] border-2 border-(--bgc-quaternary)" : ""}`}
+	>
+		<path
+			fill="none"
+			stroke="currentColor"
+			stroke-linecap="round"
+			stroke-linejoin="round"
+			stroke-width="2"
+			d="M7 9a5 5 0 1 0 10 0A5 5 0 1 0 7 9m5 5v7m-3-3h6"
+		/>
+	</svg>
+);
+
+const OnlyHorror = ({ size, color, isAddon }: IconElementProps) => (
+	<svg
+		width={size}
+		height={size}
+		viewBox="0 0 24 24"
+		className={`${styles[color]} ${isAddon ? "rounded-[27.5%] border-2 border-(--bgc-quaternary)" : ""}`}
+	>
+		<g
+			fill="none"
+			stroke="currentColor"
+			stroke-linecap="round"
+			stroke-linejoin="round"
+			stroke-width="2"
+		>
+			<path d="M10 9h.01M14 9h.01M12 3a7 7 0 0 1 7 7v1h1a2 2 0 1 1 0 4h-1v3l2 3H11a6 6 0 0 1-6-5.775v-.226H4a2 2 0 0 1 0-4h1v-1a7 7 0 0 1 7-7z" />
+			<path d="M11 14h2a1 1 0 0 0-2 0" />
+		</g>
+	</svg>
+);
+
 type IconComponent = React.ComponentType<IconElementProps>;
 
 const iconsMap: Record<string, IconComponent> = {
-	// UI
 	arrow: ArrowIcon,
 	ampersand: AmpersandIcon,
 	circleQuestionMark: CircleQuestionMark,
@@ -727,6 +777,9 @@ const iconsMap: Record<string, IconComponent> = {
 	trophy: Trophy,
 	noLimit: NoLimit,
 	addFriend: AddFriend,
+	onlyMale: OnlyMale,
+	onlyFemale: OnlyFemale,
+	onlyHorror: OnlyHorror,
 };
 
 type IconsProps = {
@@ -742,7 +795,13 @@ const Icons = ({ name, color, size = 24, isAddon }: IconsProps) => {
 	if (!Icon) return null;
 
 	return (
-		<div key={name}>
+		<div
+			className={
+				isAddon
+					? "absolute -right-2 bottom-0 z-10 scale-50 origin-bottom-right bg-(--bgc-secondary) border-2 border-(--bgc-quaternary) rounded-[27.5%]"
+					: "relative"
+			}
+		>
 			<Icon size={size} color={color} isAddon={isAddon} />
 		</div>
 	);

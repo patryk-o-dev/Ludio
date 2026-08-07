@@ -4,6 +4,7 @@ import useGameConfigStore from "../../store/gameConfigStore";
 import ding from "../../assets/sounds/ding.mp3";
 import { useTranslation } from "react-i18next";
 import { withAuth } from "../utils/api";
+import { unlockAudio } from "../utils/audio";
 
 const API = import.meta.env.VITE_API_URL;
 
@@ -28,10 +29,7 @@ const StartQuiz = () => {
 		setError(null);
 		setLoading(true);
 
-		const audio = new Audio(ding);
-		audio.play();
-		audio.muted = false;
-		localStorage.setItem("audioUnlocked", "true");
+		unlockAudio(ding);
 
 		const completeRules = rules.filter(
 			(rule) => rule.guessId !== null && rule.byId !== null,

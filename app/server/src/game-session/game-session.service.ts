@@ -896,7 +896,7 @@ export class GameSessionService implements OnModuleInit {
       const randomQuestion =
         questions[Math.floor(Math.random() * questions.length)];
 
-      const possibleAnswers = await this.prisma.answer.findMany({
+      const answerQuestions = await this.prisma.question.findMany({
         where: {
           chipGuesses: {
             some: {
@@ -914,10 +914,20 @@ export class GameSessionService implements OnModuleInit {
           }),
         },
         select: {
-          id: true,
-          value: true,
+          answer: {
+            select: {
+              id: true,
+              value: true,
+            },
+          },
         },
       });
+
+      const possibleAnswers = Array.from(
+        new Map(
+          answerQuestions.map(({ answer }) => [answer.id, answer]),
+        ).values(),
+      );
 
       const correctAnswer =
         possibleAnswers.find(

@@ -144,19 +144,40 @@ const RuleElement = ({ rule, ruleNumber }: RuleElementProps) => {
 
 								return selectedBy?.compatibleFilterIds.includes(filter.id);
 							})
-							.map((filter) => (
-								<button
-									key={filter.id}
-									onClick={() => updateRuleFilterChips(rule.index, filter.id)}
-									className={`px-3 py-1 rounded-full text-sm border-2 transition-colors hover:cursor-pointer ${
-										rule.filterIds.some((f) => f === filter.id)
-											? "border-(--accent) bg-(--accent-darker) text-(--accent-lighter)"
-											: "border-transparent bg-(--bgc-quaternary) text-(--text-secondary) hover:opacity-80"
-									}`}
-								>
-									{t(chipFilterNameToTranslationKey(filter.name))}
-								</button>
-							))}
+							.map((filter) => {
+								const filterData = chipNameToData(filter.id, filter.name);
+								const renderAsIcon =
+									filter.name === "onlyMale" ||
+									filter.name === "onlyFemale" ||
+									filter.name === "onlyHorror";
+
+								return (
+									<button
+										key={filter.id}
+										onClick={() => updateRuleFilterChips(rule.index, filter.id)}
+										title={t(chipFilterNameToTranslationKey(filter.name))}
+										aria-label={t(chipFilterNameToTranslationKey(filter.name))}
+										className={`px-3 py-1 rounded-full text-sm border-2 transition-colors hover:cursor-pointer ${
+											rule.filterIds.some((f) => f === filter.id)
+												? "border-(--accent) bg-(--accent-darker) text-(--accent-lighter)"
+												: "border-transparent bg-(--bgc-quaternary) text-(--text-secondary) hover:opacity-80"
+										}`}
+									>
+										{renderAsIcon ? (
+											<div className="flex items-center justify-center">
+												<Icons
+													name={filterData.icon[0]}
+													color={filterData.color}
+													size={18}
+													isAddon={false}
+												/>
+											</div>
+										) : (
+											t(chipFilterNameToTranslationKey(filter.name))
+										)}
+									</button>
+								);
+							})}
 					</div>
 				)}
 		</div>

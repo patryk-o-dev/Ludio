@@ -50,6 +50,110 @@ const MediaDisplay = ({
 		return `${API_ORIGIN}${mediaUrl.startsWith("/") ? "" : "/"}${mediaUrl}`;
 	};
 
+	const mediaRef = useRef<HTMLVideoElement | HTMLAudioElement>(null);
+	const [isPlaying, setIsPlaying] = useState(false);
+	const [currentTime, setCurrentTime] = useState(0);
+	const [duration, setDuration] = useState(0);
+	const [volume, setVolume] = useState(1);
+	const [isMuted, setIsMuted] = useState(false);
+
+	const togglePlayback = () => {
+		const media = mediaRef.current;
+
+		if (!media) return;
+
+		if (media.paused) {
+			media.play().catch(() => {});
+		} else {
+			media.pause();
+		}
+	};
+
+	const handleTimeUpdate = () => {
+		const media = mediaRef.current;
+
+		if (!media) return;
+
+		setCurrentTime(media.currentTime);
+	};
+
+	const handleLoadedMetadata = () => {
+		const media = mediaRef.current;
+
+		if (!media) return;
+
+		setDuration(media.duration);
+	};
+
+	const handleSeek = (event: React.ChangeEvent<HTMLInputElement>) => {
+		const media = mediaRef.current;
+
+		if (!media) return;
+
+		const time = Number(event.target.value);
+		media.currentTime = time;
+		setCurrentTime(time);
+	};
+
+	const handleVolume = (event: React.ChangeEvent<HTMLInputElement>) => {
+		const media = mediaRef.current;
+
+		if (!media) return;
+
+		const nextVolume = Number(event.target.value);
+
+		media.volume = nextVolume;
+		media.muted = nextVolume === 0;
+
+		setVolume(nextVolume);
+		setIsMuted(nextVolume === 0);
+	};
+
+	const toggleMute = () => {
+		const media = mediaRef.current;
+
+		if (!media) return;
+
+		if (media.muted || media.volume === 0) {
+			media.muted = false;
+			media.volume = volume || 1;
+			setVolume(volume || 1);
+			setIsMuted(false);
+		} else {
+			media.muted = true;
+			setIsMuted(true);
+		}
+	};
+
+	const formatTime = (time: number) => {
+		if (!Number.isFinite(time)) return "0:00";
+
+		const minutes = Math.floor(time / 60);
+		const seconds = Math.floor(time % 60);
+
+		return `${minutes}:${seconds.toString().padStart(2, "0")}`;
+	};
+
+	useEffect(() => {
+		const media = mediaRef.current;
+
+		if (!media) return;
+
+		const handlePlay = () => setIsPlaying(true);
+		const handlePause = () => setIsPlaying(false);
+		const handleEnded = () => setIsPlaying(false);
+
+		media.addEventListener("play", handlePlay);
+		media.addEventListener("pause", handlePause);
+		media.addEventListener("ended", handleEnded);
+
+		return () => {
+			media.removeEventListener("play", handlePlay);
+			media.removeEventListener("pause", handlePause);
+			media.removeEventListener("ended", handleEnded);
+		};
+	}, [mediaUrl, mediaType]);
+
 	const statusColorClass: Record<string, string> = {
 		Accepted: "text-(--positive)",
 		Invited: "text-(--negative)",
@@ -211,18 +315,149 @@ const MediaDisplay = ({
 				</>
 			)}
 			{mediaType === "video" && (
-				<video
-					ref={videoRef}
-					src={resolvedImageUrl}
-					controls
-					muted={!audioUnlocked}
-					autoPlay
-					className="absolute inset-0 w-full h-full object-cover object-center"
-				/>
+				<div className="absolute inset-0 group bg-black">
+					<video
+						ref={mediaRef as React.RefObject<HTMLVideoElement>}
+						src={resolvedImageUrl}
+						muted={!audioUnlocked}
+						autoPlay
+						onClick={togglePlayback}
+						onTimeUpdate={handleTimeUpdate}
+						onLoadedMetadata={handleLoadedMetadata}
+						className="absolute inset-0 h-full w-full object-contain cursor-pointer"
+					/>
+
+					<div className="absolute inset-x-0 bottom-0 bg-linear-to-t from-black/90 via-black/50 to-transparent px-5 pb-4 pt-14 opacity-0 transition-opacity group-hover:opacity-100">
+						<input
+							type="range"
+							min="0"
+							max={duration || 0}
+							step="0.01"
+							value={currentTime}
+							onChange={handleSeek}
+							className="mb-3 w-full accent-(--accent) cursor-pointer"
+						/>
+
+						<div className="flex items-center gap-3 text-(--text)">
+							<button
+								type="button"
+								onClick={togglePlayback}
+								className="flex h-9 w-9 items-center justify-center rounded-full bg-white/10 transition hover:bg-white/20 cursor-pointer"
+							>
+								<Icons
+									name={isPlaying ? "pause" : "play"}
+									color="text"
+									size={18}
+									isAddon={false}
+								/>
+							</button>
+
+							<button
+								type="button"
+								onClick={toggleMute}
+								className="flex h-9 w-9 items-center justify-center rounded-full bg-white/10 transition hover:bg-white/20 cursor-pointer"
+							>
+								<Icons
+									name={isMuted || volume === 0 ? "volumeOff" : "volume"}
+									color="text"
+									size={18}
+									isAddon={false}
+								/>
+							</button>
+
+							<input
+								type="range"
+								min="0"
+								max="1"
+								step="0.01"
+								value={isMuted ? 0 : volume}
+								onChange={handleVolume}
+								className="w-24 accent-(--accent) cursor-pointer"
+							/>
+
+							<span className="ml-auto text-xs text-white/70">
+								{formatTime(currentTime)} / {formatTime(duration)}
+							</span>
+						</div>
+					</div>
+				</div>
 			)}
 			{mediaType === "sound" && (
-				<div className="absolute inset-0 flex items-center justify-center">
-					<audio src={resolvedImageUrl} controls autoPlay className="w-full" />
+				<div className="absolute inset-0 flex items-center justify-center bg-linear-to-br from-(--bgc-tertiary) to-(--bgc-primary) p-6">
+					<div
+						className="group w-full max-w-2xl rounded-2xl border border-(--accent)/30 bg-black/20 p-5 shadow-[0_0_40px_color-mix(in_srgb,var(--accent)_15%,transparent)] backdrop-blur-md"
+						onClick={(event) => {
+							if (event.target === event.currentTarget) {
+								togglePlayback();
+							}
+						}}
+					>
+						<div className="mb-4 flex items-center gap-4">
+							<button
+								type="button"
+								onClick={togglePlayback}
+								className="flex h-12 w-12 shrink-0 items-center justify-center rounded-full bg-(--accent) text-(--text) transition hover:scale-105 cursor-pointer"
+							>
+								<Icons
+									name={isPlaying ? "pause" : "play"}
+									color="text"
+									size={22}
+									isAddon={false}
+								/>
+							</button>
+
+							<div className="min-w-0 flex-1">
+								<p className="text-sm font-medium text-(--text)">
+									{isPlaying ? "Playing" : "Paused"}
+								</p>
+								<p className="text-xs text-(--text-secondary)">
+									{formatTime(currentTime)} / {formatTime(duration)}
+								</p>
+							</div>
+
+							<button
+								type="button"
+								onClick={toggleMute}
+								className="flex h-9 w-9 items-center justify-center rounded-full transition hover:bg-white/10 cursor-pointer"
+							>
+								<Icons
+									name={isMuted || volume === 0 ? "volumeOff" : "volume"}
+									color="text"
+									size={18}
+									isAddon={false}
+								/>
+							</button>
+
+							<input
+								type="range"
+								min="0"
+								max="1"
+								step="0.01"
+								value={isMuted ? 0 : volume}
+								onChange={handleVolume}
+								className="w-20 accent-(--accent) cursor-pointer"
+							/>
+						</div>
+
+						<input
+							type="range"
+							min="0"
+							max={duration || 0}
+							step="0.01"
+							value={currentTime}
+							onChange={handleSeek}
+							className="w-full accent-(--accent) cursor-pointer"
+						/>
+
+						<audio
+							ref={mediaRef as React.RefObject<HTMLAudioElement>}
+							src={resolvedImageUrl}
+							autoPlay
+							onTimeUpdate={handleTimeUpdate}
+							onLoadedMetadata={handleLoadedMetadata}
+							className="hidden"
+						/>
+					</div>
 				</div>
 			)}
 			{credits && showAnswerOverlay && (

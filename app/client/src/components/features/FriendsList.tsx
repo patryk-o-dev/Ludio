@@ -17,6 +17,7 @@ import {
 import { withAuth } from "../utils/api";
 import Icons from "../utils/Icons/Icons";
 import useQuizSessionStore from "../../store/quizSessionStore";
+import { unlockAudio } from "../utils/audio";
 
 const FriendsList = () => {
 	const navigate = useNavigate();
@@ -80,13 +81,6 @@ const FriendsList = () => {
 		setSearchQuery("");
 	};
 
-	const unlockAudio = async () => {
-		const audio = new Audio(ding);
-		audio.play();
-		audio.muted = false;
-		localStorage.setItem("audioUnlocked", "true");
-	};
-
 	const handleSessionInviteResponse = async (
 		sessionId: string,
 		accept: boolean,
@@ -94,7 +88,7 @@ const FriendsList = () => {
 		if (!userId) {
 			return;
 		}
-		unlockAudio();
+		unlockAudio(ding);
 
 		const response = await fetch(
 			`${API}/game-session/${sessionId}/respond`,

@@ -105,6 +105,26 @@ export const chipNameToData = (
 			label: "chips.by_trailer",
 			color: "watching",
 		},
+
+		//FILTERS
+		onlyMale: {
+			id: chipId,
+			icon: ["onlyMale"],
+			label: "filters.only_male",
+			color: "male",
+		},
+		onlyFemale: {
+			id: chipId,
+			icon: ["onlyFemale"],
+			label: "filters.only_female",
+			color: "female",
+		},
+		onlyHorror: {
+			id: chipId,
+			icon: ["onlyHorror"],
+			label: "filters.only_horror",
+			color: "text",
+		},
 	};
 
 	return (

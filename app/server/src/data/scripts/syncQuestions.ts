@@ -27,9 +27,23 @@ async function syncQuestionsData(filePath: string, allKeys: string[]) {
       },
     });
 
+    const chipFilters = await prisma.chipFilter.findMany({
+      where: {
+        name: {
+          in: question.filters ?? [],
+        },
+      },
+    });
+
     if (!answer || !chipBy) {
       throw new Error(
         `Missing relation for question ${question.key}: answer=${question.answer}, category=${question.category}`,
+      );
+    }
+
+    if ((question.filters?.length ?? 0) !== chipFilters.length) {
+      throw new Error(
+        `Missing chip filters for question ${question.key}: expected=${(question.filters ?? []).join(',')}`,
       );
     }
 
@@ -55,6 +69,11 @@ async function syncQuestionsData(filePath: string, allKeys: string[]) {
             id: chip.id,
           })),
         },
+        chipFilters: {
+          set: chipFilters.map((filter) => ({
+            id: filter.id,
+          })),
+        },
       },
       create: {
         key: question.key,
@@ -65,6 +84,11 @@ async function syncQuestionsData(filePath: string, allKeys: string[]) {
         chipGuesses: {
           connect: chipGuess.map((chip) => ({
             id: chip.id,
+          })),
+        },
+        chipFilters: {
+          connect: chipFilters.map((filter) => ({
+            id: filter.id,
           })),
         },
       },
