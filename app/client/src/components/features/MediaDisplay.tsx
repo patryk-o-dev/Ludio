@@ -1,10 +1,11 @@
 import useQuizSessionStore from "../../store/quizSessionStore";
-import type { SessionPlayer } from "../../types";
+import type { QuestionAchievement, SessionPlayer } from "../../types";
 import { useEffect, useRef, useState } from "react";
 import AnswerResults from "./AnswerResults";
 import Icons from "../utils/Icons/Icons";
 import { useTranslation } from "react-i18next";
 import { withAuth } from "../utils/api";
+import Achievement from "../utils/Achievement";
 
 interface MediaDisplayProps {
 	sessionId: string;
@@ -12,6 +13,8 @@ interface MediaDisplayProps {
 	currentUserId: string | null;
 	mediaUrl: string | null;
 	credits?: string | null;
+	achievement?: QuestionAchievement;
+	emoji?: string | null;
 	players?: SessionPlayer[];
 	phase: "waiting" | "question" | "summary" | "completed";
 	summaryLabel: string;
@@ -28,6 +31,8 @@ const MediaDisplay = ({
 	currentUserId,
 	mediaUrl,
 	credits,
+	achievement,
+	emoji,
 	players = [],
 	phase,
 	summaryLabel,
@@ -46,7 +51,7 @@ const MediaDisplay = ({
 				: "image";
 
 	const resolveMediaUrl = (mediaUrl: string) => {
-		console.log(credits);
+		console.log("achievementTitle: ", achievement?.achievementTitle);
 		return `${API_ORIGIN}${mediaUrl.startsWith("/") ? "" : "/"}${mediaUrl}`;
 	};
 
@@ -300,19 +305,43 @@ const MediaDisplay = ({
 
 	return (
 		<div className="relative flex-4 min-h-0 overflow-hidden rounded-3xl border border-(--accent)/40 bg-(--bgc-secondary) shadow-[0_0_24px_2px_color-mix(in_srgb,var(--accent)_20%,transparent)]">
-			{mediaType === "image" && (
+			{mediaType === "image" && !achievement && (
 				<>
 					<img
 						src={resolvedImageUrl}
 						aria-hidden
+						draggable={false}
+						onContextMenu={(e) => e.preventDefault()}
 						className="absolute inset-0 w-full h-full object-cover object-center scale-110 blur-2xl opacity-60"
 					/>
 					<img
 						src={resolvedImageUrl}
 						alt="media display"
+						draggable={false}
+						onContextMenu={(e) => e.preventDefault()}
 						className="absolute inset-0 w-full h-full object-contain object-center"
 					/>
 				</>
+			)}
+			{mediaType === "image" && achievement && (
+				<Achievement achievement={achievement} media={resolvedImageUrl} />
+			)}
+			{mediaType === "image" && emoji && (
+				<div className="absolute inset-0 flex items-center justify-center bg-radial-[circle_at_center] from-(--accent)/12 via-transparent to-transparent p-6">
+					<div className="flex max-w-4xl flex-wrap items-center justify-center gap-3 rounded-[4xl] border border-(--accent)/20 bg-(--bgc-primary)/55 px-6 py-5 shadow-[0_0_40px_color-mix(in_srgb,var(--accent)_18%,transparent)] backdrop-blur-md sm:gap-4 sm:px-8 sm:py-6">
+						{emoji
+							.split(" ")
+							.filter(Boolean)
+							.map((emojiItem, index) => (
+								<span
+									key={`${emojiItem}-${index}`}
+									className="flex h-16 w-16 items-center justify-center rounded-2xl bg-white/6 text-4xl shadow-[inset_0_1px_0_rgba(255,255,255,0.08)] sm:h-20 sm:w-20 sm:text-5xl lg:h-24 lg:w-24 lg:text-6xl"
+								>
+									{emojiItem}
+								</span>
+							))}
+					</div>
+				</div>
 			)}
 			{mediaType === "video" && (
 				<div className="absolute inset-0 group bg-black">
@@ -327,7 +356,7 @@ const MediaDisplay = ({
 						className="absolute inset-0 h-full w-full object-contain cursor-pointer"
 					/>
 
-					<div className="absolute inset-x-0 bottom-0 bg-linear-to-t from-black/90 via-black/50 to-transparent px-5 pb-4 pt-14 opacity-0 transition-opacity group-hover:opacity-100">
+					<div className="absolute inset-x-0 bottom-0 bg-linear-to-t from-black/90 via-black/55 to-transparent px-5 pb-4 pt-14 opacity-0 transition-opacity duration-200 group-hover:opacity-100">
 						<input
 							type="range"
 							min="0"
@@ -335,14 +364,14 @@ const MediaDisplay = ({
 							step="0.01"
 							value={currentTime}
 							onChange={handleSeek}
-							className="mb-3 w-full accent-(--accent) cursor-pointer"
+							className="media-slider mb-4 h-3 w-full cursor-pointer"
 						/>
 
 						<div className="flex items-center gap-3 text-(--text)">
 							<button
 								type="button"
 								onClick={togglePlayback}
-								className="flex h-9 w-9 items-center justify-center rounded-full bg-white/10 transition hover:bg-white/20 cursor-pointer"
+								className="flex h-11 w-11 items-center justify-center rounded-full border border-white/10 bg-white/10 shadow-[0_10px_30px_rgba(0,0,0,0.25)] backdrop-blur-md transition duration-200 hover:scale-105 hover:bg-white/20 hover:border-white/20 cursor-pointer"
 							>
 								<Icons
 									name={isPlaying ? "pause" : "play"}
@@ -355,7 +384,7 @@ const MediaDisplay = ({
 							<button
 								type="button"
 								onClick={toggleMute}
-								className="flex h-9 w-9 items-center justify-center rounded-full bg-white/10 transition hover:bg-white/20 cursor-pointer"
+								className="flex h-10 w-10 items-center justify-center rounded-full border border-white/10 bg-white/8 shadow-[0_8px_24px_rgba(0,0,0,0.2)] backdrop-blur-md transition duration-200 hover:bg-white/16 hover:border-white/20 cursor-pointer"
 							>
 								<Icons
 									name={isMuted || volume === 0 ? "volumeOff" : "volume"}
@@ -372,10 +401,10 @@ const MediaDisplay = ({
 								step="0.01"
 								value={isMuted ? 0 : volume}
 								onChange={handleVolume}
-								className="w-24 accent-(--accent) cursor-pointer"
+								className="media-slider h-3 w-24 cursor-pointer"
 							/>
 
-							<span className="ml-auto text-xs text-white/70">
+							<span className="ml-auto rounded-full border border-white/10 bg-black/20 px-2.5 py-1 text-[11px] font-medium tracking-[0.12em] text-white/75 backdrop-blur-sm">
 								{formatTime(currentTime)} / {formatTime(duration)}
 							</span>
 						</div>
@@ -435,7 +464,7 @@ const MediaDisplay = ({
 								step="0.01"
 								value={isMuted ? 0 : volume}
 								onChange={handleVolume}
-								className="w-20 accent-(--accent) cursor-pointer"
+								className="media-slider h-1 w-18 cursor-pointer"
 							/>
 						</div>
 
@@ -446,7 +475,7 @@ const MediaDisplay = ({
 							step="0.01"
 							value={currentTime}
 							onChange={handleSeek}
-							className="w-full accent-(--accent) cursor-pointer"
+							className="media-slider h-3 w-full cursor-pointer"
 						/>
 
 						<audio

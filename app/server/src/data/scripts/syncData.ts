@@ -17,12 +17,15 @@ async function syncData() {
       'src/data/answers/guessGameCharacter.json',
       'src/data/answers/guessLeagueChampion.json',
       'src/data/answers/guessMovie.json',
+      'src/data/answers/guessTv.json',
+      'src/data/answers/guessDbdCharacter.json',
     );
     console.log('ANSWERS DONE');
     await syncQuestions(
       'src/data/questions/standard/game.json',
       'src/data/questions/standard/gameCharacter.json',
       'src/data/questions/standard/movie.json',
+      'src/data/questions/standard/tv.json',
       'src/data/questions/games/dbd/qdbd.json',
       'src/data/questions/games/lol/qlol.json',
     );

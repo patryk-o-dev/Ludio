@@ -43,7 +43,9 @@ async function syncQuestionsData(filePath: string, allKeys: string[]) {
 
     if ((question.filters?.length ?? 0) !== chipFilters.length) {
       throw new Error(
-        `Missing chip filters for question ${question.key}: expected=${(question.filters ?? []).join(',')}`,
+        `Missing chip filters for question ${question.key}: expected=${(
+          question.filters ?? []
+        ).join(',')}`,
       );
     }
 
@@ -62,7 +64,22 @@ async function syncQuestionsData(filePath: string, allKeys: string[]) {
       update: {
         url: `/static/${mediaPath}/media/${question.media}`,
         credits: question.credits ? question.credits : null,
+        emoji: question.emoji ? question.emoji : null,
         answerId: answer.id,
+        achievement: question.achievement
+          ? {
+              upsert: {
+                create: {
+                  achievementTitle: question.achievement.achievementTitle,
+                  achievementDesc: question.achievement.achievementDesc,
+                },
+                update: {
+                  achievementTitle: question.achievement.achievementTitle,
+                  achievementDesc: question.achievement.achievementDesc,
+                },
+              },
+            }
+          : undefined,
         chipById: chipBy.id,
         chipGuesses: {
           set: chipGuess.map((chip) => ({
@@ -79,7 +96,16 @@ async function syncQuestionsData(filePath: string, allKeys: string[]) {
         key: question.key,
         url: `/static/${mediaPath}/media/${question.media}`,
         credits: question.credits ? question.credits : null,
+        emoji: question.emoji ? question.emoji : null,
         answerId: answer.id,
+        achievement: question.achievement
+          ? {
+              create: {
+                achievementTitle: question.achievement.achievementTitle,
+                achievementDesc: question.achievement.achievementDesc,
+              },
+            }
+          : undefined,
         chipById: chipBy.id,
         chipGuesses: {
           connect: chipGuess.map((chip) => ({
@@ -100,6 +126,7 @@ async function syncQuestions(
   filePathGame: string,
   filePathGameCharacter: string,
   filePathMovie: string,
+  filePathTV: string,
   filePathLol: string,
   filePathDbd: string,
 ) {
@@ -108,8 +135,28 @@ async function syncQuestions(
   await syncQuestionsData(filePathGame, allKeys);
   await syncQuestionsData(filePathGameCharacter, allKeys);
   await syncQuestionsData(filePathMovie, allKeys);
+  await syncQuestionsData(filePathTV, allKeys);
   await syncQuestionsData(filePathLol, allKeys);
   await syncQuestionsData(filePathDbd, allKeys);
+
+  const questionsToDelete = await prisma.question.findMany({
+    where: {
+      key: {
+        notIn: allKeys,
+      },
+    },
+    select: {
+      id: true,
+    },
+  });
+
+  await prisma.questionAchievement.deleteMany({
+    where: {
+      questionId: {
+        in: questionsToDelete.map((question) => question.id),
+      },
+    },
+  });
 
   await prisma.question.deleteMany({
     where: {

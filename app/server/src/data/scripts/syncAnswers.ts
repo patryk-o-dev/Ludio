@@ -39,11 +39,15 @@ async function syncAnswers(
   filePathGameCharacter: string,
   filePathLeagueChampion: string,
   filePathMovie: string,
+  filePathTv: string,
+  filePathDbd: string,
 ) {
   await syncAnswersData(filePathGame);
   await syncAnswersData(filePathGameCharacter);
   await syncAnswersData(filePathLeagueChampion);
   await syncAnswersData(filePathMovie);
+  await syncAnswersData(filePathTv);
+  await syncAnswersData(filePathDbd);
 }
 
 export default syncAnswers;

@@ -18,5 +18,13 @@
   {
     "key": "filter_only_pick",
     "name": "onlyPick"
+  },
+  {
+    "key": "surv",
+    "name": "onlySurv"
+  },
+  {
+    "key": "killer",
+    "name": "onlyKiller"
   }
 ]

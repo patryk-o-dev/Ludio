@@ -110,6 +110,8 @@
 		"guess_game": "Game",
 		"guess_game_character": "Game character",
 		"guess_movie": "Movie",
+		"guess_tv": "TV series",
+		"guess_dbd_character": "Character",
 		"guess_league_champion": "League champion",
 		"by_achievement": "Achievement",
 		"by_game_over": "Game over screen",
@@ -122,14 +124,19 @@
 		"by_death": "Death",
 		"by_pick": "Pick",
 		"by_frame": "Frame",
-		"by_trailer": "Trailer"
+		"by_trailer": "Trailer",
+		"by_quote_sound": "Quote sound",
+		"by_perk": "Perk",
+		"by_emoji": "Emoji"
 	},
 	"filters": {
 		"only_horror": "Horror only",
 		"only_male": "Male only",
 		"only_female": "Female only",
 		"only_death": "Death only",
-		"only_pick": "Pick only"
+		"only_pick": "Pick only",
+		"only_surv": "Survivors only",
+		"only_killer": "Killers only"
 	},
 	"settings": {
 		"language": "Language",

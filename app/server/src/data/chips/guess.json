@@ -35,5 +35,11 @@
     "name": "guessTV",
     "mode": "CLASSIC",
     "compatibleChipBy": ["by_frame", "by_trailer"]
+  },
+  {
+    "key": "guess_dbd_character",
+    "name": "guessDbDCharacter",
+    "mode": "DEAD_BY_DAYLIGHT",
+    "compatibleChipBy": ["by_perk", "by_emoji"]
   }
 ]

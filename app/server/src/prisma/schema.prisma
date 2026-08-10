@@ -199,6 +199,7 @@ model Question {
 
   achievement QuestionAchievement?
   credits     String?
+  emoji       String?
 }
 
 model QuestionAchievement {

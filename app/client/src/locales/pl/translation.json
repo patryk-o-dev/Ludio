@@ -110,7 +110,9 @@
 		"guess_game": "Grę",
 		"guess_game_character": "Postać z gry",
 		"guess_movie": "Film",
-		"guess_league_champion": "Postać z LoLa",
+		"guess_tv": "Serial",
+		"guess_dbd_character": "Postać",
+		"guess_league_champion": "Postać",
 		"by_achievement": "Osiągnięciu",
 		"by_game_over": "Ekranie porażki",
 		"by_inventory": "Ekwipunku",
@@ -122,14 +124,19 @@
 		"by_death": "Śmierci",
 		"by_pick": "Picku",
 		"by_frame": "Klatce",
-		"by_trailer": "Zwiastunie"
+		"by_trailer": "Zwiastunie",
+		"by_quote_sound": "Cytacie dźwiękowym",
+		"by_perk": "Perku",
+		"by_emoji": "Emoji"
 	},
 	"filters": {
 		"only_horror": "Tylko horror",
 		"only_male": "Tylko mężczyźni",
 		"only_female": "Tylko kobiety",
 		"only_death": "Tylko śmierci",
-		"only_pick": "Tylko picki"
+		"only_pick": "Tylko picki",
+		"only_surv": "Tylko ocalali",
+		"only_killer": "Tylko killerzy"
 	},
 	"settings": {
 		"language": "Język",

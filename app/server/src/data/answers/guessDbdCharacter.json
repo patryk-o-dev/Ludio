@@ -1,0 +1,202 @@
+[
+  {
+    "key": "the_clown",
+    "value": "The Clown",
+    "chipGuess": ["guess_dbd_character"]
+  },
+  {
+    "key": "the_trapper",
+    "value": "The Trapper",
+    "chipGuess": ["guess_dbd_character"]
+  },
+  {
+    "key": "the_wraith",
+    "value": "The Wraith",
+    "chipGuess": ["guess_dbd_character"]
+  },
+  {
+    "key": "the_huntress",
+    "value": "The Huntress",
+    "chipGuess": ["guess_dbd_character"]
+  },
+  {
+    "key": "the_doctor",
+    "value": "The Doctor",
+    "chipGuess": ["guess_dbd_character"]
+  },
+  {
+    "key": "the_nurse",
+    "value": "The Nurse",
+    "chipGuess": ["guess_dbd_character"]
+  },
+  {
+    "key": "the_shape",
+    "value": "The Shape",
+    "chipGuess": ["guess_dbd_character"]
+  },
+  {
+    "key": "the_nemesis",
+    "value": "The Nemesis",
+    "chipGuess": ["guess_dbd_character"]
+  },
+  {
+    "key": "the_executioner",
+    "value": "The Executioner",
+    "chipGuess": ["guess_dbd_character"]
+  },
+  {
+    "key": "the_plague",
+    "value": "The Plague",
+    "chipGuess": ["guess_dbd_character"]
+  },
+  {
+    "key": "dwight_fairfield",
+    "value": "Dwight Fairfield",
+    "chipGuess": ["guess_dbd_character"]
+  },
+  {
+    "key": "meg_thomas",
+    "value": "Meg Thomas",
+    "chipGuess": ["guess_dbd_character"]
+  },
+  {
+    "key": "claudette_morel",
+    "value": "Claudette Morel",
+    "chipGuess": ["guess_dbd_character"]
+  },
+  {
+    "key": "sable_ward",
+    "value": "Sable Ward",
+    "chipGuess": ["guess_dbd_character"]
+  },
+  {
+    "key": "yui_kimura",
+    "value": "Yui Kimura",
+    "chipGuess": ["guess_dbd_character"]
+  },
+  {
+    "key": "ace_visconti",
+    "value": "Ace Visconti",
+    "chipGuess": ["guess_dbd_character"]
+  },
+  {
+    "key": "feng_min",
+    "value": "Feng Min",
+    "chipGuess": ["guess_dbd_character"]
+  },
+  {
+    "key": "david_king",
+    "value": "David King",
+    "chipGuess": ["guess_dbd_character"]
+  },
+  {
+    "key": "kate_denson",
+    "value": "Kate Denson",
+    "chipGuess": ["guess_dbd_character"]
+  },
+  {
+    "key": "ada_wong",
+    "value": "Ada Wong",
+    "chipGuess": ["guess_dbd_character"]
+  },
+  {
+    "key": "steve_harrington",
+    "value": "Steve Harrington",
+    "chipGuess": ["guess_dbd_character"]
+  },
+  {
+    "key": "nea_karlsson",
+    "value": "Nea Karlsson",
+    "chipGuess": ["guess_dbd_character"]
+  },
+  {
+    "key": "aestri_yazar_&_baermar_uraz",
+    "value": "Aestri Yazar & Baermar Uraz",
+    "chipGuess": ["guess_dbd_character"]
+  },
+  {
+    "key": "jill_valentine",
+    "value": "Jill Valentine",
+    "chipGuess": ["guess_dbd_character"]
+  },
+  {
+    "key": "the_nightmare",
+    "value": "The Nightmare",
+    "chipGuess": ["guess_dbd_character"]
+  },
+  {
+    "key": "mikaela_reid",
+    "value": "Mikaela Reid",
+    "chipGuess": ["guess_dbd_character"]
+  },
+  {
+    "key": "felix_richter",
+    "value": "Felix Richter",
+    "chipGuess": ["guess_dbd_character"]
+  },
+  {
+    "key": "laurie_strode",
+    "value": "Laurie Strode",
+    "chipGuess": ["guess_dbd_character"]
+  },
+  {
+    "key": "the_legion",
+    "value": "The Legion",
+    "chipGuess": ["guess_dbd_character"]
+  },
+  {
+    "key": "lara_croft",
+    "value": "Lara Croft",
+    "chipGuess": ["guess_dbd_character"]
+  },
+  {
+    "key": "the_ghoul",
+    "value": "The Ghoul",
+    "chipGuess": ["guess_dbd_character"]
+  },
+  {
+    "key": "the_ghost_face",
+    "value": "The Ghost Face",
+    "chipGuess": ["guess_dbd_character"]
+  },
+  {
+    "key": "the_deathslinger",
+    "value": "The Deathslinger",
+    "chipGuess": ["guess_dbd_character"]
+  },
+  {
+    "key": "jane_romero",
+    "value": "Jane Romero",
+    "chipGuess": ["guess_dbd_character"]
+  },
+  {
+    "key": "the_hag",
+    "value": "The Hag",
+    "chipGuess": ["guess_dbd_character"]
+  },
+  {
+    "key": "jake_park",
+    "value": "Jake Park",
+    "chipGuess": ["guess_dbd_character"]
+  },
+  {
+    "key": "the_hillbilly",
+    "value": "The Hillbilly",
+    "chipGuess": ["guess_dbd_character"]
+  },
+  {
+    "key": "the_pig",
+    "value": "The Pig",
+    "chipGuess": ["guess_dbd_character"]
+  },
+  {
+    "key": "the_trickster",
+    "value": "The Trickster",
+    "chipGuess": ["guess_dbd_character"]
+  },
+  {
+    "key": "the_artist",
+    "value": "The Artist",
+    "chipGuess": ["guess_dbd_character"]
+  }
+]

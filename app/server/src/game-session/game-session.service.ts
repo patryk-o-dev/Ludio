@@ -20,11 +20,18 @@ type SessionAnswerOption = {
   value: string;
 };
 
+type QuestionAchievement = {
+  achievementTitle: string;
+  achievementDesc: string;
+};
+
 type SessionQuestionPayload = {
   id: string;
   url: string;
   answers: SessionAnswerOption[];
   credits?: string;
+  emoji?: string;
+  achievement?: QuestionAchievement;
   correctAnswer?: SessionAnswerOption;
 };
 
@@ -844,6 +851,9 @@ export class GameSessionService implements OnModuleInit {
             },
           }),
         },
+        include: {
+          achievement: true,
+        },
       });
 
       if (!questions.length) {
@@ -881,6 +891,9 @@ export class GameSessionService implements OnModuleInit {
                   },
                 },
               }),
+            },
+            include: {
+              achievement: true,
             },
           });
         }
@@ -984,6 +997,10 @@ export class GameSessionService implements OnModuleInit {
           id: randomQuestion.id,
           url: randomQuestion.url,
           credits: randomQuestion.credits ? randomQuestion.credits : null,
+          emoji: randomQuestion.emoji ? randomQuestion.emoji : null,
+          achievement: randomQuestion.achievement
+            ? randomQuestion.achievement
+            : undefined,
           answers: answerOptions,
         },
         questionId: randomQuestion.id,

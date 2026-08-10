@@ -741,6 +741,80 @@ const OnlyHorror = ({ size, color, isAddon }: IconElementProps) => (
 	</svg>
 );
 
+const Play = ({ size, color, isAddon }: IconElementProps) => (
+	<svg
+		width={size}
+		height={size}
+		viewBox="0 0 24 24"
+		className={`${styles[color]} ${isAddon ? "rounded-[27.5%] border-2 border-(--bgc-quaternary)" : ""}`}
+	>
+		<path
+			fill="currentColor"
+			stroke="currentColor"
+			stroke-linecap="round"
+			stroke-linejoin="round"
+			stroke-width="2"
+			d="M5 5a2 2 0 0 1 3.008-1.728l11.997 6.998a2 2 0 0 1 .003 3.458l-12 7A2 2 0 0 1 5 19z"
+		/>
+	</svg>
+);
+
+const Pause = ({ size, color, isAddon }: IconElementProps) => (
+	<svg
+		width={size}
+		height={size}
+		viewBox="0 0 24 24"
+		className={`${styles[color]} ${isAddon ? "rounded-[27.5%] border-2 border-(--bgc-quaternary)" : ""}`}
+	>
+		<g
+			fill="currentColor"
+			stroke="currentColor"
+			stroke-linecap="round"
+			stroke-linejoin="round"
+			stroke-width="1"
+		>
+			<rect width="5" height="18" x="14" y="3" rx="1" />
+			<rect width="5" height="18" x="5" y="3" rx="1" />
+		</g>
+	</svg>
+);
+
+const VolumeOff = ({ size, color, isAddon }: IconElementProps) => (
+	<svg
+		width={size}
+		height={size}
+		viewBox="0 0 24 24"
+		className={`${styles[color]} ${isAddon ? "rounded-[27.5%] border-2 border-(--bgc-quaternary)" : ""}`}
+	>
+		<path
+			fill="none"
+			stroke="currentColor"
+			stroke-linecap="round"
+			stroke-linejoin="round"
+			stroke-width="2"
+			d="M11 4.702a.705.705 0 0 0-1.203-.498L6.413 7.587A1.4 1.4 0 0 1 5.416 8H3a1 1 0 0 0-1 1v6a1 1 0 0 0 1 1h2.416a1.4 1.4 0 0 1 .997.413l3.383 3.384A.705.705 0 0 0 11 19.298zM22 9l-6 6m0-6l6 6"
+		/>
+	</svg>
+);
+
+const Volume = ({ size, color, isAddon }: IconElementProps) => (
+	<svg
+		width={size}
+		height={size}
+		viewBox="0 0 24 24"
+		className={`${styles[color]} ${isAddon ? "rounded-[27.5%] border-2 border-(--bgc-quaternary)" : ""}`}
+	>
+		<path
+			fill="none"
+			stroke="currentColor"
+			stroke-linecap="round"
+			stroke-linejoin="round"
+			stroke-width="2"
+			d="M11 4.702a.705.705 0 0 0-1.203-.498L6.413 7.587A1.4 1.4 0 0 1 5.416 8H3a1 1 0 0 0-1 1v6a1 1 0 0 0 1 1h2.416a1.4 1.4 0 0 1 .997.413l3.383 3.384A.705.705 0 0 0 11 19.298zM16 9a5 5 0 0 1 0 6m3.364 3.364a9 9 0 0 0 0-12.728"
+		/>
+	</svg>
+);
+
 type IconComponent = React.ComponentType<IconElementProps>;
 
 const iconsMap: Record<string, IconComponent> = {
@@ -780,6 +854,10 @@ const iconsMap: Record<string, IconComponent> = {
 	onlyMale: OnlyMale,
 	onlyFemale: OnlyFemale,
 	onlyHorror: OnlyHorror,
+	play: Play,
+	pause: Pause,
+	volumeOff: VolumeOff,
+	volume: Volume,
 };
 
 type IconsProps = {

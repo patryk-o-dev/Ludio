@@ -63,5 +63,15 @@
     "key": "by_quote_sound",
     "name": "byQuoteSound",
     "compatibleChipFilters": []
+  },
+  {
+    "key": "by_perk",
+    "name": "byPerk",
+    "compatibleChipFilters": ["surv", "killer"]
+  },
+  {
+    "key": "by_emoji",
+    "name": "byEmoji",
+    "compatibleChipFilters": ["surv", "killer"]
   }
 ]

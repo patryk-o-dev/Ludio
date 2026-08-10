@@ -1,16 +1,24 @@
 [
   {
     "key": "guess_game_001",
-    "media": "gga006saswkop.png",
+    "media": "gga006saswkop.jpg",
     "answer": "surviving_mars",
     "category": "by_achievement",
+    "achievement": {
+      "achievementTitle": "Teraz potrzebujemy kaczek",
+      "achievementDesc": "Stwórz jezioro z ciekłą wodą"
+    },
     "gameTypes": ["guess_game"]
   },
   {
     "key": "guess_game_002",
-    "media": "gga018ylmvgbp.png",
+    "media": "gga018ylmvgbp.jpg",
     "answer": "resident_evil_biohazard",
     "category": "by_achievement",
+    "achievement": {
+      "achievementTitle": "Za zamkniętymi drzwiami",
+      "achievementDesc": "Zamknij samodzielnie drzwi."
+    },
     "gameTypes": ["guess_game"]
   },
   {
@@ -18,20 +26,32 @@
     "media": "gga019jrkcraf.png",
     "answer": "the_vanishing_of_ethan_carter",
     "category": "by_achievement",
+    "achievement": {
+      "achievementTitle": "Soki",
+      "achievementDesc": "Poczucie winy"
+    },
     "gameTypes": ["guess_game"]
   },
   {
     "key": "guess_game_004",
-    "media": "gga030qbapdac.png",
+    "media": "gga030qbapdac.jpg",
     "answer": "raft",
     "category": "by_achievement",
+    "achievement": {
+      "achievementTitle": "Beginner Shark Hunter!",
+      "achievementDesc": "Kill 1 shark."
+    },
     "gameTypes": ["guess_game"]
   },
   {
     "key": "guess_game_005",
-    "media": "gga036frpllei.png",
+    "media": "gga036frpllei.jpg",
     "answer": "darksiders_2",
     "category": "by_achievement",
+    "achievement": {
+      "achievementTitle": "Ponure żniwa",
+      "achievementDesc": "Odblokuj postać Żniwiarza."
+    },
     "gameTypes": ["guess_game"]
   },
   {
@@ -39,6 +59,10 @@
     "media": "gga051fkkodph.png",
     "answer": "the_elder_scrolls_v_skyrim",
     "category": "by_achievement",
+    "achievement": {
+      "achievementTitle": "Biznesowe podejście",
+      "achievementDesc": "Dołącz do Gildii Złodziei."
+    },
     "gameTypes": ["guess_game"]
   },
   {
@@ -46,6 +70,10 @@
     "media": "gga056gmhcnvq.png",
     "answer": "dead_by_daylight",
     "category": "by_achievement",
+    "achievement": {
+      "achievementTitle": "Budzi się",
+      "achievementDesc": "Osiągnij 10 poziom dowolną postacią."
+    },
     "gameTypes": ["guess_game"]
   },
   {
@@ -53,6 +81,10 @@
     "media": "gga063ljomlwn.png",
     "answer": "detroit_become_human",
     "category": "by_achievement",
+    "achievement": {
+      "achievementTitle": "DZIĘKUJEMY",
+      "achievementDesc": "Rozegraj pierwszy rozdział"
+    },
     "gameTypes": ["guess_game"]
   },
   {
@@ -60,6 +92,10 @@
     "media": "gga079gpjethf.png",
     "answer": "south_park_the_stick_of_truth",
     "category": "by_achievement",
+    "achievement": {
+      "achievementTitle": "Spoko chinpoko",
+      "achievementDesc": "Zebrałeś 5 chinpokomonów."
+    },
     "gameTypes": ["guess_game"]
   },
   {
@@ -67,6 +103,10 @@
     "media": "gga090kdyhgia.png",
     "answer": "stardew_valley",
     "category": "by_achievement",
+    "achievement": {
+      "achievementTitle": "Millionaire",
+      "achievementDesc": "Earn 1,000,000g"
+    },
     "gameTypes": ["guess_game"]
   },
   {
@@ -750,9 +790,13 @@
   },
   {
     "key": "guess_game_108",
-    "media": "gga083dubjqmj.png",
+    "media": "gga083dubjqmj.jpg",
     "answer": "witcher_3_wild_hunt",
     "category": "by_achievement",
+    "achievement": {
+      "achievementTitle": "Rzeźnik z Blaviken",
+      "achievementDesc": "W ciągu 10 sekund zabij przynajmniej pięciu przeciwników."
+    },
     "gameTypes": ["guess_game"]
   },
   {

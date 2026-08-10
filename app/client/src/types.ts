@@ -68,6 +68,8 @@ export type CurrentQuestion = {
 	id: string;
 	url: string;
 	credits?: string;
+	achievement?: QuestionAchievement;
+	emoji?: string;
 	answers: QuestionAnswer[];
 	correctAnswer?: QuestionAnswer;
 };
@@ -169,3 +171,8 @@ export type GameMode =
 	| "DEAD_BY_DAYLIGHT";
 
 export type UserSessionStatus = "CHECKING" | "VALID" | "INVALID";
+
+export type QuestionAchievement = {
+	achievementTitle: string;
+	achievementDesc: string;
+};

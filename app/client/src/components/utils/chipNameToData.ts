@@ -25,11 +25,29 @@ export const chipNameToData = (
 			label: "chips.guess_movie",
 			color: "watching",
 		},
+		guessTV: {
+			id: chipId,
+			icon: ["movies"],
+			label: "chips.guess_tv",
+			color: "watching",
+		},
+		guessDbDCharacter: {
+			id: chipId,
+			icon: ["dbd"],
+			label: "chips.guess_dbd_character",
+			color: "text",
+		},
 		guessLeagueChampion: {
 			id: chipId,
 			icon: ["leagueoflegends"],
 			label: "chips.guess_league_champion",
 			color: "league",
+		},
+		guessDbd: {
+			id: chipId,
+			icon: ["dbd"],
+			label: "chips.guess_dbd",
+			color: "text",
 		},
 
 		//BY
@@ -105,6 +123,24 @@ export const chipNameToData = (
 			label: "chips.by_trailer",
 			color: "watching",
 		},
+		byQuoteSound: {
+			id: chipId,
+			icon: ["music"],
+			label: "chips.by_quote_sound",
+			color: "watching",
+		},
+		byPerk: {
+			id: chipId,
+			icon: ["dbd"],
+			label: "chips.by_perk",
+			color: "text",
+		},
+		byEmoji: {
+			id: chipId,
+			icon: ["dbd"],
+			label: "chips.by_emoji",
+			color: "text",
+		},
 
 		//FILTERS
 		onlyMale: {
@@ -123,6 +159,18 @@ export const chipNameToData = (
 			id: chipId,
 			icon: ["onlyHorror"],
 			label: "filters.only_horror",
+			color: "text",
+		},
+		onlySurv: {
+			id: chipId,
+			icon: ["person"],
+			label: "filters.only_surv",
+			color: "text",
+		},
+		onlyKiller: {
+			id: chipId,
+			icon: ["skull"],
+			label: "filters.only_killer",
 			color: "text",
 		},
 	};
@@ -144,6 +192,8 @@ export const chipFilterNameToTranslationKey = (filterName: string) => {
 		onlyFemale: "filters.only_female",
 		onlyDeath: "filters.only_death",
 		onlyPick: "filters.only_pick",
+		onlySurv: "filters.only_surv",
+		onlyKiller: "filters.only_killer",
 	};
 
 	return filterMap[filterName] ?? filterName;
