@@ -12,14 +12,6 @@
     "name": "onlyFemale"
   },
   {
-    "key": "filter_only_death",
-    "name": "onlyDeath"
-  },
-  {
-    "key": "filter_only_pick",
-    "name": "onlyPick"
-  },
-  {
     "key": "surv",
     "name": "onlySurv"
   },

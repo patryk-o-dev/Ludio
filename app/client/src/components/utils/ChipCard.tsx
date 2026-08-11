@@ -7,11 +7,11 @@ import { useTranslation } from "react-i18next";
 
 type ChipCardProps = {
 	chipId: string;
-	ruleIndex: number;
+	ruleId: string;
 	chipData: chipData;
 };
 
-const ChipCard = ({ chipId, ruleIndex, chipData }: ChipCardProps) => {
+const ChipCard = ({ chipId, ruleId, chipData }: ChipCardProps) => {
 	const { t } = useTranslation();
 	const chipSelectionStep = useChipsStore((state) => state.chipSelectionStep);
 	const updateChipSelectionStep = useChipsStore(
@@ -25,12 +25,12 @@ const ChipCard = ({ chipId, ruleIndex, chipData }: ChipCardProps) => {
 	);
 
 	const handleChipSelect = () => {
-		if (ruleIndex === undefined) return;
+		if (!ruleId) return;
 		if (chipSelectionStep.type === "guess") {
-			updateRuleGuessChip(ruleIndex, chipId);
-			updateChipSelectionStep({ type: "by", ruleIndex, guessId: chipId });
+			updateRuleGuessChip(ruleId, chipId);
+			updateChipSelectionStep({ type: "by", ruleId, guessId: chipId });
 		} else {
-			updateRuleByChip(ruleIndex, chipId);
+			updateRuleByChip(ruleId, chipId);
 		}
 	};
 

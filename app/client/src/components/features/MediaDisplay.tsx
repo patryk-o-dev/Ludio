@@ -305,7 +305,7 @@ const MediaDisplay = ({
 
 	return (
 		<div className="relative flex-4 min-h-0 overflow-hidden rounded-3xl border border-(--accent)/40 bg-(--bgc-secondary) shadow-[0_0_24px_2px_color-mix(in_srgb,var(--accent)_20%,transparent)]">
-			{mediaType === "image" && !achievement && (
+			{mediaType === "image" && !achievement && !emoji && (
 				<>
 					<img
 						src={resolvedImageUrl}
@@ -328,14 +328,14 @@ const MediaDisplay = ({
 			)}
 			{mediaType === "image" && emoji && (
 				<div className="absolute inset-0 flex items-center justify-center bg-radial-[circle_at_center] from-(--accent)/12 via-transparent to-transparent p-6">
-					<div className="flex max-w-4xl flex-wrap items-center justify-center gap-3 rounded-[4xl] border border-(--accent)/20 bg-(--bgc-primary)/55 px-6 py-5 shadow-[0_0_40px_color-mix(in_srgb,var(--accent)_18%,transparent)] backdrop-blur-md sm:gap-4 sm:px-8 sm:py-6">
+					<div className="flex max-w-4xl flex-wrap items-center justify-center gap-3 rounded-4xl border border-(--accent)/20 bg-(--bgc-primary)/55 px-6 py-5 shadow-[0_0_40px_color-mix(in_srgb,var(--accent)_18%,transparent)] backdrop-blur-md sm:gap-4 sm:px-8 sm:py-6">
 						{emoji
 							.split(" ")
 							.filter(Boolean)
 							.map((emojiItem, index) => (
 								<span
 									key={`${emojiItem}-${index}`}
-									className="flex h-16 w-16 items-center justify-center rounded-2xl bg-white/6 text-4xl shadow-[inset_0_1px_0_rgba(255,255,255,0.08)] sm:h-20 sm:w-20 sm:text-5xl lg:h-24 lg:w-24 lg:text-6xl"
+									className="flex items-center justify-center rounded-2xl bg-white/6 text-4xl shadow-[inset_0_1px_0_rgba(255,255,255,0.08)] sm:text-5xl lg:text-6xl p-6"
 								>
 									{emojiItem}
 								</span>

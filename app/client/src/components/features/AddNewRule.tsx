@@ -15,7 +15,7 @@ const AddNewRule = () => {
 
 	const onClick = () => {
 		const newRule = {
-			index: rules.length,
+			id: crypto.randomUUID(),
 			guessId: null,
 			byId: null,
 			filterIds: [],

@@ -6,9 +6,9 @@ const RulesList = () => {
 	const rules = useGameConfigStore((state) => state.rules);
 
 	return (
-		<div>
+		<div className="overflow-y-auto custom-scrollbar">
 			{rules.map((rule, i) => (
-				<RuleElement key={rule.index} rule={rule} ruleNumber={i + 1} />
+				<RuleElement key={rule.id} rule={rule} ruleNumber={i + 1} />
 			))}
 			<AddNewRule />
 		</div>

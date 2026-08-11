@@ -1,5 +1,10 @@
 import { create } from "zustand";
-import type { Player, Rule, GameOptionsState } from "../types";
+import {
+	INITIAL_RULE_ID,
+	type Player,
+	type Rule,
+	type GameOptionsState,
+} from "../types";
 
 type GameConfigStore = {
 	players: Player[];
@@ -9,18 +14,18 @@ type GameConfigStore = {
 	removePlayer: (player: Player) => void;
 	clearPlayers: () => void;
 	addRule: (rule: Rule) => void;
-	removeRule: (rule: Rule) => void;
+	removeRule: (ruleId: string) => void;
 	updateOption: (option: Partial<GameOptionsState>) => void;
-	updateRuleGuessChip: (ruleIndex: number, chipGuessId: string | null) => void;
-	updateRuleByChip: (ruleIndex: number, chipById: string | null) => void;
-	updateRuleFilterChips: (ruleIndex: number, filterChipId: string) => void;
+	updateRuleGuessChip: (ruleId: string, chipGuessId: string | null) => void;
+	updateRuleByChip: (ruleId: string, chipById: string | null) => void;
+	updateRuleFilterChips: (ruleId: string, filterChipId: string) => void;
 };
 
 const useGameConfigStore = create<GameConfigStore>((set) => ({
 	players: [],
 	rules: [
 		{
-			index: 0,
+			id: INITIAL_RULE_ID,
 			guessId: null,
 			byId: null,
 			filterIds: [],
@@ -41,30 +46,30 @@ const useGameConfigStore = create<GameConfigStore>((set) => ({
 		})),
 	clearPlayers: () => set({ players: [] }),
 	addRule: (rule) => set((state) => ({ rules: [...state.rules, rule] })),
-	removeRule: (rule) =>
-		set((state) => ({ rules: state.rules.filter((r) => r !== rule) })),
+	removeRule: (ruleId) =>
+		set((state) => ({
+			rules: state.rules.filter((rule) => rule.id !== ruleId),
+		})),
 	updateOption: (option) =>
 		set((state) => ({ options: { ...state.options, ...option } })),
-	updateRuleGuessChip: (ruleIndex: number, chipGuessId: string | null) =>
+	updateRuleGuessChip: (ruleId: string, chipGuessId: string | null) =>
 		set((state) => ({
 			rules: state.rules.map((rule) =>
-				rule.index === ruleIndex
+				rule.id === ruleId
 					? { ...rule, guessId: chipGuessId, byId: null, filterIds: [] }
 					: rule,
 			),
 		})),
-	updateRuleByChip: (ruleIndex: number, chipById: string | null) =>
+	updateRuleByChip: (ruleId: string, chipById: string | null) =>
 		set((state) => ({
 			rules: state.rules.map((rule) =>
-				rule.index === ruleIndex
-					? { ...rule, byId: chipById, filterIds: [] }
-					: rule,
+				rule.id === ruleId ? { ...rule, byId: chipById, filterIds: [] } : rule,
 			),
 		})),
-	updateRuleFilterChips: (ruleIndex: number, filterChipId: string) =>
+	updateRuleFilterChips: (ruleId: string, filterChipId: string) =>
 		set((state) => ({
 			rules: state.rules.map((rule) => {
-				if (rule.index === ruleIndex) {
+				if (rule.id === ruleId) {
 					const hasFilter = rule.filterIds.includes(filterChipId);
 					const newFilterIds = hasFilter
 						? rule.filterIds.filter((id) => id !== filterChipId)

@@ -97,7 +97,7 @@
 	"game_options": {
 		"title": "Opcje Gry",
 		"difficulty": "Poziom trudności",
-		"questions_per_rule": "Ilość pytań per reguła",
+		"questions_per_rule": "Ilość pytań na reguła",
 		"time_to_answer": "Czas na odpowiedź",
 		"community_quiz": "Quiz z widzami"
 	},
@@ -116,7 +116,7 @@
 		"by_achievement": "Osiągnięciu",
 		"by_game_over": "Ekranie porażki",
 		"by_inventory": "Ekwipunku",
-		"by_mod": "Modzie",
+		"by_mod": "Modyfikacji",
 		"by_screenshot": "Zrzucie ekranu",
 		"by_title_screen": "Ekranie tytułowym",
 		"by_cosplay": "Cosplayu",

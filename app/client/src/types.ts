@@ -15,8 +15,10 @@ export type SessionInvite = {
 
 export type Player = User;
 
+export const INITIAL_RULE_ID = "initial-rule";
+
 export type Rule = {
-	index: number;
+	id: string;
 	guessId: string | null;
 	byId: string | null;
 	filterIds: string[];
@@ -55,7 +57,7 @@ export type ChipFilter = {
 
 export type ChipSelectionStep = {
 	type: "guess" | "by";
-	ruleIndex?: number;
+	ruleId?: string;
 	guessId?: string;
 };
 

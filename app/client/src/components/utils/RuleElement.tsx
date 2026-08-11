@@ -54,29 +54,30 @@ const RuleElement = ({ rule, ruleNumber }: RuleElementProps) => {
 					<div
 						className={`flex flex-row items-center align-middle p-2 min-h-10 min-w-10 bg-(--bgc-quaternary) rounded-md gap-2 hover:opacity-80 hover:cursor-pointer border-2 ${
 							chipSelectionStep.type === "guess" &&
-							chipSelectionStep.ruleIndex === rule.index
+							chipSelectionStep.ruleId === rule.id
 								? "border-(--accent)"
 								: "border-transparent"
 						}`}
 						onClick={() =>
-							updateChipSelectionStep({ type: "guess", ruleIndex: rule.index })
+							updateChipSelectionStep({ type: "guess", ruleId: rule.id })
 						}
 					>
-						{chipGuessData.icon.map((chipIcon, index) => (
-							<Icons
-								key={index}
-								name={chipIcon}
-								color={chipGuessData.color}
-								size={24}
-								isAddon={index > 0}
-							/>
-						))}
-
+						<div className="relative">
+							{chipGuessData.icon.map((chipIcon, index) => (
+								<Icons
+									key={index}
+									name={chipIcon}
+									color={chipGuessData.color}
+									size={24}
+									isAddon={index > 0}
+								/>
+							))}
+						</div>
 						<p className="hidden min-[1250px]:block">
 							{t(chipGuessData.label)}
 						</p>
 						{allChips.chipsGuess.find((chip) => chip.id === rule.guessId) && (
-							<button onClick={() => updateRuleGuessChip(rule.index, null)}>
+							<button onClick={() => updateRuleGuessChip(rule.id, null)}>
 								<Icons name="cancel" color="text" size={12} isAddon={false} />
 							</button>
 						)}
@@ -85,14 +86,14 @@ const RuleElement = ({ rule, ruleNumber }: RuleElementProps) => {
 					<div
 						className={`flex flex-row items-center align-middle p-2 min-h-10 min-w-10 bg-(--bgc-quaternary) rounded-md gap-2 border-2 transition-opacity hover:opacity-80 hover:cursor-pointer ${
 							chipSelectionStep.type === "by" &&
-							chipSelectionStep.ruleIndex === rule.index
+							chipSelectionStep.ruleId === rule.id
 								? "border-(--accent)"
 								: "border-transparent"
 						}`}
 						onClick={() =>
 							updateChipSelectionStep({
 								type: "by",
-								ruleIndex: rule.index,
+								ruleId: rule.id,
 								guessId: rule.guessId ?? undefined,
 							})
 						}
@@ -108,7 +109,7 @@ const RuleElement = ({ rule, ruleNumber }: RuleElementProps) => {
 						))}
 						<p className="hidden min-[1250px]:block">{t(chipByData.label)}</p>
 						{allChips.chipsGuess.find((chip) => chip.id === rule.guessId) && (
-							<button onClick={() => updateRuleByChip(rule.index, null)}>
+							<button onClick={() => updateRuleByChip(rule.id, null)}>
 								<Icons name="cancel" color="text" size={12} isAddon={false} />
 							</button>
 						)}
@@ -116,7 +117,7 @@ const RuleElement = ({ rule, ruleNumber }: RuleElementProps) => {
 				</div>
 				<div className={`items-center border-l border-(--text-secondary) pl-4`}>
 					<button
-						onClick={() => removeRule(rule)}
+						onClick={() => removeRule(rule.id)}
 						className="h-full flex hover:text-(--negative) hover:cursor-pointer"
 					>
 						<Icons
@@ -154,7 +155,7 @@ const RuleElement = ({ rule, ruleNumber }: RuleElementProps) => {
 								return (
 									<button
 										key={filter.id}
-										onClick={() => updateRuleFilterChips(rule.index, filter.id)}
+										onClick={() => updateRuleFilterChips(rule.id, filter.id)}
 										title={t(chipFilterNameToTranslationKey(filter.name))}
 										aria-label={t(chipFilterNameToTranslationKey(filter.name))}
 										className={`px-3 py-1 rounded-full text-sm border-2 transition-colors hover:cursor-pointer ${

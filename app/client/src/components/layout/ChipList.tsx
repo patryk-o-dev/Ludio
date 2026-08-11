@@ -11,7 +11,7 @@ const ChipList = () => {
 
 	const mode = chipSelectionStep.type;
 	const guessId = chipSelectionStep.guessId;
-	const ruleIndex = chipSelectionStep.ruleIndex;
+	const ruleId = chipSelectionStep.ruleId;
 	const chips =
 		mode === "guess"
 			? allChips.chipsGuess.filter((chip) => chip.mode === selectedMode)
@@ -53,7 +53,7 @@ const ChipList = () => {
 					.map((chip) => (
 						<ChipCard
 							key={chip.id}
-							ruleIndex={ruleIndex!}
+							ruleId={ruleId!}
 							chipId={chip.id}
 							chipData={chip}
 						/>

@@ -1,5 +1,10 @@
 import { create } from "zustand";
-import type { AllChips, ChipSelectionStep, GameMode } from "../types";
+import {
+	INITIAL_RULE_ID,
+	type AllChips,
+	type ChipSelectionStep,
+	type GameMode,
+} from "../types";
 
 type ChipsStore = {
 	allChips: AllChips;
@@ -14,7 +19,7 @@ const useChipsStore = create<ChipsStore>((set) => ({
 	allChips: { chipsGuess: [], chipsBy: [], chipsFilter: [] },
 	chipSelectionStep: {
 		type: "guess",
-		ruleIndex: 0,
+		ruleId: INITIAL_RULE_ID,
 	},
 	mode: "CLASSIC",
 	setAllChips: (allChips) => set({ allChips }),

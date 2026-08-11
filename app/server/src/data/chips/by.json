@@ -42,12 +42,12 @@
   {
     "key": "by_death",
     "name": "byDeath",
-    "compatibleChipFilters": ["filter_only_death"]
+    "compatibleChipFilters": []
   },
   {
     "key": "by_pick",
     "name": "byPick",
-    "compatibleChipFilters": ["filter_only_pick"]
+    "compatibleChipFilters": []
   },
   {
     "key": "by_frame",
