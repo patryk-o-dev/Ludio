@@ -51,7 +51,6 @@ const MediaDisplay = ({
 				: "image";
 
 	const resolveMediaUrl = (mediaUrl: string) => {
-		console.log("achievementTitle: ", achievement?.achievementTitle);
 		return `${API_ORIGIN}${mediaUrl.startsWith("/") ? "" : "/"}${mediaUrl}`;
 	};
 

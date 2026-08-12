@@ -120,11 +120,25 @@ CREATE TABLE `Question` (
     `id` VARCHAR(191) NOT NULL,
     `key` VARCHAR(191) NOT NULL,
     `url` VARCHAR(191) NOT NULL,
+    `urlPl` VARCHAR(191) NOT NULL,
     `difficulty` INTEGER NOT NULL DEFAULT 1,
     `answerId` VARCHAR(191) NOT NULL,
     `chipById` VARCHAR(191) NOT NULL,
+    `credits` VARCHAR(191) NULL,
+    `emoji` VARCHAR(191) NULL,
 
     UNIQUE INDEX `Question_key_key`(`key`),
+    PRIMARY KEY (`id`)
+) DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
+
+-- CreateTable
+CREATE TABLE `QuestionAchievement` (
+    `id` VARCHAR(191) NOT NULL,
+    `questionId` VARCHAR(191) NOT NULL,
+    `achievementTitle` VARCHAR(191) NOT NULL,
+    `achievementDesc` VARCHAR(191) NOT NULL,
+
+    UNIQUE INDEX `QuestionAchievement_questionId_key`(`questionId`),
     PRIMARY KEY (`id`)
 ) DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
 
@@ -133,6 +147,7 @@ CREATE TABLE `Answer` (
     `id` VARCHAR(191) NOT NULL,
     `key` VARCHAR(191) NOT NULL,
     `value` VARCHAR(191) NOT NULL,
+    `valuePl` VARCHAR(191) NULL,
 
     UNIQUE INDEX `Answer_key_key`(`key`),
     PRIMARY KEY (`id`)
@@ -275,6 +290,9 @@ ALTER TABLE `Question` ADD CONSTRAINT `Question_answerId_fkey` FOREIGN KEY (`ans
 
 -- AddForeignKey
 ALTER TABLE `Question` ADD CONSTRAINT `Question_chipById_fkey` FOREIGN KEY (`chipById`) REFERENCES `ChipBy`(`id`) ON DELETE RESTRICT ON UPDATE CASCADE;
+
+-- AddForeignKey
+ALTER TABLE `QuestionAchievement` ADD CONSTRAINT `QuestionAchievement_questionId_fkey` FOREIGN KEY (`questionId`) REFERENCES `Question`(`id`) ON DELETE RESTRICT ON UPDATE CASCADE;
 
 -- AddForeignKey
 ALTER TABLE `Community` ADD CONSTRAINT `Community_ownerId_fkey` FOREIGN KEY (`ownerId`) REFERENCES `User`(`id`) ON DELETE RESTRICT ON UPDATE CASCADE;

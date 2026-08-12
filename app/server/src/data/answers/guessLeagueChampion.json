@@ -83,5 +83,125 @@
     "key": "yunara",
     "value": "Yunara",
     "chipGuess": ["guess_league_champion"]
+  },
+  {
+    "key": "kayle",
+    "value": "Kayle",
+    "chipGuess": ["guess_league_champion"]
+  },
+  {
+    "key": "akali",
+    "value": "Akali",
+    "chipGuess": ["guess_league_champion"]
+  },
+  {
+    "key": "anivia",
+    "value": "Anivia",
+    "chipGuess": ["guess_league_champion"]
+  },
+  {
+    "key": "caitlyn",
+    "value": "Caitlyn",
+    "chipGuess": ["guess_league_champion"]
+  },
+  {
+    "key": "elise",
+    "value": "Elise",
+    "chipGuess": ["guess_league_champion"]
+  },
+  {
+    "key": "fiddlesticks",
+    "value": "Fiddlesticks",
+    "chipGuess": ["guess_league_champion"]
+  },
+  {
+    "key": "gangplank",
+    "value": "Gangplank",
+    "chipGuess": ["guess_league_champion"]
+  },
+  {
+    "key": "gnar",
+    "value": "Gnar",
+    "chipGuess": ["guess_league_champion"]
+  },
+  {
+    "key": "kai_sa",
+    "value": "Kai'Sa",
+    "chipGuess": ["guess_league_champion"]
+  },
+  {
+    "key": "kindred",
+    "value": "Kindred",
+    "chipGuess": ["guess_league_champion"]
+  },
+  {
+    "key": "lillia",
+    "value": "Lillia",
+    "chipGuess": ["guess_league_champion"]
+  },
+  {
+    "key": "lux",
+    "value": "Lux",
+    "chipGuess": ["guess_league_champion"]
+  },
+  {
+    "key": "nami",
+    "value": "Nami",
+    "chipGuess": ["guess_league_champion"]
+  },
+  {
+    "key": "neeko",
+    "value": "Neeko",
+    "chipGuess": ["guess_league_champion"]
+  },
+  {
+    "key": "ornn",
+    "value": "Ornn",
+    "chipGuess": ["guess_league_champion"]
+  },
+  {
+    "key": "seraphine",
+    "value": "Seraphine",
+    "chipGuess": ["guess_league_champion"]
+  },
+  {
+    "key": "singed",
+    "value": "Singed",
+    "chipGuess": ["guess_league_champion"]
+  },
+  {
+    "key": "syndra",
+    "value": "Syndra",
+    "chipGuess": ["guess_league_champion"]
+  },
+  {
+    "key": "veigar",
+    "value": "Veigar",
+    "chipGuess": ["guess_league_champion"]
+  },
+  {
+    "key": "vel_koz",
+    "value": "Vel'Koz",
+    "chipGuess": ["guess_league_champion"]
+  },
+  {
+    "key": "xerath",
+    "value": "Xerath",
+    "chipGuess": ["guess_league_champion"]
+  },
+  {
+    "key": "yasuo",
+    "value": "Yasuo",
+    "chipGuess": ["guess_league_champion"]
+  },
+  {
+    "key": "yuumi",
+    "value": "Yuumi",
+    "chipGuess": ["guess_league_champion"]
+  },
+  {
+    "key": "zoe",
+    "value": "Zoe",
+    "chipGuess": ["guess_league_champion"]
   }
 ]

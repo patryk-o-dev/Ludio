@@ -3,6 +3,7 @@ import AnswerPanel from "../features/AnswerPanel";
 import MediaDisplay from "../features/MediaDisplay";
 import { useTranslation } from "react-i18next";
 import { withAuth } from "../utils/api";
+import i18n from "../../i18n";
 
 interface QuizStageProps {
 	session: SessionData;
@@ -24,11 +25,15 @@ const QuizStage = ({
 	const { t } = useTranslation();
 	const API = import.meta.env.VITE_API_URL;
 	const currentQuestion = session.live.question;
+	const currentLang = i18n.language;
+	const mediaUrlByLang =
+		currentLang === "pl"
+			? (currentQuestion?.urlPl ?? currentQuestion?.url ?? null)
+			: (currentQuestion?.url ?? null);
 	const currentPlayer = session.players.find(
 		(player) => player.userId === currentUserId,
 	);
 	const canAcceptInvitation = currentPlayer?.status === "Invited";
-
 
 	const acceptInvitation = () => {
 		fetch(
@@ -62,7 +67,7 @@ const QuizStage = ({
 					sessionId={session.id}
 					hostId={session.hostId}
 					currentUserId={currentUserId}
-					mediaUrl={currentQuestion?.url ?? null}
+					mediaUrl={mediaUrlByLang}
 					credits={currentQuestion?.credits ?? null}
 					achievement={currentQuestion?.achievement ?? undefined}
 					emoji={currentQuestion?.emoji ?? undefined}

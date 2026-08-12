@@ -28,6 +28,7 @@ type QuestionAchievement = {
 type SessionQuestionPayload = {
   id: string;
   url: string;
+  urlPl: string;
   answers: SessionAnswerOption[];
   credits?: string;
   emoji?: string;
@@ -931,6 +932,7 @@ export class GameSessionService implements OnModuleInit {
             select: {
               id: true,
               value: true,
+              valuePl: true,
             },
           },
         },
@@ -996,6 +998,7 @@ export class GameSessionService implements OnModuleInit {
         question: {
           id: randomQuestion.id,
           url: randomQuestion.url,
+          urlPl: randomQuestion.urlPl,
           credits: randomQuestion.credits ? randomQuestion.credits : null,
           emoji: randomQuestion.emoji ? randomQuestion.emoji : null,
           achievement: randomQuestion.achievement

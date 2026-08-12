@@ -1,331 +1,1218 @@
 [
   {
     "key": "guess_league_champion_001",
-    "media": "Aatrox_Original_SFX_Death.ogg",
+    "media": "gl031yfeojpx.ogg",
+    "mediaPl": "gl052yrwhfds.ogg",
     "answer": "aatrox",
-    "category": "by_death",
-    "gameTypes": ["guess_league_champion"]
+    "category": "by_quote_sound_lol",
+    "gameTypes": [
+      "guess_league_champion"
+    ]
   },
   {
     "key": "guess_league_champion_002",
-    "media": "Ahri_Original_Death_0.ogg",
+    "media": "gl019kuqnanx.ogg",
     "answer": "ahri",
-    "category": "by_death",
-    "gameTypes": ["guess_league_champion"]
+    "category": "by_quote_sound_lol",
+    "gameTypes": [
+      "guess_league_champion"
+    ]
   },
   {
     "key": "guess_league_champion_003",
-    "media": "Ahri_Original_Death_1.ogg",
+    "media": "gl048eosfenh.ogg",
     "answer": "ahri",
-    "category": "by_death",
-    "gameTypes": ["guess_league_champion"]
+    "category": "by_quote_sound_lol",
+    "gameTypes": [
+      "guess_league_champion"
+    ]
   },
   {
     "key": "guess_league_champion_004",
-    "media": "Amumu_Original_Death_1.ogg",
+    "media": "gl020uhawajh.ogg",
     "answer": "amumu",
-    "category": "by_death",
-    "gameTypes": ["guess_league_champion"]
+    "category": "by_quote_sound_lol",
+    "gameTypes": [
+      "guess_league_champion"
+    ]
   },
   {
     "key": "guess_league_champion_005",
-    "media": "Amumu_Original_Death_2.ogg",
+    "media": "gl071aqchkfj.ogg",
     "answer": "amumu",
-    "category": "by_death",
-    "gameTypes": ["guess_league_champion"]
+    "category": "by_quote_sound_lol",
+    "gameTypes": [
+      "guess_league_champion"
+    ]
   },
   {
     "key": "guess_league_champion_006",
-    "media": "Aurelion_Sol_Original_Death_0.ogg",
+    "media": "gl084xemxcva.ogg",
     "answer": "aurelion_sol",
-    "category": "by_death",
-    "gameTypes": ["guess_league_champion"]
+    "category": "by_quote_sound_lol",
+    "gameTypes": [
+      "guess_league_champion"
+    ]
   },
   {
     "key": "guess_league_champion_007",
-    "media": "Aurelion_Sol_Original_Death_7.ogg",
+    "media": "gl012rxyeeim.ogg",
     "answer": "aurelion_sol",
-    "category": "by_death",
-    "gameTypes": ["guess_league_champion"]
+    "category": "by_quote_sound_lol",
+    "gameTypes": [
+      "guess_league_champion"
+    ]
   },
   {
     "key": "guess_league_champion_008",
-    "media": "Bel'Veth_Original_Death_1.ogg",
+    "media": "gl040abcgdna.ogg",
     "answer": "bel_veth",
-    "category": "by_death",
-    "gameTypes": ["guess_league_champion"]
+    "category": "by_quote_sound_lol",
+    "gameTypes": [
+      "guess_league_champion"
+    ]
   },
   {
     "key": "guess_league_champion_009",
-    "media": "Blitzcrank_Original_Death_0.ogg",
+    "media": "gl011axawktx.ogg",
     "answer": "blitzcrank",
-    "category": "by_death",
-    "gameTypes": ["guess_league_champion"]
+    "category": "by_quote_sound_lol",
+    "gameTypes": [
+      "guess_league_champion"
+    ]
   },
   {
     "key": "guess_league_champion_010",
-    "media": "Blitzcrank_Original_Death_1.ogg",
+    "media": "gl014cpjwdry.ogg",
     "answer": "blitzcrank",
-    "category": "by_death",
-    "gameTypes": ["guess_league_champion"]
+    "category": "by_quote_sound_lol",
+    "gameTypes": [
+      "guess_league_champion"
+    ]
   },
   {
     "key": "guess_league_champion_011",
-    "media": "Cho'Gath_Original_Death_0.ogg",
+    "media": "gl042ticfomq.ogg",
     "answer": "cho_gath",
-    "category": "by_death",
-    "gameTypes": ["guess_league_champion"]
+    "category": "by_quote_sound_lol",
+    "gameTypes": [
+      "guess_league_champion"
+    ]
   },
   {
     "key": "guess_league_champion_012",
-    "media": "Dr._Mundo_Original_Death_0.ogg",
+    "media": "gl009ubduljh.ogg",
     "answer": "dr_mundo",
-    "category": "by_death",
-    "gameTypes": ["guess_league_champion"]
+    "category": "by_quote_sound_lol",
+    "gameTypes": [
+      "guess_league_champion"
+    ]
   },
   {
     "key": "guess_league_champion_013",
-    "media": "Fizz_Original_Death_0.ogg",
+    "media": "gl051nuroiai.ogg",
     "answer": "fizz",
-    "category": "by_death",
-    "gameTypes": ["guess_league_champion"]
+    "category": "by_quote_sound_lol",
+    "gameTypes": [
+      "guess_league_champion"
+    ]
   },
   {
     "key": "guess_league_champion_014",
-    "media": "Gragas_Original_Death_3.ogg",
+    "media": "gl069prufbkx.ogg",
     "answer": "gragas",
-    "category": "by_death",
-    "gameTypes": ["guess_league_champion"]
+    "category": "by_quote_sound_lol",
+    "gameTypes": [
+      "guess_league_champion"
+    ]
   },
   {
     "key": "guess_league_champion_015",
-    "media": "Irelia_Original_Death_0.ogg",
+    "media": "gl013oiocxup.ogg",
     "answer": "irelia",
-    "category": "by_death",
-    "gameTypes": ["guess_league_champion"]
+    "category": "by_quote_sound_lol",
+    "gameTypes": [
+      "guess_league_champion"
+    ]
   },
   {
     "key": "guess_league_champion_016",
-    "media": "Irelia_Original_Death_1.ogg",
+    "media": "gl002himewdb.ogg",
     "answer": "irelia",
-    "category": "by_death",
-    "gameTypes": ["guess_league_champion"]
+    "category": "by_quote_sound_lol",
+    "gameTypes": [
+      "guess_league_champion"
+    ]
   },
   {
     "key": "guess_league_champion_017",
-    "media": "Kennen_Original_Death_0.ogg",
+    "media": "gl062jxqmtoj.ogg",
     "answer": "kennen",
-    "category": "by_death",
-    "gameTypes": ["guess_league_champion"]
+    "category": "by_quote_sound_lol",
+    "gameTypes": [
+      "guess_league_champion"
+    ]
   },
   {
     "key": "guess_league_champion_018",
-    "media": "Kennen_Original_Death_3.ogg",
+    "media": "gl038gdkxvck.ogg",
     "answer": "kennen",
-    "category": "by_death",
-    "gameTypes": ["guess_league_champion"]
+    "category": "by_quote_sound_lol",
+    "gameTypes": [
+      "guess_league_champion"
+    ]
   },
   {
     "key": "guess_league_champion_019",
-    "media": "Malphite_Original_Death_0.ogg",
+    "media": "gl088gqjgqeh.ogg",
     "answer": "malphite",
-    "category": "by_death",
-    "gameTypes": ["guess_league_champion"]
+    "category": "by_quote_sound_lol",
+    "gameTypes": [
+      "guess_league_champion"
+    ]
   },
   {
     "key": "guess_league_champion_020",
-    "media": "Nasus_Original_Death_0.ogg",
+    "media": "gl091trqtkka.ogg",
     "answer": "nasus",
-    "category": "by_death",
-    "gameTypes": ["guess_league_champion"]
+    "category": "by_quote_sound_lol",
+    "gameTypes": [
+      "guess_league_champion"
+    ]
   },
   {
     "key": "guess_league_champion_021",
-    "media": "Soraka_Original_Death_1.ogg",
+    "media": "gl030tnffdht.ogg",
     "answer": "soraka",
-    "category": "by_death",
-    "gameTypes": ["guess_league_champion"]
+    "category": "by_quote_sound_lol",
+    "gameTypes": [
+      "guess_league_champion"
+    ]
   },
   {
     "key": "guess_league_champion_022",
-    "media": "Tahm_Kench_Original_Death_0.ogg",
+    "media": "gl038ionwkqp.ogg",
     "answer": "tahm_kench",
-    "category": "by_death",
-    "gameTypes": ["guess_league_champion"]
+    "category": "by_quote_sound_lol",
+    "gameTypes": [
+      "guess_league_champion"
+    ]
   },
   {
     "key": "guess_league_champion_023",
-    "media": "Teemo_Original_Death_0.ogg",
+    "media": "gl089hswpaog.ogg",
     "answer": "teemo",
-    "category": "by_death",
-    "gameTypes": ["guess_league_champion"]
+    "category": "by_quote_sound_lol",
+    "gameTypes": [
+      "guess_league_champion"
+    ]
   },
   {
     "key": "guess_league_champion_024",
-    "media": "Teemo_Original_Death_1.ogg",
+    "media": "gl079qsiavjf.ogg",
     "answer": "teemo",
-    "category": "by_death",
-    "gameTypes": ["guess_league_champion"]
+    "category": "by_quote_sound_lol",
+    "gameTypes": [
+      "guess_league_champion"
+    ]
   },
   {
     "key": "guess_league_champion_025",
-    "media": "Vex_Original_Death_0.ogg",
+    "media": "gl013nluteut.ogg",
     "answer": "vex",
-    "category": "by_death",
-    "gameTypes": ["guess_league_champion"]
+    "category": "by_quote_sound_lol",
+    "gameTypes": [
+      "guess_league_champion"
+    ]
   },
   {
     "key": "guess_league_champion_026",
-    "media": "Vex_Original_Death_1.ogg",
+    "media": "gl099pkcqmjj.ogg",
     "answer": "vex",
-    "category": "by_death",
-    "gameTypes": ["guess_league_champion"]
+    "category": "by_quote_sound_lol",
+    "gameTypes": [
+      "guess_league_champion"
+    ]
   },
   {
     "key": "guess_league_champion_027",
-    "media": "Vex_Original_Death_3.ogg",
+    "media": "gl009dnpjvhr.ogg",
     "answer": "vex",
-    "category": "by_death",
-    "gameTypes": ["guess_league_champion"]
+    "category": "by_quote_sound_lol",
+    "gameTypes": [
+      "guess_league_champion"
+    ]
   },
   {
     "key": "guess_league_champion_028",
-    "media": "Yunara_Original_Death_0.ogg",
+    "media": "gl067sfvrgmj.ogg",
     "answer": "yunara",
-    "category": "by_death",
-    "gameTypes": ["guess_league_champion"]
+    "category": "by_quote_sound_lol",
+    "gameTypes": [
+      "guess_league_champion"
+    ]
   },
   {
     "key": "guess_league_champion_029",
-    "media": "Aatrox_Select.ogg",
+    "media": "gl022yepnxso.ogg",
+    "mediaPl": "gl015cnqcttw.ogg",
     "answer": "aatrox",
-    "category": "by_pick",
-    "gameTypes": ["guess_league_champion"]
+    "category": "by_quote_sound_lol",
+    "gameTypes": [
+      "guess_league_champion"
+    ]
   },
   {
     "key": "guess_league_champion_030",
-    "media": "Ahri_Select.ogg",
+    "media": "gl025iabsrtg.ogg",
+    "mediaPl": "gl099stbrqbw.ogg",
     "answer": "ahri",
-    "category": "by_pick",
-    "gameTypes": ["guess_league_champion"]
+    "category": "by_quote_sound_lol",
+    "gameTypes": [
+      "guess_league_champion"
+    ]
   },
   {
     "key": "guess_league_champion_031",
-    "media": "Amumu_Select.ogg",
+    "media": "gl053oqqhumj.ogg",
+    "mediaPl": "gl030dlnbdwl.ogg",
     "answer": "amumu",
-    "category": "by_pick",
-    "gameTypes": ["guess_league_champion"]
+    "category": "by_quote_sound_lol",
+    "gameTypes": [
+      "guess_league_champion"
+    ]
   },
   {
     "key": "guess_league_champion_032",
-    "media": "Aurelion_Sol_Select.ogg",
+    "media": "gl054cerxjyt.ogg",
     "answer": "aurelion_sol",
-    "category": "by_pick",
-    "gameTypes": ["guess_league_champion"]
+    "category": "by_quote_sound_lol",
+    "gameTypes": [
+      "guess_league_champion"
+    ]
   },
   {
     "key": "guess_league_champion_033",
-    "media": "Bel'Veth_Select.ogg",
+    "media": "gl055vbshbfh.ogg",
     "answer": "bel_veth",
-    "category": "by_pick",
-    "gameTypes": ["guess_league_champion"]
+    "category": "by_quote_sound_lol",
+    "gameTypes": [
+      "guess_league_champion"
+    ]
   },
   {
     "key": "guess_league_champion_034",
-    "media": "Blitzcrank_Select.ogg",
+    "media": "gl050kbyfyvy.ogg",
     "answer": "blitzcrank",
-    "category": "by_pick",
-    "gameTypes": ["guess_league_champion"]
+    "category": "by_quote_sound_lol",
+    "gameTypes": [
+      "guess_league_champion"
+    ]
   },
   {
     "key": "guess_league_champion_035",
-    "media": "Cho'Gath_Select.ogg",
+    "media": "gl072qpyvyod.ogg",
     "answer": "cho_gath",
-    "category": "by_pick",
-    "gameTypes": ["guess_league_champion"]
+    "category": "by_quote_sound_lol",
+    "gameTypes": [
+      "guess_league_champion"
+    ]
   },
   {
     "key": "guess_league_champion_036",
-    "media": "Dr._Mundo_Select.ogg",
+    "media": "gl021jixmeea.ogg",
+    "mediaPl": "gl017ytoqvqv.ogg",
     "answer": "dr_mundo",
-    "category": "by_pick",
-    "gameTypes": ["guess_league_champion"]
+    "category": "by_quote_sound_lol",
+    "gameTypes": [
+      "guess_league_champion"
+    ]
   },
   {
     "key": "guess_league_champion_037",
-    "media": "Fizz_Select.ogg",
+    "media": "gl064hwmqsir.ogg",
+    "mediaPl": "gl097hqgidru.ogg",
     "answer": "fizz",
-    "category": "by_pick",
-    "gameTypes": ["guess_league_champion"]
+    "category": "by_quote_sound_lol",
+    "gameTypes": [
+      "guess_league_champion"
+    ]
   },
   {
     "key": "guess_league_champion_038",
-    "media": "Gragas_Select.ogg",
+    "media": "gl057duqieee.ogg",
+    "mediaPl": "gl065oqoguos.ogg",
     "answer": "gragas",
-    "category": "by_pick",
-    "gameTypes": ["guess_league_champion"]
+    "category": "by_quote_sound_lol",
+    "gameTypes": [
+      "guess_league_champion"
+    ]
   },
   {
     "key": "guess_league_champion_039",
-    "media": "Irelia_Select.ogg",
+    "media": "gl046smrrwre.ogg",
+    "mediaPl": "gl060edvogoh.ogg",
     "answer": "irelia",
-    "category": "by_pick",
-    "gameTypes": ["guess_league_champion"]
+    "category": "by_quote_sound_lol",
+    "gameTypes": [
+      "guess_league_champion"
+    ]
   },
   {
     "key": "guess_league_champion_040",
-    "media": "Kennen_Select.ogg",
+    "media": "gl063edrjike.ogg",
+    "mediaPl": "gl027yvyikqk.ogg",
     "answer": "kennen",
-    "category": "by_pick",
-    "gameTypes": ["guess_league_champion"]
+    "category": "by_quote_sound_lol",
+    "gameTypes": [
+      "guess_league_champion"
+    ]
   },
   {
     "key": "guess_league_champion_041",
-    "media": "Malphite_Select.ogg",
+    "media": "gl073frqwebn.ogg",
     "answer": "malphite",
-    "category": "by_pick",
-    "gameTypes": ["guess_league_champion"]
+    "category": "by_quote_sound_lol",
+    "gameTypes": [
+      "guess_league_champion"
+    ]
   },
   {
     "key": "guess_league_champion_042",
-    "media": "Nasus_Select.ogg",
+    "media": "gl032wnypmea.ogg",
+    "mediaPl": "gl076jqilbms.ogg",
     "answer": "nasus",
-    "category": "by_pick",
-    "gameTypes": ["guess_league_champion"]
+    "category": "by_quote_sound_lol",
+    "gameTypes": [
+      "guess_league_champion"
+    ]
   },
   {
     "key": "guess_league_champion_043",
-    "media": "Soraka_Select.ogg",
+    "media": "gl088djsoryv.ogg",
     "answer": "soraka",
-    "category": "by_pick",
-    "gameTypes": ["guess_league_champion"]
+    "category": "by_quote_sound_lol",
+    "gameTypes": [
+      "guess_league_champion"
+    ]
   },
   {
     "key": "guess_league_champion_044",
-    "media": "Tahm_Kench_Select.ogg",
+    "media": "gl003sunesas.ogg",
+    "mediaPl": "gl070uxcvjli.ogg",
     "answer": "tahm_kench",
-    "category": "by_pick",
-    "gameTypes": ["guess_league_champion"]
+    "category": "by_quote_sound_lol",
+    "gameTypes": [
+      "guess_league_champion"
+    ]
   },
   {
     "key": "guess_league_champion_045",
-    "media": "Teemo_Select.ogg",
+    "media": "gl038yhgyojn.ogg",
+    "mediaPl": "gl022jynhdhj.ogg",
     "answer": "teemo",
-    "category": "by_pick",
-    "gameTypes": ["guess_league_champion"]
+    "category": "by_quote_sound_lol",
+    "gameTypes": [
+      "guess_league_champion"
+    ]
   },
   {
     "key": "guess_league_champion_046",
-    "media": "Vex_Select.ogg",
+    "media": "gl092dytlgce.ogg",
+    "mediaPl": "gl043kcjdqah.ogg",
     "answer": "vex",
-    "category": "by_pick",
-    "gameTypes": ["guess_league_champion"]
+    "category": "by_quote_sound_lol",
+    "gameTypes": [
+      "guess_league_champion"
+    ]
   },
   {
     "key": "guess_league_champion_047",
-    "media": "Yunara_Select.ogg",
+    "media": "gl048wlxinan.ogg",
     "answer": "yunara",
-    "category": "by_pick",
-    "gameTypes": ["guess_league_champion"]
+    "category": "by_quote_sound_lol",
+    "gameTypes": [
+      "guess_league_champion"
+    ]
+  },
+  {
+    "key": "guess_league_champion_048",
+    "media": "gl061arsuwtr.oga",
+    "mediaPl": "gl061arsuwtr.oga",
+    "answer": "kayle",
+    "category": "by_quote_sound_lol",
+    "gameTypes": [
+      "guess_league_champion"
+    ]
+  },
+  {
+    "key": "guess_league_champion_049",
+    "media": "gl018fofcqeu.oga",
+    "mediaPl": "gl018fofcqeu.oga",
+    "answer": "kayle",
+    "category": "by_quote_sound_lol",
+    "gameTypes": [
+      "guess_league_champion"
+    ]
+  },
+  {
+    "key": "guess_league_champion_050",
+    "media": "gl001oqhnggw.ogg",
+    "mediaPl": "gl001oqhnggw.ogg",
+    "answer": "aatrox",
+    "category": "by_quote_sound_lol",
+    "gameTypes": [
+      "guess_league_champion"
+    ]
+  },
+  {
+    "key": "guess_league_champion_051",
+    "media": "gl004ckvddjt.ogg",
+    "mediaPl": "gl004ckvddjt.ogg",
+    "answer": "amumu",
+    "category": "by_quote_sound_lol",
+    "gameTypes": [
+      "guess_league_champion"
+    ]
+  },
+  {
+    "key": "guess_league_champion_052",
+    "media": "gl044tdldhwi.ogg",
+    "mediaPl": "gl044tdldhwi.ogg",
+    "answer": "dr_mundo",
+    "category": "by_quote_sound_lol",
+    "gameTypes": [
+      "guess_league_champion"
+    ]
+  },
+  {
+    "key": "guess_league_champion_053",
+    "media": "gl024dpycfng.ogg",
+    "mediaPl": "gl024dpycfng.ogg",
+    "answer": "fizz",
+    "category": "by_quote_sound_lol",
+    "gameTypes": [
+      "guess_league_champion"
+    ]
+  },
+  {
+    "key": "guess_league_champion_054",
+    "media": "gl056usyqupv.ogg",
+    "mediaPl": "gl056usyqupv.ogg",
+    "answer": "gragas",
+    "category": "by_quote_sound_lol",
+    "gameTypes": [
+      "guess_league_champion"
+    ]
+  },
+  {
+    "key": "guess_league_champion_055",
+    "media": "gl005qphyaeu.ogg",
+    "mediaPl": "gl005qphyaeu.ogg",
+    "answer": "irelia",
+    "category": "by_quote_sound_lol",
+    "gameTypes": [
+      "guess_league_champion"
+    ]
+  },
+  {
+    "key": "guess_league_champion_056",
+    "media": "gl026vmfsxcj.ogg",
+    "mediaPl": "gl026vmfsxcj.ogg",
+    "answer": "kennen",
+    "category": "by_quote_sound_lol",
+    "gameTypes": [
+      "guess_league_champion"
+    ]
+  },
+  {
+    "key": "guess_league_champion_057",
+    "media": "gl063vimqkhs.ogg",
+    "mediaPl": "gl063vimqkhs.ogg",
+    "answer": "teemo",
+    "category": "by_quote_sound_lol",
+    "gameTypes": [
+      "guess_league_champion"
+    ]
+  },
+  {
+    "key": "guess_league_champion_058",
+    "media": "gl083fbqjbxf.ogg",
+    "mediaPl": "gl083fbqjbxf.ogg",
+    "answer": "vex",
+    "category": "by_quote_sound_lol",
+    "gameTypes": [
+      "guess_league_champion"
+    ]
+  },
+  {
+    "key": "guess_league_champion_059",
+    "media": "gl094itoqfvo.ogg",
+    "mediaPl": "gl094itoqfvo.ogg",
+    "answer": "ashe",
+    "category": "by_quote_sound_lol",
+    "gameTypes": [
+      "guess_league_champion"
+    ]
+  },
+  {
+    "key": "guess_league_champion_060",
+    "media": "gl096acepfyr.ogg",
+    "mediaPl": "gl096acepfyr.ogg",
+    "answer": "ashe",
+    "category": "by_quote_sound_lol",
+    "gameTypes": [
+      "guess_league_champion"
+    ]
+  },
+  {
+    "key": "guess_league_champion_061",
+    "media": "gl049qifvpny.ogg",
+    "mediaPl": "gl049qifvpny.ogg",
+    "answer": "evelynn",
+    "category": "by_quote_sound_lol",
+    "gameTypes": [
+      "guess_league_champion"
+    ]
+  },
+  {
+    "key": "guess_league_champion_062",
+    "media": "gl016palqvyb.ogg",
+    "mediaPl": "gl016palqvyb.ogg",
+    "answer": "evelynn",
+    "category": "by_quote_sound_lol",
+    "gameTypes": [
+      "guess_league_champion"
+    ]
+  },
+  {
+    "key": "guess_league_champion_063",
+    "media": "gl041kwskpjy.ogg",
+    "mediaPl": "gl041kwskpjy.ogg",
+    "answer": "evelynn",
+    "category": "by_quote_sound_lol",
+    "gameTypes": [
+      "guess_league_champion"
+    ]
+  },
+  {
+    "key": "guess_league_champion_064",
+    "media": "gl047sscjgnc.ogg",
+    "mediaPl": "gl047sscjgnc.ogg",
+    "answer": "akali",
+    "category": "by_quote_sound_lol",
+    "gameTypes": [
+      "guess_league_champion"
+    ]
+  },
+  {
+    "key": "guess_league_champion_065",
+    "media": "gl037arqcpqj.ogg",
+    "mediaPl": "gl037arqcpqj.ogg",
+    "answer": "akali",
+    "category": "by_quote_sound_lol",
+    "gameTypes": [
+      "guess_league_champion"
+    ]
+  },
+  {
+    "key": "guess_league_champion_066",
+    "media": "gl010ykwbkkq.ogg",
+    "mediaPl": "gl010ykwbkkq.ogg",
+    "answer": "anivia",
+    "category": "by_quote_sound_lol",
+    "gameTypes": [
+      "guess_league_champion"
+    ]
+  },
+  {
+    "key": "guess_league_champion_067",
+    "media": "gl043wvisyvo.ogg",
+    "mediaPl": "gl043wvisyvo.ogg",
+    "answer": "anivia",
+    "category": "by_quote_sound_lol",
+    "gameTypes": [
+      "guess_league_champion"
+    ]
+  },
+  {
+    "key": "guess_league_champion_068",
+    "media": "gl003jpanxug.ogg",
+    "mediaPl": "gl003jpanxug.ogg",
+    "answer": "caitlyn",
+    "category": "by_quote_sound_lol",
+    "gameTypes": [
+      "guess_league_champion"
+    ]
+  },
+  {
+    "key": "guess_league_champion_069",
+    "media": "gl100bfndkrk.ogg",
+    "mediaPl": "gl100bfndkrk.ogg",
+    "answer": "caitlyn",
+    "category": "by_quote_sound_lol",
+    "gameTypes": [
+      "guess_league_champion"
+    ]
+  },
+  {
+    "key": "guess_league_champion_070",
+    "media": "gl059wpwkrmp.ogg",
+    "mediaPl": "gl059wpwkrmp.ogg",
+    "answer": "elise",
+    "category": "by_quote_sound_lol",
+    "gameTypes": [
+      "guess_league_champion"
+    ]
+  },
+  {
+    "key": "guess_league_champion_071",
+    "media": "gl058jwwmksc.ogg",
+    "mediaPl": "gl058jwwmksc.ogg",
+    "answer": "elise",
+    "category": "by_quote_sound_lol",
+    "gameTypes": [
+      "guess_league_champion"
+    ]
+  },
+  {
+    "key": "guess_league_champion_072",
+    "media": "gl075tkjmirq.ogg",
+    "mediaPl": "gl075tkjmirq.ogg",
+    "answer": "fiddlesticks",
+    "category": "by_quote_sound_lol",
+    "gameTypes": [
+      "guess_league_champion"
+    ]
+  },
+  {
+    "key": "guess_league_champion_073",
+    "media": "gl035prvtsit.ogg",
+    "mediaPl": "gl035prvtsit.ogg",
+    "answer": "fiddlesticks",
+    "category": "by_quote_sound_lol",
+    "gameTypes": [
+      "guess_league_champion"
+    ]
+  },
+  {
+    "key": "guess_league_champion_074",
+    "media": "gl029mrdyhxx.ogg",
+    "mediaPl": "gl029mrdyhxx.ogg",
+    "answer": "gangplank",
+    "category": "by_quote_sound_lol",
+    "gameTypes": [
+      "guess_league_champion"
+    ]
+  },
+  {
+    "key": "guess_league_champion_075",
+    "media": "gl098dtdpkmo.ogg",
+    "mediaPl": "gl098dtdpkmo.ogg",
+    "answer": "gangplank",
+    "category": "by_quote_sound_lol",
+    "gameTypes": [
+      "guess_league_champion"
+    ]
+  },
+  {
+    "key": "guess_league_champion_076",
+    "media": "gl090hemsdfi.ogg",
+    "mediaPl": "gl090hemsdfi.ogg",
+    "answer": "gnar",
+    "category": "by_quote_sound_lol",
+    "gameTypes": [
+      "guess_league_champion"
+    ]
+  },
+  {
+    "key": "guess_league_champion_077",
+    "media": "gl045gufmena.ogg",
+    "mediaPl": "gl045gufmena.ogg",
+    "answer": "gnar",
+    "category": "by_quote_sound_lol",
+    "gameTypes": [
+      "guess_league_champion"
+    ]
+  },
+  {
+    "key": "guess_league_champion_078",
+    "media": "gl006cmyonlw.ogg",
+    "mediaPl": "gl006cmyonlw.ogg",
+    "answer": "kai_sa",
+    "category": "by_quote_sound_lol",
+    "gameTypes": [
+      "guess_league_champion"
+    ]
+  },
+  {
+    "key": "guess_league_champion_079",
+    "media": "gl083ltqsflo.ogg",
+    "mediaPl": "gl083ltqsflo.ogg",
+    "answer": "kai_sa",
+    "category": "by_quote_sound_lol",
+    "gameTypes": [
+      "guess_league_champion"
+    ]
+  },
+  {
+    "key": "guess_league_champion_080",
+    "media": "gl085cypmqtn.ogg",
+    "mediaPl": "gl085cypmqtn.ogg",
+    "answer": "kai_sa",
+    "category": "by_quote_sound_lol",
+    "gameTypes": [
+      "guess_league_champion"
+    ]
+  },
+  {
+    "key": "guess_league_champion_081",
+    "media": "gl066cavueuq.ogg",
+    "mediaPl": "gl066cavueuq.ogg",
+    "answer": "kindred",
+    "category": "by_quote_sound_lol",
+    "gameTypes": [
+      "guess_league_champion"
+    ]
+  },
+  {
+    "key": "guess_league_champion_082",
+    "media": "gl028enhnrnu.ogg",
+    "mediaPl": "gl028enhnrnu.ogg",
+    "answer": "kindred",
+    "category": "by_quote_sound_lol",
+    "gameTypes": [
+      "guess_league_champion"
+    ]
+  },
+  {
+    "key": "guess_league_champion_083",
+    "media": "gl086visqxti.ogg",
+    "mediaPl": "gl086visqxti.ogg",
+    "answer": "kindred",
+    "category": "by_quote_sound_lol",
+    "gameTypes": [
+      "guess_league_champion"
+    ]
+  },
+  {
+    "key": "guess_league_champion_084",
+    "media": "gl089hrawsgx.ogg",
+    "mediaPl": "gl089hrawsgx.ogg",
+    "answer": "lillia",
+    "category": "by_quote_sound_lol",
+    "gameTypes": [
+      "guess_league_champion"
+    ]
+  },
+  {
+    "key": "guess_league_champion_085",
+    "media": "gl067ffhtmbu.ogg",
+    "mediaPl": "gl067ffhtmbu.ogg",
+    "answer": "lillia",
+    "category": "by_quote_sound_lol",
+    "gameTypes": [
+      "guess_league_champion"
+    ]
+  },
+  {
+    "key": "guess_league_champion_086",
+    "media": "gl039eylekkv.ogg",
+    "mediaPl": "gl039eylekkv.ogg",
+    "answer": "lux",
+    "category": "by_quote_sound_lol",
+    "gameTypes": [
+      "guess_league_champion"
+    ]
+  },
+  {
+    "key": "guess_league_champion_087",
+    "media": "gl036qpwvsgi.ogg",
+    "mediaPl": "gl036qpwvsgi.ogg",
+    "answer": "lux",
+    "category": "by_quote_sound_lol",
+    "gameTypes": [
+      "guess_league_champion"
+    ]
+  },
+  {
+    "key": "guess_league_champion_088",
+    "media": "gl070rhinmoe.ogg",
+    "mediaPl": "gl070rhinmoe.ogg",
+    "answer": "lux",
+    "category": "by_quote_sound_lol",
+    "gameTypes": [
+      "guess_league_champion"
+    ]
+  },
+  {
+    "key": "guess_league_champion_089",
+    "media": "gl074cyohdtv.ogg",
+    "mediaPl": "gl074cyohdtv.ogg",
+    "answer": "nami",
+    "category": "by_quote_sound_lol",
+    "gameTypes": [
+      "guess_league_champion"
+    ]
+  },
+  {
+    "key": "guess_league_champion_090",
+    "media": "gl077fskpqbs.ogg",
+    "mediaPl": "gl077fskpqbs.ogg",
+    "answer": "neeko",
+    "category": "by_quote_sound_lol",
+    "gameTypes": [
+      "guess_league_champion"
+    ]
+  },
+  {
+    "key": "guess_league_champion_091",
+    "media": "gl033wpahbgj.ogg",
+    "mediaPl": "gl033wpahbgj.ogg",
+    "answer": "neeko",
+    "category": "by_quote_sound_lol",
+    "gameTypes": [
+      "guess_league_champion"
+    ]
+  },
+  {
+    "key": "guess_league_champion_092",
+    "media": "gl034xoiypje.ogg",
+    "mediaPl": "gl034xoiypje.ogg",
+    "answer": "ornn",
+    "category": "by_quote_sound_lol",
+    "gameTypes": [
+      "guess_league_champion"
+    ]
+  },
+  {
+    "key": "guess_league_champion_093",
+    "media": "gl080kvvhwrp.ogg",
+    "mediaPl": "gl080kvvhwrp.ogg",
+    "answer": "ornn",
+    "category": "by_quote_sound_lol",
+    "gameTypes": [
+      "guess_league_champion"
+    ]
+  },
+  {
+    "key": "guess_league_champion_094",
+    "media": "gl081vppoivc.ogg",
+    "mediaPl": "gl081vppoivc.ogg",
+    "answer": "ornn",
+    "category": "by_quote_sound_lol",
+    "gameTypes": [
+      "guess_league_champion"
+    ]
+  },
+  {
+    "key": "guess_league_champion_095",
+    "media": "gl095cbiglat.ogg",
+    "mediaPl": "gl095cbiglat.ogg",
+    "answer": "seraphine",
+    "category": "by_quote_sound_lol",
+    "gameTypes": [
+      "guess_league_champion"
+    ]
+  },
+  {
+    "key": "guess_league_champion_096",
+    "media": "gl082dorhgva.ogg",
+    "mediaPl": "gl082dorhgva.ogg",
+    "answer": "seraphine",
+    "category": "by_quote_sound_lol",
+    "gameTypes": [
+      "guess_league_champion"
+    ]
+  },
+  {
+    "key": "guess_league_champion_097",
+    "media": "gl013pghxjxl.ogg",
+    "mediaPl": "gl013pghxjxl.ogg",
+    "answer": "singed",
+    "category": "by_quote_sound_lol",
+    "gameTypes": [
+      "guess_league_champion"
+    ]
+  },
+  {
+    "key": "guess_league_champion_098",
+    "media": "gl017mpseefr.ogg",
+    "mediaPl": "gl017mpseefr.ogg",
+    "answer": "syndra",
+    "category": "by_quote_sound_lol",
+    "gameTypes": [
+      "guess_league_champion"
+    ]
+  },
+  {
+    "key": "guess_league_champion_099",
+    "media": "gl035mpbhnwx.ogg",
+    "mediaPl": "gl035mpbhnwx.ogg",
+    "answer": "veigar",
+    "category": "by_quote_sound_lol",
+    "gameTypes": [
+      "guess_league_champion"
+    ]
+  },
+  {
+    "key": "guess_league_champion_100",
+    "media": "gl088lfdulni.ogg",
+    "mediaPl": "gl088lfdulni.ogg",
+    "answer": "vel_koz",
+    "category": "by_quote_sound_lol",
+    "gameTypes": [
+      "guess_league_champion"
+    ]
+  },
+  {
+    "key": "guess_league_champion_101",
+    "media": "gl087gdhnrqu.ogg",
+    "mediaPl": "gl087gdhnrqu.ogg",
+    "answer": "xerath",
+    "category": "by_quote_sound_lol",
+    "gameTypes": [
+      "guess_league_champion"
+    ]
+  },
+  {
+    "key": "guess_league_champion_102",
+    "media": "gl051bwwjwlw.ogg",
+    "mediaPl": "gl051bwwjwlw.ogg",
+    "answer": "xerath",
+    "category": "by_quote_sound_lol",
+    "gameTypes": [
+      "guess_league_champion"
+    ]
+  },
+  {
+    "key": "guess_league_champion_103",
+    "media": "gl017pydxdvt.ogg",
+    "mediaPl": "gl017pydxdvt.ogg",
+    "answer": "yasuo",
+    "category": "by_quote_sound_lol",
+    "gameTypes": [
+      "guess_league_champion"
+    ]
+  },
+  {
+    "key": "guess_league_champion_104",
+    "media": "gl097dtnsboh.ogg",
+    "mediaPl": "gl097dtnsboh.ogg",
+    "answer": "yasuo",
+    "category": "by_quote_sound_lol",
+    "gameTypes": [
+      "guess_league_champion"
+    ]
+  },
+  {
+    "key": "guess_league_champion_105",
+    "media": "gl060cajtqrm.ogg",
+    "mediaPl": "gl060cajtqrm.ogg",
+    "answer": "yuumi",
+    "category": "by_quote_sound_lol",
+    "gameTypes": [
+      "guess_league_champion"
+    ]
+  },
+  {
+    "key": "guess_league_champion_106",
+    "media": "gl011gcahfqs.ogg",
+    "mediaPl": "gl011gcahfqs.ogg",
+    "answer": "yuumi",
+    "category": "by_quote_sound_lol",
+    "gameTypes": [
+      "guess_league_champion"
+    ]
+  },
+  {
+    "key": "guess_league_champion_107",
+    "media": "gl027tlwfuhi.ogg",
+    "mediaPl": "gl027tlwfuhi.ogg",
+    "answer": "zoe",
+    "category": "by_quote_sound_lol",
+    "gameTypes": [
+      "guess_league_champion"
+    ]
+  },
+  {
+    "key": "guess_league_champion_108",
+    "media": "gl085ofckmbc.ogg",
+    "mediaPl": "gl085ofckmbc.ogg",
+    "answer": "zoe",
+    "category": "by_quote_sound_lol",
+    "gameTypes": [
+      "guess_league_champion"
+    ]
+  },
+  {
+    "key": "guess_league_champion_109",
+    "media": "gl021dhgwllr.ogg",
+    "mediaPl": "gl021dhgwllr.ogg",
+    "answer": "zoe",
+    "category": "by_quote_sound_lol",
+    "gameTypes": [
+      "guess_league_champion"
+    ]
+  },
+  {
+    "key": "guess_league_champion_110",
+    "media": "gl023stbhnrs.ogg",
+    "mediaPl": "gl023stbhnrs.ogg",
+    "answer": "fiddlesticks",
+    "category": "by_quote_sound_lol",
+    "gameTypes": [
+      "guess_league_champion"
+    ]
+  },
+  {
+    "key": "guess_league_champion_111",
+    "media": "gl079vxmwtit.ogg",
+    "mediaPl": "gl079vxmwtit.ogg",
+    "answer": "irelia",
+    "category": "by_quote_sound_lol",
+    "gameTypes": [
+      "guess_league_champion"
+    ]
+  },
+  {
+    "key": "guess_league_champion_112",
+    "media": "gl087nibimtx.ogg",
+    "mediaPl": "gl087nibimtx.ogg",
+    "answer": "irelia",
+    "category": "by_quote_sound_lol",
+    "gameTypes": [
+      "guess_league_champion"
+    ]
+  },
+  {
+    "key": "guess_league_champion_113",
+    "media": "gl078fhvcnmy.ogg",
+    "mediaPl": "gl078fhvcnmy.ogg",
+    "answer": "kayle",
+    "category": "by_quote_sound_lol",
+    "gameTypes": [
+      "guess_league_champion"
+    ]
+  },
+  {
+    "key": "guess_league_champion_114",
+    "media": "gl068yxynmte.ogg",
+    "mediaPl": "gl068yxynmte.ogg",
+    "answer": "lillia",
+    "category": "by_quote_sound_lol",
+    "gameTypes": [
+      "guess_league_champion"
+    ]
+  },
+  {
+    "key": "guess_league_champion_115",
+    "media": "gl093xjwoveb.ogg",
+    "mediaPl": "gl093xjwoveb.ogg",
+    "answer": "nami",
+    "category": "by_quote_sound_lol",
+    "gameTypes": [
+      "guess_league_champion"
+    ]
+  },
+  {
+    "key": "guess_league_champion_116",
+    "media": "gl007msmmwhb.ogg",
+    "mediaPl": "gl007msmmwhb.ogg",
+    "answer": "nasus",
+    "category": "by_quote_sound_lol",
+    "gameTypes": [
+      "guess_league_champion"
+    ]
+  },
+  {
+    "key": "guess_league_champion_117",
+    "media": "gl092ygbjino.ogg",
+    "mediaPl": "gl092ygbjino.ogg",
+    "answer": "neeko",
+    "category": "by_quote_sound_lol",
+    "gameTypes": [
+      "guess_league_champion"
+    ]
+  },
+  {
+    "key": "guess_league_champion_118",
+    "media": "gl008pqbekkp.ogg",
+    "mediaPl": "gl008pqbekkp.ogg",
+    "answer": "seraphine",
+    "category": "by_quote_sound_lol",
+    "gameTypes": [
+      "guess_league_champion"
+    ]
+  },
+  {
+    "key": "guess_league_champion_119",
+    "media": "gl004rrdsdso.ogg",
+    "mediaPl": "gl004rrdsdso.ogg",
+    "answer": "singed",
+    "category": "by_quote_sound_lol",
+    "gameTypes": [
+      "guess_league_champion"
+    ]
+  },
+  {
+    "key": "guess_league_champion_120",
+    "media": "gl088ukmstye.ogg",
+    "mediaPl": "gl088ukmstye.ogg",
+    "answer": "syndra",
+    "category": "by_quote_sound_lol",
+    "gameTypes": [
+      "guess_league_champion"
+    ]
+  },
+  {
+    "key": "guess_league_champion_121",
+    "media": "gl067yxjkkmd.ogg",
+    "mediaPl": "gl067yxjkkmd.ogg",
+    "answer": "tahm_kench",
+    "category": "by_quote_sound_lol",
+    "gameTypes": [
+      "guess_league_champion"
+    ]
+  },
+  {
+    "key": "guess_league_champion_122",
+    "media": "gl016veonljx.ogg",
+    "mediaPl": "gl016veonljx.ogg",
+    "answer": "veigar",
+    "category": "by_quote_sound_lol",
+    "gameTypes": [
+      "guess_league_champion"
+    ]
+  },
+  {
+    "key": "guess_league_champion_123",
+    "media": "gl008cuyogsx.ogg",
+    "mediaPl": "gl008cuyogsx.ogg",
+    "answer": "vel_koz",
+    "category": "by_quote_sound_lol",
+    "gameTypes": [
+      "guess_league_champion"
+    ]
+  },
+  {
+    "key": "guess_league_champion_124",
+    "media": "gl007mpciowi.ogg",
+    "mediaPl": "gl007mpciowi.ogg",
+    "answer": "yuumi",
+    "category": "by_quote_sound_lol",
+    "gameTypes": [
+      "guess_league_champion"
+    ]
+  },
+  {
+    "key": "guess_league_champion_125",
+    "media": "gl089otiassg.ogg",
+    "mediaPl": "gl089otiassg.ogg",
+    "answer": "vex",
+    "category": "by_quote_sound_lol",
+    "gameTypes": [
+      "guess_league_champion"
+    ]
   }
 ]

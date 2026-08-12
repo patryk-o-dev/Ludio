@@ -104,6 +104,11 @@ const Settings = () => {
 		);
 	};
 
+	const handleChangeLangue = (lang: string) => {
+		localStorage.setItem("lang", lang);
+		i18n.changeLanguage(lang);
+	};
+
 	return (
 		<div
 			ref={settingsContainerRef}
@@ -130,7 +135,7 @@ const Settings = () => {
 								{t("settings.language")}
 							</h5>
 							<button
-								onClick={() => i18n.changeLanguage("en")}
+								onClick={() => handleChangeLangue("en")}
 								className={`flex flex-1 gap-1 justify-center rounded-lg px-3 py-2 text-xs font-light transition-all duration-200 ${
 									i18n.language === "en"
 										? "border border-(--accent) bg-(--bgc-primary) text-(--text)"
@@ -147,7 +152,7 @@ const Settings = () => {
 							</button>
 
 							<button
-								onClick={() => i18n.changeLanguage("pl")}
+								onClick={() => handleChangeLangue("pl")}
 								className={`flex flex-1 gap-1 justify-center rounded-lg px-3 py-2 text-xs font-light transition-all duration-200 ${
 									i18n.language === "pl"
 										? "border border-(--accent) bg-(--bgc-primary) text-(--text)"

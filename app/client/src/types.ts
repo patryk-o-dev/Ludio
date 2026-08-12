@@ -26,7 +26,7 @@ export type Rule = {
 
 export type GameOptionsState = {
 	difficulty: 1;
-	questionsPerRule: 3 | 5;
+	questionsPerRule: 3 | 5 | 7 | 10;
 	timeLimitSeconds: null | 10 | 20 | 30 | 50;
 	isCommunityQuiz: boolean;
 };
@@ -69,6 +69,7 @@ export type QuestionAnswer = {
 export type CurrentQuestion = {
 	id: string;
 	url: string;
+	urlPl?: string;
 	credits?: string;
 	achievement?: QuestionAchievement;
 	emoji?: string;

@@ -4,6 +4,8 @@ import { initReactI18next } from "react-i18next";
 import pl from "./locales/pl/translation.json";
 import en from "./locales/en/translation.json";
 
+const currentLang = localStorage.getItem("lang");
+
 i18n.use(initReactI18next).init({
 	resources: {
 		pl: {
@@ -13,7 +15,7 @@ i18n.use(initReactI18next).init({
 			translation: en,
 		},
 	},
-	lng: navigator.language,
+	lng: currentLang ?? navigator.language,
 	supportedLngs: ["pl", "en"],
 	nonExplicitSupportedLngs: true,
 	fallbackLng: "en",

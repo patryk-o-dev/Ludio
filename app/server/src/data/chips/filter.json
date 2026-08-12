@@ -18,5 +18,17 @@
   {
     "key": "killer",
     "name": "onlyKiller"
+  },
+  {
+    "key": "only_ban",
+    "name": "onlyBan"
+  },
+  {
+    "key": "only_pick",
+    "name": "onlyPick"
+  },
+  {
+    "key": "only_death",
+    "name": "onlyDeath"
   }
 ]

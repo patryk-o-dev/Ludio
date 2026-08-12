@@ -2,8 +2,7 @@ import type { GameOptionsState } from "../../types";
 import { useTranslation } from "react-i18next";
 import Icons from "../utils/Icons/Icons";
 
-const difficulty = [1] as const;
-const questionsPerRule = [3, 5] as const;
+const questionsPerRule = [3, 5, 7, 10] as const;
 const timeLimitSeconds = [null, 10, 20, 30, 50] as const;
 
 const btnBase =
@@ -25,23 +24,6 @@ const GameOptions = ({ options, onChange, hasPlayers }: GameOptionsProps) => {
 			<p className="text-(--text) font-bold text-md uppercase">
 				{t("game_options.title")}
 			</p>
-
-			<div className="flex flex-col gap-2">
-				<p className="text-(--accent) text-sm font-semibold">
-					{t("game_options.difficulty")}:
-				</p>
-				<div className="flex gap-2 flex-wrap">
-					{difficulty.map((d) => (
-						<button
-							key={d}
-							onClick={() => onChange({ ...options, difficulty: d })}
-							className={`${btnBase} ${options.difficulty === d ? btnSelected : btnIdle}`}
-						>
-							{d}
-						</button>
-					))}
-				</div>
-			</div>
 
 			<div className="flex flex-col gap-2">
 				<p className="text-(--accent) text-sm font-semibold">

@@ -2,36 +2,43 @@
   {
     "key": "the_clown",
     "value": "The Clown",
+    "valuePl": "Klaun",
     "chipGuess": ["guess_dbd_character"]
   },
   {
     "key": "the_trapper",
     "value": "The Trapper",
+    "valuePl": "Traper",
     "chipGuess": ["guess_dbd_character"]
   },
   {
     "key": "the_wraith",
     "value": "The Wraith",
+    "valuePl": "Widmo",
     "chipGuess": ["guess_dbd_character"]
   },
   {
     "key": "the_huntress",
     "value": "The Huntress",
+    "valuePl": "Łowczyni",
     "chipGuess": ["guess_dbd_character"]
   },
   {
     "key": "the_doctor",
     "value": "The Doctor",
+    "valuePl": "Doktor",
     "chipGuess": ["guess_dbd_character"]
   },
   {
     "key": "the_nurse",
     "value": "The Nurse",
+    "valuePl": "Pielęgniarka",
     "chipGuess": ["guess_dbd_character"]
   },
   {
     "key": "the_shape",
     "value": "The Shape",
+    "valuePl": "Kształt",
     "chipGuess": ["guess_dbd_character"]
   },
   {
@@ -42,11 +49,13 @@
   {
     "key": "the_executioner",
     "value": "The Executioner",
+    "valuePl": "Kat",
     "chipGuess": ["guess_dbd_character"]
   },
   {
     "key": "the_plague",
     "value": "The Plague",
+    "valuePl": "Plaga",
     "chipGuess": ["guess_dbd_character"]
   },
   {
@@ -122,6 +131,7 @@
   {
     "key": "the_nightmare",
     "value": "The Nightmare",
+    "valuePl": "Koszmar",
     "chipGuess": ["guess_dbd_character"]
   },
   {
@@ -142,6 +152,7 @@
   {
     "key": "the_legion",
     "value": "The Legion",
+    "valuePl": "Legion",
     "chipGuess": ["guess_dbd_character"]
   },
   {
@@ -152,6 +163,7 @@
   {
     "key": "the_ghoul",
     "value": "The Ghoul",
+    "valuePl": "Ghul",
     "chipGuess": ["guess_dbd_character"]
   },
   {
@@ -162,6 +174,7 @@
   {
     "key": "the_deathslinger",
     "value": "The Deathslinger",
+    "valuePl": "Śmiercionośca",
     "chipGuess": ["guess_dbd_character"]
   },
   {
@@ -172,6 +185,7 @@
   {
     "key": "the_hag",
     "value": "The Hag",
+    "valuePl": "Wiedźma",
     "chipGuess": ["guess_dbd_character"]
   },
   {
@@ -182,21 +196,25 @@
   {
     "key": "the_hillbilly",
     "value": "The Hillbilly",
+    "valuePl": "Wieśniak",
     "chipGuess": ["guess_dbd_character"]
   },
   {
     "key": "the_pig",
     "value": "The Pig",
+    "valuePl": "Świnia",
     "chipGuess": ["guess_dbd_character"]
   },
   {
     "key": "the_trickster",
     "value": "The Trickster",
+    "valuePl": "Magik",
     "chipGuess": ["guess_dbd_character"]
   },
   {
     "key": "the_artist",
     "value": "The Artist",
+    "valuePl": "Artystka",
     "chipGuess": ["guess_dbd_character"]
   }
 ]

@@ -15,6 +15,7 @@ async function syncAnswersData(filePath: string) {
       },
       update: {
         value: answer.value,
+        valuePl: answer.valuePl ?? null,
         chipGuesses: {
           set: answer.chipGuess.map((key: string) => ({
             key,
@@ -24,6 +25,7 @@ async function syncAnswersData(filePath: string) {
       create: {
         key: answer.key,
         value: answer.value,
+        valuePl: answer.valuePl ?? null,
         chipGuesses: {
           connect: answer.chipGuess.map((key: string) => ({
             key,

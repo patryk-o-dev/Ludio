@@ -3,11 +3,13 @@ import searchIcon from "../../assets/icons/magnifying-glass.png";
 import Ranking from "./Ranking";
 import type { SessionData } from "../../types";
 import { useTranslation } from "react-i18next";
+import i18n from "../../i18n";
 
-interface AnswerOption {
+type AnswerOption = {
 	id: string;
 	value: string;
-}
+	valuePl?: string;
+};
 
 interface AnswerPanelProps {
 	answers: AnswerOption[];
@@ -59,11 +61,29 @@ const AnswerPanel = ({
 	const itemRefs = useRef<HTMLButtonElement[]>([]);
 	const [activeIndex, setActiveIndex] = useState(0);
 
-	const filteredAnswers = answers
-		.filter((answer) =>
-			answer.value.toLowerCase().includes(inputValue.toLowerCase()),
-		)
-		.sort((a, b) => a.value.localeCompare(b.value));
+	const currentLang = i18n.language;
+	let filteredAnswers: AnswerOption[];
+
+	if (currentLang === "pl") {
+		filteredAnswers = answers
+			.filter((answer) => {
+				if (answer.valuePl) {
+					return (
+						answer.valuePl.toLowerCase().includes(inputValue.toLowerCase()) ||
+						answer.value.toLowerCase().includes(inputValue.toLowerCase())
+					);
+				} else {
+					return answer.value.toLowerCase().includes(inputValue.toLowerCase());
+				}
+			})
+			.sort((a, b) => a.value.localeCompare(b.value));
+	} else {
+		filteredAnswers = answers
+			.filter((answer) =>
+				answer.value.toLowerCase().includes(inputValue.toLowerCase()),
+			)
+			.sort((a, b) => a.value.localeCompare(b.value));
+	}
 
 	const handleSelectAnswer = useCallback(
 		(answerId: string, answerValue: string) => {
@@ -156,7 +176,9 @@ const AnswerPanel = ({
 											aria-selected={isSelected}
 											className={`w-full text-left px-4 py-2 rounded border transition-all duration-200 ${isActive ? "bg-(--accent)/22 border-(--accent)" : "border-(--accent)/50"} ${isSelected ? "bg-(--accent) border-(--accent)" : ""} hover:bg-(--accent)/15`}
 										>
-											{answer.value}
+											{currentLang === "en" && answer.value}
+											{currentLang === "pl" && answer.valuePl && answer.valuePl}
+											{currentLang === "pl" && !answer.valuePl && answer.value}
 										</button>
 									</li>
 								);

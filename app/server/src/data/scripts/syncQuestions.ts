@@ -7,6 +7,8 @@ async function syncQuestionsData(filePath: string, allKeys: string[]) {
   for (const question of questions) {
     allKeys.push(question.key);
 
+    const mediaPl = question.mediaPl ?? question.media;
+
     const answer = await prisma.answer.findUnique({
       where: {
         key: question.answer,
@@ -63,6 +65,7 @@ async function syncQuestionsData(filePath: string, allKeys: string[]) {
       },
       update: {
         url: `/static/${mediaPath}/media/${question.media}`,
+        urlPl: `/static/${mediaPath}/media/${mediaPl}`,
         credits: question.credits ? question.credits : null,
         emoji: question.emoji ? question.emoji : null,
         answerId: answer.id,
@@ -95,6 +98,7 @@ async function syncQuestionsData(filePath: string, allKeys: string[]) {
       create: {
         key: question.key,
         url: `/static/${mediaPath}/media/${question.media}`,
+        urlPl: `/static/${mediaPath}/media/${mediaPl}`,
         credits: question.credits ? question.credits : null,
         emoji: question.emoji ? question.emoji : null,
         answerId: answer.id,

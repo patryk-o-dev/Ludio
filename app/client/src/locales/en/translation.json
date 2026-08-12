@@ -121,11 +121,10 @@
 		"by_title_screen": "Title screen",
 		"by_cosplay": "Cosplay",
 		"by_image": "Image",
-		"by_death": "Death",
-		"by_pick": "Pick",
 		"by_frame": "Frame",
 		"by_trailer": "Trailer",
 		"by_quote_sound": "Quote sound",
+		"by_quote_sound_lol": "Quote sound",
 		"by_perk": "Perk",
 		"by_emoji": "Emoji"
 	},
@@ -135,6 +134,7 @@
 		"only_female": "Female only",
 		"only_death": "Death only",
 		"only_pick": "Pick only",
+		"only_ban": "Ban only",
 		"only_surv": "Survivors only",
 		"only_killer": "Killers only"
 	},

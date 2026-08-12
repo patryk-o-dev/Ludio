@@ -152,6 +152,7 @@
   {
     "key": "geralt_of_rivia",
     "value": "Geralt of Rivia",
+    "valuePl": "Geralt z Rivii",
     "chipGuess": ["guess_game_character"]
   },
   {
@@ -197,6 +198,7 @@
   {
     "key": "mercy",
     "value": "Mercy",
+    "valuePl": "Łaska",
     "chipGuess": ["guess_game_character"]
   },
   {

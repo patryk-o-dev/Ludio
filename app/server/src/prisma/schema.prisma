@@ -184,6 +184,7 @@ model Question {
   id         String @id @default(uuid())
   key        String @unique
   url        String
+  urlPl      String
   difficulty Int    @default(1)
   answerId   String
   chipById   String

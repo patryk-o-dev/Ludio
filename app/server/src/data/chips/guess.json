@@ -22,7 +22,7 @@
     "key": "guess_league_champion",
     "name": "guessLeagueChampion",
     "mode": "LEAGUE_OF_LEGENDS",
-    "compatibleChipBy": ["by_death", "by_pick"]
+    "compatibleChipBy": ["by_quote_sound_lol"]
   },
   {
     "key": "guess_movie",

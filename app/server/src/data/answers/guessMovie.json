@@ -7,6 +7,7 @@
   {
     "key": "fight_club",
     "value": "Fight Club",
+    "valuePl": "Podziemny krąg",
     "chipGuess": ["guess_movie"]
   },
   {
@@ -17,16 +18,19 @@
   {
     "key": "django_unchained",
     "value": "Django Unchained",
+    "valuePl": "Django",
     "chipGuess": ["guess_movie"]
   },
   {
     "key": "the_handmaiden",
     "value": "The Handmaiden",
+    "valuePl": "Służąca",
     "chipGuess": ["guess_movie"]
   },
   {
     "key": "shawshank_redemption",
     "value": "Shawshank Redemption",
+    "valuePl": "Skazani na Shawshank",
     "chipGuess": ["guess_movie"]
   },
   {
@@ -47,11 +51,13 @@
   {
     "key": "no_country_for_old_men",
     "value": "No Country for Old Men",
+    "valuePl": "To nie jest kraj dla starych ludzi",
     "chipGuess": ["guess_movie"]
   },
   {
     "key": "smile",
     "value": "Smile",
+    "valuePl": "Uśmiechnij się",
     "chipGuess": ["guess_movie"]
   },
   {
@@ -62,21 +68,25 @@
   {
     "key": "hacksaw_ridge",
     "value": "Hacksaw Ridge",
+    "valuePl": "Przełęcz ocalonych",
     "chipGuess": ["guess_movie"]
   },
   {
     "key": "platform",
     "value": "Platform",
+    "valuePl": "Platforma",
     "chipGuess": ["guess_movie"]
   },
   {
     "key": "black_swan",
     "value": "Black Swan",
+    "valuePl": "Czarny łabędź",
     "chipGuess": ["guess_movie"]
   },
   {
     "key": "hachi_a_dogs_tale",
     "value": "Hachi: A Dog's Tale",
+    "valuePl": "Mój przyjaciel Hachiko",
     "chipGuess": ["guess_movie"]
   },
   {
@@ -87,11 +97,13 @@
   {
     "key": "substance",
     "value": "Substance",
+    "valuePl": "Substancja",
     "chipGuess": ["guess_movie"]
   },
   {
     "key": "zodiac",
     "value": "Zodiac",
+    "valuePl": "Zodiak",
     "chipGuess": ["guess_movie"]
   },
   {
@@ -102,6 +114,7 @@
   {
     "key": "dont_look_up",
     "value": "Don't Look Up",
+    "valuePl": "Nie patrz w górę",
     "chipGuess": ["guess_movie"]
   }
 ]

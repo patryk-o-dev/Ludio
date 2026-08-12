@@ -99,18 +99,6 @@ export const chipNameToData = (
 			label: "chips.by_image",
 			color: "gaming",
 		},
-		byDeath: {
-			id: chipId,
-			icon: ["skull"],
-			label: "chips.by_death",
-			color: "league",
-		},
-		byPick: {
-			id: chipId,
-			icon: ["leagueoflegends"],
-			label: "chips.by_pick",
-			color: "league",
-		},
 		byFrame: {
 			id: chipId,
 			icon: ["movies"],
@@ -128,6 +116,12 @@ export const chipNameToData = (
 			icon: ["music"],
 			label: "chips.by_quote_sound",
 			color: "watching",
+		},
+		byQuoteSoundLol: {
+			id: chipId,
+			icon: ["music"],
+			label: "chips.by_quote_sound_lol",
+			color: "league",
 		},
 		byPerk: {
 			id: chipId,
@@ -173,6 +167,24 @@ export const chipNameToData = (
 			label: "filters.only_killer",
 			color: "text",
 		},
+		onlyPick: {
+			id: chipId,
+			icon: ["pluscircle"],
+			label: "only_pick",
+			color: "text",
+		},
+		onlyBan: {
+			id: chipId,
+			icon: ["cancel"],
+			label: "only_ban",
+			color: "text",
+		},
+		onlyDeath: {
+			id: chipId,
+			icon: ["skull"],
+			label: "only_death",
+			color: "text",
+		},
 	};
 
 	return (
@@ -192,6 +204,7 @@ export const chipFilterNameToTranslationKey = (filterName: string) => {
 		onlyFemale: "filters.only_female",
 		onlyDeath: "filters.only_death",
 		onlyPick: "filters.only_pick",
+		onlyBan: "filters.only_ban",
 		onlySurv: "filters.only_surv",
 		onlyKiller: "filters.only_killer",
 	};

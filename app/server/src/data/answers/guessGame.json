@@ -17,6 +17,7 @@
   {
     "key": "the_vanishing_of_ethan_carter",
     "value": "The Vanishing of Ethan Carter",
+    "valuePl": "Zaginięcie Ethana Cartera",
     "chipGuess": ["guess_game"]
   },
   {
@@ -37,6 +38,7 @@
   {
     "key": "south_park_the_stick_of_truth",
     "value": "South Park: The Stick of Truth",
+    "valuePl": "South Park: Kijek Prawdy",
     "chipGuess": ["guess_game"]
   },
   {
@@ -52,6 +54,7 @@
   {
     "key": "witcher_3_wild_hunt",
     "value": "Witcher 3: Wild Hunt",
+    "valuePl": "Wiedźmin 3: Dziki Gon",
     "chipGuess": ["guess_game"]
   },
   {
@@ -82,6 +85,7 @@
   {
     "key": "gwent_the_witcher_card_game",
     "value": "Gwent: The Witcher Card Game",
+    "valuePl": "Gwint: Wiedźmińska Gra Karciana",
     "chipGuess": ["guess_game"]
   },
   {

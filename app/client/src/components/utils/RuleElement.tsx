@@ -150,7 +150,13 @@ const RuleElement = ({ rule, ruleNumber }: RuleElementProps) => {
 								const renderAsIcon =
 									filter.name === "onlyMale" ||
 									filter.name === "onlyFemale" ||
-									filter.name === "onlyHorror";
+									filter.name === "onlyHorror" ||
+									filter.name === "only Pick" ||
+									filter.name === "only Ban" ||
+									filter.name === "only Death" ||
+									filter.name === "onlyPick" ||
+									filter.name === "onlyBan" ||
+									filter.name === "onlyDeath";
 
 								return (
 									<button

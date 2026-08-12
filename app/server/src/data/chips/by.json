@@ -40,16 +40,6 @@
     "compatibleChipFilters": ["filter_only_male", "filter_only_female"]
   },
   {
-    "key": "by_death",
-    "name": "byDeath",
-    "compatibleChipFilters": []
-  },
-  {
-    "key": "by_pick",
-    "name": "byPick",
-    "compatibleChipFilters": []
-  },
-  {
     "key": "by_frame",
     "name": "byFrame",
     "compatibleChipFilters": []
@@ -63,6 +53,11 @@
     "key": "by_quote_sound",
     "name": "byQuoteSound",
     "compatibleChipFilters": []
+  },
+  {
+    "key": "by_quote_sound_lol",
+    "name": "byQuoteSoundLol",
+    "compatibleChipFilters": ["only_ban", "only_pick", "only_death"]
   },
   {
     "key": "by_perk",
