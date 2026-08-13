@@ -6,7 +6,7 @@ import style from "./FriendCard.module.scss";
 import { useGSAP } from "@gsap/react";
 import gsap from "gsap";
 import { useTranslation } from "react-i18next";
-import { withAuth } from "./api";
+import { API_URL, withAuth } from "./api";
 
 interface FriendCardProps {
 	name?: string;
@@ -38,7 +38,7 @@ const FriendCard = ({
 	onSessionInviteResponse,
 	variant,
 }: FriendCardProps) => {
-	const API = import.meta.env.VITE_API_URL;
+	const API = API_URL;
 	const { t } = useTranslation();
 	const addPlayer = useGameConfigStore((state) => state.addPlayer);
 	const removePlayer = useGameConfigStore((state) => state.removePlayer);

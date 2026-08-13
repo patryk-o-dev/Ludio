@@ -14,14 +14,14 @@ import {
 	acquireSharedSocket,
 	releaseSharedSocket,
 } from "../utils/socketClient";
-import { withAuth } from "../utils/api";
+import { API_URL, withAuth } from "../utils/api";
 import Icons from "../utils/Icons/Icons";
 import useQuizSessionStore from "../../store/quizSessionStore";
 import { unlockAudio } from "../utils/audio";
 
 const FriendsList = () => {
 	const navigate = useNavigate();
-	const API = import.meta.env.VITE_API_URL;
+	const API = API_URL;
 	const [searchFriendInput, setSearchFriend] = useState(false);
 	const [searchQuery, setSearchQuery] = useState("");
 	const [inviteSent, setInviteSent] = useState(false);

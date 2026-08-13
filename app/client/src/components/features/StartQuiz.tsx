@@ -3,10 +3,10 @@ import { useNavigate } from "react-router-dom";
 import useGameConfigStore from "../../store/gameConfigStore";
 import ding from "../../assets/sounds/ding.mp3";
 import { useTranslation } from "react-i18next";
-import { withAuth } from "../utils/api";
+import { API_URL, withAuth } from "../utils/api";
 import { unlockAudio } from "../utils/audio";
 
-const API = import.meta.env.VITE_API_URL;
+const API = API_URL;
 
 type CreateGameConfigResponse = {
 	id: string;

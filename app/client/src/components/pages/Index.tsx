@@ -3,7 +3,7 @@ import NavBar from "../layout/NavBar";
 import MainContent from "../layout/MainContent";
 import Popup from "../utils/Popup";
 import { useEffect, useState } from "react";
-import { withAuth } from "../utils/api";
+import { API_URL, withAuth } from "../utils/api";
 import useQuizSessionStore from "../../store/quizSessionStore";
 const Index = () => {
 	const failedJoinCommunity = localStorage.getItem("failedJoinCommunity");
@@ -11,7 +11,7 @@ const Index = () => {
 	const setUserSessionStatus = useQuizSessionStore(
 		(state) => state.setUserSessionStatus,
 	);
-	const API = import.meta.env.VITE_API_URL;
+	const API = API_URL;
 
 	useEffect(() => {
 		if (failedJoinCommunity) {

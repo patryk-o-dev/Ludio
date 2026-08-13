@@ -4,7 +4,7 @@ import { useEffect, useRef, useState } from "react";
 import AnswerResults from "./AnswerResults";
 import Icons from "../utils/Icons/Icons";
 import { useTranslation } from "react-i18next";
-import { withAuth } from "../utils/api";
+import { API_ORIGIN, API_URL, withAuth } from "../utils/api";
 import Achievement from "../utils/Achievement";
 
 interface MediaDisplayProps {
@@ -23,8 +23,6 @@ interface MediaDisplayProps {
 	showAnswerOverlay?: boolean;
 }
 
-const API_ORIGIN = "http://localhost:3000";
-
 const MediaDisplay = ({
 	sessionId,
 	hostId,
@@ -39,7 +37,7 @@ const MediaDisplay = ({
 	showAnswerOverlay = false,
 }: MediaDisplayProps) => {
 	const { t } = useTranslation();
-	const API = import.meta.env.VITE_API_URL;
+	const API = API_URL;
 	const [isStarting, setIsStarting] = useState(false);
 	const [startError, setStartError] = useState<string | null>(null);
 	const mediaType =

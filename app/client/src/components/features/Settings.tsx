@@ -4,9 +4,9 @@ import { useTranslation } from "react-i18next";
 import i18n from "../../i18n";
 import { useGSAP } from "@gsap/react";
 import gsap from "gsap";
-import { withAuth } from "../utils/api";
+import { API_URL, withAuth } from "../utils/api";
 
-const API = import.meta.env.VITE_API_URL;
+const API = API_URL;
 
 const Settings = () => {
 	const { t } = useTranslation();

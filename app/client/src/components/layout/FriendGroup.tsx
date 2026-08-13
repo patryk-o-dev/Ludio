@@ -1,6 +1,6 @@
 import { Children, useState } from "react";
 import Icons from "../utils/Icons/Icons";
-import { withAuth } from "../utils/api";
+import { API_URL, withAuth } from "../utils/api";
 
 const FriendGroup = ({
 	children,
@@ -11,7 +11,7 @@ const FriendGroup = ({
 	name: string;
 	communityId?: string;
 }) => {
-	const API = import.meta.env.VITE_API_URL;
+	const API = API_URL;
 	const [isExpanded, setIsExpanded] = useState(true);
 	const itemCount = Children.count(children);
 	const handleLeaveCommunity = async () => {

@@ -5,6 +5,7 @@ import {
   UnauthorizedException,
 } from '@nestjs/common';
 import { randomUUID } from 'crypto';
+import { getFrontendOrigin } from '@/config/frontend-origin';
 import { PrismaService } from '../prisma/prisma.service';
 import { RedisService } from '../redis/redis.service';
 
@@ -44,7 +45,13 @@ export class AuthService {
   }
 
   private getFrontendOrigin() {
-    return process.env.FRONTEND_ORIGIN ?? 'http://localhost:5173';
+    try {
+      return getFrontendOrigin();
+    } catch {
+      throw new InternalServerErrorException(
+        'FRONTEND_ORIGIN is not configured',
+      );
+    }
   }
 
   private getTwitchRedirectUri() {

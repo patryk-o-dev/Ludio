@@ -16,11 +16,12 @@ import {
 	acquireSharedSocket,
 	releaseSharedSocket,
 } from "../utils/socketClient";
+import { API_URL } from "../utils/api";
 import chooseAnswerSound from "../../assets/sounds/choose_answer.mp3";
 import correctAnswerSound from "../../assets/sounds/correct_answer.mp3";
 import { playUiSound } from "../utils/audio";
 
-const API = import.meta.env.VITE_API_URL;
+const API = API_URL;
 
 const QuizSession = () => {
 	const { id } = useParams<{ id: string }>();

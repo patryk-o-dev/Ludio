@@ -3,6 +3,7 @@ import {
   Injectable,
   NotFoundException,
 } from '@nestjs/common';
+import { getFrontendOrigin } from '@/config/frontend-origin';
 import { PrismaService } from '../prisma/prisma.service';
 import { CommunityResponseDto } from './dto/community-response.dto';
 
@@ -11,7 +12,7 @@ export class CommunityService {
   constructor(private readonly prisma: PrismaService) {}
 
   async create(ownerId: string) {
-    const inviteLinkBase = 'http://localhost:5173/community/join?join=';
+    const inviteLinkBase = `${getFrontendOrigin()}/community/join?join=`;
     const owner = await this.prisma.user.findUnique({
       where: { id: ownerId },
     });

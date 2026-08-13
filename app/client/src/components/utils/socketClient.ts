@@ -1,6 +1,5 @@
 import { io, type Socket } from "socket.io-client";
-
-const SOCKET_URL = import.meta.env.VITE_API_URL.replace(/\/api$/, "");
+import { SOCKET_URL } from "./api";
 
 type SharedSocketOptions = {
 	userId?: string | null;

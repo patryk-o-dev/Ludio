@@ -4,8 +4,9 @@ import { getStoredAuthUser } from "../utils/authStorage";
 import Icons from "../utils/Icons/Icons";
 import { useTranslation } from "react-i18next";
 import useQuizSessionStore from "../../store/quizSessionStore";
+import { API_URL } from "../utils/api";
 
-const API = import.meta.env.VITE_API_URL;
+const API = API_URL;
 
 const Profile = () => {
 	const authUser = getStoredAuthUser();

@@ -5,8 +5,9 @@ import useGameConfigStore from "../../store/gameConfigStore";
 import useChipsStore from "../../store/chipsStore";
 import { useTranslation } from "react-i18next";
 import type { GameMode } from "../../types";
+import { API_URL } from "../utils/api";
 
-const API = import.meta.env.VITE_API_URL;
+const API = API_URL;
 
 type Tab = "chips" | "options";
 

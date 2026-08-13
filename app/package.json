@@ -1,0 +1,15 @@
+{
+	"name": "ludio",
+	"private": true,
+	"scripts": {
+		"dev": "concurrently \"yarn dev:client\" \"yarn dev:server\"",
+		"dev:client": "yarn --cwd client dev",
+		"dev:server": "yarn --cwd server start:dev",
+		"build": "yarn build:client && yarn build:server",
+		"build:client": "yarn --cwd client build",
+		"build:server": "yarn --cwd server build"
+	},
+	"devDependencies": {
+		"concurrently": "^10.0.4"
+	}
+}

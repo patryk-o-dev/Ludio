@@ -2,7 +2,7 @@ import type { SessionData } from "../../types";
 import AnswerPanel from "../features/AnswerPanel";
 import MediaDisplay from "../features/MediaDisplay";
 import { useTranslation } from "react-i18next";
-import { withAuth } from "../utils/api";
+import { API_URL, withAuth } from "../utils/api";
 import i18n from "../../i18n";
 
 interface QuizStageProps {
@@ -23,7 +23,7 @@ const QuizStage = ({
 	onSelectAnswer,
 }: QuizStageProps) => {
 	const { t } = useTranslation();
-	const API = import.meta.env.VITE_API_URL;
+	const API = API_URL;
 	const currentQuestion = session.live.question;
 	const currentLang = i18n.language;
 	const mediaUrlByLang =
