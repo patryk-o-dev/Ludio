@@ -1,12 +1,14 @@
 services:
-  client:
-    build:
-      context: ../client
-      dockerfile: Dockerfile
-    ports:
-      - '8080:80'
-    depends_on:
-      - server
+client:
+  build:
+    context: ../client
+    dockerfile: Dockerfile
+    args:
+      VITE_API_URL: http://132.145.238.104:3000
+  ports:
+    - '8080:80'
+  depends_on:
+    - server
 
   server:
     build:
