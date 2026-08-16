@@ -8,7 +8,7 @@ RUN npm install
 
 COPY . .
 
-RUN npx prisma generate
+RUN DATABASE_URL="mysql://root:temporary@localhost:3306/capyquiz" npx prisma generate
 
 RUN yarn build
 
