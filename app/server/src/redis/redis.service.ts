@@ -33,13 +33,21 @@ export class RedisService {
   }
 
   async delIfEqual(key: string, expectedValue: string): Promise<boolean> {
-    const currentValue = await this.get(key);
-    if (currentValue !== expectedValue) {
-      return false;
-    }
+    const result = await client.eval(
+      `
+        if redis.call('GET', KEYS[1]) == ARGV[1] then
+          return redis.call('DEL', KEYS[1])
+        end
 
-    await this.del(key);
-    return true;
+        return 0
+      `,
+      {
+        keys: [key],
+        arguments: [expectedValue],
+      },
+    );
+
+    return result === 1;
   }
 
   async getJson<T>(key: string): Promise<T | null> {

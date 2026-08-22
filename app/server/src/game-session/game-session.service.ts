@@ -56,6 +56,9 @@ export class GameSessionService implements OnModuleInit {
   private readonly logger = new Logger(GameSessionService.name);
   private readonly summaryTimeSeconds = 3;
   private readonly sessionLoopLockTtlSeconds = 15;
+  private readonly sessionStateLockTtlSeconds = 30;
+  private readonly sessionStateLockRetryDelayMs = 50;
+  private readonly sessionStateLockRetryAttempts = 60;
 
   constructor(
     private readonly prisma: PrismaService,
@@ -127,6 +130,76 @@ export class GameSessionService implements OnModuleInit {
     }
   }
 
+  private getStateLockKey(sessionId: string) {
+    return `game-session:${sessionId}:state-lock`;
+  }
+
+  private async withSessionStateLock<T>(
+    sessionId: string,
+    routine: () => Promise<T>,
+  ): Promise<T> {
+    const lockKey = this.getStateLockKey(sessionId);
+    const lockValue = `${process.pid}:${Date.now()}:${Math.random()}`;
+
+    for (
+      let attempt = 1;
+      attempt <= this.sessionStateLockRetryAttempts;
+      attempt += 1
+    ) {
+      try {
+        const acquired = await this.redisService.setIfAbsent(
+          lockKey,
+          lockValue,
+          this.sessionStateLockTtlSeconds,
+        );
+
+        if (!acquired) {
+          if (attempt < this.sessionStateLockRetryAttempts) {
+            await new Promise<void>((resolve) => {
+              setTimeout(resolve, this.sessionStateLockRetryDelayMs);
+            });
+            continue;
+          }
+
+          const message = `Timed out acquiring session state lock for session ${sessionId}`;
+          this.logger.error(message);
+          throw new Error(message);
+        }
+      } catch (error) {
+        this.logger.error(
+          `Failed to acquire session state lock for session ${sessionId}`,
+          error instanceof Error ? error.stack : undefined,
+        );
+        throw error;
+      }
+
+      try {
+        return await routine();
+      } finally {
+        try {
+          const released = await this.redisService.delIfEqual(
+            lockKey,
+            lockValue,
+          );
+
+          if (!released) {
+            this.logger.warn(
+              `State lock for session ${sessionId} was not released because ownership changed`,
+            );
+          }
+        } catch {
+          this.logger.warn(
+            `Failed to release session state lock for session ${sessionId}`,
+          );
+        }
+      }
+    }
+
+    throw new Error(
+      `Unexpected state lock control flow for session ${sessionId}`,
+    );
+  }
+
   private getStateKey(sessionId: string) {
     return `game-session:${sessionId}:state`;
   }
@@ -155,7 +228,7 @@ export class GameSessionService implements OnModuleInit {
     });
   }
 
-  private async ensureTotalPlayers(
+  private async ensureTotalPlayersLocked(
     sessionId: string,
     state: SessionLiveState,
   ): Promise<SessionLiveState> {
@@ -194,21 +267,55 @@ export class GameSessionService implements OnModuleInit {
       return;
     }
 
-    const normalizedState = await this.ensureTotalPlayers(sessionId, state);
-
-    if (
-      (normalizedState.phase === 'question' &&
-        normalizedState.expiresAt !== null &&
-        normalizedState.expiresAt <= Date.now()) ||
-      (normalizedState.phase === 'summary' &&
-        normalizedState.summaryEndsAt !== null &&
-        normalizedState.summaryEndsAt <= Date.now())
-    ) {
-      await this.reconcileStoredState(sessionId, normalizedState);
+    const normalizedState = await this.reconcileStoredState(sessionId, state);
+    if (!normalizedState) {
       return;
     }
 
     this.scheduleSessionProgress(sessionId, normalizedState);
+  }
+
+  private async reconcileStoredStateLocked(sessionId: string) {
+    const currentState = await this.getStoredState(sessionId);
+    if (!currentState) {
+      return { state: null, shouldStartQuizLoop: false };
+    }
+
+    const normalizedState = await this.ensureTotalPlayersLocked(
+      sessionId,
+      currentState,
+    );
+
+    if (
+      normalizedState.phase === 'question' &&
+      normalizedState.expiresAt !== null &&
+      normalizedState.expiresAt <= Date.now()
+    ) {
+      return {
+        state: await this.finishQuestionLocked(
+          sessionId,
+          this.summaryTimeSeconds,
+          normalizedState,
+        ),
+        shouldStartQuizLoop: false,
+      };
+    }
+
+    if (
+      normalizedState.phase === 'summary' &&
+      normalizedState.summaryEndsAt !== null &&
+      normalizedState.summaryEndsAt <= Date.now()
+    ) {
+      return {
+        state: normalizedState,
+        shouldStartQuizLoop: true,
+      };
+    }
+
+    return {
+      state: normalizedState,
+      shouldStartQuizLoop: false,
+    };
   }
 
   private async reconcileStoredState(
@@ -220,30 +327,16 @@ export class GameSessionService implements OnModuleInit {
       return null;
     }
 
-    const normalizedState = await this.ensureTotalPlayers(
-      sessionId,
-      currentState,
+    const reconciliation = await this.withSessionStateLock(sessionId, () =>
+      this.reconcileStoredStateLocked(sessionId),
     );
 
-    if (
-      normalizedState.phase === 'question' &&
-      normalizedState.expiresAt !== null &&
-      normalizedState.expiresAt <= Date.now()
-    ) {
-      await this.finishQuestion(sessionId, this.summaryTimeSeconds);
-      return this.getStoredState(sessionId);
-    }
-
-    if (
-      normalizedState.phase === 'summary' &&
-      normalizedState.summaryEndsAt !== null &&
-      normalizedState.summaryEndsAt <= Date.now()
-    ) {
+    if (reconciliation.shouldStartQuizLoop) {
       await this.startQuizLoop(sessionId);
       return this.getStoredState(sessionId);
     }
 
-    return normalizedState;
+    return reconciliation.state;
   }
 
   private toUiStatus(
@@ -595,28 +688,50 @@ export class GameSessionService implements OnModuleInit {
 
     this.logger.log(`Player ${userId} surrendered from session ${sessionId}`);
 
-    const liveState = await this.reconcileStoredState(sessionId);
+    const shouldStartQuizLoop = await this.withSessionStateLock(
+      sessionId,
+      async () => {
+        const reconciliation = await this.reconcileStoredStateLocked(sessionId);
 
-    if (liveState && liveState.phase === 'question') {
-      if (!liveState.answeredUserIds.includes(userId)) {
-        const updatedAnsweredUserIds = [...liveState.answeredUserIds, userId];
-        const nextState = {
-          ...liveState,
-          answeredUserIds: updatedAnsweredUserIds,
-        } satisfies SessionLiveState;
-
-        await this.setStoredState(sessionId, nextState);
-
-        this.gateway.server.to(sessionId).emit('session:player-answered', {
-          userId,
-          correct: false,
-          points: 0,
-        });
-
-        if (updatedAnsweredUserIds.length >= liveState.totalPlayers) {
-          await this.finishQuestion(sessionId, this.summaryTimeSeconds);
+        if (reconciliation.shouldStartQuizLoop) {
+          return true;
         }
-      }
+
+        const liveState = reconciliation.state;
+        if (
+          liveState &&
+          liveState.phase === 'question' &&
+          !liveState.answeredUserIds.includes(userId)
+        ) {
+          const updatedAnsweredUserIds = [...liveState.answeredUserIds, userId];
+          const nextState = {
+            ...liveState,
+            answeredUserIds: updatedAnsweredUserIds,
+          } satisfies SessionLiveState;
+
+          await this.setStoredState(sessionId, nextState);
+
+          this.gateway.server.to(sessionId).emit('session:player-answered', {
+            userId,
+            correct: false,
+            points: 0,
+          });
+
+          if (updatedAnsweredUserIds.length >= liveState.totalPlayers) {
+            await this.finishQuestionLocked(
+              sessionId,
+              this.summaryTimeSeconds,
+              nextState,
+            );
+          }
+        }
+
+        return false;
+      },
+    );
+
+    if (shouldStartQuizLoop) {
+      await this.startQuizLoop(sessionId);
     }
 
     this.gateway.server.to(sessionId).emit('session:player-left', {
@@ -627,83 +742,104 @@ export class GameSessionService implements OnModuleInit {
   }
 
   async submitAnswer(sessionId: string, userId: string, answerId: string) {
-    const liveState = await this.reconcileStoredState(sessionId);
-    if (
-      !liveState ||
-      liveState.phase !== 'question' ||
-      !liveState.questionId ||
-      liveState.answeredUserIds.includes(userId)
-    ) {
-      this.logger.warn(
-        `Ignoring answer for session ${sessionId}, user ${userId}. live=${Boolean(liveState)}, phase=${liveState?.phase ?? 'none'}, questionId=${liveState?.questionId ?? 'none'}, alreadyAnswered=${liveState?.answeredUserIds.includes(userId) ?? false}`,
-      );
-      return;
-    }
+    const shouldStartQuizLoop = await this.withSessionStateLock(
+      sessionId,
+      async () => {
+        const reconciliation = await this.reconcileStoredStateLocked(sessionId);
 
-    if (liveState.expiresAt !== null && Date.now() > liveState.expiresAt) {
-      this.logger.warn(
-        `Ignoring expired answer for session ${sessionId}, user ${userId}`,
-      );
-      return;
-    }
+        if (reconciliation.shouldStartQuizLoop) {
+          return true;
+        }
 
-    const question = await this.prisma.question.findUnique({
-      where: { id: liveState.questionId },
-    });
-    if (!question) {
-      this.logger.warn(
-        `Question ${liveState.questionId} not found for session ${sessionId}`,
-      );
-      return;
-    }
+        const liveState = reconciliation.state;
+        if (
+          !liveState ||
+          liveState.phase !== 'question' ||
+          !liveState.questionId ||
+          liveState.answeredUserIds.includes(userId)
+        ) {
+          this.logger.warn(
+            `Ignoring answer for session ${sessionId}, user ${userId}. live=${Boolean(liveState)}, phase=${liveState?.phase ?? 'none'}, questionId=${liveState?.questionId ?? 'none'}, alreadyAnswered=${liveState?.answeredUserIds.includes(userId) ?? false}`,
+          );
+          return false;
+        }
 
-    const player = await this.prisma.gameSessionPlayer.findFirst({
-      where: {
-        gameSessionId: sessionId,
-        userId: userId,
+        if (liveState.expiresAt !== null && Date.now() > liveState.expiresAt) {
+          this.logger.warn(
+            `Ignoring expired answer for session ${sessionId}, user ${userId}`,
+          );
+          return false;
+        }
+
+        const question = await this.prisma.question.findUnique({
+          where: { id: liveState.questionId },
+        });
+        if (!question) {
+          this.logger.warn(
+            `Question ${liveState.questionId} not found for session ${sessionId}`,
+          );
+          return false;
+        }
+
+        const player = await this.prisma.gameSessionPlayer.findFirst({
+          where: {
+            gameSessionId: sessionId,
+            userId: userId,
+          },
+        });
+
+        if (!player || player.status !== 'Answering') {
+          this.logger.warn(
+            `Ignoring answer for inactive player ${userId} in session ${sessionId}`,
+          );
+          return false;
+        }
+
+        const timeMs =
+          liveState.startedAt !== null ? Date.now() - liveState.startedAt : 0;
+
+        const correct = question.answerId === answerId;
+        const points = correct ? 1 : 0;
+
+        await this.prisma.gameSessionPlayer.update({
+          where: {
+            gameSessionId_userId: { gameSessionId: sessionId, userId },
+          },
+          data: {
+            score: { increment: points },
+            timeMs: { increment: timeMs },
+          },
+        });
+
+        const answeredUserIds = [
+          ...new Set([...liveState.answeredUserIds, userId]),
+        ];
+        const nextState = {
+          ...liveState,
+          answeredUserIds,
+        } satisfies SessionLiveState;
+
+        await this.setStoredState(sessionId, nextState);
+
+        this.gateway.server.to(sessionId).emit('session:player-answered', {
+          userId,
+          points,
+        });
+
+        if (answeredUserIds.length >= liveState.totalPlayers) {
+          await this.finishQuestionLocked(
+            sessionId,
+            this.summaryTimeSeconds,
+            nextState,
+          );
+        }
+
+        return false;
       },
-    });
+    );
 
-    if (!player || player.status !== 'Answering') {
-      this.logger.warn(
-        `Ignoring answer for inactive player ${userId} in session ${sessionId}`,
-      );
-      return;
-    }
-
-    const timeMs =
-      liveState.startedAt !== null ? Date.now() - liveState.startedAt : 0;
-
-    const correct = question.answerId === answerId;
-    const points = correct ? 1 : 0;
-
-    await this.prisma.gameSessionPlayer.update({
-      where: {
-        gameSessionId_userId: { gameSessionId: sessionId, userId },
-      },
-      data: {
-        score: { increment: points },
-        timeMs: { increment: timeMs },
-      },
-    });
-
-    const answeredUserIds = [
-      ...new Set([...liveState.answeredUserIds, userId]),
-    ];
-    const nextState = {
-      ...liveState,
-      answeredUserIds,
-    } satisfies SessionLiveState;
-
-    await this.setStoredState(sessionId, nextState);
-
-    this.gateway.server.to(sessionId).emit('session:player-answered', {
-      userId,
-      points,
-    });
-
-    if (answeredUserIds.length >= liveState.totalPlayers) {
-      await this.finishQuestion(sessionId, this.summaryTimeSeconds);
+    if (shouldStartQuizLoop) {
+      await this.startQuizLoop(sessionId);
     }
   }
 
@@ -779,263 +915,278 @@ export class GameSessionService implements OnModuleInit {
 
   private async startQuizLoop(sessionId: string) {
     await this.withSessionLoopLock(sessionId, async () => {
-      const currentLiveState = await this.getStoredState(sessionId);
-      if (
-        currentLiveState?.phase === 'question' ||
-        currentLiveState?.phase === 'completed' ||
-        (currentLiveState?.phase === 'summary' &&
-          currentLiveState.summaryEndsAt !== null &&
-          currentLiveState.summaryEndsAt > Date.now())
-      ) {
-        return;
-      }
-
-      const session = await this.prisma.gameSession.findUnique({
-        where: { id: sessionId },
-        include: {
-          gameConfig: {
-            include: {
-              rules: {
-                include: {
-                  chipFilters: true,
-                },
-              },
-              options: true,
-            },
-          },
-          players: true,
-          usedQuestions: true,
-        },
-      });
-      if (!session) {
-        throw new NotFoundException('Game session not found');
-      }
-
-      const qIndex = session.qIndex || 0;
-      const questionsPerRule = session.gameConfig.options.questionLimit;
-      const timeLimitSeconds = session.gameConfig.options.timeLimitSeconds;
-      const totalRules = session.gameConfig.rules.length;
-      const totalQuestions = questionsPerRule * totalRules;
-
-      if (qIndex >= totalQuestions) {
-        await this.endGame(sessionId);
-        return;
-      }
-
-      const currentRuleIndex =
-        Math.floor(qIndex / questionsPerRule) % totalRules;
-      const usedIds = session.usedQuestions.map((q) => q.id);
-      const currentRule = session.gameConfig.rules[currentRuleIndex];
-      const filterIds = currentRule.chipFilters.map((f) => f.id);
-
-      let questions = await this.prisma.question.findMany({
-        where: {
-          id: {
-            notIn: usedIds,
-          },
-          chipGuesses: {
-            some: {
-              id: currentRule.chipGuessId,
-            },
-          },
-          difficulty: session.gameConfig.options.difficulty,
-          chipBy: {
-            id: currentRule.chipById,
-          },
-          ...(filterIds.length > 0 && {
-            chipFilters: {
-              some: {
-                id: {
-                  in: filterIds,
-                },
-              },
-            },
-          }),
-        },
-        include: {
-          achievement: true,
-        },
-      });
-
-      if (!questions.length) {
-        if (usedIds.length > 0) {
-          this.logger.warn(
-            `No unused questions left for session ${sessionId}. Resetting usedQuestions and retrying within the same lock`,
-          );
-
-          await this.prisma.gameSession.update({
-            where: { id: sessionId },
-            data: {
-              usedQuestions: {
-                set: [],
-              },
-            },
-          });
-
-          questions = await this.prisma.question.findMany({
-            where: {
-              chipGuesses: {
-                some: {
-                  id: currentRule.chipGuessId,
-                },
-              },
-              difficulty: session.gameConfig.options.difficulty,
-              chipBy: {
-                id: currentRule.chipById,
-              },
-              ...(filterIds.length > 0 && {
-                chipFilters: {
-                  some: {
-                    id: {
-                      in: filterIds,
-                    },
-                  },
-                },
-              }),
-            },
-            include: {
-              achievement: true,
-            },
-          });
-        }
-
-        if (!questions.length) {
-          this.logger.warn(
-            `No questions matched session ${sessionId} ruleIndex=${currentRuleIndex}. Session will stay active without starting a question until the rule/config is fixed`,
-          );
+      await this.withSessionStateLock(sessionId, async () => {
+        const currentLiveState = await this.getStoredState(sessionId);
+        if (
+          currentLiveState?.phase === 'question' ||
+          currentLiveState?.phase === 'completed' ||
+          (currentLiveState?.phase === 'summary' &&
+            currentLiveState.summaryEndsAt !== null &&
+            currentLiveState.summaryEndsAt > Date.now())
+        ) {
           return;
         }
-      }
 
-      const randomQuestion =
-        questions[Math.floor(Math.random() * questions.length)];
-
-      const answerQuestions = await this.prisma.question.findMany({
-        where: {
-          chipGuesses: {
-            some: {
-              id: currentRule.chipGuessId,
-            },
-          },
-          ...(filterIds.length > 0 && {
-            chipFilters: {
-              some: {
-                id: {
-                  in: filterIds,
+        const session = await this.prisma.gameSession.findUnique({
+          where: { id: sessionId },
+          include: {
+            gameConfig: {
+              include: {
+                rules: {
+                  include: {
+                    chipFilters: true,
+                  },
                 },
+                options: true,
               },
             },
-          }),
-        },
-        select: {
-          answer: {
-            select: {
-              id: true,
-              value: true,
-              valuePl: true,
+            players: true,
+            usedQuestions: true,
+          },
+        });
+        if (!session) {
+          throw new NotFoundException('Game session not found');
+        }
+
+        const qIndex = session.qIndex || 0;
+        const questionsPerRule = session.gameConfig.options.questionLimit;
+        const timeLimitSeconds = session.gameConfig.options.timeLimitSeconds;
+        const totalRules = session.gameConfig.rules.length;
+        const totalQuestions = questionsPerRule * totalRules;
+
+        if (qIndex >= totalQuestions) {
+          await this.endGame(sessionId);
+          return;
+        }
+
+        const currentRuleIndex =
+          Math.floor(qIndex / questionsPerRule) % totalRules;
+        const usedIds = session.usedQuestions.map((q) => q.id);
+        const currentRule = session.gameConfig.rules[currentRuleIndex];
+        const filterIds = currentRule.chipFilters.map((f) => f.id);
+
+        let questions = await this.prisma.question.findMany({
+          where: {
+            id: {
+              notIn: usedIds,
+            },
+            chipGuesses: {
+              some: {
+                id: currentRule.chipGuessId,
+              },
+            },
+            difficulty: session.gameConfig.options.difficulty,
+            chipBy: {
+              id: currentRule.chipById,
+            },
+            ...(filterIds.length > 0 && {
+              chipFilters: {
+                some: {
+                  id: {
+                    in: filterIds,
+                  },
+                },
+              },
+            }),
+          },
+          include: {
+            achievement: true,
+          },
+        });
+
+        if (!questions.length) {
+          if (usedIds.length > 0) {
+            this.logger.warn(
+              `No unused questions left for session ${sessionId}. Resetting usedQuestions and retrying within the same lock`,
+            );
+
+            await this.prisma.gameSession.update({
+              where: { id: sessionId },
+              data: {
+                usedQuestions: {
+                  set: [],
+                },
+              },
+            });
+
+            questions = await this.prisma.question.findMany({
+              where: {
+                chipGuesses: {
+                  some: {
+                    id: currentRule.chipGuessId,
+                  },
+                },
+                difficulty: session.gameConfig.options.difficulty,
+                chipBy: {
+                  id: currentRule.chipById,
+                },
+                ...(filterIds.length > 0 && {
+                  chipFilters: {
+                    some: {
+                      id: {
+                        in: filterIds,
+                      },
+                    },
+                  },
+                }),
+              },
+              include: {
+                achievement: true,
+              },
+            });
+          }
+
+          if (!questions.length) {
+            this.logger.warn(
+              `No questions matched session ${sessionId} ruleIndex=${currentRuleIndex}. Session will stay active without starting a question until the rule/config is fixed`,
+            );
+            return;
+          }
+        }
+
+        const randomQuestion =
+          questions[Math.floor(Math.random() * questions.length)];
+
+        const answerQuestions = await this.prisma.question.findMany({
+          where: {
+            chipGuesses: {
+              some: {
+                id: currentRule.chipGuessId,
+              },
+            },
+            ...(filterIds.length > 0 && {
+              chipFilters: {
+                some: {
+                  id: {
+                    in: filterIds,
+                  },
+                },
+              },
+            }),
+          },
+          select: {
+            answer: {
+              select: {
+                id: true,
+                value: true,
+                valuePl: true,
+              },
             },
           },
-        },
-      });
+        });
 
-      const possibleAnswers = Array.from(
-        new Map(
-          answerQuestions.map(({ answer }) => [answer.id, answer]),
-        ).values(),
-      );
-
-      const correctAnswer =
-        possibleAnswers.find(
-          (answer) => answer.id === randomQuestion.answerId,
-        ) ??
-        (await this.prisma.answer.findUnique({
-          where: { id: randomQuestion.answerId },
-          select: { id: true, value: true },
-        }));
-
-      if (!correctAnswer) {
-        this.logger.error(
-          `Missing correct answer ${randomQuestion.answerId} for question ${randomQuestion.id} in session ${sessionId}`,
+        const possibleAnswers = Array.from(
+          new Map(
+            answerQuestions.map(({ answer }) => [answer.id, answer]),
+          ).values(),
         );
-        throw new NotFoundException('Question answer not found');
-      }
 
-      const answerOptions = this.shuffleArray([
-        correctAnswer,
-        ...this.shuffleArray(
-          possibleAnswers.filter((answer) => answer.id !== correctAnswer.id),
-        ).slice(0, 49),
-      ]);
+        const correctAnswer =
+          possibleAnswers.find(
+            (answer) => answer.id === randomQuestion.answerId,
+          ) ??
+          (await this.prisma.answer.findUnique({
+            where: { id: randomQuestion.answerId },
+            select: { id: true, value: true },
+          }));
 
-      await this.prisma.gameSession.update({
-        where: { id: sessionId },
-        data: {
-          qIndex: {
-            increment: 1,
-          },
-          usedQuestions: {
-            connect: {
-              id: randomQuestion.id,
+        if (!correctAnswer) {
+          this.logger.error(
+            `Missing correct answer ${randomQuestion.answerId} for question ${randomQuestion.id} in session ${sessionId}`,
+          );
+          throw new NotFoundException('Question answer not found');
+        }
+
+        const answerOptions = this.shuffleArray([
+          correctAnswer,
+          ...this.shuffleArray(
+            possibleAnswers.filter((answer) => answer.id !== correctAnswer.id),
+          ).slice(0, 49),
+        ]);
+
+        await this.prisma.gameSession.update({
+          where: { id: sessionId },
+          data: {
+            qIndex: {
+              increment: 1,
+            },
+            usedQuestions: {
+              connect: {
+                id: randomQuestion.id,
+              },
             },
           },
-        },
+        });
+
+        const startedAt = Date.now();
+        const expiresAt =
+          timeLimitSeconds === null || timeLimitSeconds === undefined
+            ? null
+            : startedAt + timeLimitSeconds * 1000;
+
+        const totalPlayers = session.players.filter(
+          (player) => player.status === 'Answering',
+        ).length;
+
+        const answeredUserIds: string[] = [];
+
+        const nextLiveState: SessionLiveState = {
+          phase: 'question',
+          question: {
+            id: randomQuestion.id,
+            url: randomQuestion.url,
+            urlPl: randomQuestion.urlPl,
+            credits: randomQuestion.credits ? randomQuestion.credits : null,
+            emoji: randomQuestion.emoji ? randomQuestion.emoji : null,
+            achievement: randomQuestion.achievement
+              ? randomQuestion.achievement
+              : undefined,
+            answers: answerOptions,
+          },
+          questionId: randomQuestion.id,
+          qIndex: qIndex + 1,
+          currentRuleIndex,
+          startedAt,
+          expiresAt,
+          summaryEndsAt: null,
+          timeLimitSeconds: timeLimitSeconds ?? null,
+          totalPlayers,
+          answeredUserIds,
+        };
+
+        await this.setStoredState(sessionId, nextLiveState);
+
+        this.scheduleSessionProgress(sessionId, nextLiveState);
+
+        this.gateway.server
+          .to(sessionId)
+          .emit('session:question', nextLiveState);
       });
-
-      const startedAt = Date.now();
-      const expiresAt =
-        timeLimitSeconds === null || timeLimitSeconds === undefined
-          ? null
-          : startedAt + timeLimitSeconds * 1000;
-
-      const totalPlayers = session.players.filter(
-        (player) => player.status === 'Answering',
-      ).length;
-
-      const answeredUserIds: string[] = [];
-
-      const nextLiveState: SessionLiveState = {
-        phase: 'question',
-        question: {
-          id: randomQuestion.id,
-          url: randomQuestion.url,
-          urlPl: randomQuestion.urlPl,
-          credits: randomQuestion.credits ? randomQuestion.credits : null,
-          emoji: randomQuestion.emoji ? randomQuestion.emoji : null,
-          achievement: randomQuestion.achievement
-            ? randomQuestion.achievement
-            : undefined,
-          answers: answerOptions,
-        },
-        questionId: randomQuestion.id,
-        qIndex: qIndex + 1,
-        currentRuleIndex,
-        startedAt,
-        expiresAt,
-        summaryEndsAt: null,
-        timeLimitSeconds: timeLimitSeconds ?? null,
-        totalPlayers,
-        answeredUserIds,
-      };
-
-      await this.setStoredState(sessionId, nextLiveState);
-
-      this.scheduleSessionProgress(sessionId, nextLiveState);
-
-      this.gateway.server.to(sessionId).emit('session:question', nextLiveState);
     });
   }
 
   private async finishQuestion(sessionId: string, summaryTimeSeconds: number) {
-    const liveState = await this.getStoredState(sessionId);
-    if (!liveState || liveState.phase !== 'question') {
-      return;
+    await this.withSessionStateLock(sessionId, async () => {
+      await this.finishQuestionLocked(sessionId, summaryTimeSeconds);
+    });
+  }
+
+  private async finishQuestionLocked(
+    sessionId: string,
+    summaryTimeSeconds: number,
+    liveState?: SessionLiveState | null,
+  ) {
+    const currentLiveState =
+      liveState ?? (await this.getStoredState(sessionId));
+    if (!currentLiveState || currentLiveState.phase !== 'question') {
+      return currentLiveState;
     }
 
     const unansweredPlayers = await this.prisma.gameSessionPlayer.findMany({
       where: {
         gameSessionId: sessionId,
         userId: {
-          notIn: liveState.answeredUserIds,
+          notIn: currentLiveState.answeredUserIds,
         },
       },
       select: {
@@ -1053,14 +1204,14 @@ export class GameSessionService implements OnModuleInit {
         },
         data: {
           timeMs: {
-            increment: (liveState.timeLimitSeconds ?? 0) * 1000,
+            increment: (currentLiveState.timeLimitSeconds ?? 0) * 1000,
           },
         },
       });
     }
 
     const question = await this.prisma.question.findUnique({
-      where: { id: liveState.questionId },
+      where: { id: currentLiveState.questionId },
     });
 
     const correctAnswer = await this.prisma.answer.findUnique({
@@ -1069,13 +1220,13 @@ export class GameSessionService implements OnModuleInit {
     });
 
     const summaryState: SessionLiveState = {
-      ...liveState,
+      ...currentLiveState,
       phase: 'summary',
       expiresAt: null,
       summaryEndsAt: Date.now() + summaryTimeSeconds * 1000,
-      question: liveState.question
+      question: currentLiveState.question
         ? {
-            ...liveState.question,
+            ...currentLiveState.question,
             correctAnswer,
           }
         : null,
@@ -1101,11 +1252,11 @@ export class GameSessionService implements OnModuleInit {
     });
 
     this.scheduleSessionProgress(sessionId, summaryState);
+
+    return summaryState;
   }
 
   private async endGame(sessionId: string) {
-    await this.clearStoredState(sessionId);
-
     const players = await this.prisma.gameSessionPlayer.findMany({
       where: { gameSessionId: sessionId },
       orderBy: [{ score: 'desc' }, { timeMs: 'asc' }],
