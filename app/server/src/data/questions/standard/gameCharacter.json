@@ -4,105 +4,120 @@
     "media": "ggcc004bmquweo.jpg",
     "answer": "carmina_mora_the_artist",
     "category": "by_cosplay",
-    "gameTypes": ["guess_game_character"]
+    "gameTypes": ["guess_game_character"],
+    "filters": ["onlyFemale"]
   },
   {
     "key": "guess_game_character_002",
     "media": "ggcc006moluvmb.jpg",
     "answer": "lisa_minci",
     "category": "by_cosplay",
-    "gameTypes": ["guess_game_character"]
+    "gameTypes": ["guess_game_character"],
+    "filters": ["onlyFemale"]
   },
   {
     "key": "guess_game_character_003",
     "media": "ggcc009nbkeobi.jpg",
     "answer": "anna_the_huntress",
     "category": "by_cosplay",
-    "gameTypes": ["guess_game_character"]
+    "gameTypes": ["guess_game_character"],
+    "filters": ["onlyFemale"]
   },
   {
     "key": "guess_game_character_004",
     "media": "ggcc010oukgdjm.jpg",
     "answer": "cole_cassidy",
     "category": "by_cosplay",
-    "gameTypes": ["guess_game_character"]
+    "gameTypes": ["guess_game_character"],
+    "filters": ["onlyMale"]
   },
   {
     "key": "guess_game_character_005",
     "media": "ggcc011hsjauut.JPG",
     "answer": "triss_merigold",
     "category": "by_cosplay",
-    "gameTypes": ["guess_game_character"]
+    "gameTypes": ["guess_game_character"],
+    "filters": ["onlyFemale"]
   },
   {
     "key": "guess_game_character_006",
     "media": "ggcc017mpgvfkw.jpg",
     "answer": "ashe",
     "category": "by_cosplay",
-    "gameTypes": ["guess_game_character"]
+    "gameTypes": ["guess_game_character"],
+    "filters": ["onlyFemale"]
   },
   {
     "key": "guess_game_character_007",
     "media": "ggcc034oduldcl.jpg",
     "answer": "mario",
     "category": "by_cosplay",
-    "gameTypes": ["guess_game_character"]
+    "gameTypes": ["guess_game_character"],
+    "filters": ["onlyMale"]
   },
   {
     "key": "guess_game_character_008",
     "media": "ggcc043oofrouj.jpg",
     "answer": "hornet",
     "category": "by_cosplay",
-    "gameTypes": ["guess_game_character"]
+    "gameTypes": ["guess_game_character"],
+    "filters": ["onlyFemale"]
   },
   {
     "key": "guess_game_character_009",
     "media": "ggcc044wlojgyq.jpg",
     "answer": "ahri",
     "category": "by_cosplay",
-    "gameTypes": ["guess_game_character"]
+    "gameTypes": ["guess_game_character"],
+    "filters": ["onlyFemale"]
   },
   {
     "key": "guess_game_character_010",
     "media": "ggcc059fkbwudf.jpg",
     "answer": "bella_dimitrescu",
     "category": "by_cosplay",
-    "gameTypes": ["guess_game_character"]
+    "gameTypes": ["guess_game_character"],
+    "filters": ["onlyFemale"]
   },
   {
     "key": "guess_game_character_011",
     "media": "ggcc074iltuicy.JPG",
     "answer": "mad_moxxi",
     "category": "by_cosplay",
-    "gameTypes": ["guess_game_character"]
+    "gameTypes": ["guess_game_character"],
+    "filters": ["onlyFemale"]
   },
   {
     "key": "guess_game_character_012",
     "media": "ggcc078yvvcsbf.jpg",
     "answer": "springtrap",
     "category": "by_cosplay",
-    "gameTypes": ["guess_game_character"]
+    "gameTypes": ["guess_game_character"],
+    "filters": ["onlyMale"]
   },
   {
     "key": "guess_game_character_013",
     "media": "ggcc081ffcdqyt.jpg",
     "answer": "jude_alvarez",
     "category": "by_cosplay",
-    "gameTypes": ["guess_game_character"]
+    "gameTypes": ["guess_game_character"],
+    "filters": ["onlyFemale"]
   },
   {
     "key": "guess_game_character_014",
     "media": "ggcc093ruuyidj.jpg",
     "answer": "cappie",
     "category": "by_cosplay",
-    "gameTypes": ["guess_game_character"]
+    "gameTypes": ["guess_game_character"],
+    "filters": ["onlyMale"]
   },
   {
     "key": "guess_game_character_015",
     "media": "ggcc096makiuql.JPG",
     "answer": "kim_possible",
     "category": "by_cosplay",
-    "gameTypes": ["guess_game_character"]
+    "gameTypes": ["guess_game_character"],
+    "filters": ["onlyFemale"]
   },
   {
     "key": "guess_game_character_016",

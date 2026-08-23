@@ -6,7 +6,8 @@
     "category": "by_emoji",
     "emoji": "🤡 🧪 💨",
     "difficulty": 1,
-    "gameTypes": ["guess_dbd_character"]
+    "gameTypes": ["guess_dbd_character"],
+    "filters": ["onlyKiller"]
   },
   {
     "key": "guess_dbd_002",
@@ -15,7 +16,8 @@
     "category": "by_emoji",
     "emoji": "🧪 💨",
     "difficulty": 2,
-    "gameTypes": ["guess_dbd_character"]
+    "gameTypes": ["guess_dbd_character"],
+    "filters": ["onlyKiller"]
   },
   {
     "key": "guess_dbd_003",
@@ -24,7 +26,8 @@
     "category": "by_emoji",
     "emoji": "🧪",
     "difficulty": 3,
-    "gameTypes": ["guess_dbd_character"]
+    "gameTypes": ["guess_dbd_character"],
+    "filters": ["onlyKiller"]
   },
   {
     "key": "guess_dbd_004",
@@ -33,7 +36,8 @@
     "category": "by_emoji",
     "emoji": "🦶 🌲 🐻",
     "difficulty": 1,
-    "gameTypes": ["guess_dbd_character"]
+    "gameTypes": ["guess_dbd_character"],
+    "filters": ["onlyKiller"]
   },
   {
     "key": "guess_dbd_005",
@@ -42,7 +46,8 @@
     "category": "by_emoji",
     "emoji": "🦶 🐻",
     "difficulty": 2,
-    "gameTypes": ["guess_dbd_character"]
+    "gameTypes": ["guess_dbd_character"],
+    "filters": ["onlyKiller"]
   },
   {
     "key": "guess_dbd_006",
@@ -51,7 +56,8 @@
     "category": "by_emoji",
     "emoji": "🐻",
     "difficulty": 3,
-    "gameTypes": ["guess_dbd_character"]
+    "gameTypes": ["guess_dbd_character"],
+    "filters": ["onlyKiller"]
   },
   {
     "key": "guess_dbd_007",
@@ -60,7 +66,8 @@
     "category": "by_emoji",
     "emoji": "👻 🔔 🙈",
     "difficulty": 1,
-    "gameTypes": ["guess_dbd_character"]
+    "gameTypes": ["guess_dbd_character"],
+    "filters": ["onlyKiller"]
   },
   {
     "key": "guess_dbd_008",
@@ -69,7 +76,8 @@
     "category": "by_emoji",
     "emoji": "🔔 🙈",
     "difficulty": 2,
-    "gameTypes": ["guess_dbd_character"]
+    "gameTypes": ["guess_dbd_character"],
+    "filters": ["onlyKiller"]
   },
   {
     "key": "guess_dbd_009",
@@ -78,7 +86,8 @@
     "category": "by_emoji",
     "emoji": "🔔",
     "difficulty": 3,
-    "gameTypes": ["guess_dbd_character"]
+    "gameTypes": ["guess_dbd_character"],
+    "filters": ["onlyKiller"]
   },
   {
     "key": "guess_dbd_010",
@@ -87,7 +96,8 @@
     "category": "by_emoji",
     "emoji": "🐰 🪓 🎯",
     "difficulty": 1,
-    "gameTypes": ["guess_dbd_character"]
+    "gameTypes": ["guess_dbd_character"],
+    "filters": ["onlyKiller"]
   },
   {
     "key": "guess_dbd_011",
@@ -96,7 +106,8 @@
     "category": "by_emoji",
     "emoji": "🐰 🎯",
     "difficulty": 2,
-    "gameTypes": ["guess_dbd_character"]
+    "gameTypes": ["guess_dbd_character"],
+    "filters": ["onlyKiller"]
   },
   {
     "key": "guess_dbd_012",
@@ -105,7 +116,8 @@
     "category": "by_emoji",
     "emoji": "🐰",
     "difficulty": 3,
-    "gameTypes": ["guess_dbd_character"]
+    "gameTypes": ["guess_dbd_character"],
+    "filters": ["onlyKiller"]
   },
   {
     "key": "guess_dbd_013",
@@ -114,7 +126,8 @@
     "category": "by_emoji",
     "emoji": "⚡ 🧠 🩺",
     "difficulty": 1,
-    "gameTypes": ["guess_dbd_character"]
+    "gameTypes": ["guess_dbd_character"],
+    "filters": ["onlyKiller"]
   },
   {
     "key": "guess_dbd_014",
@@ -123,7 +136,8 @@
     "category": "by_emoji",
     "emoji": "⚡ 🧠",
     "difficulty": 2,
-    "gameTypes": ["guess_dbd_character"]
+    "gameTypes": ["guess_dbd_character"],
+    "filters": ["onlyKiller"]
   },
   {
     "key": "guess_dbd_015",
@@ -132,7 +146,8 @@
     "category": "by_emoji",
     "emoji": "⚡",
     "difficulty": 3,
-    "gameTypes": ["guess_dbd_character"]
+    "gameTypes": ["guess_dbd_character"],
+    "filters": ["onlyKiller"]
   },
   {
     "key": "guess_dbd_016",
@@ -141,7 +156,8 @@
     "category": "by_emoji",
     "emoji": "👩‍⚕️ 👻 🙍‍♀️",
     "difficulty": 1,
-    "gameTypes": ["guess_dbd_character"]
+    "gameTypes": ["guess_dbd_character"],
+    "filters": ["onlyKiller"]
   },
   {
     "key": "guess_dbd_017",
@@ -150,7 +166,8 @@
     "category": "by_emoji",
     "emoji": "👩‍⚕️ 🙍‍♀️",
     "difficulty": 2,
-    "gameTypes": ["guess_dbd_character"]
+    "gameTypes": ["guess_dbd_character"],
+    "filters": ["onlyKiller"]
   },
   {
     "key": "guess_dbd_018",
@@ -159,7 +176,8 @@
     "category": "by_emoji",
     "emoji": "👩‍⚕️",
     "difficulty": 3,
-    "gameTypes": ["guess_dbd_character"]
+    "gameTypes": ["guess_dbd_character"],
+    "filters": ["onlyKiller"]
   },
   {
     "key": "guess_dbd_019",
@@ -168,7 +186,8 @@
     "category": "by_emoji",
     "emoji": "🔪 🎃 👁️",
     "difficulty": 1,
-    "gameTypes": ["guess_dbd_character"]
+    "gameTypes": ["guess_dbd_character"],
+    "filters": ["onlyKiller"]
   },
   {
     "key": "guess_dbd_020",
@@ -177,7 +196,8 @@
     "category": "by_emoji",
     "emoji": "🔪 👁️",
     "difficulty": 2,
-    "gameTypes": ["guess_dbd_character"]
+    "gameTypes": ["guess_dbd_character"],
+    "filters": ["onlyKiller"]
   },
   {
     "key": "guess_dbd_021",
@@ -186,7 +206,8 @@
     "category": "by_emoji",
     "emoji": "👁️",
     "difficulty": 3,
-    "gameTypes": ["guess_dbd_character"]
+    "gameTypes": ["guess_dbd_character"],
+    "filters": ["onlyKiller"]
   },
   {
     "key": "guess_dbd_022",
@@ -195,7 +216,8 @@
     "category": "by_emoji",
     "emoji": "🐙 💉 ☂️",
     "difficulty": 1,
-    "gameTypes": ["guess_dbd_character"]
+    "gameTypes": ["guess_dbd_character"],
+    "filters": ["onlyKiller"]
   },
   {
     "key": "guess_dbd_023",
@@ -204,7 +226,8 @@
     "category": "by_emoji",
     "emoji": "🐙 ☂️",
     "difficulty": 2,
-    "gameTypes": ["guess_dbd_character"]
+    "gameTypes": ["guess_dbd_character"],
+    "filters": ["onlyKiller"]
   },
   {
     "key": "guess_dbd_024",
@@ -213,7 +236,8 @@
     "category": "by_emoji",
     "emoji": "🐙",
     "difficulty": 3,
-    "gameTypes": ["guess_dbd_character"]
+    "gameTypes": ["guess_dbd_character"],
+    "filters": ["onlyKiller"]
   },
   {
     "key": "guess_dbd_025",
@@ -222,7 +246,8 @@
     "category": "by_emoji",
     "emoji": "🔺 🤫⛰️ ⛓️",
     "difficulty": 1,
-    "gameTypes": ["guess_dbd_character"]
+    "gameTypes": ["guess_dbd_character"],
+    "filters": ["onlyKiller"]
   },
   {
     "key": "guess_dbd_026",
@@ -231,7 +256,8 @@
     "category": "by_emoji",
     "emoji": "🤫⛰️ ⛓️",
     "difficulty": 2,
-    "gameTypes": ["guess_dbd_character"]
+    "gameTypes": ["guess_dbd_character"],
+    "filters": ["onlyKiller"]
   },
   {
     "key": "guess_dbd_027",
@@ -240,7 +266,8 @@
     "category": "by_emoji",
     "emoji": "⛓️",
     "difficulty": 3,
-    "gameTypes": ["guess_dbd_character"]
+    "gameTypes": ["guess_dbd_character"],
+    "filters": ["onlyKiller"]
   },
   {
     "key": "guess_dbd_028",
@@ -249,7 +276,8 @@
     "category": "by_emoji",
     "emoji": "🤢 ⛲ 🤮",
     "difficulty": 1,
-    "gameTypes": ["guess_dbd_character"]
+    "gameTypes": ["guess_dbd_character"],
+    "filters": ["onlyKiller"]
   },
   {
     "key": "guess_dbd_029",
@@ -258,7 +286,8 @@
     "category": "by_emoji",
     "emoji": "🤢 ⛲",
     "difficulty": 2,
-    "gameTypes": ["guess_dbd_character"]
+    "gameTypes": ["guess_dbd_character"],
+    "filters": ["onlyKiller"]
   },
   {
     "key": "guess_dbd_030",
@@ -267,7 +296,8 @@
     "category": "by_emoji",
     "emoji": "⛲",
     "difficulty": 3,
-    "gameTypes": ["guess_dbd_character"]
+    "gameTypes": ["guess_dbd_character"],
+    "filters": ["onlyKiller"]
   },
   {
     "key": "guess_dbd_031",
@@ -276,7 +306,8 @@
     "category": "by_emoji",
     "emoji": "👓 🤓 👔",
     "difficulty": 1,
-    "gameTypes": ["guess_dbd_character"]
+    "gameTypes": ["guess_dbd_character"],
+    "filters": ["onlySurv"]
   },
   {
     "key": "guess_dbd_032",
@@ -285,7 +316,8 @@
     "category": "by_emoji",
     "emoji": "👓 👔",
     "difficulty": 2,
-    "gameTypes": ["guess_dbd_character"]
+    "gameTypes": ["guess_dbd_character"],
+    "filters": ["onlySurv"]
   },
   {
     "key": "guess_dbd_033",
@@ -294,7 +326,8 @@
     "category": "by_emoji",
     "emoji": "🏃‍♀️ 🏅",
     "difficulty": 2,
-    "gameTypes": ["guess_dbd_character"]
+    "gameTypes": ["guess_dbd_character"],
+    "filters": ["onlySurv"]
   },
   {
     "key": "guess_dbd_034",
@@ -303,7 +336,8 @@
     "category": "by_emoji",
     "emoji": "🌿 🔬 👩🏿‍🔬",
     "difficulty": 1,
-    "gameTypes": ["guess_dbd_character"]
+    "gameTypes": ["guess_dbd_character"],
+    "filters": ["onlySurv"]
   },
   {
     "key": "guess_dbd_035",
@@ -312,7 +346,8 @@
     "category": "by_emoji",
     "emoji": "🌿 🔬",
     "difficulty": 2,
-    "gameTypes": ["guess_dbd_character"]
+    "gameTypes": ["guess_dbd_character"],
+    "filters": ["onlySurv"]
   },
   {
     "key": "guess_dbd_036",
@@ -321,7 +356,8 @@
     "category": "by_emoji",
     "emoji": "💜 🕷️ 🔮",
     "difficulty": 1,
-    "gameTypes": ["guess_dbd_character"]
+    "gameTypes": ["guess_dbd_character"],
+    "filters": ["onlySurv"]
   },
   {
     "key": "guess_dbd_037",
@@ -330,7 +366,8 @@
     "category": "by_emoji",
     "emoji": "💜 🕷️",
     "difficulty": 2,
-    "gameTypes": ["guess_dbd_character"]
+    "gameTypes": ["guess_dbd_character"],
+    "filters": ["onlySurv"]
   },
   {
     "key": "guess_dbd_038",
@@ -339,7 +376,8 @@
     "category": "by_emoji",
     "emoji": "🏍️ 🇯🇵 👩‍🔧",
     "difficulty": 1,
-    "gameTypes": ["guess_dbd_character"]
+    "gameTypes": ["guess_dbd_character"],
+    "filters": ["onlySurv"]
   },
   {
     "key": "guess_dbd_039",
@@ -348,7 +386,8 @@
     "category": "by_emoji",
     "emoji": "🏍️ 🇯🇵",
     "difficulty": 2,
-    "gameTypes": ["guess_dbd_character"]
+    "gameTypes": ["guess_dbd_character"],
+    "filters": ["onlySurv"]
   },
   {
     "key": "guess_dbd_040",
@@ -357,7 +396,8 @@
     "category": "by_emoji",
     "emoji": "🎰 🃏 😎",
     "difficulty": 1,
-    "gameTypes": ["guess_dbd_character"]
+    "gameTypes": ["guess_dbd_character"],
+    "filters": ["onlySurv"]
   },
   {
     "key": "guess_dbd_041",
@@ -366,7 +406,8 @@
     "category": "by_emoji",
     "emoji": "🎰 🃏",
     "difficulty": 2,
-    "gameTypes": ["guess_dbd_character"]
+    "gameTypes": ["guess_dbd_character"],
+    "filters": ["onlySurv"]
   },
 
   {
@@ -376,7 +417,8 @@
     "category": "by_emoji",
     "emoji": "🎮 🐰",
     "difficulty": 2,
-    "gameTypes": ["guess_dbd_character"]
+    "gameTypes": ["guess_dbd_character"],
+    "filters": ["onlySurv"]
   },
   {
     "key": "guess_dbd_043",
@@ -385,7 +427,8 @@
     "category": "by_emoji",
     "emoji": "🥊 🍺 👑",
     "difficulty": 1,
-    "gameTypes": ["guess_dbd_character"]
+    "gameTypes": ["guess_dbd_character"],
+    "filters": ["onlySurv"]
   },
   {
     "key": "guess_dbd_044",
@@ -394,7 +437,8 @@
     "category": "by_emoji",
     "emoji": "🥊 🍺",
     "difficulty": 2,
-    "gameTypes": ["guess_dbd_character"]
+    "gameTypes": ["guess_dbd_character"],
+    "filters": ["onlySurv"]
   },
   {
     "key": "guess_dbd_045",
@@ -403,7 +447,8 @@
     "category": "by_emoji",
     "emoji": "🤠 🎸 🐎",
     "difficulty": 1,
-    "gameTypes": ["guess_dbd_character"]
+    "gameTypes": ["guess_dbd_character"],
+    "filters": ["onlySurv"]
   },
   {
     "key": "guess_dbd_046",
@@ -412,7 +457,8 @@
     "category": "by_emoji",
     "emoji": "🎸 🤠",
     "difficulty": 2,
-    "gameTypes": ["guess_dbd_character"]
+    "gameTypes": ["guess_dbd_character"],
+    "filters": ["onlySurv"]
   },
   {
     "key": "guess_dbd_047",
@@ -421,7 +467,8 @@
     "category": "by_emoji",
     "emoji": "👠 🔴👗 🧬",
     "difficulty": 1,
-    "gameTypes": ["guess_dbd_character"]
+    "gameTypes": ["guess_dbd_character"],
+    "filters": ["onlySurv"]
   },
   {
     "key": "guess_dbd_048",
@@ -430,286 +477,327 @@
     "category": "by_emoji",
     "emoji": "🔴👗 🧬",
     "difficulty": 2,
-    "gameTypes": ["guess_dbd_character"]
+    "gameTypes": ["guess_dbd_character"],
+    "filters": ["onlySurv"]
   },
   {
     "key": "guess_dbd_049",
     "media": "gdbd076cojvgsn.png",
     "answer": "ace_visconti",
     "category": "by_perk",
-    "gameTypes": ["guess_dbd_character"]
+    "gameTypes": ["guess_dbd_character"],
+    "filters": ["onlySurv"]
   },
   {
     "key": "guess_dbd_050",
     "media": "gdbd044bucdvwl.png",
     "answer": "meg_thomas",
     "category": "by_perk",
-    "gameTypes": ["guess_dbd_character"]
+    "gameTypes": ["guess_dbd_character"],
+    "filters": ["onlySurv"]
   },
   {
     "key": "guess_dbd_051",
     "media": "gdbd066cprpcmp.png",
     "answer": "the_trapper",
     "category": "by_perk",
-    "gameTypes": ["guess_dbd_character"]
+    "gameTypes": ["guess_dbd_character"],
+    "filters": ["onlyKiller"]
   },
   {
     "key": "guess_dbd_052",
     "media": "gdbd097espqesv.png",
     "answer": "nea_karlsson",
     "category": "by_perk",
-    "gameTypes": ["guess_dbd_character"]
+    "gameTypes": ["guess_dbd_character"],
+    "filters": ["onlySurv"]
   },
   {
     "key": "guess_dbd_053",
     "media": "gdbd070gjrumsc.png",
     "answer": "the_clown",
     "category": "by_perk",
-    "gameTypes": ["guess_dbd_character"]
+    "gameTypes": ["guess_dbd_character"],
+    "filters": ["onlyKiller"]
   },
   {
     "key": "guess_dbd_054",
     "media": "gdbd043vajdabj.png",
     "answer": "aestri_yazar_&_baermar_uraz",
     "category": "by_perk",
-    "gameTypes": ["guess_dbd_character"]
+    "gameTypes": ["guess_dbd_character"],
+    "filters": ["onlySurv"]
   },
   {
     "key": "guess_dbd_055",
     "media": "gdbd056gfryxxe.png",
     "answer": "the_huntress",
     "category": "by_perk",
-    "gameTypes": ["guess_dbd_character"]
+    "gameTypes": ["guess_dbd_character"],
+    "filters": ["onlyKiller"]
   },
   {
     "key": "guess_dbd_056",
     "media": "gdbd087gfiakxf.png",
     "answer": "jill_valentine",
     "category": "by_perk",
-    "gameTypes": ["guess_dbd_character"]
+    "gameTypes": ["guess_dbd_character"],
+    "filters": ["onlySurv"]
   },
   {
     "key": "guess_dbd_057",
     "media": "gdbd002pnkqyef.png",
     "answer": "the_wraith",
     "category": "by_perk",
-    "gameTypes": ["guess_dbd_character"]
+    "gameTypes": ["guess_dbd_character"],
+    "filters": ["onlyKiller"]
   },
   {
     "key": "guess_dbd_058",
     "media": "gdbd034smxxwqo.png",
     "answer": "the_nightmare",
     "category": "by_perk",
-    "gameTypes": ["guess_dbd_character"]
+    "gameTypes": ["guess_dbd_character"],
+    "filters": ["onlyKiller"]
   },
   {
     "key": "guess_dbd_059",
     "media": "gdbd009psmrgyp.png",
     "answer": "kate_denson",
     "category": "by_perk",
-    "gameTypes": ["guess_dbd_character"]
+    "gameTypes": ["guess_dbd_character"],
+    "filters": ["onlySurv"]
   },
   {
     "key": "guess_dbd_060",
     "media": "gdbd067cgiexmb.png",
     "answer": "mikaela_reid",
     "category": "by_perk",
-    "gameTypes": ["guess_dbd_character"]
+    "gameTypes": ["guess_dbd_character"],
+    "filters": ["onlySurv"]
   },
   {
     "key": "guess_dbd_061",
     "media": "gdbd054vifoiqa.png",
     "answer": "claudette_morel",
     "category": "by_perk",
-    "gameTypes": ["guess_dbd_character"]
+    "gameTypes": ["guess_dbd_character"],
+    "filters": ["onlySurv"]
   },
   {
     "key": "guess_dbd_062",
     "media": "gdbd039xxucuub.png",
     "answer": "yui_kimura",
     "category": "by_perk",
-    "gameTypes": ["guess_dbd_character"]
+    "gameTypes": ["guess_dbd_character"],
+    "filters": ["onlySurv"]
   },
   {
     "key": "guess_dbd_063",
     "media": "gdbd063hsqtpcw.png",
     "answer": "felix_richter",
     "category": "by_perk",
-    "gameTypes": ["guess_dbd_character"]
+    "gameTypes": ["guess_dbd_character"],
+    "filters": ["onlySurv"]
   },
   {
     "key": "guess_dbd_064",
     "media": "gdbd008elmqoek.png",
     "answer": "the_plague",
     "category": "by_perk",
-    "gameTypes": ["guess_dbd_character"]
+    "gameTypes": ["guess_dbd_character"],
+    "filters": ["onlyKiller"]
   },
   {
     "key": "guess_dbd_065",
     "media": "gdbd030qbcidhc.png",
     "answer": "kate_denson",
     "category": "by_perk",
-    "gameTypes": ["guess_dbd_character"]
+    "gameTypes": ["guess_dbd_character"],
+    "filters": ["onlySurv"]
   },
   {
     "key": "guess_dbd_066",
     "media": "gdbd035enerbvl.png",
     "answer": "david_king",
     "category": "by_perk",
-    "gameTypes": ["guess_dbd_character"]
+    "gameTypes": ["guess_dbd_character"],
+    "filters": ["onlySurv"]
   },
   {
     "key": "guess_dbd_067",
     "media": "gdbd083ojwotnk.png",
     "answer": "laurie_strode",
     "category": "by_perk",
-    "gameTypes": ["guess_dbd_character"]
+    "gameTypes": ["guess_dbd_character"],
+    "filters": ["onlySurv"]
   },
   {
     "key": "guess_dbd_068",
     "media": "gdbd045kxbwqlu.png",
     "answer": "the_legion",
     "category": "by_perk",
-    "gameTypes": ["guess_dbd_character"]
+    "gameTypes": ["guess_dbd_character"],
+    "filters": ["onlyKiller"]
   },
   {
     "key": "guess_dbd_069",
     "media": "gdbd096lhpdxfd.png",
     "answer": "claudette_morel",
     "category": "by_perk",
-    "gameTypes": ["guess_dbd_character"]
+    "gameTypes": ["guess_dbd_character"],
+    "filters": ["onlySurv"]
   },
   {
     "key": "guess_dbd_070",
     "media": "gdbd042wnsxfoa.png",
     "answer": "the_nemesis",
     "category": "by_perk",
-    "gameTypes": ["guess_dbd_character"]
+    "gameTypes": ["guess_dbd_character"],
+    "filters": ["onlyKiller"]
   },
   {
     "key": "guess_dbd_071",
     "media": "gdbd017udbhajf.png",
     "answer": "lara_croft",
     "category": "by_perk",
-    "gameTypes": ["guess_dbd_character"]
+    "gameTypes": ["guess_dbd_character"],
+    "filters": ["onlySurv"]
   },
   {
     "key": "guess_dbd_072",
     "media": "gdbd048ludbqka.png",
     "answer": "the_ghoul",
     "category": "by_perk",
-    "gameTypes": ["guess_dbd_character"]
+    "gameTypes": ["guess_dbd_character"],
+    "filters": ["onlyKiller"]
   },
   {
     "key": "guess_dbd_073",
     "media": "gdbd046flmtfhn.png",
     "answer": "the_ghost_face",
     "category": "by_perk",
-    "gameTypes": ["guess_dbd_character"]
+    "gameTypes": ["guess_dbd_character"],
+    "filters": ["onlyKiller"]
   },
   {
     "key": "guess_dbd_074",
     "media": "gdbd047crlxbpa.png",
     "answer": "the_deathslinger",
     "category": "by_perk",
-    "gameTypes": ["guess_dbd_character"]
+    "gameTypes": ["guess_dbd_character"],
+    "filters": ["onlyKiller"]
   },
   {
     "key": "guess_dbd_075",
     "media": "gdbd016jgsiacw.png",
     "answer": "jane_romero",
     "category": "by_perk",
-    "gameTypes": ["guess_dbd_character"]
+    "gameTypes": ["guess_dbd_character"],
+    "filters": ["onlySurv"]
   },
   {
     "key": "guess_dbd_076",
     "media": "gdbd018nhwelxg.png",
     "answer": "the_hag",
     "category": "by_perk",
-    "gameTypes": ["guess_dbd_character"]
+    "gameTypes": ["guess_dbd_character"],
+    "filters": ["onlyKiller"]
   },
   {
     "key": "guess_dbd_077",
     "media": "gdbd080vwlxqim.png",
     "answer": "the_hag",
     "category": "by_perk",
-    "gameTypes": ["guess_dbd_character"]
+    "gameTypes": ["guess_dbd_character"],
+    "filters": ["onlyKiller"]
   },
   {
     "key": "guess_dbd_078",
     "media": "gdbd052rpmslrb.png",
     "answer": "sable_ward",
     "category": "by_perk",
-    "gameTypes": ["guess_dbd_character"]
+    "gameTypes": ["guess_dbd_character"],
+    "filters": ["onlySurv"]
   },
   {
     "key": "guess_dbd_079",
     "media": "gdbd079snmxdia.png",
     "answer": "jake_park",
     "category": "by_perk",
-    "gameTypes": ["guess_dbd_character"]
+    "gameTypes": ["guess_dbd_character"],
+    "filters": ["onlySurv"]
   },
   {
     "key": "guess_dbd_080",
     "media": "gdbd068gxumkof.png",
     "answer": "the_hillbilly",
     "category": "by_perk",
-    "gameTypes": ["guess_dbd_character"]
+    "gameTypes": ["guess_dbd_character"],
+    "filters": ["onlyKiller"]
   },
   {
     "key": "guess_dbd_081",
     "media": "gdbd091mywuyvf.png",
     "answer": "feng_min",
     "category": "by_perk",
-    "gameTypes": ["guess_dbd_character"]
+    "gameTypes": ["guess_dbd_character"],
+    "filters": ["onlySurv"]
   },
   {
     "key": "guess_dbd_082",
     "media": "gdbd088jmxtrmt.png",
     "answer": "ada_wong",
     "category": "by_perk",
-    "gameTypes": ["guess_dbd_character"]
+    "gameTypes": ["guess_dbd_character"],
+    "filters": ["onlySurv"]
   },
   {
     "key": "guess_dbd_083",
     "media": "gdbd012oegabxr.png",
     "answer": "the_pig",
     "category": "by_perk",
-    "gameTypes": ["guess_dbd_character"]
+    "gameTypes": ["guess_dbd_character"],
+    "filters": ["onlyKiller"]
   },
   {
     "key": "guess_dbd_084",
     "media": "gdbd053mlowavo.png",
     "answer": "the_trickster",
     "category": "by_perk",
-    "gameTypes": ["guess_dbd_character"]
+    "gameTypes": ["guess_dbd_character"],
+    "filters": ["onlyKiller"]
   },
   {
     "key": "guess_dbd_085",
     "media": "gdbd049xyifete.png",
     "answer": "the_doctor",
     "category": "by_perk",
-    "gameTypes": ["guess_dbd_character"]
+    "gameTypes": ["guess_dbd_character"],
+    "filters": ["onlyKiller"]
   },
   {
     "key": "guess_dbd_086",
     "media": "gdbd011wyoprog.png",
     "answer": "the_shape",
     "category": "by_perk",
-    "gameTypes": ["guess_dbd_character"]
+    "gameTypes": ["guess_dbd_character"],
+    "filters": ["onlyKiller"]
   },
   {
     "key": "guess_dbd_087",
     "media": "gdbd048hfvunar.png",
     "answer": "the_clown",
     "category": "by_perk",
-    "gameTypes": ["guess_dbd_character"]
+    "gameTypes": ["guess_dbd_character"],
+    "filters": ["onlyKiller"]
   },
   {
     "key": "guess_dbd_088",
     "media": "gdbd073jbxsakv.png",
     "answer": "the_artist",
     "category": "by_perk",
-    "gameTypes": ["guess_dbd_character"]
+    "gameTypes": ["guess_dbd_character"],
+    "filters": ["onlyKiller"]
   }
 ]

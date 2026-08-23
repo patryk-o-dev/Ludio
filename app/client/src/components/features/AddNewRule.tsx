@@ -3,11 +3,15 @@ import { useTranslation } from "react-i18next";
 import Icons from "../utils/Icons/Icons";
 import addRuleSound from "../../assets/sounds/add_rule.mp3";
 import { playUiSound } from "../utils/audio";
+import useChipsStore from "../../store/chipsStore";
 
 const AddNewRule = () => {
 	const rules = useGameConfigStore((state) => state.rules);
 	const addRule = useGameConfigStore((state) => state.addRule);
 	const { t } = useTranslation();
+	const updateChipSelectionStep = useChipsStore(
+		(state) => state.updateChipSelectionStep,
+	);
 
 	const lastRule = rules[rules.length - 1];
 
@@ -23,6 +27,10 @@ const AddNewRule = () => {
 
 		playUiSound(addRuleSound);
 		addRule(newRule);
+		updateChipSelectionStep({
+			type: "guess",
+			ruleId: newRule.id,
+		});
 	};
 
 	return (

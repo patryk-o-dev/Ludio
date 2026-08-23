@@ -19,7 +19,8 @@
       "achievementTitle": "Za zamkniętymi drzwiami",
       "achievementDesc": "Zamknij samodzielnie drzwi."
     },
-    "gameTypes": ["guess_game"]
+    "gameTypes": ["guess_game"],
+    "filters": ["onlyHorror"]
   },
   {
     "key": "guess_game_003",
@@ -30,7 +31,8 @@
       "achievementTitle": "Soki",
       "achievementDesc": "Poczucie winy"
     },
-    "gameTypes": ["guess_game"]
+    "gameTypes": ["guess_game"],
+    "filters": ["onlyHorror"]
   },
   {
     "key": "guess_game_004",
@@ -74,7 +76,8 @@
       "achievementTitle": "Budzi się",
       "achievementDesc": "Osiągnij 10 poziom dowolną postacią."
     },
-    "gameTypes": ["guess_game"]
+    "gameTypes": ["guess_game"],
+    "filters": ["onlyHorror"]
   },
   {
     "key": "guess_game_008",
@@ -247,7 +250,8 @@
     "media": "ggi063cbyjbaw.png",
     "answer": "amnesia_the_dark_descent",
     "category": "by_inventory",
-    "gameTypes": ["guess_game"]
+    "gameTypes": ["guess_game"],
+    "filters": ["onlyHorror"]
   },
   {
     "key": "guess_game_031",
@@ -282,14 +286,16 @@
     "media": "ggm012yvnogil.png",
     "answer": "resident_evil_2",
     "category": "by_mod",
-    "gameTypes": ["guess_game"]
+    "gameTypes": ["guess_game"],
+    "filters": ["onlyHorror"]
   },
   {
     "key": "guess_game_036",
     "media": "ggm014mdciewk.png",
     "answer": "resident_evil_2",
     "category": "by_mod",
-    "gameTypes": ["guess_game"]
+    "gameTypes": ["guess_game"],
+    "filters": ["onlyHorror"]
   },
   {
     "key": "guess_game_037",
@@ -366,7 +372,8 @@
     "media": "ggm072ijidjbj.png",
     "answer": "resident_evil_2",
     "category": "by_mod",
-    "gameTypes": ["guess_game"]
+    "gameTypes": ["guess_game"],
+    "filters": ["onlyHorror"]
   },
   {
     "key": "guess_game_048",
@@ -436,7 +443,8 @@
     "media": "ggs006tkrhacb.png",
     "answer": "outlast",
     "category": "by_screenshot",
-    "gameTypes": ["guess_game"]
+    "gameTypes": ["guess_game"],
+    "filters": ["onlyHorror"]
   },
   {
     "key": "guess_game_058",
@@ -457,7 +465,8 @@
     "media": "ggs023vchufhh.png",
     "answer": "inscryption",
     "category": "by_screenshot",
-    "gameTypes": ["guess_game"]
+    "gameTypes": ["guess_game"],
+    "filters": ["onlyHorror"]
   },
   {
     "key": "guess_game_061",
@@ -471,14 +480,16 @@
     "media": "ggs028yevwyfw.png",
     "answer": "the_evil_within",
     "category": "by_screenshot",
-    "gameTypes": ["guess_game"]
+    "gameTypes": ["guess_game"],
+    "filters": ["onlyHorror"]
   },
   {
     "key": "guess_game_063",
     "media": "ggs030nddnrcm.png",
     "answer": "among_the_sleep",
     "category": "by_screenshot",
-    "gameTypes": ["guess_game"]
+    "gameTypes": ["guess_game"],
+    "filters": ["onlyHorror"]
   },
   {
     "key": "guess_game_064",
@@ -506,7 +517,8 @@
     "media": "ggs040uqitygh.png",
     "answer": "dead_space",
     "category": "by_screenshot",
-    "gameTypes": ["guess_game"]
+    "gameTypes": ["guess_game"],
+    "filters": ["onlyHorror"]
   },
   {
     "key": "guess_game_068",
@@ -520,14 +532,16 @@
     "media": "ggs042kvcgfev.png",
     "answer": "blair_witch",
     "category": "by_screenshot",
-    "gameTypes": ["guess_game"]
+    "gameTypes": ["guess_game"],
+    "filters": ["onlyHorror"]
   },
   {
     "key": "guess_game_070",
     "media": "ggs045hxmvjuf.png",
     "answer": "layers_of_fear",
     "category": "by_screenshot",
-    "gameTypes": ["guess_game"]
+    "gameTypes": ["guess_game"],
+    "filters": ["onlyHorror"]
   },
   {
     "key": "guess_game_071",
@@ -569,21 +583,24 @@
     "media": "ggs063nrkxqdq.png",
     "answer": "phasmophobia",
     "category": "by_screenshot",
-    "gameTypes": ["guess_game"]
+    "gameTypes": ["guess_game"],
+    "filters": ["onlyHorror"]
   },
   {
     "key": "guess_game_077",
     "media": "ggs064adnwwfa.png",
     "answer": "silent_hill_2",
     "category": "by_screenshot",
-    "gameTypes": ["guess_game"]
+    "gameTypes": ["guess_game"],
+    "filters": ["onlyHorror"]
   },
   {
     "key": "guess_game_078",
     "media": "ggs082fdajrpd.png",
     "answer": "until_dawn",
     "category": "by_screenshot",
-    "gameTypes": ["guess_game"]
+    "gameTypes": ["guess_game"],
+    "filters": ["onlyHorror"]
   },
   {
     "key": "guess_game_079",
@@ -597,7 +614,8 @@
     "media": "ggs097tfsqhsx.png",
     "answer": "amnesia_the_dark_descent",
     "category": "by_screenshot",
-    "gameTypes": ["guess_game"]
+    "gameTypes": ["guess_game"],
+    "filters": ["onlyHorror"]
   },
   {
     "key": "guess_game_081",
@@ -618,7 +636,8 @@
     "media": "ggts003ubglfqi.jpg",
     "answer": "alone_in_the_dark",
     "category": "by_title_screen",
-    "gameTypes": ["guess_game"]
+    "gameTypes": ["guess_game"],
+    "filters": ["onlyHorror"]
   },
   {
     "key": "guess_game_084",
@@ -653,14 +672,16 @@
     "media": "ggts017louhinf.jpg",
     "answer": "alien_isolation",
     "category": "by_title_screen",
-    "gameTypes": ["guess_game"]
+    "gameTypes": ["guess_game"],
+    "filters": ["onlyHorror"]
   },
   {
     "key": "guess_game_089",
     "media": "ggts023sllntqm.png",
     "answer": "soma",
     "category": "by_title_screen",
-    "gameTypes": ["guess_game"]
+    "gameTypes": ["guess_game"],
+    "filters": ["onlyHorror"]
   },
   {
     "key": "guess_game_090",
@@ -674,7 +695,8 @@
     "media": "ggts043dsuracv.jpg",
     "answer": "bloodborne",
     "category": "by_title_screen",
-    "gameTypes": ["guess_game"]
+    "gameTypes": ["guess_game"],
+    "filters": ["onlyHorror"]
   },
   {
     "key": "guess_game_092",
@@ -688,7 +710,8 @@
     "media": "ggts046xikmogh.png",
     "answer": "dead_by_daylight",
     "category": "by_title_screen",
-    "gameTypes": ["guess_game"]
+    "gameTypes": ["guess_game"],
+    "filters": ["onlyHorror"]
   },
   {
     "key": "guess_game_094",
@@ -737,7 +760,8 @@
     "media": "ggts099gptecjb.png",
     "answer": "amnesia_rebirth",
     "category": "by_title_screen",
-    "gameTypes": ["guess_game"]
+    "gameTypes": ["guess_game"],
+    "filters": ["onlyHorror"]
   },
   {
     "key": "guess_game_101",
@@ -772,7 +796,8 @@
     "media": "ggi079epqlnci.jpg",
     "answer": "dead_space",
     "category": "by_inventory",
-    "gameTypes": ["guess_game"]
+    "gameTypes": ["guess_game"],
+    "filters": ["onlyHorror"]
   },
   {
     "key": "guess_game_106",
@@ -832,6 +857,7 @@
     "media": "gggo068mnpkskn.jpg",
     "answer": "silent_hill_2",
     "category": "by_game_over",
-    "gameTypes": ["guess_game"]
+    "gameTypes": ["guess_game"],
+    "filters": ["onlyHorror"]
   }
 ]

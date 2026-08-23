@@ -75,7 +75,6 @@ const SessionStats = ({ session }: { session: SessionData }) => {
 				? `${timeLimitSeconds} s`
 				: `${Math.ceil(remainingMs / 1000)} s`;
 
-	console.log(remainingMs);
 	return (
 		<div className="flex items-center gap-2 lg:gap-12">
 			<div className="flex flex-1 flex-col items-center">

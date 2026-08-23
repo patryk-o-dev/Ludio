@@ -52,6 +52,37 @@ const MediaDisplay = ({
 		return `${API_ORIGIN}${mediaUrl.startsWith("/") ? "" : "/"}${mediaUrl}`;
 	};
 
+	const extractInstagramHandle = (url: string) => {
+		try {
+			const parsedUrl = new URL(url);
+
+			if (!parsedUrl.hostname.includes("instagram.com")) {
+				return null;
+			}
+
+			const [firstSegment] = parsedUrl.pathname.split("/").filter(Boolean);
+
+			if (!firstSegment) return null;
+
+			const reservedSegments = new Set([
+				"accounts",
+				"direct",
+				"explore",
+				"p",
+				"reel",
+				"reels",
+			]);
+
+			if (reservedSegments.has(firstSegment.toLowerCase())) {
+				return null;
+			}
+
+			return firstSegment.replace(/^@/, "");
+		} catch {
+			return null;
+		}
+	};
+
 	const mediaRef = useRef<HTMLVideoElement | HTMLAudioElement>(null);
 	const [isPlaying, setIsPlaying] = useState(false);
 	const [currentTime, setCurrentTime] = useState(0);
@@ -299,6 +330,7 @@ const MediaDisplay = ({
 	}
 
 	const resolvedImageUrl = resolveMediaUrl(mediaUrl);
+	const instagramHandle = credits ? extractInstagramHandle(credits) : null;
 
 	return (
 		<div className="relative flex-4 min-h-0 overflow-hidden rounded-3xl border border-(--accent)/40 bg-(--bgc-secondary) shadow-[0_0_24px_2px_color-mix(in_srgb,var(--accent)_20%,transparent)]">
@@ -311,13 +343,16 @@ const MediaDisplay = ({
 						onContextMenu={(e) => e.preventDefault()}
 						className="absolute inset-0 w-full h-full object-cover object-center scale-110 blur-2xl opacity-60"
 					/>
-					<img
-						src={resolvedImageUrl}
-						alt="media display"
-						draggable={false}
-						onContextMenu={(e) => e.preventDefault()}
-						className="absolute inset-0 w-full h-full object-contain object-center"
-					/>
+
+					<div className="absolute inset-0 flex items-center justify-center bg-(--bgc-primary)">
+						<img
+							src={resolvedImageUrl}
+							alt="media display"
+							draggable={false}
+							onContextMenu={(e) => e.preventDefault()}
+							className="absolute inset-0 w-full h-full object-contain object-center"
+						/>
+					</div>
 				</>
 			)}
 			{mediaType === "image" && achievement && (
@@ -494,7 +529,10 @@ const MediaDisplay = ({
 						target="_blank"
 						rel="noopener noreferrer"
 					>
-						<span className="text-xs uppercase tracking-wider">Follow</span>
+						<Icons name="instagram" color="text" size={16} isAddon={false} />
+						<span className="text-xs uppercase tracking-wider">
+							{instagramHandle ? `@${instagramHandle}` : credits}
+						</span>
 					</a>
 				</div>
 			)}
