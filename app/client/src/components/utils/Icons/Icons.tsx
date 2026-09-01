@@ -869,6 +869,24 @@ const Instagram = ({ size, color, isAddon }: IconElementProps) => (
 	</svg>
 );
 
+const LogOut = ({ size, color, isAddon }: IconElementProps) => (
+	<svg
+		width={size}
+		height={size}
+		viewBox="0 0 24 24"
+		className={`${styles[color]} ${isAddon ? "rounded-[27.5%] border-2 border-(--bgc-quaternary)" : ""}`}
+	>
+		<path
+			fill="none"
+			stroke="currentColor"
+			stroke-linecap="round"
+			stroke-linejoin="round"
+			stroke-width="2"
+			d="m16 17l5-5l-5-5m5 5H9m0 9H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"
+		/>
+	</svg>
+);
+
 type IconComponent = React.ComponentType<IconElementProps>;
 
 const iconsMap: Record<string, IconComponent> = {
@@ -915,6 +933,7 @@ const iconsMap: Record<string, IconComponent> = {
 	time: Time,
 	socre: Score,
 	instagram: Instagram,
+	logOut: LogOut,
 };
 
 type IconsProps = {
