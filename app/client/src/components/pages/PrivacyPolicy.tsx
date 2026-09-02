@@ -223,7 +223,7 @@ const PrivacyPolicy = () => {
 								</p>
 
 								<div className="mt-4 rounded-2xl border border-(--accent)/20 bg-(--accent)/5 px-4 py-4 text-(--text)">
-									[YOUR CONTACT EMAIL]
+									patryk.o.dev@gmail.com
 								</div>
 							</section>
 
