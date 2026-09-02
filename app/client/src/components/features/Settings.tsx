@@ -5,6 +5,7 @@ import i18n from "../../i18n";
 import { useGSAP } from "@gsap/react";
 import gsap from "gsap";
 import { API_URL, withAuth } from "../utils/api";
+import { clearStoredAuthUser } from "../utils/authStorage";
 
 const API = API_URL;
 
@@ -110,8 +111,25 @@ const Settings = () => {
 		i18n.changeLanguage(lang);
 	};
 
-	const handleLogOut = () => {
-		localStorage.removeItem("quizapp.auth.user");
+	const handleLogOut = async () => {
+		try {
+			const response = await fetch(
+				`${API}/user`,
+				withAuth({
+					method: "DELETE",
+				}),
+			);
+
+			if (!response.ok) {
+				throw new Error("Failed to delete user account");
+			}
+
+			clearStoredAuthUser();
+			window.location.href = "/";
+		} catch (error) {
+			console.error("Unable to delete user account", error);
+			alert(t("common.action_failed_retry"));
+		}
 	};
 
 	return (
@@ -240,7 +258,7 @@ const Settings = () => {
 								</li>
 								<li className="flex flex-row flex-wrap gap-2 w-full items-center justify-center">
 									<h5 className="w-full text-center uppercase font-medium text-sm drop-shadow-xs drop-shadow-zinc-800 tracking-wider">
-										{t("settings.friendRequests")}
+										{t("settings.logOut")}
 									</h5>
 									<button
 										className="p-2 rounded-xl bg-(--negative-dark) hover:bg-(--negative)"

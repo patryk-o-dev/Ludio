@@ -74,4 +74,9 @@ export class UserController {
   ) {
     return this.userService.removeFriend(userId, friendId);
   }
+
+  @Delete('')
+  deleteUser(@CurrentUser('id') userId: string) {
+    return this.userService.deleteUser(userId);
+  }
 }

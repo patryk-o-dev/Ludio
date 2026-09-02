@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { Link } from "react-router-dom";
 import profileImg from "../../assets/images/userProfilePlaceholder.png";
 import { getStoredAuthUser } from "../utils/authStorage";
 import Icons from "../utils/Icons/Icons";
@@ -40,6 +41,7 @@ const Profile = () => {
 
 	return (
 		<div className="border-l border-(--text-secondary) pl-0 lg:pl-12 flex items-center flex-row">
+			<Link to="/privacy-policy">Privacy Policy</Link>
 			{(!authUser || userSessionStatus !== "VALID") && (
 				<button
 					type="button"

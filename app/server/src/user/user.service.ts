@@ -188,4 +188,103 @@ export class UserService {
 
     return { success: true };
   }
+
+  async deleteUser(userId: string) {
+    const user = await this.prisma.user.findUnique({
+      where: {
+        id: userId,
+      },
+    });
+
+    if (!user) {
+      throw new NotFoundException('User not found');
+    }
+
+    await this.prisma.$transaction(async (tx) => {
+      const [hostedSessions, ownedCommunity] = await Promise.all([
+        tx.gameSession.findMany({
+          where: {
+            hostId: userId,
+          },
+          select: {
+            id: true,
+            gameConfigId: true,
+          },
+        }),
+        tx.community.findUnique({
+          where: {
+            ownerId: userId,
+          },
+          select: {
+            id: true,
+          },
+        }),
+      ]);
+
+      if (ownedCommunity) {
+        await tx.communityMember.deleteMany({
+          where: {
+            communityId: ownedCommunity.id,
+          },
+        });
+
+        await tx.community.delete({
+          where: {
+            id: ownedCommunity.id,
+          },
+        });
+      }
+
+      await tx.friendship.deleteMany({
+        where: {
+          OR: [{ fromUserId: userId }, { toUserId: userId }],
+        },
+      });
+
+      await tx.communityMember.deleteMany({
+        where: {
+          userId,
+        },
+      });
+
+      await tx.gameSessionPlayer.deleteMany({
+        where: {
+          userId,
+        },
+      });
+
+      if (hostedSessions.length > 0) {
+        const hostedSessionIds = hostedSessions.map((session) => session.id);
+        const gameConfigIds = hostedSessions.map(
+          (session) => session.gameConfigId,
+        );
+
+        await tx.gameSession.deleteMany({
+          where: {
+            id: {
+              in: hostedSessionIds,
+            },
+          },
+        });
+
+        await tx.gameConfig.deleteMany({
+          where: {
+            id: {
+              in: gameConfigIds,
+            },
+          },
+        });
+      }
+
+      await tx.user.delete({
+        where: {
+          id: userId,
+        },
+      });
+    });
+
+    return {
+      message: 'User account deleted successfully',
+    };
+  }
 }

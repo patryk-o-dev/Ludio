@@ -140,6 +140,7 @@
 	},
 	"settings": {
 		"language": "Język",
+		"logOut": "Wyloguj",
 		"streamerMode": "Społeczność",
 		"friendRequests": "Blokuj zaproszenia do znajomych"
 	}
