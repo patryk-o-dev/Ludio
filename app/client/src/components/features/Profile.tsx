@@ -41,7 +41,13 @@ const Profile = () => {
 
 	return (
 		<div className="border-l border-(--text-secondary) pl-0 lg:pl-12 flex items-center flex-row">
-			<Link to="/privacy-policy">Privacy Policy</Link>
+			<div className="fixed top-2 right-2">
+				<Link to="/privacy-policy">
+					<span className="text-xs text-(--text-secondary)">
+						Privacy Policy
+					</span>
+				</Link>
+			</div>
 			{(!authUser || userSessionStatus !== "VALID") && (
 				<button
 					type="button"
