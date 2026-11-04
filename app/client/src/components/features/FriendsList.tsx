@@ -3,7 +3,6 @@ import { useEffect, useRef, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import ding from "../../assets/sounds/ding.mp3";
 import type { Community, SessionInvite, User } from "../../types";
-import { getStoredAuthUser } from "../utils/authStorage";
 import Popup from "../utils/Popup";
 import { useGSAP } from "@gsap/react";
 import gsap from "gsap";
@@ -18,6 +17,10 @@ import { API_URL, withAuth } from "../utils/api";
 import Icons from "../utils/Icons/Icons";
 import useQuizSessionStore from "../../store/quizSessionStore";
 import { unlockAudio } from "../utils/audio";
+import { useTutorialStore } from "../../store/tutorialStore";
+import logo from "../../assets/images/logoBig.png";
+import { tutorialTargets } from "./Tutorial/TutorialController/tutorialTargets";
+import { TutorialFriends } from "./Tutorial/TutorialController/OnlineFeaturesSim";
 
 const FriendsList = () => {
 	const navigate = useNavigate();
@@ -29,7 +32,8 @@ const FriendsList = () => {
 	const [friends, setFriends] = useState<User[]>([]);
 	const [friendRequests, setFriendRequests] = useState<User[]>([]);
 	const [sessionInvites, setSessionInvites] = useState<SessionInvite[]>([]);
-	const userId = getStoredAuthUser()?.id ?? null;
+	const currentUser = useQuizSessionStore((state) => state.currentUser);
+	const userId = currentUser?.id ?? null;
 	const { t } = useTranslation();
 	const userSessionStatus = useQuizSessionStore(
 		(state) => state.userSessionStatus,
@@ -91,7 +95,7 @@ const FriendsList = () => {
 		unlockAudio(ding);
 
 		const response = await fetch(
-			`${API}/game-session/${sessionId}/respond`,
+			`${API}/game-session/${sessionId}/respond/`,
 			withAuth({
 				method: "PATCH",
 				headers: {
@@ -280,11 +284,20 @@ const FriendsList = () => {
 		})),
 	];
 
+	const isTutorialActive = useTutorialStore((state) => state.isTutorialActive);
+
 	return (
 		<div className="scrollbar-thin custom-scrollbar overflow-auto h-full">
 			{inviteSent && <Popup value={t("invite_sent")} />}
 			{inviteError && <Popup value={t("invite_error")} />}
-			<div className="flex flex-wrap items-center justify-between mb-4 p-2">
+			<div
+				ref={(element) => {
+					if (element) {
+						tutorialTargets.friendsSearch = element;
+					}
+				}}
+				className="flex flex-wrap items-center justify-between mb-4 p-2"
+			>
 				<p className="text-(--text) font-bold text-md uppercase">
 					{t("friends")}
 				</p>
@@ -314,98 +327,115 @@ const FriendsList = () => {
 					<button type="submit" className="hidden" />
 				</form>
 			</div>
-			{userId && userSessionStatus !== "INVALID" && (
-				<div className="">
-					<div>
-						{inviteCards.length > 0 && (
-							<FriendGroup name={t("invites")}>
-								{inviteCards.map((invite) => (
-									<FriendCard
-										key={invite.key}
-										userId={userId ?? undefined}
-										friendId={invite.friendId}
-										name={invite.name}
-										avatarUrl={invite.avatarUrl}
-										metaLabel={invite.metaLabel}
-										variant={invite.type}
-										{...(invite.type === "sessionInvite"
-											? {
-													sessionInvite: invite.sessionInvite,
-													onSessionInviteResponse: (accept: boolean) =>
-														handleSessionInviteResponse(
-															invite.sessionInvite.sessionId,
-															accept,
-														),
-												}
-											: {
-													request: true,
-												})}
-									/>
-								))}
-							</FriendGroup>
-						)}
-						{communities.map((community) => {
-							if (community.members.length === 0) {
-								return null;
-							}
-
-							const rankedMembers = getRankedMembers(community.members);
-
-							return (
-								<FriendGroup
-									key={community.id}
-									name={community.owner.displayName ?? "Community"}
-									communityId={community.id}
-								>
-									{rankedMembers.map((member) => (
-										<FriendCard
-											key={member.id}
-											name={member.displayName ?? "?"}
-											avatarUrl={member.avatarUrl ?? fpp}
-											metaLabel={member.twitchId ?? t("no_twitch_id")}
-											userId={userId}
-											friendId={member.id}
-											points={member.points}
-											rank={member.rank}
-											variant="communityMember"
-										/>
-									))}
-								</FriendGroup>
-							);
-						})}
-						{friendCards.length > 0 && (
-							<FriendGroup name={t("friends")}>
-								{friendCards.map((friend) => (
-									<FriendCard
-										key={friend.key}
-										name={friend.name}
-										avatarUrl={friend.avatarUrl}
-										metaLabel={friend.metaLabel}
-										userId={userId ?? undefined}
-										friendId={friend.friendId}
-										variant="friend"
-									/>
-								))}
-							</FriendGroup>
-						)}
-						{bannedCards.length > 0 && (
-							<FriendGroup name={t("banned")}>
-								{bannedCards.map((member) => (
-									<FriendCard
-										key={member.id}
-										name={member.displayName}
-										avatarUrl={member.avatarUrl}
-										metaLabel={member.twitchId ?? t("no_twitch_id")}
-										userId={userId}
-										friendId={member.id}
-										variant="banned"
-									/>
-								))}
-							</FriendGroup>
-						)}
-					</div>
-				</div>
+			{isTutorialActive && (
+				<FriendGroup name={t("friends")}>
+					{TutorialFriends.map((f) => (
+						<FriendCard
+							metaLabel={f.metaLabel}
+							name={f.name}
+							avatarUrl={logo}
+							variant="friend"
+						/>
+					))}
+				</FriendGroup>
 			)}
+			{!isTutorialActive && (
+				<>
+					{userId && userSessionStatus === "VALID" && (
+						<div>
+							<div>
+								{inviteCards.length > 0 && (
+									<FriendGroup name={t("invites")}>
+										{inviteCards.map((invite) => (
+											<FriendCard
+												key={invite.key}
+												userId={userId ?? undefined}
+												friendId={invite.friendId}
+												name={invite.name}
+												avatarUrl={invite.avatarUrl}
+												metaLabel={invite.metaLabel}
+												variant={invite.type}
+												{...(invite.type === "sessionInvite"
+													? {
+															sessionInvite: invite.sessionInvite,
+															onSessionInviteResponse: (accept: boolean) =>
+																handleSessionInviteResponse(
+																	invite.sessionInvite.sessionId,
+																	accept,
+																),
+														}
+													: {
+															request: true,
+														})}
+											/>
+										))}
+									</FriendGroup>
+								)}
+								{communities.map((community) => {
+									if (community.members.length === 0) {
+										return null;
+									}
+
+									const rankedMembers = getRankedMembers(community.members);
+
+									return (
+										<FriendGroup
+											key={community.id}
+											name={community.owner.displayName ?? "Community"}
+											communityId={community.id}
+										>
+											{rankedMembers.map((member) => (
+												<FriendCard
+													key={member.id}
+													name={member.displayName ?? "?"}
+													avatarUrl={member.avatarUrl ?? fpp}
+													metaLabel={member.twitchId ?? t("no_twitch_id")}
+													userId={userId}
+													friendId={member.id}
+													points={member.points}
+													rank={member.rank}
+													variant="communityMember"
+												/>
+											))}
+										</FriendGroup>
+									);
+								})}
+								{friendCards.length > 0 && (
+									<FriendGroup name={t("friends")}>
+										{friendCards.map((friend) => (
+											<FriendCard
+												key={friend.key}
+												name={friend.name}
+												avatarUrl={friend.avatarUrl}
+												metaLabel={friend.metaLabel}
+												userId={userId ?? undefined}
+												friendId={friend.friendId}
+												variant="friend"
+											/>
+										))}
+									</FriendGroup>
+								)}
+								{bannedCards.length > 0 && (
+									<FriendGroup name={t("banned")}>
+										{bannedCards.map((member) => (
+											<FriendCard
+												key={member.id}
+												name={member.displayName}
+												avatarUrl={member.avatarUrl}
+												metaLabel={member.twitchId ?? t("no_twitch_id")}
+												userId={userId}
+												friendId={member.id}
+												variant="banned"
+											/>
+										))}
+									</FriendGroup>
+								)}
+							</div>
+						</div>
+					)}
+				</>
+			)}
+
 			<div className="space-y-2"></div>
 			<div className="space-y-2"></div>
 		</div>

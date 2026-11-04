@@ -7,6 +7,7 @@ import {
 } from "./chipNameToData";
 import Icons from "./Icons/Icons";
 import { useTranslation } from "react-i18next";
+import { tutorialTargets } from "../features/Tutorial/TutorialController/tutorialTargets";
 
 interface RuleElementProps {
 	rule: Rule;
@@ -41,7 +42,14 @@ const RuleElement = ({ rule, ruleNumber }: RuleElementProps) => {
 	const chipByData = chipNameToData(byChip?.id ?? "", byChip?.name ?? "...");
 
 	return (
-		<div className="bg-(--bgc-tertiary) p-4 rounded-lg mb-4 flex flex-col gap-3 overflow-hidden">
+		<div
+			ref={(element) => {
+				if (element) {
+					tutorialTargets.ruleElement = element;
+				}
+			}}
+			className="bg-(--bgc-tertiary) p-4 rounded-lg mb-4 flex flex-col gap-3 overflow-hidden"
+		>
 			<div className="flex flex-row items-center justify-between gap-4">
 				<div className="flex flex-row gap-4 items-center">
 					<div className="bg-(--accent-darker) rounded-md h-10 w-10 flex items-center justify-center">
@@ -52,6 +60,11 @@ const RuleElement = ({ rule, ruleNumber }: RuleElementProps) => {
 
 					<p className="hidden min-[1050px]:block">{t("rule.recognize")}</p>
 					<div
+						ref={(element) => {
+							if (element) {
+								tutorialTargets.chipGuess = element;
+							}
+						}}
 						className={`flex flex-row items-center align-middle p-2 min-h-10 min-w-10 bg-(--bgc-quaternary) rounded-md gap-2 hover:opacity-80 hover:cursor-pointer border-2 ${
 							chipSelectionStep.type === "guess" &&
 							chipSelectionStep.ruleId === rule.id
@@ -90,6 +103,11 @@ const RuleElement = ({ rule, ruleNumber }: RuleElementProps) => {
 								? "border-(--accent)"
 								: "border-transparent"
 						}`}
+						ref={(element) => {
+							if (element) {
+								tutorialTargets.chipBy = element;
+							}
+						}}
 						onClick={() =>
 							updateChipSelectionStep({
 								type: "by",

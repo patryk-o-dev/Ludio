@@ -2,6 +2,7 @@ import ChipCard from "../utils/ChipCard";
 import useChipsStore from "../../store/chipsStore";
 import { chipNameToData } from "../utils/chipNameToData";
 import { useTranslation } from "react-i18next";
+import { tutorialTargets } from "../features/Tutorial/TutorialController/tutorialTargets";
 
 const ChipList = () => {
 	const chipSelectionStep = useChipsStore((state) => state.chipSelectionStep);
@@ -33,7 +34,14 @@ const ChipList = () => {
 		league: 3,
 	};
 	return (
-		<div className="flex flex-col p-4 overflow-auto custom-scrollbar">
+		<div
+			ref={(element) => {
+				if (element) {
+					tutorialTargets.chipList = element;
+				}
+			}}
+			className="flex flex-col p-4 overflow-auto custom-scrollbar"
+		>
 			<p className="text-(--text) font-bold text-md uppercase">
 				{t("chip_selector.quiz_rules")}
 			</p>

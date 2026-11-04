@@ -4,6 +4,7 @@ import useChipsStore from "../../store/chipsStore";
 import useGameConfigStore from "../../store/gameConfigStore";
 import type { chipData } from "../../types";
 import { useTranslation } from "react-i18next";
+import { tutorialTargets } from "../features/Tutorial/TutorialController/tutorialTargets";
 
 type ChipCardProps = {
 	chipId: string;
@@ -38,6 +39,11 @@ const ChipCard = ({ chipId, ruleId, chipData }: ChipCardProps) => {
 		<div
 			className="border-2 border-transparent flex items-center justify-between gap-4 p-2 bg-(--bgc-tertiary) rounded-lg hover:cursor-pointer hover:border-(--accent) hover:bg-(--bgc-quaternary)"
 			onClick={handleChipSelect}
+			ref={(element) => {
+				if (element) {
+					tutorialTargets.chipSelect = element;
+				}
+			}}
 		>
 			<div className="flex items-center gap-4 min-w-0">
 				<div className="relative w-9 h-9 shrink-0">

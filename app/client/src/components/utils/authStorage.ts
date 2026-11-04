@@ -1,7 +1,7 @@
 export type AuthUser = {
 	id: string;
 	username: string;
-	twitchId: string;
+	twitchId?: string;
 	displayName: string | null;
 	avatarUrl: string | null;
 };

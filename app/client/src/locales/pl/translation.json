@@ -143,5 +143,67 @@
 		"logOut": "Wyloguj",
 		"streamerMode": "Społeczność",
 		"friendRequests": "Blokuj zaproszenia do znajomych"
+	},
+	"tutorial": {
+		"label": "Przewodnik",
+		"stepCounter": "Krok {{step}}",
+		"next": "Dalej",
+		"end": "Zakończ",
+		"step1": {
+			"title": "Przewodnik",
+			"description": "Cześć! W tym krótkim przewodniku przeprowadzę Cię przez podstawy tworzenia quizów. Pokażę Ci najważniejsze funkcje kreatora i pomogę przygotować Twoją pierwszą rozgrywkę. Gotowy? Zaczynajmy!"
+		},
+		"step2": {
+			"title": "Wybór trybu",
+			"description": "Tutaj możesz wybrać tryb rozgrywki. Jeśli chcesz sprawdzić swoją wiedzę z konkretnego uniwersum, możesz poszukać go na liście dostępnych trybów. Na potrzeby tego tutorialu pozostańmy jednak przy trybie klasycznym."
+		},
+		"step3": {
+			"title": "Kreator quizu",
+			"description": "Tutaj ustalasz zasady quizu, określające, co należy rozpoznać i na podstawie jakich wskazówek. Możesz też dodatkowo zawęzić wybór za pomocą filtrów."
+		},
+		"step4": {
+			"title": "Zasada",
+			"description": "Każda zasada określa jeden rodzaj pytania. Możesz dodawać ich kilka, aby urozmaicić quiz i sprawić, że uczestnicy będą musieli wykazać się różnymi umiejętnościami."
+		},
+		"step5": {
+			"title": "Rozpoznaj... 1/2",
+			"description": "Pierwsza część zasady określa, co będziemy odgadywać."
+		},
+		"step6": {
+			"title": "Rozpoznaj... 2/2",
+			"description": "Poniżej znajdziesz listę dostępnych elementów, które możesz wykorzystać do uzupełnienia tej części zasady."
+		},
+		"step7": {
+			"title": "...Po 1/2",
+			"description": "Druga część zasady określa, na podstawie jakich wskazówek będziemy odgadywać odpowiedzi."
+		},
+		"step8": {
+			"title": "...Po 2/2",
+			"description": "Poniżej znajdziesz listę dostępnych wskazówek, które możesz wykorzystać do uzupełnienia drugiej części zasady."
+		},
+		"step9": {
+			"title": "Znajomi",
+			"description": "Tutaj znajdziesz listę swoich znajomych, z którymi możesz wspólnie grać w quizy."
+		},
+		"step10": {
+			"title": "Dodawanie znjaomych",
+			"description": "Możesz tutaj wyszukiwać i dodawać nowych znajomych, aby łatwiej zapraszać ich do wspólnej rozgrywki."
+		},
+		"step11": {
+			"title": "ID",
+			"description": "Każdy użytkownik ma własne, unikalne ID. Możesz wykorzystać je, aby szybko odnaleźć i dodać konkretną osobę do znajomych."
+		},
+		"step12": {
+			"title": "Zaproszenie do quizu",
+			"description": "Klikając ikonę plusa przy znajomym, możesz wybrać osoby, które chcesz zaprosić do quizu. Zaproszenia zostaną wysłane automatycznie po kliknięciu przycisku Start."
+		},
+		"step13": {
+			"title": "Dostosowanie quizu",
+			"description": "Za pomocą dodatkowych opcji możesz dostosować poziom trudności oraz długość quizu do swoich preferencji."
+		},
+		"step14": {
+			"title": "Podsumowanie",
+			"description": "To już wszystko! Teraz możesz stworzyć własny quiz i sprawdzić go w pojedynkę lub zaprosić do zabawy znajomych. Jeśli chcesz przetestować rozgrywkę wieloosobową bez zapraszania innych, otwórz Ludio również w innej przeglądarce lub na telefonie. Nie pozostaje nic innego, jak stworzyć pierwszy quiz i ruszyć do zabawy. Powodzenia!"
+		}
 	}
 }

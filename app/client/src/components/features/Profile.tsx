@@ -1,16 +1,16 @@
 import { useState } from "react";
 import { Link } from "react-router-dom";
-import profileImg from "../../assets/images/userProfilePlaceholder.png";
-import { getStoredAuthUser } from "../utils/authStorage";
+import profileImg from "../../assets/images/logoBig.png";
 import Icons from "../utils/Icons/Icons";
 import { useTranslation } from "react-i18next";
 import useQuizSessionStore from "../../store/quizSessionStore";
 import { API_URL } from "../utils/api";
+import { tutorialTargets } from "./Tutorial/TutorialController/tutorialTargets";
 
 const API = API_URL;
 
 const Profile = () => {
-	const authUser = getStoredAuthUser();
+	const currentUser = useQuizSessionStore((state) => state.currentUser);
 	const userSessionStatus = useQuizSessionStore(
 		(state) => state.userSessionStatus,
 	);
@@ -48,42 +48,62 @@ const Profile = () => {
 					</span>
 				</Link>
 			</div>
-			{(!authUser || userSessionStatus !== "VALID") && (
+
+			{userSessionStatus === "VALID" && currentUser && (
+				<div className="flex items-center gap-4 rounded-xl px-4 py-3">
+					<div className="flex flex-col min-w-0 text-right">
+						<p className="font-semibold text-(--text)">
+							{currentUser.displayName ||
+								(currentUser.twitchId ? currentUser.username : "Guest")}
+						</p>
+
+						{currentUser.twitchId ? (
+							<p className="text-xs text-(--text-secondary)">
+								{t("profile.id_label")}: {currentUser.twitchId}
+							</p>
+						) : (
+							<>
+								<p className="text-xs text-(--text-secondary)">Guest mode</p>
+
+								<button
+									type="button"
+									onClick={() =>
+										void navigator.clipboard.writeText(currentUser.id)
+									}
+									ref={(element) => {
+										if (element) {
+											tutorialTargets.id = element;
+										}
+									}}
+									className="text-xs text-(--accent) hover:underline text-left break-all"
+									title="Copy your user ID"
+								>
+									ID: {currentUser.id}
+								</button>
+							</>
+						)}
+					</div>
+					<img
+						className="h-12 w-12 rounded-full object-cover ring-2 ring-(--primary)/40 min-w-12"
+						src={currentUser.avatarUrl || profileImg}
+						alt="Avatar"
+					/>
+				</div>
+			)}
+
+			{userSessionStatus !== "VALID" || !currentUser?.twitchId ? (
 				<button
 					type="button"
 					onClick={handleConnectWithTwitch}
 					disabled={isConnecting}
-					className="text-(--text) disabled:text-(--text-secondary) flex gap-2"
+					className="text-(--text) disabled:text-(--text-secondary) flex gap-2 items-center"
 				>
 					{isConnecting
 						? t("profile.connecting")
 						: t("profile.connect_with_twitch")}
 					<Icons name="twitch" color="text" size={24} isAddon={false} />
 				</button>
-			)}
-			{authUser && userSessionStatus !== "INVALID" && (
-				<div className="flex items-center gap-3 rounded-xl px-4 py-3 transition-colors hover:border-(--accent)/80">
-					<div className="relative">
-						<img
-							className="h-12 w-12 rounded-full object-cover ring-2 ring-(--primary)/40 min-w-12"
-							src={authUser.avatarUrl || profileImg}
-							alt="Avatar"
-						/>
-					</div>
-
-					<div className="flex flex-col">
-						<div className="flex items-center gap-2">
-							<p className="font-semibold text-(--text)">
-								{authUser.displayName}
-							</p>
-						</div>
-
-						<p className="text-xs text-(--text-secondary)">
-							{t("profile.id_label")}: {authUser.twitchId}
-						</p>
-					</div>
-				</div>
-			)}
+			) : null}
 		</div>
 	);
 };

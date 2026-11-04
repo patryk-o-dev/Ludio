@@ -3,15 +3,13 @@ import NavBar from "../layout/NavBar";
 import MainContent from "../layout/MainContent";
 import Popup from "../utils/Popup";
 import { useEffect, useState } from "react";
-import { API_URL, withAuth } from "../utils/api";
-import useQuizSessionStore from "../../store/quizSessionStore";
+import TutorialController from "../features/Tutorial/TutorialController/TutorialController";
+import { tutorialTargets } from "../features/Tutorial/TutorialController/tutorialTargets";
+import { useCreateGuest } from "../utils/useCreateGuest";
+
 const Index = () => {
 	const failedJoinCommunity = localStorage.getItem("failedJoinCommunity");
 	const [showPopup, setShowPopup] = useState(!!failedJoinCommunity);
-	const setUserSessionStatus = useQuizSessionStore(
-		(state) => state.setUserSessionStatus,
-	);
-	const API = API_URL;
 
 	useEffect(() => {
 		if (failedJoinCommunity) {
@@ -23,32 +21,19 @@ const Index = () => {
 			return () => clearTimeout(timer);
 		}
 	}, [failedJoinCommunity]);
+	useCreateGuest();
 
-	useEffect(() => {
-		const checkSession = async () => {
-			try {
-				const response = await fetch(
-					`${API}/user/me`,
-					withAuth({
-						method: "GET",
-					}),
-				);
-
-				if (response.ok) {
-					setUserSessionStatus("VALID");
-				} else {
-					setUserSessionStatus("INVALID");
-				}
-			} catch {
-				setUserSessionStatus("INVALID");
-			}
-		};
-
-		checkSession();
-	}, [API, setUserSessionStatus]);
 	return (
-		<div className="relative bg-(--bgc-primary) text-(--text) lg:max-h-screen flex flex-col items-center font-nunito">
+		<div
+			ref={(element) => {
+				if (element) {
+					tutorialTargets.main = element;
+				}
+			}}
+			className="relative bg-(--bgc-primary) text-(--text) lg:max-h-screen flex flex-col items-center font-nunito"
+		>
 			<CommunityJoinResolver />
+			<TutorialController />
 			<div className="bg-(--bgc-primary) w-full max-w-450 lg:h-screen flex flex-col">
 				<NavBar />
 				<MainContent />

@@ -231,6 +231,30 @@ export class AuthService {
     };
   }
 
+  async createGuestSession() {
+    const user = await this.prisma.user.create({
+      data: {
+        username: `guest_${randomUUID().replace(/-/g, '').slice(0, 16)}`,
+        displayName: 'Guest',
+      },
+    });
+
+    const sessionId = randomUUID();
+
+    await this.redisService.setJson(
+      `auth:session:${sessionId}`,
+      {
+        userId: user.id,
+      },
+      60 * 60 * 24 * 7,
+    );
+
+    return {
+      user,
+      sessionId,
+    };
+  }
+
   buildFrontendSuccessRedirect(user: {
     id: string;
     username: string;

@@ -143,5 +143,67 @@
 		"logOut": "Log out",
 		"streamerMode": "Community",
 		"friendRequests": "Disable Friend Requests"
+	},
+	"tutorial": {
+		"label": "Tutorial",
+		"stepCounter": "Step {{step}}",
+		"next": "Next",
+		"end": "End tutorial",
+		"step1": {
+			"title": "Tutorial",
+			"description": "Hi! In this short tutorial, I'll walk you through the basics of creating quizzes. I'll show you the most important features of the quiz creator and help you set up your first game. Ready? Let's get started!"
+		},
+		"step2": {
+			"title": "Mode Selection",
+			"description": "Here you can choose your game mode. If you want to test your knowledge of a specific universe, you can look for it in the list of available modes. For the purpose of this tutorial, however, let's stick with Classic Mode."
+		},
+		"step3": {
+			"title": "Quiz Creator",
+			"description": "This is where you set the rules of your quiz, defining what players need to guess and which clues they can use. You can also narrow down the selection further using filters."
+		},
+		"step4": {
+			"title": "Rule",
+			"description": "Each rule defines one type of question. You can add several rules to make your quiz more varied and challenge players to demonstrate different skills."
+		},
+		"step5": {
+			"title": "Guess... 1/2",
+			"description": "The first part of the rule defines what players will be guessing."
+		},
+		"step6": {
+			"title": "Guess... 2/2",
+			"description": "Below you'll find a list of available elements that you can use to complete this part of the rule."
+		},
+		"step7": {
+			"title": "...Based on 1/2",
+			"description": "The second part of the rule defines which clues players will use to guess the answers."
+		},
+		"step8": {
+			"title": "...Based on 2/2",
+			"description": "Below you'll find a list of available clues that you can use to complete the second part of the rule."
+		},
+		"step9": {
+			"title": "Friends",
+			"description": "Here you'll find a list of your friends who you can play quizzes with."
+		},
+		"step10": {
+			"title": "Adding Friends",
+			"description": "You can search for and add new friends here, making it easier to invite them to play together."
+		},
+		"step11": {
+			"title": "ID",
+			"description": "Every user has a unique ID. You can use it to quickly find and add a specific person to your friends list."
+		},
+		"step12": {
+			"title": "Quiz Invitation",
+			"description": "By clicking the plus icon next to a friend, you can select who you'd like to invite to your quiz. Invitations will be sent automatically when you click the Start button."
+		},
+		"step13": {
+			"title": "Quiz Settings",
+			"description": "Use the additional options to adjust the difficulty level and quiz length to suit your preferences."
+		},
+		"step14": {
+			"title": "Summary",
+			"description": "That's everything! You're now ready to create your own quiz and play solo or invite your friends to join you. If you want to test multiplayer gameplay without inviting anyone else, simply open Ludio in another browser or on your phone. All that's left is to create your first quiz and start playing. Good luck!"
+		}
 	}
 }

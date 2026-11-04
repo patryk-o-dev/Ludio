@@ -61,7 +61,6 @@ const QuizStage = ({
 				</div>
 			)}
 
-			{/* Main stage */}
 			<div className="flex flex-1 flex-col lg:flex-row gap-2 lg:gap-8 min-h-0">
 				<MediaDisplay
 					sessionId={session.id}

@@ -3,6 +3,7 @@ import type { GameMode } from "../../types";
 import { useState } from "react";
 import Icons from "../utils/Icons/Icons";
 import useChipsStore from "../../store/chipsStore";
+import { tutorialTargets } from "./Tutorial/TutorialController/tutorialTargets";
 
 const ModeSelection = () => {
 	const { t } = useTranslation();
@@ -21,7 +22,14 @@ const ModeSelection = () => {
 	};
 
 	return (
-		<div className="border-l border-(--text-secondary) pl-2 lg:pl-12 h-12 flex items-center">
+		<div
+			ref={(element) => {
+				if (element) {
+					tutorialTargets.modeSelection = element;
+				}
+			}}
+			className="border-l border-(--text-secondary) pl-2 lg:pl-12 h-12 flex items-center"
+		>
 			<ul className="flex flex-row gap-2 lg:gap-6 text-lg font-bold">
 				<li
 					className={`transition-all duration-200 hover:text-(--accent) ${
@@ -37,22 +45,6 @@ const ModeSelection = () => {
 						{t("modes.classic")}
 					</button>
 				</li>
-
-				{/* FOR FUTURE UPDATE */}
-				{/* <li
-					className={`transition-all duration-200 hover:text-(--accent) ${
-						mode === "SOLO" ? "text-(--accent)" : "text-(--text)"
-					}`}
-				>
-					<button
-						className={`w-full h-full ${
-							mode === "SOLO" && "underline underline-offset-6 decoration-2"
-						}`}
-						onClick={() => handleModeSelect("SOLO")}
-					>
-						{t("modes.solo")}
-					</button>
-				</li> */}
 
 				<li className="relative">
 					<button

@@ -9,7 +9,6 @@ import type {
 import Controls from "../layout/Controls";
 import QuizStage from "../layout/QuizStage";
 import TopBar from "../layout/TopBar";
-import { getStoredAuthUser } from "../utils/authStorage";
 import useQuizSessionStore from "../../store/quizSessionStore";
 import { useTranslation } from "react-i18next";
 import {
@@ -25,7 +24,8 @@ const API = API_URL;
 
 const QuizSession = () => {
 	const { id } = useParams<{ id: string }>();
-	const currentUserId = getStoredAuthUser()?.id ?? null;
+	const currentUser = useQuizSessionStore((state) => state.currentUser);
+	const currentUserId = currentUser?.id ?? null;
 	const [session, setSession] = useState<SessionData | null>(null);
 	const [summaryPoints, setSummaryPoints] = useState<number | null>(null);
 	const [hasAnsweredCurrentQuestion, setHasAnsweredCurrentQuestion] =

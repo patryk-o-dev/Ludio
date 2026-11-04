@@ -5,6 +5,7 @@ import ding from "../../assets/sounds/ding.mp3";
 import { useTranslation } from "react-i18next";
 import { API_URL, withAuth } from "../utils/api";
 import { unlockAudio } from "../utils/audio";
+import { tutorialTargets } from "./Tutorial/TutorialController/tutorialTargets";
 
 const API = API_URL;
 
@@ -123,6 +124,11 @@ const StartQuiz = () => {
 			)}
 			<button
 				onClick={handleStartQuiz}
+				ref={(element) => {
+					if (element) {
+						tutorialTargets.startButton = element;
+					}
+				}}
 				className="p-4 bg-(--accent) text-(--text) uppercase text-xl rounded-lg hover:bg-(--accent-light) disabled:opacity-40 disabled:cursor-not-allowed disabled:hover:bg-(--accent) transition-opacity"
 			>
 				{loading

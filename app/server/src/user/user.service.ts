@@ -15,8 +15,10 @@ export class UserService {
   ) {}
 
   async addFriend(userId: string, friendId: string) {
-    const targetUser = await this.prisma.user.findUnique({
-      where: { twitchId: friendId },
+    const targetUser = await this.prisma.user.findFirst({
+      where: {
+        OR: [{ twitchId: friendId }, { id: friendId }],
+      },
       select: {
         id: true,
         allowFriendRequests: true,

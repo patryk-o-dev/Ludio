@@ -6,6 +6,7 @@ import useChipsStore from "../../store/chipsStore";
 import { useTranslation } from "react-i18next";
 import type { GameMode } from "../../types";
 import { API_URL } from "../utils/api";
+import { tutorialTargets } from "../features/Tutorial/TutorialController/tutorialTargets";
 
 const API = API_URL;
 
@@ -61,7 +62,14 @@ const ChipSelector = () => {
 
 	return (
 		<aside className="flex-1 flex flex-col bg-(--bgc-secondary) p-4 rounded-lg gap-3 min-w-70">
-			<div className="flex gap-1 p-1 bg-(--bgc-primary) rounded-lg">
+			<div
+				ref={(element) => {
+					if (element) {
+						tutorialTargets.options = element;
+					}
+				}}
+				className="flex gap-1 p-1 bg-(--bgc-primary) rounded-lg"
+			>
 				<button
 					className={`${tabBase} ${activeTab === "chips" ? tabActive : tabIdle}`}
 					onClick={() => setActiveTab("chips")}

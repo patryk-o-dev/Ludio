@@ -306,23 +306,129 @@ const MediaDisplay = ({
 					</div>
 				)}
 				{phase === "completed" && (
-					<div className="flex w-full h-full lg:max-w-3xl flex-col items-center justify-center gap-1 lg:gap-4 text-center">
-						<p>{t("quiz_session.labels.winner")}</p>
-						<div className="h-32 min-h-8 aspect-ratio lg:h-60 overflow-hidden rounded-full">
-							<img
-								className="h-full w-full object-cover object-center"
-								src={winningPlayer?.user.avatarUrl}
-								alt={t("quiz_session.labels.winner_avatar")}
-							/>
-						</div>
+					<div className="relative flex h-full w-full items-center justify-center overflow-y-auto overflow-x-hidden px-4 py-8 text-center">
+						<div
+							aria-hidden="true"
+							className="pointer-events-none absolute left-1/2 top-1/2 h-96 w-96 -translate-x-1/2 -translate-y-1/2 rounded-full opacity-10 blur-3xl"
+							style={{
+								background:
+									"radial-gradient(circle, var(--gold) 0%, var(--accent) 45%, transparent 72%)",
+							}}
+						/>
 
-						<p>{winningPlayer?.user.displayName}</p>
-						<button
-							className="lg:mt-4 rounded-full bg-(--accent) px-4 py-2 text-(--text)"
-							onClick={handleReturn}
-						>
-							{t("quiz_session.actions.return")}
-						</button>
+						<div className="relative flex w-full max-w-xl flex-col items-center gap-6 sm:gap-8">
+							<div className="flex flex-col items-center gap-2">
+								<div className="flex items-center gap-2 text-xs font-bold uppercase tracking-[0.3em] text-(--gold)">
+									<span className="h-px w-8 bg-(--gold)/50" />
+									<span>{t("quiz_session.labels.winner")}</span>
+									<span className="h-px w-8 bg-(--gold)/50" />
+								</div>
+							</div>
+
+							<div className="relative w-full max-w-sm overflow-hidden rounded-3xl border border-(--gold)/25 bg-(--bgc-secondary) shadow-2xl shadow-black/30">
+								<div
+									aria-hidden="true"
+									className="absolute inset-x-0 top-0 h-40 opacity-20"
+									style={{
+										background:
+											"linear-gradient(180deg, var(--gold-dark), transparent)",
+									}}
+								/>
+
+								<div className="relative flex flex-col items-center px-6 pb-7 pt-8 sm:px-8 sm:pb-8">
+									<div className="relative mb-5">
+										<div className="absolute -inset-2 rounded-full bg-(--gold)/10 blur-md" />
+
+										<div className="relative h-28 w-28 overflow-hidden rounded-full border-2 border-(--gold)/70 bg-(--bgc-tertiary) shadow-xl sm:h-36 sm:w-36">
+											{winningPlayer?.user.avatarUrl ? (
+												<img
+													className="h-full w-full object-cover"
+													src={winningPlayer.user.avatarUrl}
+													alt={t("quiz_session.labels.winner_avatar")}
+												/>
+											) : (
+												<div className="flex h-full w-full items-center justify-center text-4xl font-extrabold text-(--accent-light)">
+													{(winningPlayer?.user.displayName ?? "?")
+														.charAt(0)
+														.toUpperCase()}
+												</div>
+											)}
+										</div>
+
+										<div className="absolute -bottom-1 -right-1 flex h-9 w-9 items-center justify-center rounded-full border-4 border-(--bgc-secondary) bg-(--gold) text-(--bgc-primary)">
+											<svg
+												viewBox="0 0 24 24"
+												fill="currentColor"
+												className="h-4 w-4"
+												aria-hidden="true"
+											>
+												<path d="m12 2 2.6 5.3 5.9.9-4.3 4.2 1 5.9-5.2-2.8-5.2 2.8 1-5.9-4.3-4.2 5.9-.9L12 2Z" />
+											</svg>
+										</div>
+									</div>
+
+									<h2 className="max-w-full break-words text-2xl font-extrabold tracking-tight text-(--text) sm:text-3xl">
+										{winningPlayer?.user.displayName}
+									</h2>
+
+									<div className="mt-7 grid w-full grid-cols-2 divide-x divide-(--text)/10 rounded-2xl border border-(--text)/10 bg-(--bgc-primary)/60 py-4">
+										<div className="flex flex-col items-center gap-1 px-3">
+											<span className="text-xs font-semibold uppercase tracking-wider text-(--text-secondary)">
+												{t("quiz_session.labels.score", {
+													defaultValue: "Wynik",
+												})}
+											</span>
+											<span className="text-2xl font-extrabold tabular-nums text-(--gold)">
+												{winningPlayer?.score ?? 0}
+											</span>
+											<span className="text-xs text-(--text-secondary)">
+												{t("quiz_session.labels.points", {
+													defaultValue: "punktów",
+												})}
+											</span>
+										</div>
+
+										<div className="flex flex-col items-center gap-1 px-3">
+											<span className="text-xs font-semibold uppercase tracking-wider text-(--text-secondary)">
+												{t("quiz_session.labels.players", {
+													defaultValue: "Gracze",
+												})}
+											</span>
+											<span className="text-2xl font-extrabold tabular-nums text-(--text)">
+												{players.length}
+											</span>
+											<span className="text-xs text-(--text-secondary)">
+												{t("quiz_session.labels.in_session", {
+													defaultValue: "w sesji",
+												})}
+											</span>
+										</div>
+									</div>
+								</div>
+							</div>
+
+							<button
+								className="group inline-flex min-h-12 w-full max-w-sm items-center justify-center gap-2 rounded-xl bg-(--accent) px-6 py-3 font-bold text-(--text) shadow-lg shadow-(--accent)/15 transition duration-200 hover:-translate-y-0.5 hover:bg-(--accent-light) hover:shadow-xl hover:shadow-(--accent)/20 focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-(--accent-light) active:translate-y-0"
+								onClick={handleReturn}
+							>
+								{t("quiz_session.actions.return")}
+
+								<svg
+									viewBox="0 0 24 24"
+									fill="none"
+									stroke="currentColor"
+									strokeWidth="2"
+									className="h-4 w-4 transition-transform duration-200 group-hover:translate-x-1"
+									aria-hidden="true"
+								>
+									<path
+										strokeLinecap="round"
+										strokeLinejoin="round"
+										d="M5 12h14m-6-6 6 6-6 6"
+									/>
+								</svg>
+							</button>
+						</div>
 					</div>
 				)}
 			</div>

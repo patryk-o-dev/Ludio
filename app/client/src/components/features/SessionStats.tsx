@@ -1,12 +1,13 @@
 import { useEffect, useRef, useState } from "react";
 import scoreIcon from "../../assets/icons/score.png";
 import type { SessionData } from "../../types";
-import { getStoredAuthUser } from "../utils/authStorage";
 import { useTranslation } from "react-i18next";
 import Icons from "../utils/Icons/Icons";
+import useQuizSessionStore from "../../store/quizSessionStore";
 
 const SessionStats = ({ session }: { session: SessionData }) => {
-	const currentUserId = getStoredAuthUser()?.id ?? null;
+	const currentUser = useQuizSessionStore((state) => state.currentUser);
+	const currentUserId = currentUser?.id ?? null;
 	const { t } = useTranslation();
 
 	const [displayedScores, setDisplayedScores] = useState<

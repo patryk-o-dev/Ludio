@@ -1,4 +1,4 @@
-import { Controller, Get, Query, Res } from '@nestjs/common';
+import { Controller, Get, Post, Query, Res } from '@nestjs/common';
 import type { Response } from 'express';
 import { AuthService } from './auth.service';
 
@@ -47,5 +47,19 @@ export class AuthController {
 
       return res.redirect(this.authService.buildFrontendErrorRedirect(message));
     }
+  }
+
+  @Post('create-guest')
+  async createGuest(@Res({ passthrough: true }) res: Response) {
+    const { user, sessionId } = await this.authService.createGuestSession();
+
+    res.cookie('sessionId', sessionId, {
+      httpOnly: true,
+      secure: process.env.NODE_ENV === 'production',
+      sameSite: 'lax',
+      maxAge: 1000 * 60 * 60 * 24 * 7,
+    });
+
+    return { user };
   }
 }

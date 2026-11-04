@@ -81,6 +81,11 @@ const Ranking = ({
 
 							<p className="truncate font-medium text-(--text)">
 								{player.user.displayName}
+								{player.user.displayName === "Guest" && (
+									<span className="text-(--text-secondary)">
+										#{player.userId.slice(-5)}
+									</span>
+								)}
 							</p>
 						</div>
 
