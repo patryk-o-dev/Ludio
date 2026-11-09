@@ -19,6 +19,7 @@ import { API_URL } from "../utils/api";
 import chooseAnswerSound from "../../assets/sounds/choose_answer.mp3";
 import correctAnswerSound from "../../assets/sounds/correct_answer.mp3";
 import { playUiSound } from "../utils/audio";
+import { getStoredAuthUser } from "../utils/authStorage";
 
 const API = API_URL;
 
@@ -26,6 +27,7 @@ const QuizSession = () => {
 	const { id } = useParams<{ id: string }>();
 	const currentUser = useQuizSessionStore((state) => state.currentUser);
 	const currentUserId = currentUser?.id ?? null;
+	const setCurrentUser = useQuizSessionStore((state) => state.setCurrentUser);
 	const [session, setSession] = useState<SessionData | null>(null);
 	const [summaryPoints, setSummaryPoints] = useState<number | null>(null);
 	const [hasAnsweredCurrentQuestion, setHasAnsweredCurrentQuestion] =
@@ -54,7 +56,25 @@ const QuizSession = () => {
 	}, [id]);
 
 	useEffect(() => {
-		if (!id || !currentUserId) return;
+		if (!id) return;
+
+		if (!currentUserId) {
+			const storedUser = getStoredAuthUser();
+
+			if (storedUser?.id && storedUser.username) {
+				setCurrentUser({
+					id: storedUser.id,
+					username: storedUser.username,
+					twitchId: storedUser.twitchId ?? null,
+					displayName: storedUser.displayName ?? null,
+					avatarUrl: storedUser.avatarUrl ?? null,
+				});
+			} else {
+				console.log("No stored user found");
+			}
+
+			return;
+		}
 
 		const newSocket: Socket = acquireSharedSocket({ userId: currentUserId });
 		socketRef.current = newSocket;
@@ -188,7 +208,7 @@ const QuizSession = () => {
 			newSocket.off("connect", joinSession);
 			releaseSharedSocket({ userId: currentUserId });
 		};
-	}, [id, currentUserId]);
+	}, [id, currentUserId, setCurrentUser, setQuizSessionData]);
 
 	const handleSelectAnswer = (answerId: string, _answerValue: string) => {
 		if (!id || !socketRef.current || !currentUserId) {

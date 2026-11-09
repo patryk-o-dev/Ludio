@@ -8,6 +8,9 @@ export class CommunityController {
 
   @Get()
   getMyCommunities(@CurrentUser('id') userId: string) {
+    if (!userId) {
+      return [];
+    }
     return this.communityService.getMyCommunities(userId);
   }
 

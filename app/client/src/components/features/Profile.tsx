@@ -78,7 +78,7 @@ const Profile = () => {
 									className="text-xs text-(--accent) hover:underline text-left break-all"
 									title="Copy your user ID"
 								>
-									ID: {currentUser.id}
+									COPY ID
 								</button>
 							</>
 						)}

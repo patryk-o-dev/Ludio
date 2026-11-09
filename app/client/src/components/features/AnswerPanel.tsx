@@ -177,8 +177,9 @@ const AnswerPanel = ({
 											className={`w-full text-left px-4 py-2 rounded border transition-all duration-200 ${isActive ? "bg-(--accent)/22 border-(--accent)" : "border-(--accent)/50"} ${isSelected ? "bg-(--accent) border-(--accent)" : ""} hover:bg-(--accent)/15`}
 										>
 											{currentLang === "en" && answer.value}
-											{currentLang === "pl" && answer.valuePl && answer.valuePl}
-											{currentLang === "pl" && !answer.valuePl && answer.value}
+											{currentLang !== "en" && answer.valuePl
+												? answer.valuePl
+												: currentLang !== "en" && answer.value}
 										</button>
 									</li>
 								);

@@ -37,7 +37,7 @@ const FriendGroup = ({
 					<span className="h-2.5 w-2.5 shrink-0 rounded-full bg-(--accent) shadow-[0_0_18px_var(--accent)]" />
 					<div className="min-w-0 flex-1">
 						<div className="flex items-center gap-3">
-							<h5 className="truncate text-[0.72rem] font-semibold uppercase tracking-[0.24em] text-(--text)">
+							<h5 className="truncate text-[0.72rem] font-semibold tracking-[0.24em] text-(--text)">
 								{name}
 							</h5>
 							<span className="rounded-full border border-white/10 px-2 py-1 text-[10px] font-semibold tracking-[0.18em] text-(--text-secondary)">

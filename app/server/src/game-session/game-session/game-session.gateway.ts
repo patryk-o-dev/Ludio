@@ -103,7 +103,6 @@ export class GameSessionGateway {
 
   handleConnection(client: Socket) {
     const userId = client.handshake.auth.userId;
-
     if (userId) {
       client.join(userId);
     }
