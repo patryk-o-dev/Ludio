@@ -6,8 +6,8 @@ Ludio is a quiz platform built around a simple idea: you might know your favorit
 
 Choose what you want to recognize, customize your quiz rules, and compete using a curated database of questions covering different topics — from video games to movies and beyond.
 
-<p align="center">
-  <img src="docs/images/logoBig.png" alt="Logo" width="400">
+<p align="left">
+  <img src="docs/images/logoBig.png" alt="Logo" width="300">
 </p>
 
 ##### [**Try the Live Demo**](https://ludioquiz.duckdns.org/)
