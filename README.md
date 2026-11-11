@@ -1,14 +1,14 @@
 # Ludio
 
-<p align="center">
-  <img src="docs/images/logoBig.png" alt="Logo" width="400">
-</p>
-
 ### You know it. You love it. But how well?
 
 Ludio is a quiz platform built around a simple idea: you might know your favorite games, movies, anime, or TV shows — but can you prove it? Whether you want to test yourself, challenge a group of friends, or bring an entire Twitch community together, Ludio gives you a place to put your knowledge to the test.
 
 Choose what you want to recognize, customize your quiz rules, and compete using a curated database of questions covering different topics — from video games to movies and beyond.
+
+<p align="center">
+  <img src="docs/images/logoBig.png" alt="Logo" width="400">
+</p>
 
 ##### [**Try the Live Demo**](https://ludioquiz.duckdns.org/)
 
