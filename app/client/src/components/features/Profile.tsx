@@ -40,7 +40,7 @@ const Profile = () => {
 	};
 
 	return (
-		<div className="border-l border-(--text-secondary) pl-0 lg:pl-12 flex items-center flex-row">
+		<div className="border-l border-(--text-secondary) pl-0 lg:pl-10 flex items-center flex-row">
 			<div className="fixed top-2 right-2">
 				<Link to="/privacy-policy">
 					<span className="text-xs text-(--text-secondary)">
@@ -84,7 +84,7 @@ const Profile = () => {
 						)}
 					</div>
 					<img
-						className="h-12 w-12 rounded-full object-cover ring-2 ring-(--primary)/40 min-w-12"
+						className="h-12 w-12 lg:h-10 lg:w-10 rounded-full object-cover ring-2 ring-(--primary)/40 min-w-12 lg:min-w-10"
 						src={currentUser.avatarUrl || profileImg}
 						alt="Avatar"
 					/>
