@@ -40,7 +40,7 @@ const Profile = () => {
 	};
 
 	return (
-		<div className="border-l border-(--text-secondary) pl-0 lg:pl-10 flex items-center flex-row">
+		<div className="lg:border-l lg:border-(--text-secondary) pl-0 lg:pl-10 flex items-center flex-row">
 			<div className="fixed top-2 right-2">
 				<Link to="/privacy-policy">
 					<span className="text-xs text-(--text-secondary)">
@@ -51,7 +51,7 @@ const Profile = () => {
 
 			{userSessionStatus === "VALID" && currentUser && (
 				<div className="flex items-center gap-4 rounded-xl px-4 py-3">
-					<div className="flex flex-col min-w-0 text-right">
+					<div className="flex flex-col min-w-0">
 						<p className="font-semibold text-(--text)">
 							{currentUser.displayName ||
 								(currentUser.twitchId ? currentUser.username : "Guest")}
@@ -84,7 +84,7 @@ const Profile = () => {
 						)}
 					</div>
 					<img
-						className="h-12 w-12 lg:h-10 lg:w-10 rounded-full object-cover ring-2 ring-(--primary)/40 min-w-12 lg:min-w-10"
+						className="h-10 w-10 lg:h-12 lg:w-12 rounded-full object-cover hidden lg:block lg:ring-2 ring-(--accent)/40 min-w-12 lg:min-w-10"
 						src={currentUser.avatarUrl || profileImg}
 						alt="Avatar"
 					/>
@@ -96,7 +96,7 @@ const Profile = () => {
 					type="button"
 					onClick={handleConnectWithTwitch}
 					disabled={isConnecting}
-					className="text-(--text) disabled:text-(--text-secondary) flex gap-2 items-center"
+					className="text-(--text) text-xs lg:text-md disabled:text-(--text-secondary) flex gap-2 items-center"
 				>
 					{isConnecting
 						? t("profile.connecting")

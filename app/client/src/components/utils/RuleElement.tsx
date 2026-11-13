@@ -50,15 +50,15 @@ const RuleElement = ({ rule, ruleNumber }: RuleElementProps) => {
 			}}
 			className="bg-(--bgc-tertiary) p-4 rounded-lg mb-4 flex flex-col gap-3 overflow-hidden"
 		>
-			<div className="flex flex-row items-center justify-between gap-4">
-				<div className="flex flex-row gap-4 items-center">
+			<div className="flex flex-row items-stretch sm:items-center justify-between gap-4">
+				<div className="flex flex-col sm:flex-row gap-3 sm:gap-4 items-start sm:items-center">
 					<div className="bg-(--accent-darker) rounded-md h-10 w-10 flex items-center justify-center">
 						<p className="text-(--accent-lighter) text-sm align-middle">
 							{ruleNumber}
 						</p>
 					</div>
 
-					<p className="hidden min-[1050px]:block">{t("rule.recognize")}</p>
+					<p className="hidden min-[1250px]:block">{t("rule.recognize")}</p>
 					<div
 						ref={(element) => {
 							if (element) {
@@ -86,9 +86,7 @@ const RuleElement = ({ rule, ruleNumber }: RuleElementProps) => {
 								/>
 							))}
 						</div>
-						<p className="hidden min-[1250px]:block">
-							{t(chipGuessData.label)}
-						</p>
+						<p>{t(chipGuessData.label)}</p>
 						{allChips.chipsGuess.find((chip) => chip.id === rule.guessId) && (
 							<button onClick={() => updateRuleGuessChip(rule.id, null)}>
 								<Icons name="cancel" color="text" size={12} isAddon={false} />
@@ -133,7 +131,7 @@ const RuleElement = ({ rule, ruleNumber }: RuleElementProps) => {
 						)}
 					</div>
 				</div>
-				<div className={`items-center border-l border-(--text-secondary) pl-4`}>
+				<div className="flex items-center border-l border-(--text-secondary) pl-4 self-center sm:self-auto">
 					<button
 						onClick={() => removeRule(rule.id)}
 						className="h-full flex hover:text-(--negative) hover:cursor-pointer"

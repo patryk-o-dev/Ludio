@@ -14,7 +14,7 @@ const Logo = () => {
 			<img
 				src={logo}
 				alt="Streamer Logo"
-				className="w-20 h-20 lg:w-12 lg:h12 rounded-full object-cover border-(--accent-dark)"
+				className="w-12 h-12 lg:w-20 lg:h-20 rounded-full object-cover border-(--accent-dark)"
 			/>
 		</div>
 	);
